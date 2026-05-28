@@ -78,8 +78,11 @@ For each month $m$ over the simulation horizon:
 *   Node.js (v18 or higher recommended)
 *   npm or yarn
 
-### Steps
-1.  **Clone the project** to your local workspace.
+1.  **Clone the project** to your local workspace:
+    ```bash
+    git clone https://github.com/Isafe-nk/puffx.git
+    cd puffx
+    ```
 2.  **Install dependencies:**
     ```bash
     npm install
