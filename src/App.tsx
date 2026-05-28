@@ -362,7 +362,7 @@ export default function App() {
                 </h4>
                 <div className="space-y-1.5 text-[11px] text-[#727579] leading-normal">
                   <p>• <strong>US NYSE Stock Purchases:</strong> $0.0035 per share commission (Min: $0.35 USD, Max: 1.0% of trade value).</p>
-                  <p>• <strong>UK London Stock Exchange (LSE UCITS):</strong> 0.05% of trade value commission (Min: $1.90 USD flat fee).</p>
+                  <p>• <strong>UK London Stock Exchange (LSE UCITS) Tiered:</strong> 0.05% IBKR commission (min $1.70) + 0.0045% exchange fee (min ~$0.13) + ~$0.08 clearing = <strong>~$1.91 all-in minimum</strong>.</p>
                   <p>• <strong>Spot FX Currency Conversions:</strong> 0.002% conversion rate fee (Min: $2.00 USD flat fee).</p>
                 </div>
                 <p className="text-[10px] text-[#A2A3A5] font-mono">Source: Interactive Brokers Official Commissions Matrix</p>

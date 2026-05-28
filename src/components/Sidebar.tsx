@@ -584,7 +584,7 @@ export default function Sidebar({
           <div className="relative group inline-block">
             <HelpCircle className="w-3.5 h-3.5 text-[#A2A3A5] hover:text-[#44474D] cursor-help transition-colors" />
             <div className="absolute right-0 bottom-full mb-2 w-64 p-3 bg-white border border-[#E6E6E6] text-[#44474D] text-[10.5px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case">
-              A high drag state (above 2%) indicates that your investment amount per transaction is too small to overcome IBKR's fixed costs (Min $2.00 FX fee + broker commission of $1.90 for LSE UCITS stocks or $0.35 for US stocks).
+              A high drag state (above 2%) indicates that your investment amount per transaction is too small to overcome IBKR's fixed costs (Min $2.00 FX fee + broker commission of $1.91 all-in for LSE UCITS stocks or $0.35 for US stocks).
               <div className="absolute top-full right-1 -translate-x-1.5 -mt-1 border-4 border-transparent border-t-white"></div>
             </div>
           </div>

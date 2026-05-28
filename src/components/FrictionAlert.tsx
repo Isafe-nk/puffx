@@ -33,8 +33,8 @@ export default function FrictionAlert({
   if (!showOptimizationWarning) return null;
 
   const fxCost = depositDirectUSD ? 0 : 2.00;
-  const brokerMinA = selectedA.domicile === "US" ? 0.35 : 1.90;
-  const brokerMinB = selectedB.domicile === "US" ? 0.35 : 1.90;
+  const brokerMinA = selectedA.domicile === "US" ? 0.35 : 1.91;
+  const brokerMinB = selectedB.domicile === "US" ? 0.35 : 1.91;
   const overheadA = brokerMinA + fxCost;
   const overheadB = brokerMinB + fxCost;
 

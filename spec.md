@@ -22,8 +22,9 @@ All core engine simulations natively operate in **USD** and are presented in **M
   $$\text{FX Fee (USD)} = \max(2.00, 0.00002 \times \text{Volume in USD})$$
 * **US NYSE Commissions:**
   $$\text{Broker Fee (USD)} = \min(0.01 \times \text{Trade Value}, \max(0.35, \text{Shares} \times 0.0035))$$
-* **London Stock Exchange LSE UCITS Commissions:**
-  $$\text{Broker Fee (USD)} = \max(1.90, 0.0005 \times \text{Trade Value})$$
+* **London Stock Exchange LSE UCITS Commissions (Tiered, all-in):**
+  $$\text{Broker Fee (USD)} = \underbrace{\max(1.70, 0.0005 \times V)}_{\text{IBKR Commission}} + \underbrace{\max(0.13, 0.000045 \times V)}_{\text{Exchange Fee}} + \underbrace{0.08}_{\text{Clearing Fee}}$$
+  where $V$ = trade value in USD. All-in minimum ≈ $1.91 per order.
 * **ETF Bid-Ask Spread Cost (implicit slippage):**
   $$\text{Spread Cost (USD)} = \frac{\text{Spread}_{\text{bps}}}{10000} \times \frac{1}{2} \times \text{Trade Value}$$
   Default spread values (bps): VOO/IVV/SPY = 1, CSPX = 3, VUAA = 5, SPYL = 8.
