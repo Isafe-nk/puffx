@@ -1,0 +1,112 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# CI Pipeline — MY-IBKR S&P 500 Drag Visualizer
+#
+# Triggers:
+#   • Every push to any branch
+#   • Every pull request targeting main
+#
+# Jobs:
+#   1. type-check  — TypeScript strict type validation (tsc --noEmit)
+#   2. build       — Vite production build (catches bundler/import errors)
+#   3. engine-test — Friction model smoke tests via tsx
+# ──────────────────────────────────────────────────────────────────────────────
+
+name: CI
+
+on:
+  push:
+    branches: ["**"]          # Run on every branch push
+  pull_request:
+    branches: [main]          # Gate all PRs targeting main
+
+# Cancel in-progress runs on the same branch when a new push arrives.
+# Keeps CI queues clean on rapid successive commits.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "20"          # LTS — stable, widely supported
+
+jobs:
+  # ── Job 1: TypeScript Type Check ───────────────────────────────────────────
+  type-check:
+    name: "TypeScript — Type Check"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"                          # Cache node_modules based on package-lock.json
+
+      - name: Install dependencies
+        run: npm ci                             # Clean install — respects package-lock.json exactly
+
+      - name: Run TypeScript type check
+        run: npm run lint                       # Mapped to: tsc --noEmit
+
+  # ── Job 2: Production Build ─────────────────────────────────────────────────
+  build:
+    name: "Vite — Production Build"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: type-check                          # Only build if types are clean
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build for production
+        run: npm run build
+        env:
+          # Vite requires a defined GEMINI_API_KEY at build time.
+          # Using a placeholder — real secrets live in .env locally only.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY || 'ci-placeholder-key' }}
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ github.sha }}         # Unique artifact per commit SHA
+          path: dist/
+          retention-days: 7                    # Keep build artifacts for 7 days
+
+  # ── Job 3: Friction Engine Smoke Tests ─────────────────────────────────────
+  engine-test:
+    name: "Engine — Friction Model Smoke Tests"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: type-check                          # Only test if types are clean
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run friction model smoke tests
+        run: npx tsx test_engine.ts
+
+      # Future: when a proper test framework (e.g. Vitest) is added,
+      # replace the above with: npx vitest run
