@@ -186,8 +186,8 @@ export default function App() {
             <div>
               <h1 className="text-xl font-bold font-display tracking-tight text-[#212121] flex items-center gap-2">
                 S&P 500 ETF Return Visualizer
-                <span className="text-[10px] bg-[#D91222]/10 text-[#D91222] font-medium px-2 py-0.5 rounded-full border border-[#D91222]/15">
-                  IBKR Tiered Edition
+                <span className="text-[9px] text-[#A2A3A5] font-mono font-normal uppercase tracking-widest border-l-2 border-[#D91222] pl-2 ml-1">
+                  IBKR Tiered
                 </span>
               </h1>
               <p className="text-xs text-[#727579] font-sans mt-0.5">
@@ -287,10 +287,10 @@ export default function App() {
           
           {/* HIGH IMPACT METRIC BLOCK */}
           <div className="relative overflow-hidden bg-[#F7F8FA] border border-[#E6E6E6] rounded-2xl p-6 lg:p-7 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 glass-panel">
-            <div className="space-y-2 z-10 flex-1">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D91222]/10 text-[#D91222] text-xs font-medium border border-[#D91222]/15 shadow-sm">
-                <Sparkles className="w-3.5 h-3.5" />
-                Structural Core Arbitrage Output
+            <div className="space-y-3 z-10 flex-1">
+              <div className="inline-flex items-center gap-2 text-[10px] text-[#727579] font-semibold uppercase tracking-[0.15em]">
+                <span className="w-0.5 h-4 bg-[#D91222] rounded-full"></span>
+                Simulation Result
               </div>
               
               <h2 className="text-xl md:text-2xl font-black font-display text-[#212121] tracking-tight">
