@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <!-- Calligraphic square root symbol — thin tail to thick upstroke -->
+  <path d="
+    M 60 280
+    Q 65 260, 80 255
+    L 95 255
+    Q 105 255, 110 265
+    L 155 370
+    Q 160 382, 165 382
+    Q 168 382, 172 372
+    L 310 58
+    Q 318 40, 335 40
+    L 460 40
+    Q 472 40, 472 52
+    L 472 56
+    Q 472 68, 460 68
+    L 345 68
+    Q 338 68, 334 78
+    L 185 418
+    Q 175 442, 160 442
+    Q 145 442, 136 418
+    L 78 278
+    Q 74 270, 68 272
+    L 62 278
+    Q 56 282, 56 280
+    Z
+  " fill="#1A1A2E"/>
+  <!-- Red accent dot at the vertex -->
+  <circle cx="172" cy="400" r="18" fill="#E63946"/>
+</svg>
