@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { FeeOptimizationFrequency } from './types';
 import { useSimulator } from './hooks/useSimulator';
+import { useExchangeRate } from './hooks/useExchangeRate';
 import Sidebar from './components/Sidebar';
 import FrictionAlert from './components/FrictionAlert';
 import PerformanceCharts from './components/PerformanceCharts';
@@ -30,7 +31,19 @@ export default function App() {
   // Advanced Tuning states
   const [grossMarketGrowth, setGrossMarketGrowth] = useState<number>(9.0);
   const [marketDividendYield, setMarketDividendYield] = useState<number>(1.3);
-  const [usdMyrRate, setUsdMyrRate] = useState<number>(3.97);
+  const [usdMyrRate, setUsdMyrRate] = useState<number>(4.42);
+
+  // Live exchange rate from fawazahmed0/exchange-api
+  const { rate: liveRate, date: rateDate, isLoading: rateLoading, error: rateError } = useExchangeRate(4.42);
+
+  // Sync live rate into state on first successful fetch
+  const [hasAppliedLiveRate, setHasAppliedLiveRate] = useState(false);
+  useEffect(() => {
+    if (liveRate !== null && !hasAppliedLiveRate) {
+      setUsdMyrRate(liveRate);
+      setHasAppliedLiveRate(true);
+    }
+  }, [liveRate, hasAppliedLiveRate]);
 
   // Custom live parameter tuning states for selected tickers
   const [overridePriceA, setOverridePriceA] = useState<string>("");
@@ -185,28 +198,33 @@ export default function App() {
           
           {/* Quick Stats Block & Action Icons */}
           <div className="flex flex-wrap items-center gap-4 lg:gap-6">
-            <div className="flex items-center gap-2 bg-[#F7F8FA] border border-[#E6E6E6] px-3 py-1.5 rounded-lg">
-              <span className="flex h-2 w-2 rounded-full bg-[#0EB35B] animate-pulse"></span>
-              <span className="text-[11px] text-[#727579] font-mono">USD/MYR Spot Price:</span>
-              <span className="text-xs font-semibold text-[#212121] font-mono">{usdMyrRate.toFixed(2)}</span>
+            <div className="flex items-center gap-1.5 bg-[#F7F8FA] border border-[#E6E6E6] px-2.5 py-1.5 rounded-lg" title={rateError ? 'Using cached rate — API offline' : 'Source: fawazahmed0/exchange-api'}>
+              <span className={`flex h-1.5 w-1.5 rounded-full ${rateLoading ? 'bg-[#F5A623] animate-pulse' : rateError ? 'bg-[#D91222]' : 'bg-[#0EB35B]'}`}></span>
+              <span className="text-[10px] text-[#A2A3A5] font-mono">USD/MYR</span>
+              <span className="text-xs font-semibold text-[#212121] font-mono">
+                {rateLoading && !hasAppliedLiveRate ? '—' : usdMyrRate.toFixed(4)}
+              </span>
+              {rateDate && (
+                <>
+                  <span className="w-px h-3 bg-[#D0D1D2]"></span>
+                  <span className="text-[9px] text-[#A2A3A5] font-mono">{rateDate}</span>
+                </>
+              )}
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-[#727579]">Display Currency:</span>
-              <div className="inline-flex rounded-lg p-0.5 bg-[#F3F3F4] border border-[#E6E6E6]">
-                <button 
-                  onClick={() => setShowInUsd(false)}
-                  className={`px-2.5 py-1 text-xs rounded-md transition-all font-medium cursor-pointer ${!showInUsd ? 'bg-[#D91222] text-white shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
-                >
-                  MYR (RM)
-                </button>
-                <button 
-                  onClick={() => setShowInUsd(true)}
-                  className={`px-2.5 py-1 text-xs rounded-md transition-all font-medium cursor-pointer ${showInUsd ? 'bg-[#D91222] text-white shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
-                >
-                  USD ($)
-                </button>
-              </div>
+            <div className="inline-flex rounded-full p-0.5 bg-[#F3F3F4] border border-[#E6E6E6]">
+              <button 
+                onClick={() => setShowInUsd(false)}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all font-semibold cursor-pointer tracking-wide ${!showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
+              >
+                RM
+              </button>
+              <button 
+                onClick={() => setShowInUsd(true)}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all font-semibold cursor-pointer tracking-wide ${showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
+              >
+                USD
+              </button>
             </div>
 
           </div>

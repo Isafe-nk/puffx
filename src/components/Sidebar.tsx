@@ -120,7 +120,6 @@ export default function Sidebar({
     setOverrideSpreadB("");
     setGrossMarketGrowth(9.0);
     setMarketDividendYield(1.3);
-    setUsdMyrRate(3.97);
     setDepositDirectUSD(true);
   };
 
