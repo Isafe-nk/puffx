@@ -6,5 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
-.agents/
+.agents/*
+!.agents/skills/
 .antigravity/
