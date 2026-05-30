@@ -14,10 +14,11 @@
 name: CI
 
 on:
-  push:
-    branches: ["**"]          # Run on every branch push
-  pull_request:
-    branches: [main]          # Gate all PRs targeting main
+  workflow_dispatch: # Manual triggers only while billing is sorted
+#  push:
+#    branches: ["**"]          # Run on every branch push
+#  pull_request:
+#    branches: [main]          # Gate all PRs targeting main
 
 # Cancel in-progress runs on the same branch when a new push arrives.
 # Keeps CI queues clean on rapid successive commits.
