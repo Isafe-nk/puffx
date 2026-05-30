@@ -199,7 +199,7 @@ export default function App() {
           {/* Quick Stats Block & Action Icons */}
           <div className="flex flex-wrap items-center gap-4 lg:gap-6">
             <div className="flex items-center gap-1.5 bg-[#F7F8FA] border border-[#E6E6E6] px-2.5 py-1.5 rounded-lg" title={rateError ? 'Using cached rate — API offline' : 'Source: fawazahmed0/exchange-api'}>
-              <span className={`flex h-1.5 w-1.5 rounded-full ${rateLoading ? 'bg-[#F5A623] animate-pulse' : rateError ? 'bg-[#D91222]' : 'bg-[#0EB35B]'}`}></span>
+              <span className={`flex h-1.5 w-1.5 rounded-full ${rateLoading ? 'bg-[#F5A623] animate-pulse' : rateError ? 'bg-[#D91222]' : 'bg-[#0EB35B] animate-breathe'}`}></span>
               <span className="text-[10px] text-[#A2A3A5] font-mono">USD/MYR</span>
               <span className="text-xs font-semibold text-[#212121] font-mono">
                 {rateLoading && !hasAppliedLiveRate ? '—' : usdMyrRate.toFixed(4)}
