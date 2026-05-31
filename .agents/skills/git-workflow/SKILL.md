@@ -12,8 +12,9 @@ This skill defines the **mandatory** Git workflow for all agents operating on th
 ## 1. Golden Rule
 
 > **Never commit directly to `main`.** All changes must go through a feature branch first.
+> **NEVER merge a feature branch into `main` without explicit user instruction/approval.**
 
-`main` is the production-ready branch. It must always pass `npm run build`.
+`main` is the production-ready branch. It must always pass `npm run build`. You must pause, present your branch work, and wait for the user to explicitly say "merge it" before running any merge commands.
 
 ---
 
