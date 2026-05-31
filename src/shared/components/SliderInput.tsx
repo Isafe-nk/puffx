@@ -14,6 +14,8 @@ interface SliderInputProps {
   editable?: boolean;
   valueText?: string;
   className?: string;
+  format?: (value: number) => string;
+  subLabel?: string;
 }
 
 export default function SliderInput({
@@ -29,8 +31,11 @@ export default function SliderInput({
   centerLabel,
   editable = true,
   valueText,
-  className = ""
+  className = "",
+  format,
+  subLabel
 }: SliderInputProps) {
+  const displayValue = format ? format(value) : (valueText || value);
   return (
     <div className={className}>
       <div className="flex justify-between items-center mb-1.5">
@@ -46,14 +51,19 @@ export default function SliderInput({
         
         {editable ? (
           <input
-            type="number"
-            value={value}
-            onChange={(e) => onChange(Math.max(0, parseInt(e.target.value) || 0))}
+            type="text"
+            value={displayValue}
+            onChange={(e) => {
+              const numericValue = parseInt(e.target.value.replace(/[^0-9.-]+/g,""));
+              if (!isNaN(numericValue)) {
+                onChange(Math.max(0, numericValue));
+              }
+            }}
             className="w-24 text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono"
           />
         ) : (
           <span className="text-xs font-semibold text-[#D91222] font-mono">
-            {valueText || value}
+            {displayValue}
           </span>
         )}
       </div>
@@ -69,7 +79,7 @@ export default function SliderInput({
       />
       
       <div className="flex justify-between text-[10px] text-[#A2A3A5] font-mono mt-0.5">
-        <span>{leftLabel}</span>
+        <span>{subLabel || leftLabel}</span>
         {centerLabel && <span>{centerLabel}</span>}
         <span>{rightLabel}</span>
       </div>

@@ -4,8 +4,7 @@ import Layout from './Layout';
 import VisualizerLayout from '../features/visualizer/VisualizerLayout';
 import VisualizerHub from '../features/visualizer/VisualizerHub';
 import EtfDragVisualizer from '../features/visualizer/etf-drag/index';
-
-const WealthSimulatorPlaceholder = () => <div className="p-8">Wealth Simulator Component (Coming Soon in Phase 4)</div>;
+import WealthSimulator from '../features/visualizer/wealth-simulator/index';
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +29,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'wealth-simulator',
-            element: <WealthSimulatorPlaceholder />
+            element: <WealthSimulator />
           }
         ]
       }
