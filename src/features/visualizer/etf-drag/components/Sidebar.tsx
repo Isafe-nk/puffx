@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import { ETF, FeeOptimizationFrequency } from "../types";
 import { ETF_REGISTRY } from "../constants";
+import SliderInput from "../../../../shared/components/SliderInput";
+import Card from "../../../../shared/components/Card";
 
 interface SidebarProps {
   initialInvestmentRM: number;
@@ -110,6 +112,9 @@ export default function Sidebar({
   depositDirectUSD,
   setDepositDirectUSD
 }: SidebarProps) {
+  const formatValForSlider = (v: number) => {
+    return `$${(v / usdMyrRate).toLocaleString(undefined, { maximumFractionDigits: 0 })} USD`;
+  };
 
   const handleRestorePresets = () => {
     setOverridePriceA("");
@@ -126,7 +131,7 @@ export default function Sidebar({
   return (
     <section className="lg:col-span-4 flex flex-col gap-6">
 
-      <div className="glass-card rounded-3xl p-5 lg:p-6 shadow-sm">
+      <Card>
         <div className="flex items-center gap-2 pb-4 mb-4 border-b border-[#E6E6E6]">
           <Sliders className="text-[#D91222] w-4 h-4" />
           <h2 className="font-semibold text-sm tracking-wider text-[#212121] uppercase font-display">
@@ -136,103 +141,46 @@ export default function Sidebar({
 
         <div className="flex flex-col gap-5">
 
-          {/* Slider 1: Initial Investment */}
-          <div>
-            <div className="flex justify-between items-center mb-1.5">
-              <span className="text-xs font-medium text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5">
-                Initial Capital (RM)
-                <span className="absolute left-0 bottom-full mb-2 w-56 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
-                  The starting lump sum amount you invest into the chosen ETF at Year 0. Subject to initial buy commissions and conversion fees.
-                  <span className="absolute top-full left-4 border-4 border-transparent border-t-white"></span>
-                </span>
-              </span>
-              <input
-                type="number"
-                value={initialInvestmentRM}
-                onChange={(e) => setInitialInvestmentRM(Math.max(0, parseInt(e.target.value) || 0))}
-                className="w-24 text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono"
-              />
-            </div>
-            <input
-              type="range"
-              min="1000"
-              max="200000"
-              step="1000"
-              value={initialInvestmentRM}
-              onChange={(e) => setInitialInvestmentRM(parseInt(e.target.value))}
-              className="w-full h-1.5 bg-[#E8E8E9] rounded-lg appearance-none cursor-pointer accent-[#D91222]"
-            />
-            <div className="flex justify-between text-[10px] text-[#A2A3A5] font-mono mt-0.5">
-              <span>RM 1k</span>
-              <span>Est. ${(initialInvestmentRM / usdMyrRate).toLocaleString(undefined, { maximumFractionDigits: 0 })} USD</span>
-              <span>RM 200k</span>
-            </div>
-          </div>
+          <SliderInput
+            label="Initial Capital (RM)"
+            tooltip="The starting lump sum amount you invest into the chosen ETF at Year 0. Subject to initial buy commissions and conversion fees."
+            value={initialInvestmentRM}
+            onChange={setInitialInvestmentRM}
+            min={1000}
+            max={200000}
+            step={1000}
+            leftLabel="RM 1k"
+            centerLabel={`Est. ${formatValForSlider(initialInvestmentRM)}`}
+            rightLabel="RM 200k"
+          />
 
-          {/* Slider 2: Monthly Contribution */}
-          <div>
-            <div className="flex justify-between items-center mb-1.5">
-              <span className="text-xs font-medium text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5">
-                Monthly Allocation (RM)
-                <span className="absolute left-0 bottom-full mb-2 w-56 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
-                  Your recurring monthly investment budget. Accumulated and batched according to your execution frequency choice.
-                  <span className="absolute top-full left-4 border-4 border-transparent border-t-white"></span>
-                </span>
-              </span>
-              <input
-                type="number"
-                value={monthlyContributionRM}
-                onChange={(e) => setMonthlyContributionRM(Math.max(0, parseInt(e.target.value) || 0))}
-                className="w-24 text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono"
-              />
-            </div>
-            <input
-              type="range"
-              min="0"
-              max="10000"
-              step="100"
-              value={monthlyContributionRM}
-              onChange={(e) => setMonthlyContributionRM(parseInt(e.target.value))}
-              className="w-full h-1.5 bg-[#E8E8E9] rounded-lg appearance-none cursor-pointer accent-[#D91222]"
-            />
-            <div className="flex justify-between text-[10px] text-[#A2A3A5] font-mono mt-0.5">
-              <span>RM 0</span>
-              <span>
-                Est. ${(monthlyContributionRM / usdMyrRate).toLocaleString(undefined, { maximumFractionDigits: 0 })} USD
-              </span>
-              <span>RM 10k+</span>
-            </div>
-          </div>
+          <SliderInput
+            label="Monthly Allocation (RM)"
+            tooltip="Your recurring monthly investment budget. Accumulated and batched according to your execution frequency choice."
+            value={monthlyContributionRM}
+            onChange={setMonthlyContributionRM}
+            min={0}
+            max={10000}
+            step={100}
+            leftLabel="RM 0"
+            centerLabel={`Est. ${formatValForSlider(monthlyContributionRM)}`}
+            rightLabel="RM 10k+"
+          />
 
-          {/* Slider 3: Investment Horizon */}
-          <div>
-            <div className="flex justify-between items-center mb-1.5">
-              <span className="text-xs font-medium text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5">
-                Horizon Period
-                <span className="absolute left-0 bottom-full mb-2 w-56 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
-                  The total years of your simulation. Long investment horizons make small recurring fee differences compound into massive portfolio deltas.
-                  <span className="absolute top-full left-4 border-4 border-transparent border-t-white"></span>
-                </span>
-              </span>
-              <span className="text-xs font-semibold text-[#D91222] font-mono">
-                {horizonYears} Years
-              </span>
-            </div>
-            <input
-              type="range"
-              min="1"
-              max="40"
-              step="1"
-              value={horizonYears}
-              onChange={(e) => setHorizonYears(parseInt(e.target.value))}
-              className="w-full h-1.5 bg-[#E8E8E9] rounded-lg appearance-none cursor-pointer accent-[#D91222]"
-            />
-            <div className="flex justify-between text-[10px] text-[#A2A3A5] font-mono mt-0.5">
-              <span>1 Year</span>
-              <span>Compound Cycle Limit</span>
-              <span>40 Years</span>
-            </div>
-          </div>
+          <SliderInput
+            label="Horizon Period"
+            tooltip="The total years of your simulation. Long investment horizons make small recurring fee differences compound into massive portfolio deltas."
+            value={horizonYears}
+            onChange={setHorizonYears}
+            min={1}
+            max={40}
+            step={1}
+            leftLabel="1 Year"
+            centerLabel="Compound Cycle Limit"
+            rightLabel="40 Years"
+            editable={false}
+            valueText={`${horizonYears} Years`}
+          />
 
           {/* Broker Frequency Settings Optimization Selector */}
           <div className="bg-[#F7F8FA] border border-[#E6E6E6] rounded-2xl p-4 mt-1 text-[#44474D]">
@@ -570,10 +518,10 @@ export default function Sidebar({
           </div>
 
         </div>
-      </div>
+      </Card>
 
       {/* Friction Indicator Box for Sidebar */}
-      <div className="glass-card rounded-3xl p-5 shadow-sm relative">
+      <Card className="!p-5">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xs font-bold font-display text-[#44474D] uppercase tracking-wider flex items-center gap-2">
             <Flame className="w-4 h-4 text-[#FFB300]" />
@@ -603,7 +551,7 @@ export default function Sidebar({
             </div>
           </div>
         </div>
-      </div>
+      </Card>
 
     </section>
   );
