@@ -17,6 +17,8 @@ import Sidebar from './components/Sidebar';
 import FrictionAlert from './components/FrictionAlert';
 import PerformanceCharts from './components/PerformanceCharts';
 import TcoMatrix from './components/TcoMatrix';
+import KpiCard from '../../../shared/components/KpiCard';
+import { formatCurrency } from '../../../shared/utils/format';
 
 export default function App() {
   // Input settings
@@ -117,57 +119,14 @@ export default function App() {
 
   // Formatting utilities
   const formatVal = useMemo(() => (v: number) => {
-    return (showInUsd ? '$' : 'RM ') + Number(showInUsd ? v / usdMyrRate : v).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    return formatCurrency(v, showInUsd, usdMyrRate, 0);
   }, [showInUsd, usdMyrRate]);
 
   return (
-    <div className="min-h-screen bg-white text-[#212121] font-sans antialiased overflow-x-hidden">
+    <div className="w-full">
       
-      {/* Fixed Side Navigation Bar — Dark Teal (IBKR tertiary) */}
-      <nav className="hidden lg:flex h-screen w-72 fixed left-0 top-0 bg-[#0B3944] border-r border-[#E6E6E6] flex-col py-8 px-6 z-50">
-        <div className="mb-8">
-          <h2 className="font-display text-4xl text-white tracking-tighter font-bold">puffx</h2>
-          <div className="w-12 h-0.5 bg-[#D91222] mt-2 rounded-full"></div>
-          <p className="text-[10px] text-white/50 font-bold uppercase tracking-wider mt-2">Own your numbers</p>
-        </div>
-        
-        <div className="flex-1 flex flex-col gap-1.5">
-          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white font-bold bg-white/15 border-l-2 border-[#D91222] transition-colors duration-200" href="#">
-            <LineChart className="w-4 h-4" />
-            <span className="text-xs uppercase font-bold tracking-wider">Visualizer</span>
-          </a>
-          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/30 font-medium cursor-not-allowed pointer-events-none">
-            <Briefcase className="w-4 h-4" />
-            <span className="text-xs uppercase font-bold tracking-wider">Portfolio</span>
-          </a>
-          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/30 font-medium cursor-not-allowed pointer-events-none">
-            <BarChart3 className="w-4 h-4" />
-            <span className="text-xs uppercase font-bold tracking-wider">Analysis</span>
-          </a>
-          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/30 font-medium cursor-not-allowed pointer-events-none">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-xs uppercase font-bold tracking-wider">Market</span>
-          </a>
-          <a className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-white/30 font-medium cursor-not-allowed pointer-events-none">
-            <Settings className="w-4 h-4" />
-            <span className="text-xs uppercase font-bold tracking-wider">Settings</span>
-          </a>
-        </div>
-        
-        <div className="mt-auto flex flex-col gap-2 border-t border-white/15 pt-4">
-          <button className="w-full bg-[#D91222]/50 text-white/50 py-2.5 rounded-lg flex items-center justify-center gap-2 font-bold text-xs uppercase tracking-wider cursor-not-allowed pointer-events-none shadow-none">
-            <Download className="w-4 h-4" />
-            Export Report
-          </button>
-          <a className="flex items-center gap-3 px-3 py-2 mt-2 rounded-lg text-white/30 font-medium cursor-not-allowed pointer-events-none">
-            <BookOpen className="w-4 h-4" />
-            <span className="text-xs uppercase font-bold tracking-wider">Documentation</span>
-          </a>
-        </div>
-      </nav>
-
       {/* Top Premium Status Navigation */}
-      <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40 lg:ml-72">
+      <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="flex items-center justify-center">
@@ -232,7 +191,7 @@ export default function App() {
       </header>
 
       {/* Main Grid Wrapper */}
-      <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:ml-72">
+      <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* SIDEBAR MODULE (4 Columns on Desktop) */}
         <Sidebar 
@@ -311,13 +270,12 @@ export default function App() {
             </div>
 
             {/* Giant Metric Display */}
-            <div className="bg-white border border-[#E6E6E6] rounded-xl px-5 py-4 min-w-[180px] text-center shadow-sm relative z-10 flex flex-col justify-center">
-              <span className="text-[10px] uppercase font-bold text-[#A2A3A5] tracking-wider">Compounded Saving</span>
-              <span className="text-2xl md:text-3xl font-black font-mono text-[#0EB35B] mt-1">
-                {formatVal(absDelta)}
-              </span>
-              <span className="text-[9px] text-[#A2A3A5] mt-0.5 leading-none">In display currency</span>
-            </div>
+            <KpiCard 
+              label="Compounded Saving" 
+              value={formatVal(absDelta)} 
+              subtitle="In display currency" 
+              valueColor="text-[#0EB35B]" 
+            />
 
             {/* Faint decorative gradient */}
             <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#D91222]/3 to-transparent pointer-events-none z-0" />
