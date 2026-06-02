@@ -157,29 +157,33 @@ export default function App() {
                       exit={{ height: 0, opacity: 0 }}
                       className="px-6 pb-6 space-y-4"
                     >
-                      <div className="grid grid-cols-2 gap-4">
+                      
                         <SliderInput 
                           label="Current Age" 
                           value={inputs.currentAge} 
                           min={18} max={60} 
-                          inputWidth="w-14" 
+                          layout="inline"
+                          inputWidth="w-16"
                           onChange={(v) => setInputs({ ...inputs, currentAge: v })} 
                         />
                         <SliderInput 
                           label="Retirement Age" 
                           value={inputs.retirementAge} 
                           min={inputs.currentAge + 1} max={80} 
-                          inputWidth="w-14" 
+                          layout="inline"
+                          inputWidth="w-16"
                           onChange={(v) => setInputs({ ...inputs, retirementAge: v })} 
                         />
-                      </div>
+                      
 
-                      <div className="grid grid-cols-2 gap-4">
+                      
                         <SliderInput 
                           label="Monthly Salary" 
                           value={inputs.monthlySalary} 
                           min={2000} max={30000} step={100}
                           format={formatCurrency}
+                          layout="inline"
+                          inputWidth="w-24"
                           onChange={(v) => setInputs({ ...inputs, monthlySalary: v })} 
                           subLabel={`(${formatCurrency(inputs.monthlySalary * 12)}/yr)`}
                           tooltip="Your gross monthly income before taxes."
@@ -189,11 +193,13 @@ export default function App() {
                           value={inputs.savingsRate * 100} 
                           min={0} max={70} 
                           format={(v) => `${Math.round(v)}%`}
+                          layout="inline"
+                          inputWidth="w-16"
                           onChange={(v) => setInputs({ ...inputs, savingsRate: v / 100 })} 
                           subLabel={`(${formatCurrency(inputs.monthlySalary * inputs.savingsRate)}/mo)`}
                           tooltip="Percentage of your monthly salary saved and invested."
                         />
-                      </div>
+                      
                       
                       <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] flex justify-between items-center mb-1">
                         <div className="flex flex-col">
@@ -205,22 +211,26 @@ export default function App() {
                         </span>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      
                         <SliderInput 
                           label="Initial Savings" 
                           value={inputs.initialSavings} 
                           min={0} max={500000} step={1000}
                           format={formatCurrency}
+                          layout="inline"
+                          inputWidth="w-24"
                           onChange={(v) => setInputs({ ...inputs, initialSavings: v })} 
                         />
                         <SliderInput 
-                          label="Salary Growth (%)" 
+                          label="Salary Growth" 
                           value={inputs.salaryGrowth * 100} 
                           min={0} max={10} step={0.1}
                           format={(v) => `${v}%`}
+                          layout="inline"
+                          inputWidth="w-16"
                           onChange={(v) => setInputs({ ...inputs, salaryGrowth: v / 100 })} 
                         />
-                      </div>
+                      
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -336,6 +346,8 @@ export default function App() {
                             value={debt.principal} 
                             min={0} max={200000} step={1000}
                             format={formatCurrency}
+                            layout="inline"
+                            inputWidth="w-24"
                             onChange={(v) => updateDebt(idx, { principal: v })} 
                           />
                           <SliderInput 
@@ -343,6 +355,8 @@ export default function App() {
                             value={debt.interestRate * 100} 
                             min={0} max={20} step={0.1}
                             format={(v) => `${v}%`}
+                            layout="inline"
+                            inputWidth="w-16"
                             onChange={(v) => updateDebt(idx, { interestRate: v / 100 })} 
                           />
                           <SliderInput 
@@ -350,6 +364,8 @@ export default function App() {
                             value={debt.termYears} 
                             min={1} max={35} step={1}
                             format={(v) => `${v} Years`}
+                            layout="inline"
+                            inputWidth="w-20"
                             onChange={(v) => updateDebt(idx, { termYears: v })} 
                           />
                           
