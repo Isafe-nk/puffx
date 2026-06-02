@@ -7,7 +7,7 @@ interface SliderInputProps {
   onChange: (value: number) => void;
   min: number;
   max: number;
-  step: number;
+  step?: number;
   leftLabel?: React.ReactNode;
   rightLabel?: React.ReactNode;
   centerLabel?: React.ReactNode;
@@ -25,7 +25,7 @@ export default function SliderInput({
   onChange,
   min,
   max,
-  step,
+  step = 1,
   leftLabel,
   rightLabel,
   centerLabel,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-export const SideNavItem = ({ item }: { item: any }) => {
+export const SideNavItem: React.FC<{ item: any }> = ({ item }) => {
   const isComingSoon = item.path !== "/visualizer";
   return (
     <NavLink

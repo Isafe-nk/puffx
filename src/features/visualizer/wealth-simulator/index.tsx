@@ -24,6 +24,8 @@ import {
   PanelLeftOpen
 } from "lucide-react";
 import SliderInput from "../../../shared/components/SliderInput";
+import Card from "../../../shared/components/Card";
+import KpiCard from "../../../shared/components/KpiCard";
 import { TimelineChart, AllocationPie } from "./components/Charts";
 import { MonteCarloChart } from "./components/MonteCarloChart";
 import { DebtVsInvestingLab } from "./components/DebtVsInvestingLab";
@@ -103,21 +105,21 @@ export default function App() {
   const finalInflationAdjusted = deterministicData[deterministicData.length - 1]?.inflationAdjustedNetWorth || 0;
 
   return (
-    <div className="w-full bg-zinc-950 text-zinc-100 font-sans selection:bg-emerald-500/30 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+    <div className="w-full bg-[#FAFBFC] text-[#212121] font-sans selection:bg-[#0EB35B]/30 rounded-xl overflow-hidden shadow-sm ring-1 ring-[#E8E8E9]">
       {/* Top Bar inside component */}
-      <div className="px-6 py-4 flex justify-between items-center border-b border-white/5 bg-zinc-900/50">
-        <h2 className="text-lg font-bold flex items-center gap-2"><TrendingUp size={20} className="text-emerald-500" /> Wealth Simulator</h2>
-        <div className="flex items-center gap-6 text-sm font-medium text-zinc-400">
+      <div className="px-6 py-4 flex justify-between items-center border-b border-[#E6E6E6] bg-white">
+        <h2 className="text-lg font-bold flex items-center gap-2 font-display"><TrendingUp size={20} className="text-[#D91222]" /> Wealth Simulator</h2>
+        <div className="flex items-center gap-6 text-sm font-medium text-[#727579]">
           <div className="flex flex-col items-end hidden sm:flex">
-            <span className="text-[10px] text-zinc-500 uppercase tracking-wider">Projected Net Worth</span>
-            <span className="text-emerald-500 font-mono text-base">{formatCurrency(finalNetWorth)}</span>
+            <span className="text-[10px] text-[#A2A3A5] uppercase tracking-wider font-bold">Projected Net Worth</span>
+            <span className="text-[#212121] font-mono font-bold text-base">{formatCurrency(finalNetWorth)}</span>
           </div>
           <button 
             onClick={() => setShowSidebar(!showSidebar)}
             className={`p-1.5 rounded-lg transition-all flex items-center gap-2 border ${
               showSidebar 
-                ? "bg-zinc-800 border-white/10 text-zinc-300 hover:text-white" 
-                : "bg-emerald-500 border-emerald-400 text-zinc-950 hover:bg-emerald-400"
+                ? "bg-white border-[#E6E6E6] text-[#727579] hover:text-[#212121] hover:border-[#D0D1D2] shadow-sm" 
+                : "bg-[#D91222] border-[#D91222] text-white hover:bg-[#C01A2F] shadow-sm"
             }`}
           >
             {showSidebar ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
@@ -136,10 +138,10 @@ export default function App() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="lg:col-span-4 space-y-6 overflow-hidden"
             >
-              <div className="bg-zinc-900/50 rounded-2xl border border-white/5 shadow-xl overflow-hidden">
+              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
                 <button 
                   onClick={() => toggleSection('life')}
-                  className="w-full p-6 flex items-center justify-between text-zinc-300 hover:text-white transition-colors"
+                  className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
                 >
                   <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
                     <Calculator size={16} /> Life Parameters
@@ -186,12 +188,12 @@ export default function App() {
                         tooltip="Percentage of your monthly salary saved and invested."
                       />
                       
-                      <div className="p-3 bg-zinc-950/50 rounded-xl border border-white/5 flex justify-between items-center mb-4">
+                      <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] flex justify-between items-center mb-4">
                         <div className="flex flex-col">
-                          <span className="text-[10px] text-zinc-500 uppercase font-semibold">Monthly Expenses</span>
-                          <span className="text-xs text-zinc-400 italic">Derived from salary & savings</span>
+                          <span className="text-[10px] text-[#A2A3A5] uppercase font-semibold">Monthly Expenses</span>
+                          <span className="text-xs text-[#727579] italic">Derived from salary & savings</span>
                         </div>
-                        <span className="text-sm font-mono text-amber-400">
+                        <span className="text-sm font-mono text-[#FFB300]">
                           {formatCurrency(inputs.monthlySalary * (1 - inputs.savingsRate))}
                         </span>
                       </div>
@@ -216,13 +218,13 @@ export default function App() {
               </div>
 
               {/* Financial Health Audit */}
-              <div className="bg-zinc-900/50 rounded-2xl border border-white/5 shadow-xl overflow-hidden">
+              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
                 <button 
                   onClick={() => toggleSection('health')}
-                  className="w-full p-6 flex items-center justify-between text-zinc-300 hover:text-white transition-colors"
+                  className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
                 >
                   <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
-                    <ShieldCheck size={16} className="text-emerald-500" /> Financial Health Audit
+                    <ShieldCheck size={16} className="text-[#0EB35B]" /> Financial Health Audit
                   </h2>
                   {collapsedSections.has('health') ? <ChevronRight size={16} /> : <ChevronDown size={16} />}
                 </button>
@@ -237,30 +239,30 @@ export default function App() {
                     >
                       <div className="space-y-4">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-zinc-500">Emergency Fund</span>
+                          <span className="text-xs text-[#A2A3A5]">Emergency Fund</span>
                           <div className="flex items-center gap-2">
-                            <span className={`text-xs font-bold ${healthAudit.emergencyFundStatus === 'good' ? 'text-emerald-400' : healthAudit.emergencyFundStatus === 'warning' ? 'text-amber-400' : 'text-red-400'}`}>
+                            <span className={`text-xs font-bold ${healthAudit.emergencyFundStatus === 'good' ? 'text-[#0EB35B]' : healthAudit.emergencyFundStatus === 'warning' ? 'text-[#FFB300]' : 'text-[#D91222]'}`}>
                               {healthAudit.emergencyFundMonths.toFixed(1)} Months
                             </span>
                             <div className={`w-2 h-2 rounded-full ${healthAudit.emergencyFundStatus === 'good' ? 'bg-emerald-500' : healthAudit.emergencyFundStatus === 'warning' ? 'bg-amber-500' : 'bg-red-500'}`} />
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-zinc-500">Debt-to-Income (DTI)</span>
-                          <span className={`text-xs font-bold ${(healthAudit.debtToIncomeRatio * 100) > 36 ? 'text-red-400' : 'text-emerald-400'}`}>
+                          <span className="text-xs text-[#A2A3A5]">Debt-to-Income (DTI)</span>
+                          <span className={`text-xs font-bold ${(healthAudit.debtToIncomeRatio * 100) > 36 ? 'text-[#D91222]' : 'text-[#0EB35B]'}`}>
                             {(healthAudit.debtToIncomeRatio * 100).toFixed(1)}%
                           </span>
                         </div>
                         <div className="flex justify-between items-center">
-                          <span className="text-xs text-zinc-500">Savings Rate</span>
-                          <span className={`text-xs font-bold ${healthAudit.savingsRateStatus === 'aggressive' ? 'text-emerald-400' : healthAudit.savingsRateStatus === 'healthy' ? 'text-emerald-400/70' : 'text-amber-400'}`}>
+                          <span className="text-xs text-[#A2A3A5]">Savings Rate</span>
+                          <span className={`text-xs font-bold ${healthAudit.savingsRateStatus === 'aggressive' ? 'text-[#0EB35B]' : healthAudit.savingsRateStatus === 'healthy' ? 'text-[#0EB35B]/70' : 'text-[#FFB300]'}`}>
                             {healthAudit.savingsRateStatus.toUpperCase()}
                           </span>
                         </div>
                       </div>
                       {healthAudit.emergencyFundStatus !== 'good' && (
-                        <div className="mt-4 p-3 bg-red-500/5 border border-red-500/10 rounded-lg">
-                          <p className="text-[10px] text-red-400 leading-relaxed">
+                        <div className="mt-4 p-3 bg-[#D91222]/5 border border-[#D91222]/15 rounded-lg">
+                          <p className="text-[10px] text-[#D91222] leading-relaxed">
                             Professional Tip: Prioritize building a 6-month emergency fund before aggressive investing.
                           </p>
                         </div>
@@ -270,11 +272,11 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-zinc-900/50 rounded-2xl border border-white/5 shadow-xl overflow-hidden">
+              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
                 <div className="p-6 flex items-center justify-between">
                   <button 
                     onClick={() => toggleSection('debt')}
-                    className="flex-1 flex items-center justify-between text-zinc-300 hover:text-white transition-colors text-left"
+                    className="flex-1 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors text-left"
                   >
                     <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
                       <CreditCard size={16} /> Debt Profile
@@ -284,7 +286,7 @@ export default function App() {
                   {!collapsedSections.has('debt') && (
                     <button 
                       onClick={addDebt}
-                      className="ml-4 p-1.5 bg-emerald-500/10 text-emerald-500 rounded-lg hover:bg-emerald-500/20 transition-colors"
+                      className="ml-4 p-1.5 bg-[#0EB35B]/10 text-[#0EB35B] rounded-lg hover:bg-[#0EB35B]/20 transition-colors"
                       title="Add Debt"
                     >
                       <Plus size={16} />
@@ -301,13 +303,13 @@ export default function App() {
                       className="px-6 pb-6 space-y-6"
                     >
                       {inputs.debts.length === 0 && (
-                        <p className="text-xs text-zinc-500 italic text-center py-4">No active debts. Great job!</p>
+                        <p className="text-xs text-[#A2A3A5] italic text-center py-4">No active debts. Great job!</p>
                       )}
                       {inputs.debts.map((debt, idx) => (
-                        <div key={debt.id} className="p-4 bg-zinc-950/50 rounded-xl border border-white/5 relative group">
+                        <div key={debt.id} className="p-4 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] relative group">
                           <button 
                             onClick={() => removeDebt(idx)}
-                            className="absolute top-2 right-2 p-1 text-zinc-600 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
+                            className="absolute top-2 right-2 p-1 text-[#727579] hover:text-[#D91222] opacity-0 group-hover:opacity-100 transition-all"
                           >
                             <Trash2 size={14} />
                           </button>
@@ -316,7 +318,7 @@ export default function App() {
                             type="text"
                             value={debt.name}
                             onChange={(e) => updateDebt(idx, { name: e.target.value })}
-                            className="bg-transparent border-none text-sm font-bold text-zinc-200 focus:ring-0 p-0 mb-4 w-full"
+                            className="bg-transparent border-none text-sm font-bold text-[#212121] focus:ring-0 p-0 mb-4 w-full"
                             placeholder="Debt Name"
                           />
 
@@ -342,9 +344,9 @@ export default function App() {
                             onChange={(v) => updateDebt(idx, { termYears: v })} 
                           />
                           
-                          <div className="mt-2 pt-2 border-t border-white/5 flex justify-between items-center">
-                            <span className="text-[10px] text-zinc-500 uppercase">Monthly Payment</span>
-                            <span className="text-xs font-mono text-red-400">{formatCurrency(debt.monthlyPayment)}</span>
+                          <div className="mt-2 pt-2 border-t border-[#E6E6E6] flex justify-between items-center">
+                            <span className="text-[10px] text-[#A2A3A5] uppercase">Monthly Payment</span>
+                            <span className="text-xs font-mono text-[#D91222]">{formatCurrency(debt.monthlyPayment)}</span>
                           </div>
                         </div>
                       ))}
@@ -353,10 +355,10 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-zinc-900/50 rounded-2xl border border-white/5 shadow-xl overflow-hidden">
+              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
                 <button 
                   onClick={() => toggleSection('allocation')}
-                  className="w-full p-6 flex items-center justify-between text-zinc-300 hover:text-white transition-colors"
+                  className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
                 >
                   <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
                     <PieChartIcon size={16} /> Asset Allocation
@@ -381,7 +383,7 @@ export default function App() {
                       ].map((asset) => (
                         <div key={asset.key} className="relative">
                           <div className="flex justify-between items-center mb-1">
-                            <label className="text-[10px] text-zinc-500 uppercase tracking-wider font-semibold">{asset.label}</label>
+                            <label className="text-[10px] text-[#A2A3A5] uppercase tracking-wider font-semibold">{asset.label}</label>
                             <button 
                               onClick={() => {
                                 const newLocked = new Set(lockedAssets);
@@ -389,7 +391,7 @@ export default function App() {
                                 else newLocked.add(asset.key);
                                 setLockedAssets(newLocked);
                               }}
-                              className={`p-1 rounded transition-colors ${lockedAssets.has(asset.key) ? 'text-emerald-500 bg-emerald-500/10' : 'text-zinc-600 hover:text-zinc-400'}`}
+                              className={`p-1 rounded transition-colors ${lockedAssets.has(asset.key) ? 'text-[#0EB35B] bg-[#0EB35B]/10' : 'text-[#727579] hover:text-[#727579]'}`}
                               title={lockedAssets.has(asset.key) ? "Unlock asset" : "Lock asset"}
                             >
                               {lockedAssets.has(asset.key) ? <Lock size={12} /> : <Unlock size={12} />}
@@ -438,14 +440,14 @@ export default function App() {
                         </div>
                       ))}
 
-                      <div className="mt-6 p-4 bg-zinc-950/50 rounded-xl border border-white/5">
+                      <div className="mt-6 p-4 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6]">
                         <div className="flex justify-between text-xs mb-2">
-                          <span className="text-zinc-500">Expected Portfolio Return</span>
-                          <span className="text-emerald-400 font-mono">{(portfolioStats.expectedReturn * 100).toFixed(1)}%</span>
+                          <span className="text-[#A2A3A5]">Expected Portfolio Return</span>
+                          <span className="text-[#0EB35B] font-mono">{(portfolioStats.expectedReturn * 100).toFixed(1)}%</span>
                         </div>
                         <div className="flex justify-between text-xs">
-                          <span className="text-zinc-500">Portfolio Volatility</span>
-                          <span className="text-amber-400 font-mono">{(portfolioStats.volatility * 100).toFixed(1)}%</span>
+                          <span className="text-[#A2A3A5]">Portfolio Volatility</span>
+                          <span className="text-[#FFB300] font-mono">{(portfolioStats.volatility * 100).toFixed(1)}%</span>
                         </div>
                       </div>
                     </motion.div>
@@ -453,8 +455,8 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-          <div className="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl">
-            <p className="text-[10px] text-emerald-500/60 leading-relaxed uppercase tracking-tighter">
+          <div className="p-4 bg-[#0EB35B]/5 border border-[#0EB35B]/15 rounded-xl">
+            <p className="text-[10px] text-[#0EB35B]/60 leading-relaxed uppercase tracking-tighter">
               Disclaimer: This is a purely educational simulation. Past performance does not guarantee future results. 
               Not financial advice.
             </p>
@@ -466,7 +468,7 @@ export default function App() {
         {/* Main Content Area */}
         <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} space-y-6 transition-all duration-300`}>
           {/* Tabs */}
-          <div className="flex gap-1 p-1 bg-zinc-900 rounded-xl border border-white/5">
+          <div className="flex gap-1 p-1 bg-white rounded-xl border border-[#E6E6E6]">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
@@ -478,8 +480,8 @@ export default function App() {
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
                   activeTab === tab.id 
-                    ? "bg-zinc-800 text-white shadow-sm" 
-                    : "text-zinc-500 hover:text-zinc-300 hover:bg-zinc-800/50"
+                    ? "bg-white text-[#D91222] shadow-sm font-semibold border border-[#E6E6E6]" 
+                    : "text-[#A2A3A5] hover:text-[#44474D] hover:bg-[#E8E8E9]/50"
                 }`}
               >
                 <tab.icon size={16} />
@@ -500,44 +502,44 @@ export default function App() {
               {activeTab === "timeline" && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5">
-                      <p className="text-xs text-zinc-500 uppercase mb-1">Retirement Age</p>
+                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                      <p className="text-xs text-[#A2A3A5] uppercase mb-1">Retirement Age</p>
                       <p className="text-2xl font-bold">{inputs.retirementAge}</p>
                     </div>
-                    <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5">
-                      <p className="text-xs text-zinc-500 uppercase mb-1">Inflation Adjusted</p>
-                      <p className="text-2xl font-bold text-indigo-400">{formatCurrency(finalInflationAdjusted)}</p>
+                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                      <p className="text-xs text-[#A2A3A5] uppercase mb-1">Inflation Adjusted</p>
+                      <p className="text-2xl font-bold text-[#307EF2]">{formatCurrency(finalInflationAdjusted)}</p>
                     </div>
-                    <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5">
-                      <p className="text-xs text-zinc-500 uppercase mb-1">Success Prob.</p>
-                      <p className="text-2xl font-bold text-emerald-400">{(mcResult.successProbability * 100).toFixed(0)}%</p>
+                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                      <p className="text-xs text-[#A2A3A5] uppercase mb-1">Success Prob.</p>
+                      <p className="text-2xl font-bold text-[#0EB35B]">{(mcResult.successProbability * 100).toFixed(0)}%</p>
                     </div>
                   </div>
 
                   {inputs.debts.length > 0 && (
-                    <div className="bg-red-500/5 border border-red-500/10 p-4 rounded-xl space-y-3">
-                      <div className="flex items-center gap-3 border-b border-red-500/10 pb-2">
-                        <CreditCard className="text-red-400" size={20} />
-                        <h4 className="text-sm font-semibold text-red-400">Active Debts</h4>
+                    <div className="bg-[#D91222]/5 border border-[#D91222]/15 p-4 rounded-xl space-y-3">
+                      <div className="flex items-center gap-3 border-b border-[#D91222]/15 pb-2">
+                        <CreditCard className="text-[#D91222]" size={20} />
+                        <h4 className="text-sm font-semibold text-[#D91222]">Active Debts</h4>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {inputs.debts.map((debt) => (
                           <div key={debt.id} className="flex justify-between items-center">
                             <div>
-                              <p className="text-xs font-medium text-zinc-300">{debt.name}</p>
-                              <p className="text-[10px] text-zinc-500">
+                              <p className="text-xs font-medium text-[#44474D]">{debt.name}</p>
+                              <p className="text-[10px] text-[#A2A3A5]">
                                 {formatCurrency(debt.principal)} @ {(debt.interestRate * 100).toFixed(1)}%
                               </p>
                             </div>
                             <div className="text-right">
-                              <p className="text-xs font-mono text-red-400">{formatCurrency(debt.monthlyPayment)}/mo</p>
+                              <p className="text-xs font-mono text-[#D91222]">{formatCurrency(debt.monthlyPayment)}/mo</p>
                             </div>
                           </div>
                         ))}
                       </div>
-                      <div className="pt-2 border-t border-red-500/10 flex justify-between items-center">
-                        <span className="text-[10px] text-zinc-500 uppercase">Total Monthly Commitment</span>
-                        <span className="text-sm font-bold text-red-400">
+                      <div className="pt-2 border-t border-[#D91222]/15 flex justify-between items-center">
+                        <span className="text-[10px] text-[#A2A3A5] uppercase">Total Monthly Commitment</span>
+                        <span className="text-sm font-bold text-[#D91222]">
                           {formatCurrency(inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0))}
                         </span>
                       </div>
@@ -545,15 +547,15 @@ export default function App() {
                   )}
 
                   <TimelineChart data={deterministicData} />
-                  <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 flex items-start gap-4">
-                    <div className="p-2 bg-indigo-500/10 rounded-lg">
-                      <Info className="text-indigo-400" size={20} />
+                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] flex items-start gap-4">
+                    <div className="p-2 bg-[#307EF2]/10 rounded-lg">
+                      <Info className="text-[#307EF2]" size={20} />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold mb-1">Understanding the Curve</h3>
-                      <p className="text-sm text-zinc-400 leading-relaxed">
+                      <p className="text-sm text-[#727579] leading-relaxed">
                         The solid green area represents your nominal net worth. The dashed indigo line shows your 
-                        <span className="text-indigo-400 font-medium"> inflation-adjusted</span> net worth, 
+                        <span className="text-[#307EF2] font-medium"> inflation-adjusted</span> net worth, 
                         representing today's purchasing power. Notice how compounding accelerates in the final 15 years.
                       </p>
                     </div>
@@ -563,8 +565,8 @@ export default function App() {
 
               {activeTab === "allocation" && (
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                  <div className="xl:col-span-4 bg-zinc-900/50 p-6 rounded-2xl border border-white/5">
-                    <h3 className="text-lg font-bold mb-4 text-zinc-100">Portfolio Composition</h3>
+                  <div className="xl:col-span-4 bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                    <h3 className="text-lg font-bold mb-4 text-[#212121]">Portfolio Composition</h3>
                     <AllocationPie allocation={inputs.allocation} />
                       <div className="space-y-3 mt-4">
                         {[
@@ -577,15 +579,15 @@ export default function App() {
                           <div key={asset.key} className="flex justify-between items-center">
                             <div className="flex items-center gap-2">
                               <div className={`w-3 h-3 rounded-full ${asset.color}`} />
-                              <span className="text-sm text-zinc-300">{asset.label}</span>
+                              <span className="text-sm text-[#44474D]">{asset.label}</span>
                             </div>
-                            <span className="text-sm font-mono text-zinc-100">{(inputs.allocation[asset.key as keyof AssetAllocation] * 100).toFixed(0)}%</span>
+                            <span className="text-sm font-mono text-[#212121]">{(inputs.allocation[asset.key as keyof AssetAllocation] * 100).toFixed(0)}%</span>
                           </div>
                         ))}
                       </div>
                   </div>
-                  <div className="xl:col-span-8 bg-zinc-900/50 p-6 rounded-2xl border border-white/5 space-y-6">
-                    <h3 className="text-lg font-bold text-zinc-100">Risk/Return Profile</h3>
+                  <div className="xl:col-span-8 bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] space-y-6">
+                    <h3 className="text-lg font-bold text-[#212121]">Risk/Return Profile</h3>
                     <RiskProfile stats={portfolioStats} allocation={inputs.allocation} />
                   </div>
                 </div>
@@ -593,41 +595,41 @@ export default function App() {
 
               {activeTab === "risk" && (
                 <div className="space-y-6">
-                  <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5">
+                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
                     <div className="flex justify-between items-center mb-6">
                       <div>
                         <h3 className="text-lg font-bold">Monte Carlo Simulation</h3>
-                        <p className="text-sm text-zinc-500">1,000 randomized market paths based on current allocation.</p>
+                        <p className="text-sm text-[#A2A3A5]">1,000 randomized market paths based on current allocation.</p>
                       </div>
                       <div className="text-right">
-                        <p className="text-xs text-zinc-500 uppercase">Retirement Success</p>
-                        <p className={`text-2xl font-bold ${mcResult.successProbability > 0.8 ? 'text-emerald-400' : mcResult.successProbability > 0.5 ? 'text-amber-400' : 'text-red-400'}`}>
+                        <p className="text-xs text-[#A2A3A5] uppercase">Retirement Success</p>
+                        <p className={`text-2xl font-bold ${mcResult.successProbability > 0.8 ? 'text-[#0EB35B]' : mcResult.successProbability > 0.5 ? 'text-[#FFB300]' : 'text-[#D91222]'}`}>
                           {(mcResult.successProbability * 100).toFixed(0)}%
                         </p>
                       </div>
                     </div>
                     <MonteCarloChart result={mcResult} currentAge={inputs.currentAge} />
-                    <div className="mt-4 p-4 bg-zinc-950/50 rounded-xl border border-white/5">
-                      <p className="text-xs text-zinc-400 leading-relaxed">
-                        <span className="text-emerald-400 font-semibold">Success Definition:</span> We define success as reaching a net worth of at least <span className="text-white font-mono">25x your final annual expenses</span> at the point of retirement. 
+                    <div className="mt-4 p-4 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6]">
+                      <p className="text-xs text-[#727579] leading-relaxed">
+                        <span className="text-[#0EB35B] font-semibold">Success Definition:</span> We define success as reaching a net worth of at least <span className="text-[#212121] font-mono font-bold">25x your final annual expenses</span> at the point of retirement. 
                         This is based on the "4% Rule," which suggests you can safely withdraw 4% of your nest egg annually to sustain your lifestyle.
                       </p>
                     </div>
                   </div>
-                  <div className="bg-zinc-900/50 p-6 rounded-2xl border border-white/5 space-y-4">
-                    <h4 className="text-sm font-semibold text-zinc-200">Understanding the "Spaghetti" Chart</h4>
-                    <p className="text-sm text-zinc-400 leading-relaxed">
+                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] space-y-4">
+                    <h4 className="text-sm font-semibold text-[#212121]">Understanding the "Spaghetti" Chart</h4>
+                    <p className="text-sm text-[#727579] leading-relaxed">
                       The thin lines represent 50 individual market paths. Even with the same strategy, 
                       market luck (sequence of returns) can lead to vastly different outcomes. 
-                      A <span className="text-emerald-400">90% success rate</span> means that in 900 out of 1,000 simulated universes, 
+                      A <span className="text-[#0EB35B]">90% success rate</span> means that in 900 out of 1,000 simulated universes, 
                       you reached your retirement goal.
                     </p>
                   </div>
-                  <div className="bg-red-500/5 border border-red-500/10 p-6 rounded-2xl flex items-start gap-4">
-                    <ShieldAlert className="text-red-400 shrink-0" size={24} />
+                  <div className="bg-[#D91222]/5 border border-[#D91222]/15 p-6 rounded-2xl flex items-start gap-4">
+                    <ShieldAlert className="text-[#D91222] shrink-0" size={24} />
                     <div>
-                      <h4 className="text-sm font-semibold text-red-400 mb-1">Sequence of Returns Risk</h4>
-                      <p className="text-sm text-zinc-400 leading-relaxed">
+                      <h4 className="text-sm font-semibold text-[#D91222] mb-1">Sequence of Returns Risk</h4>
+                      <p className="text-sm text-[#727579] leading-relaxed">
                         The red line represents the bottom 10% of outcomes. Even with a high "average" return, a market crash 
                         early in your journey can significantly derail long-term results. This is why diversification is 
                         critical as you approach retirement.
