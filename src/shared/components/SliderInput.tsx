@@ -16,6 +16,7 @@ interface SliderInputProps {
   className?: string;
   format?: (value: number) => string;
   subLabel?: string;
+  inputWidth?: string;
 }
 
 export default function SliderInput({
@@ -33,7 +34,8 @@ export default function SliderInput({
   valueText,
   className = "",
   format,
-  subLabel
+  subLabel,
+  inputWidth = "w-24"
 }: SliderInputProps) {
   const displayValue = format ? format(value) : (valueText || value);
   return (
@@ -59,7 +61,7 @@ export default function SliderInput({
                 onChange(Math.max(0, numericValue));
               }
             }}
-            className="w-24 text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono"
+            className={`${inputWidth} text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono`}
           />
         ) : (
           <span className="text-xs font-semibold text-[#D91222] font-mono">

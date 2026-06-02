@@ -136,7 +136,7 @@ export default function App() {
               animate={{ opacity: 1, x: 0, width: "auto" }}
               exit={{ opacity: 0, x: -20, width: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="lg:col-span-4 space-y-6 overflow-hidden"
+              className="lg:col-span-4 lg:sticky lg:top-6 lg:max-h-[calc(100vh-100px)] overflow-y-auto pr-2 scrollbar-thin space-y-6"
             >
               <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
                 <button 
@@ -157,61 +157,70 @@ export default function App() {
                       exit={{ height: 0, opacity: 0 }}
                       className="px-6 pb-6 space-y-4"
                     >
-                      <SliderInput 
-                        label="Current Age" 
-                        value={inputs.currentAge} 
-                        min={18} max={60} 
-                        onChange={(v) => setInputs({ ...inputs, currentAge: v })} 
-                      />
-                      <SliderInput 
-                        label="Retirement Age" 
-                        value={inputs.retirementAge} 
-                        min={inputs.currentAge + 1} max={80} 
-                        onChange={(v) => setInputs({ ...inputs, retirementAge: v })} 
-                      />
-                      <SliderInput 
-                        label="Monthly Salary" 
-                        value={inputs.monthlySalary} 
-                        min={2000} max={30000} step={100}
-                        format={formatCurrency}
-                        onChange={(v) => setInputs({ ...inputs, monthlySalary: v })} 
-                        subLabel={`(${formatCurrency(inputs.monthlySalary * 12)} / yr)`}
-                        tooltip="Your gross monthly income before taxes."
-                      />
-                      <SliderInput 
-                        label="Savings Rate" 
-                        value={inputs.savingsRate * 100} 
-                        min={0} max={70} 
-                        format={(v) => `${Math.round(v)}%`}
-                        onChange={(v) => setInputs({ ...inputs, savingsRate: v / 100 })} 
-                        subLabel={`(${formatCurrency(inputs.monthlySalary * inputs.savingsRate)} / mo)`}
-                        tooltip="Percentage of your monthly salary saved and invested."
-                      />
+                      <div className="grid grid-cols-2 gap-4">
+                        <SliderInput 
+                          label="Current Age" 
+                          value={inputs.currentAge} 
+                          min={18} max={60} 
+                          inputWidth="w-14" 
+                          onChange={(v) => setInputs({ ...inputs, currentAge: v })} 
+                        />
+                        <SliderInput 
+                          label="Retirement Age" 
+                          value={inputs.retirementAge} 
+                          min={inputs.currentAge + 1} max={80} 
+                          inputWidth="w-14" 
+                          onChange={(v) => setInputs({ ...inputs, retirementAge: v })} 
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <SliderInput 
+                          label="Monthly Salary" 
+                          value={inputs.monthlySalary} 
+                          min={2000} max={30000} step={100}
+                          format={formatCurrency}
+                          onChange={(v) => setInputs({ ...inputs, monthlySalary: v })} 
+                          subLabel={`(${formatCurrency(inputs.monthlySalary * 12)}/yr)`}
+                          tooltip="Your gross monthly income before taxes."
+                        />
+                        <SliderInput 
+                          label="Savings Rate" 
+                          value={inputs.savingsRate * 100} 
+                          min={0} max={70} 
+                          format={(v) => `${Math.round(v)}%`}
+                          onChange={(v) => setInputs({ ...inputs, savingsRate: v / 100 })} 
+                          subLabel={`(${formatCurrency(inputs.monthlySalary * inputs.savingsRate)}/mo)`}
+                          tooltip="Percentage of your monthly salary saved and invested."
+                        />
+                      </div>
                       
-                      <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] flex justify-between items-center mb-4">
+                      <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] flex justify-between items-center mb-1">
                         <div className="flex flex-col">
                           <span className="text-[10px] text-[#A2A3A5] uppercase font-semibold">Monthly Expenses</span>
-                          <span className="text-xs text-[#727579] italic">Derived from salary & savings</span>
+                          <span className="text-[11px] text-[#727579] italic leading-none mt-0.5">Derived from savings</span>
                         </div>
-                        <span className="text-sm font-mono text-[#FFB300]">
+                        <span className="text-sm font-mono text-[#FFB300] font-bold">
                           {formatCurrency(inputs.monthlySalary * (1 - inputs.savingsRate))}
                         </span>
                       </div>
 
-                      <SliderInput 
-                        label="Initial Savings" 
-                        value={inputs.initialSavings} 
-                        min={0} max={500000} step={1000}
-                        format={formatCurrency}
-                        onChange={(v) => setInputs({ ...inputs, initialSavings: v })} 
-                      />
-                      <SliderInput 
-                        label="Salary Growth (%)" 
-                        value={inputs.salaryGrowth * 100} 
-                        min={0} max={10} step={0.1}
-                        format={(v) => `${v}%`}
-                        onChange={(v) => setInputs({ ...inputs, salaryGrowth: v / 100 })} 
-                      />
+                      <div className="grid grid-cols-2 gap-4">
+                        <SliderInput 
+                          label="Initial Savings" 
+                          value={inputs.initialSavings} 
+                          min={0} max={500000} step={1000}
+                          format={formatCurrency}
+                          onChange={(v) => setInputs({ ...inputs, initialSavings: v })} 
+                        />
+                        <SliderInput 
+                          label="Salary Growth (%)" 
+                          value={inputs.salaryGrowth * 100} 
+                          min={0} max={10} step={0.1}
+                          format={(v) => `${v}%`}
+                          onChange={(v) => setInputs({ ...inputs, salaryGrowth: v / 100 })} 
+                        />
+                      </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
