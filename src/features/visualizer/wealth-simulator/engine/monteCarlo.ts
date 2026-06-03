@@ -49,26 +49,18 @@ export function runMonteCarlo(
   for (let i = 0; i < iterations; i++) {
     const path: number[] = [];
     let currentBalance = inputs.initialSavings;
+    let currentCashBalance = inputs.initialCash;
     let currentMonthlySalary = inputs.monthlySalary;
+    let currentMonthlyContribution = inputs.monthlyContribution;
 
     // Year 0
     const initialDebt = getDebtBalanceAt(0);
-    path.push(currentBalance - initialDebt);
+    path.push(currentBalance + currentCashBalance - initialDebt);
 
     for (let year = 1; year <= yearsToSimulate; year++) {
-      const totalAnnualSurplus = (currentMonthlySalary * inputs.savingsRate) * 12;
-      
-      // Calculate total debt payments for this year (handling partial years)
-      let totalAnnualDebtPayments = 0;
-      for (const debt of inputs.debts) {
-        const totalMonths = debt.termYears * 12;
-        const startMonths = (year - 1) * 12;
-        
-        if (startMonths < totalMonths) {
-          const monthsPaidThisYear = Math.min(12, totalMonths - startMonths);
-          totalAnnualDebtPayments += debt.monthlyPayment * monthsPaidThisYear;
-        }
-      }
+      const totalAnnualSaved = (currentMonthlySalary * inputs.savingsRate) * 12;
+      const investmentContribution = Math.min(currentMonthlyContribution * 12, totalAnnualSaved);
+      const cashContribution = totalAnnualSaved - investmentContribution;
 
       // Growth logic: 
       const borrowingRate = 0.06;
@@ -82,13 +74,15 @@ export function runMonteCarlo(
         growth = currentBalance * borrowingRate;
       }
       
-      const investmentContribution = totalAnnualSurplus - totalAnnualDebtPayments;
       currentBalance = currentBalance + growth + investmentContribution;
+      currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + cashContribution;
+      
       const endOfYearDebt = getDebtBalanceAt(year * 12);
 
-      path.push(currentBalance - endOfYearDebt);
+      path.push(currentBalance + currentCashBalance - endOfYearDebt);
       
       currentMonthlySalary *= (1 + inputs.salaryGrowth);
+      currentMonthlyContribution *= (1 + inputs.salaryGrowth);
     }
     paths.push(path);
   }

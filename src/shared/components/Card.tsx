@@ -3,6 +3,7 @@ import React from 'react';
 interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   glass?: boolean;
+  className?: string;
 }
 
 export default function Card({ children, glass = true, className = "", ...props }: CardProps) {

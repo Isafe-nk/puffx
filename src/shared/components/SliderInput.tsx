@@ -7,7 +7,7 @@ interface SliderInputProps {
   onChange: (value: number) => void;
   min: number;
   max: number;
-  step: number;
+  step?: number;
   leftLabel?: React.ReactNode;
   rightLabel?: React.ReactNode;
   centerLabel?: React.ReactNode;
@@ -16,6 +16,8 @@ interface SliderInputProps {
   className?: string;
   format?: (value: number) => string;
   subLabel?: string;
+  inputWidth?: string;
+  layout?: 'stacked' | 'inline';
 }
 
 export default function SliderInput({
@@ -25,7 +27,7 @@ export default function SliderInput({
   onChange,
   min,
   max,
-  step,
+  step = 1,
   leftLabel,
   rightLabel,
   centerLabel,
@@ -33,9 +35,70 @@ export default function SliderInput({
   valueText,
   className = "",
   format,
-  subLabel
+  subLabel,
+  inputWidth = "w-24",
+  layout = "stacked"
 }: SliderInputProps) {
   const displayValue = format ? format(value) : (valueText || value);
+
+  if (layout === "inline") {
+    return (
+      <div className={`flex items-center gap-3 py-1 ${className}`}>
+        {/* Label Column */}
+        <div className="w-24 shrink-0 flex flex-col justify-center">
+          <span className="text-xs font-semibold text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5 select-none w-max">
+            {label}
+            {tooltip && (
+              <span className="absolute left-0 bottom-full mb-2 w-56 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
+                {tooltip}
+                <span className="absolute top-full left-4 border-4 border-transparent border-t-white"></span>
+              </span>
+            )}
+          </span>
+          {subLabel && (
+            <span className="text-[9px] font-mono text-[#A2A3A5] mt-0.5 leading-none">
+              {subLabel}
+            </span>
+          )}
+        </div>
+
+        {/* Slider Column */}
+        <div className="flex-1 flex items-center min-w-0">
+          <input
+            type="range"
+            min={min}
+            max={max}
+            step={step}
+            value={value}
+            onChange={(e) => onChange(parseFloat(e.target.value))}
+            className="w-full h-1.5 bg-[#E8E8E9] rounded-lg appearance-none cursor-pointer accent-[#D91222]"
+          />
+        </div>
+
+        {/* Value Box Column */}
+        <div className={`${inputWidth} shrink-0`}>
+          {editable ? (
+            <input
+              type="text"
+              value={displayValue}
+              onChange={(e) => {
+                const numericValue = parseInt(e.target.value.replace(/[^0-9.-]+/g,""));
+                if (!isNaN(numericValue)) {
+                  onChange(Math.max(0, numericValue));
+                }
+              }}
+              className="w-full text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1 rounded-xl text-[#212121] font-mono"
+            />
+          ) : (
+            <div className="w-full text-right text-xs font-semibold text-[#D91222] font-mono py-1">
+              {displayValue}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={className}>
       <div className="flex justify-between items-center mb-1.5">
@@ -59,7 +122,7 @@ export default function SliderInput({
                 onChange(Math.max(0, numericValue));
               }
             }}
-            className="w-24 text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono"
+            className={`${inputWidth} text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono`}
           />
         ) : (
           <span className="text-xs font-semibold text-[#D91222] font-mono">

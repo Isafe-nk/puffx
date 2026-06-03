@@ -29,7 +29,7 @@ interface PerformanceChartsProps {
   finalTerB: number;
 }
 
-const CustomTooltip = ({ active, payload, label, showInUsd }: TooltipProps<number, string> & { showInUsd: boolean }) => {
+const CustomTooltip = ({ active, payload, label, showInUsd }: any) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white border border-[#E6E6E6] rounded-xl p-3 shadow-sm z-50">
