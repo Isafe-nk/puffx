@@ -65,7 +65,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
       const data = payload[0].payload;
       return (
         <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[220px] glass-card">
-          <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-white/5 pb-2">
+          <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
             Scenario Analysis
           </p>
           <div className="space-y-3">
@@ -80,7 +80,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
               </span>
             </div>
           </div>
-          <div className="mt-3 pt-2 border-t border-white/5">
+          <div className="mt-3 pt-2 border-t border-[#E6E6E6]">
             <p className="text-[10px] text-[#A2A3A5] italic leading-relaxed">
               {data.desc}: Based on your current asset allocation of {formatPercent(allocation.equity)} equity and {formatPercent(allocation.fixedIncome)} fixed income.
             </p>
@@ -96,7 +96,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
       {/* Risk Level Header */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Risk Classification Card */}
-        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-white/5 shadow-xl flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
+        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
           {/* Accent decoration */}
           <div className={`absolute top-0 left-0 w-1 h-full ${
             stats.riskLevel === 'Aggressive' ? 'bg-gradient-to-b from-red-500 to-red-600' : 
@@ -140,7 +140,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
         </div>
         
         {/* Sharpe Ratio Card */}
-        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-white/5 shadow-xl flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
+        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-indigo-600" />
           
           <div className="flex items-start justify-between gap-1">
@@ -171,7 +171,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
         </div>
 
         {/* Annual Volatility Card */}
-        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-white/5 shadow-xl flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
+        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-500 to-amber-600" />
           
           <div className="flex items-start justify-between gap-1">
@@ -198,7 +198,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
         </div>
 
         {/* Diversification Benefit Card */}
-        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-white/5 shadow-xl flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
+        <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
           <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-emerald-500 to-emerald-600" />
           
           <div className="flex items-start justify-between gap-1">
@@ -245,7 +245,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
         <div className="h-[250px] w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={scenarios} layout="vertical" margin={{ left: 40, right: 40 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" horizontal={true} vertical={false} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#F3F3F4" horizontal={true} vertical={false} />
               <XAxis 
                 type="number" 
                 domain={[-0.6, 0.6]} 
@@ -254,13 +254,13 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
               <YAxis 
                 dataKey="name" 
                 type="category" 
-                stroke="#666" 
+                stroke="#A2A3A5" 
                 fontSize={12} 
                 tickLine={false} 
                 axisLine={false}
               />
               <Tooltip content={<CustomStressTooltip />} />
-              <ReferenceLine x={0} stroke="#444" />
+              <ReferenceLine x={0} stroke="#D0D1D2" />
               <Bar dataKey="impact" radius={[0, 4, 4, 0]}>
                 {scenarios.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />

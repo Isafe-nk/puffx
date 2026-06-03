@@ -84,16 +84,16 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
     <div className="h-[450px] w-full bg-[#FAFBFC] p-4 rounded-2xl border border-[#E8E8E9]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#F3F3F4" vertical={false} />
           <XAxis
             dataKey="age"
-            stroke="#666"
+            stroke="#A2A3A5"
             fontSize={12}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
-            stroke="#666"
+            stroke="#A2A3A5"
             fontSize={12}
             tickLine={false}
             axisLine={false}
@@ -107,7 +107,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
               <div className="flex flex-wrap justify-center gap-6 mt-4">
                 {[
                   { label: "Optimistic (Top 10%)", color: "#10b981" },
-                  { label: "Median (Typical)", color: "#fff" },
+                  { label: "Median (Typical)", color: "#307EF2" },
                   { label: "Pessimistic (Bottom 10%)", color: "#ef4444" }
                 ].map((item, index) => (
                   <div key={`item-${index}`} className="flex items-center gap-2">
@@ -127,9 +127,9 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
               key={`path-${idx}`}
               type="monotone"
               dataKey={`path_${idx}`}
-              stroke="#F3F3F4"
+              stroke="#A2A3A5"
               strokeWidth={0.5}
-              strokeOpacity={0.2}
+              strokeOpacity={0.12}
               dot={false}
               activeDot={false}
               connectNulls
@@ -149,7 +149,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
           <Line
             type="monotone"
             dataKey="p50"
-            stroke="#fff"
+            stroke="#307EF2"
             strokeWidth={3}
             dot={false}
             name="Median (Typical)"

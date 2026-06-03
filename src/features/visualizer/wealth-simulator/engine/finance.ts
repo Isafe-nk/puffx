@@ -89,7 +89,9 @@ export function runDeterministicSimulation(
   const yearsToSimulate = inputs.retirementAge - inputs.currentAge;
   
   let currentInvestmentBalance = inputs.initialSavings;
+  let currentCashBalance = inputs.initialCash;
   let currentMonthlySalary = inputs.monthlySalary;
+  let currentMonthlyContribution = inputs.monthlyContribution;
   
   const { expectedReturn } = getPortfolioStats(inputs.allocation, assumptions);
 
@@ -118,33 +120,26 @@ export function runDeterministicSimulation(
     year: 0,
     age: inputs.currentAge,
     salary: currentMonthlySalary * 12,
-    savingsContribution: 0,
+    totalSaved: 0,
+    investmentContribution: 0,
+    cashContribution: 0,
     investmentBalance: currentInvestmentBalance,
+    cashBalance: currentCashBalance,
     debtBalance: initialDebt,
-    netWorth: currentInvestmentBalance - initialDebt,
+    netWorth: currentInvestmentBalance + currentCashBalance - initialDebt,
     expenses: initialExpenses,
     isRetired: false,
-    inflationAdjustedNetWorth: currentInvestmentBalance - initialDebt,
+    inflationAdjustedNetWorth: currentInvestmentBalance + currentCashBalance - initialDebt,
   });
 
   for (let year = 1; year <= yearsToSimulate; year++) {
     const age = inputs.currentAge + year;
     const currentExpenses = (currentMonthlySalary * (1 - inputs.savingsRate)) * 12;
 
-    // Calculate total debt payments for this year (handling partial years)
-    let totalAnnualDebtPayments = 0;
-    for (const debt of inputs.debts) {
-      const totalMonths = debt.termYears * 12;
-      const startMonths = (year - 1) * 12;
-      
-      if (startMonths < totalMonths) {
-        const monthsPaidThisYear = Math.min(12, totalMonths - startMonths);
-        totalAnnualDebtPayments += debt.monthlyPayment * monthsPaidThisYear;
-      }
-    }
-
-    const totalAnnualSurplus = (currentMonthlySalary * inputs.savingsRate) * 12;
-    const investmentContribution = totalAnnualSurplus - totalAnnualDebtPayments;
+    const totalAnnualSaved = (currentMonthlySalary * inputs.savingsRate) * 12;
+    // Investment contribution is capped at total savings
+    const investmentContribution = Math.min(currentMonthlyContribution * 12, totalAnnualSaved);
+    const cashContribution = totalAnnualSaved - investmentContribution;
     
     const borrowingRate = 0.06;
     const growth = currentInvestmentBalance > 0 
@@ -152,17 +147,22 @@ export function runDeterministicSimulation(
       : currentInvestmentBalance * borrowingRate;
 
     currentInvestmentBalance = currentInvestmentBalance + growth + investmentContribution;
+    currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + cashContribution;
+    
     const endOfYearDebt = getDebtBalanceAt(year * 12);
 
-    const netWorth = currentInvestmentBalance - endOfYearDebt;
+    const netWorth = currentInvestmentBalance + currentCashBalance - endOfYearDebt;
     const inflationFactor = Math.pow(1 + assumptions.inflation, year);
 
     timeline.push({
       year,
       age,
       salary: currentMonthlySalary * 12,
-      savingsContribution: investmentContribution,
+      totalSaved: totalAnnualSaved,
+      investmentContribution,
+      cashContribution,
       investmentBalance: currentInvestmentBalance,
+      cashBalance: currentCashBalance,
       debtBalance: endOfYearDebt,
       netWorth,
       expenses: currentExpenses,
@@ -171,6 +171,7 @@ export function runDeterministicSimulation(
     });
 
     currentMonthlySalary *= (1 + inputs.salaryGrowth);
+    currentMonthlyContribution *= (1 + inputs.salaryGrowth);
   }
 
   return timeline;
@@ -178,7 +179,7 @@ export function runDeterministicSimulation(
 
 export function auditFinancialHealth(inputs: UserInputs): FinancialHealth {
   const monthlyExpenses = inputs.monthlySalary * (1 - inputs.savingsRate);
-  const emergencyFundMonths = inputs.initialSavings / monthlyExpenses;
+  const emergencyFundMonths = inputs.initialCash / (monthlyExpenses || 1);
   
   let emergencyFundStatus: 'danger' | 'warning' | 'good' = 'danger';
   if (emergencyFundMonths >= 6) emergencyFundStatus = 'good';

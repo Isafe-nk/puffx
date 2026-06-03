@@ -39,8 +39,10 @@ export interface UserInputs {
   retirementAge: number;
   monthlySalary: number;
   salaryGrowth: number;
-  savingsRate: number; // 0 to 1
-  initialSavings: number;
+  savingsRate: number; // Represents total unspent lifestyle %
+  monthlyContribution: number; // Actual dollar amount invested
+  initialSavings: number; // Starting portfolio balance
+  initialCash: number; // Starting cash buffer
   allocation: AssetAllocation;
   debts: DebtProfile[];
 }
@@ -49,8 +51,11 @@ export interface SimulationYear {
   year: number;
   age: number;
   salary: number;
-  savingsContribution: number;
+  totalSaved: number;
+  investmentContribution: number;
+  cashContribution: number;
   investmentBalance: number;
+  cashBalance: number;
   debtBalance: number;
   netWorth: number;
   expenses: number;

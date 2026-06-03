@@ -249,16 +249,16 @@ export const DebtVsInvestingLab: React.FC = () => {
                       <stop offset="95%" stopColor="#D91222" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#F3F3F4" vertical={false} />
                   <XAxis 
                     dataKey="year" 
-                    stroke="#666" 
+                    stroke="#A2A3A5" 
                     fontSize={12} 
                     tickLine={false} 
                     axisLine={false}
                   />
                   <YAxis 
-                    stroke="#666" 
+                    stroke="#A2A3A5" 
                     fontSize={12} 
                     tickLine={false} 
                     axisLine={false} 

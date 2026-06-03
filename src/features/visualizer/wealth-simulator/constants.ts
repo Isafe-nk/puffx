@@ -24,8 +24,10 @@ export const INITIAL_USER_INPUTS: UserInputs = {
   retirementAge: 60,
   monthlySalary: 3000,
   salaryGrowth: 0.04,
-  savingsRate: 0.15, // 15% of monthly salary
+  savingsRate: 0.20, // 20% of monthly salary
+  monthlyContribution: 500, // $500/mo invested
   initialSavings: 5000,
+  initialCash: 10000,
   allocation: {
     equity: 0.6,
     fixedIncome: 0.2,

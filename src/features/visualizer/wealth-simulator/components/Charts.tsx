@@ -76,16 +76,16 @@ export const TimelineChart: React.FC<{ data: SimulationYear[] }> = ({ data }) =>
               <stop offset="95%" stopColor="#0EB35B" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#F3F3F4" vertical={false} />
           <XAxis
             dataKey="age"
-            stroke="#666"
+            stroke="#A2A3A5"
             fontSize={12}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
-            stroke="#666"
+            stroke="#A2A3A5"
             fontSize={12}
             tickLine={false}
             axisLine={false}
@@ -149,8 +149,8 @@ export const AllocationPie: React.FC<{ allocation: AssetAllocation }> = ({ alloc
             ))}
           </Pie>
           <Tooltip
-            contentStyle={{ backgroundColor: "#18181b", border: "1px solid #3f3f46", borderRadius: "8px" }}
-            itemStyle={{ color: "#fff" }}
+            contentStyle={{ backgroundColor: "#fff", border: "1px solid #E6E6E6", borderRadius: "12px", boxShadow: "0 1px 3px rgba(0,0,0,0.08)" }}
+            itemStyle={{ color: "#212121" }}
             formatter={(value: number) => [`${(value * 100).toFixed(0)}%`, "Allocation"]}
           />
         </PieChart>
