@@ -130,28 +130,33 @@ export default function App() {
   const finalInflationAdjusted = deterministicData[deterministicData.length - 1]?.inflationAdjustedNetWorth || 0;
 
   return (
-    <div className="w-full bg-[#FAFBFC] text-[#212121] font-sans selection:bg-[#0EB35B]/30 rounded-xl shadow-sm ring-1 ring-[#E8E8E9]">
-      {/* Top Bar inside component */}
-      <div className="px-6 py-4 flex justify-between items-center border-b border-[#E6E6E6] bg-white rounded-t-xl">
-        <h2 className="text-lg font-bold flex items-center gap-2 font-display"><TrendingUp size={20} className="text-[#D91222]" /> Wealth Simulator</h2>
-        <div className="flex items-center gap-6 text-sm font-medium text-[#727579]">
-          <div className="flex flex-col items-end hidden sm:flex">
-            <span className="text-[10px] text-[#A2A3A5] uppercase tracking-wider font-bold">Projected Net Worth</span>
-            <span className="text-[#212121] font-mono font-bold text-base">{formatCurrency(finalNetWorth)}</span>
+    <div className="w-full">
+      {/* Top Premium Status Navigation */}
+      <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <h2 className="text-xl font-bold flex items-center gap-2 font-display">
+            <TrendingUp size={20} className="text-[#D91222]" /> 
+            Wealth Simulator
+          </h2>
+          <div className="flex items-center gap-6 text-sm font-medium text-[#727579]">
+            <div className="flex flex-col items-end hidden sm:flex">
+              <span className="text-[10px] text-[#A2A3A5] uppercase tracking-wider font-bold">Projected Net Worth</span>
+              <span className="text-[#212121] font-mono font-bold text-base">{formatCurrency(finalNetWorth)}</span>
+            </div>
+            <button
+              onClick={() => setShowSidebar(!showSidebar)}
+              className={`p-1.5 rounded-lg transition-all flex items-center gap-2 border ${showSidebar
+                ? "bg-white border-[#E6E6E6] text-[#727579] hover:text-[#212121] hover:border-[#D0D1D2] shadow-sm"
+                : "bg-[#D91222] border-[#D91222] text-white hover:bg-[#C01A2F] shadow-sm"
+                }`}
+            >
+              {showSidebar ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
+            </button>
           </div>
-          <button
-            onClick={() => setShowSidebar(!showSidebar)}
-            className={`p-1.5 rounded-lg transition-all flex items-center gap-2 border ${showSidebar
-              ? "bg-white border-[#E6E6E6] text-[#727579] hover:text-[#212121] hover:border-[#D0D1D2] shadow-sm"
-              : "bg-[#D91222] border-[#D91222] text-white hover:bg-[#C01A2F] shadow-sm"
-              }`}
-          >
-            {showSidebar ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
-          </button>
         </div>
-      </div>
+      </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Sidebar Inputs */}
         <AnimatePresence>
           {showSidebar && (
