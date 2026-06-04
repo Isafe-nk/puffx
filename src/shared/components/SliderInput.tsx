@@ -17,6 +17,7 @@ interface SliderInputProps {
   format?: (value: number) => string;
   subLabel?: string;
   inputWidth?: string;
+  labelWidth?: string;
   layout?: 'stacked' | 'inline';
 }
 
@@ -37,6 +38,7 @@ export default function SliderInput({
   format,
   subLabel,
   inputWidth = "w-24",
+  labelWidth = "w-24",
   layout = "stacked"
 }: SliderInputProps) {
   const displayValue = format ? format(value) : (valueText || value);
@@ -45,8 +47,10 @@ export default function SliderInput({
     return (
       <div className={`flex items-center gap-3 py-1 ${className}`}>
         {/* Label Column */}
-        <div className="w-24 shrink-0 flex flex-col justify-center">
-          <span className="text-xs font-semibold text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5 select-none w-max">
+        <div className={`${labelWidth} shrink-0 flex flex-col justify-center`}>
+          <span className={`text-xs font-semibold text-[#727579] transition-all relative group py-0.5 select-none ${
+            tooltip ? 'border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help' : ''
+          }`}>
             {label}
             {tooltip && (
               <span className="absolute left-0 bottom-full mb-2 w-56 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
@@ -102,7 +106,9 @@ export default function SliderInput({
   return (
     <div className={className}>
       <div className="flex justify-between items-center mb-1.5">
-        <span className="text-xs font-medium text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5">
+        <span className={`text-xs font-medium text-[#727579] transition-all relative group py-0.5 ${
+          tooltip ? 'border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help' : ''
+        }`}>
           {label}
           {tooltip && (
             <span className="absolute left-0 bottom-full mb-2 w-56 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
