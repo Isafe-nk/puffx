@@ -192,8 +192,8 @@ export default function App() {
                         value={inputs.currentAge}
                         min={18} max={60}
                         layout="inline"
-                        inputWidth="w-16"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, currentAge: v })}
                       />
                       <SliderInput
@@ -201,8 +201,8 @@ export default function App() {
                         value={inputs.retirementAge}
                         min={inputs.currentAge + 1} max={80}
                         layout="inline"
-                        inputWidth="w-16"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, retirementAge: v })}
                       />
                       <SliderInput
@@ -211,8 +211,8 @@ export default function App() {
                         min={2000} max={30000} step={100}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, monthlySalary: v })}
                         subLabel={`(${formatCurrency(inputs.monthlySalary * 12)}/yr)`}
                         tooltip="Your gross monthly income before taxes."
@@ -223,8 +223,8 @@ export default function App() {
                         min={0} max={70}
                         format={(v) => `${Math.round(v)}%`}
                         layout="inline"
-                        inputWidth="w-16"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => {
                           const newRate = v / 100;
                           // Ensure contribution doesn't exceed new savings
@@ -240,8 +240,8 @@ export default function App() {
                         min={0} max={inputs.monthlySalary * inputs.savingsRate} step={50}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, monthlyContribution: v })}
                         tooltip="The exact amount deployed into your portfolio each month."
                       />
@@ -274,8 +274,8 @@ export default function App() {
                         min={0} max={500000} step={1000}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, initialSavings: v })}
                       />
                       <SliderInput
@@ -284,8 +284,8 @@ export default function App() {
                         min={0} max={200000} step={1000}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, initialCash: v })}
                       />
                       <SliderInput
@@ -294,8 +294,8 @@ export default function App() {
                         min={0} max={10} step={0.1}
                         format={(v) => `${v}%`}
                         layout="inline"
-                        inputWidth="w-16"
-                        labelWidth="w-40"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, salaryGrowth: v / 100 })}
                       />
 
@@ -415,7 +415,8 @@ export default function App() {
                             min={0} max={200000} step={1000}
                             format={formatCurrency}
                             layout="inline"
-                            inputWidth="w-24"
+                            labelWidth={100}
+                            inputWidth={90}
                             onChange={(v) => updateDebt(idx, { principal: v })}
                           />
                           <SliderInput
@@ -424,7 +425,8 @@ export default function App() {
                             min={0} max={20} step={0.1}
                             format={(v) => `${v}%`}
                             layout="inline"
-                            inputWidth="w-16"
+                            labelWidth={100}
+                            inputWidth={90}
                             onChange={(v) => updateDebt(idx, { interestRate: v / 100 })}
                           />
                           <SliderInput
@@ -433,7 +435,8 @@ export default function App() {
                             min={1} max={35} step={1}
                             format={(v) => `${v} Years`}
                             layout="inline"
-                            inputWidth="w-20"
+                            labelWidth={100}
+                            inputWidth={90}
                             onChange={(v) => updateDebt(idx, { termYears: v })}
                           />
 

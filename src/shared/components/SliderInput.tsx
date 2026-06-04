@@ -16,8 +16,8 @@ interface SliderInputProps {
   className?: string;
   format?: (value: number) => string;
   subLabel?: string;
-  inputWidth?: string;
-  labelWidth?: string;
+  inputWidth?: string | number;
+  labelWidth?: string | number;
   layout?: 'stacked' | 'inline';
 }
 
@@ -43,11 +43,28 @@ export default function SliderInput({
 }: SliderInputProps) {
   const displayValue = format ? format(value) : (valueText || value);
 
+  // Helper to parse dynamic width props into style objects and class names
+  const parseWidth = (width: string | number) => {
+    if (typeof width === 'number') {
+      return { style: { width: `${width}px` }, className: "" };
+    }
+    if (width.includes('px') || width.includes('rem') || width.includes('%') || width.includes('em')) {
+      return { style: { width }, className: "" };
+    }
+    return { style: {}, className: width };
+  };
+
+  const labelParsed = parseWidth(labelWidth);
+  const inputParsed = parseWidth(inputWidth);
+
   if (layout === "inline") {
     return (
       <div className={`flex items-center gap-3 py-1 ${className}`}>
         {/* Label Column */}
-        <div className={`${labelWidth} shrink-0 flex flex-col justify-center`}>
+        <div 
+          style={labelParsed.style} 
+          className={`${labelParsed.className} shrink-0 flex flex-col justify-center`}
+        >
           <span className={`text-xs font-semibold text-[#727579] transition-all relative group py-0.5 select-none ${
             tooltip ? 'border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help' : ''
           }`}>
@@ -80,7 +97,10 @@ export default function SliderInput({
         </div>
 
         {/* Value Box Column */}
-        <div className={`${inputWidth} shrink-0`}>
+        <div 
+          style={inputParsed.style} 
+          className={`${inputParsed.className} shrink-0`}
+        >
           {editable ? (
             <input
               type="text"
@@ -128,7 +148,8 @@ export default function SliderInput({
                 onChange(Math.max(0, numericValue));
               }
             }}
-            className={`${inputWidth} text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono`}
+            className={`${inputParsed.className} text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono`}
+            style={inputParsed.style}
           />
         ) : (
           <span className="text-xs font-semibold text-[#D91222] font-mono">
