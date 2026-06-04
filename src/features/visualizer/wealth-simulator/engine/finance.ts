@@ -4,6 +4,7 @@
  */
 
 import { AssetAllocation, MarketAssumptions, SimulationYear, UserInputs, FinancialHealth } from "./types";
+import { getDebtBalanceAt, getActiveMonthlyDebtPayments } from "./debtUtils";
 
 /**
  * Calculates the portfolio expected return and volatility based on allocation.
@@ -57,7 +58,7 @@ export function getPortfolioStats(
   const sharpeRatio = volatility > 0 ? (expectedReturn - riskFreeRate) / volatility : 0;
 
   let riskLevel = "Conservative";
-  if (volatility > 0.15) riskLevel = "Aggressive";
+  if (volatility >= 0.15) riskLevel = "Aggressive";
   else if (volatility > 0.10) riskLevel = "Moderate";
   else if (volatility > 0.05) riskLevel = "Balanced";
 
@@ -95,26 +96,11 @@ export function runDeterministicSimulation(
   
   const { expectedReturn } = getPortfolioStats(inputs.allocation, assumptions);
 
-  // Helper to calculate total debt balance at a specific point in time (months elapsed)
-  const getDebtBalanceAt = (months: number) => {
-    return inputs.debts.reduce((sum, debt) => {
-      const totalMonths = debt.termYears * 12;
-      if (totalMonths <= 0 || months >= totalMonths) return sum;
-      
-      const monthlyRate = debt.interestRate / 12;
-      if (monthlyRate === 0) {
-        return sum + (debt.principal * (totalMonths - months) / totalMonths);
-      } else {
-        const p1r_n = Math.pow(1 + monthlyRate, totalMonths);
-        const p1r_p = Math.pow(1 + monthlyRate, months);
-        return sum + (debt.principal * (p1r_n - p1r_p) / (p1r_n - 1));
-      }
-    }, 0);
-  };
-
   // Push Initial State (Year 0)
-  const initialDebt = getDebtBalanceAt(0);
-  const initialExpenses = (currentMonthlySalary * (1 - inputs.savingsRate)) * 12;
+  const initialDebt = getDebtBalanceAt(inputs.debts, 0);
+  const initialActiveDebtPayments = getActiveMonthlyDebtPayments(inputs.debts, 0);
+  const initialLifestyleBudget = currentMonthlySalary * (1 - inputs.savingsRate);
+  const initialExpenses = (initialLifestyleBudget + initialActiveDebtPayments) * 12;
   
   timeline.push({
     year: 0,
@@ -134,12 +120,24 @@ export function runDeterministicSimulation(
 
   for (let year = 1; year <= yearsToSimulate; year++) {
     const age = inputs.currentAge + year;
-    const currentExpenses = (currentMonthlySalary * (1 - inputs.savingsRate)) * 12;
+
+    // --- Cashflow Routing with Debt Overflow ---
+    const lifestyleBudget = currentMonthlySalary * (1 - inputs.savingsRate);
+    // Debt payments active at the START of this year
+    const activeDebtPayments = getActiveMonthlyDebtPayments(inputs.debts, (year - 1) * 12);
+    // If debt payments exceed lifestyle budget, overflow eats into savings
+    const debtOverflow = Math.max(0, activeDebtPayments - lifestyleBudget);
+    const annualDebtOverflow = debtOverflow * 12;
 
     const totalAnnualSaved = (currentMonthlySalary * inputs.savingsRate) * 12;
-    // Investment contribution is capped at total savings
-    const investmentContribution = Math.min(currentMonthlyContribution * 12, totalAnnualSaved);
-    const cashContribution = totalAnnualSaved - investmentContribution;
+    // Reduce effective savings by any debt overflow
+    const effectiveTotalSaved = Math.max(0, totalAnnualSaved - annualDebtOverflow);
+    // Investment contribution is capped at effective savings
+    const investmentContribution = Math.min(currentMonthlyContribution * 12, effectiveTotalSaved);
+    const cashContribution = effectiveTotalSaved - investmentContribution;
+
+    // Expenses now include lifestyle + debt payments (full picture)
+    const currentExpenses = (lifestyleBudget + activeDebtPayments) * 12;
     
     const borrowingRate = 0.06;
     const growth = currentInvestmentBalance > 0 
@@ -149,7 +147,7 @@ export function runDeterministicSimulation(
     currentInvestmentBalance = currentInvestmentBalance + growth + investmentContribution;
     currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + cashContribution;
     
-    const endOfYearDebt = getDebtBalanceAt(year * 12);
+    const endOfYearDebt = getDebtBalanceAt(inputs.debts, year * 12);
 
     const netWorth = currentInvestmentBalance + currentCashBalance - endOfYearDebt;
     const inflationFactor = Math.pow(1 + assumptions.inflation, year);
@@ -158,7 +156,7 @@ export function runDeterministicSimulation(
       year,
       age,
       salary: currentMonthlySalary * 12,
-      totalSaved: totalAnnualSaved,
+      totalSaved: effectiveTotalSaved,
       investmentContribution,
       cashContribution,
       investmentBalance: currentInvestmentBalance,
@@ -178,14 +176,16 @@ export function runDeterministicSimulation(
 }
 
 export function auditFinancialHealth(inputs: UserInputs): FinancialHealth {
-  const monthlyExpenses = inputs.monthlySalary * (1 - inputs.savingsRate);
-  const emergencyFundMonths = inputs.initialCash / (monthlyExpenses || 1);
+  const monthlyLifestyle = inputs.monthlySalary * (1 - inputs.savingsRate);
+  const totalMonthlyDebtPayments = inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0);
+  const totalMonthlyOutflow = monthlyLifestyle + totalMonthlyDebtPayments;
+  const emergencyFundMonths = inputs.initialCash / (totalMonthlyOutflow || 1);
   
   let emergencyFundStatus: 'danger' | 'warning' | 'good' = 'danger';
   if (emergencyFundMonths >= 6) emergencyFundStatus = 'good';
   else if (emergencyFundMonths >= 3) emergencyFundStatus = 'warning';
 
-  const totalMonthlyDebt = inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0);
+  const totalMonthlyDebt = totalMonthlyDebtPayments;
   const monthlyGrossIncome = inputs.monthlySalary || 1; // Avoid division by zero
   const debtToIncomeRatio = totalMonthlyDebt / monthlyGrossIncome;
 
