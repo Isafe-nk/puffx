@@ -263,13 +263,43 @@ export default function App() {
                         </div>
                       )}
 
+                      {inputs.savingsRate === 0 && (
+                        <div className="p-3 bg-[#FFB300]/5 rounded-xl border border-[#FFB300]/15 flex items-start gap-2">
+                          <span className="text-[#FFB300] text-sm mt-0.5">⚠️</span>
+                          <span className="text-[11px] text-[#FFB300] leading-relaxed">
+                            Savings rate is 0% — no contributions will be made to your portfolio or cash buffer, regardless of your contribution setting.
+                          </span>
+                        </div>
+                      )}
+
+                      {(() => {
+                        const totalDebtPayments = inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0);
+                        const lifestyleBudget = inputs.monthlySalary * (1 - inputs.savingsRate);
+                        const debtOverflow = Math.max(0, totalDebtPayments - lifestyleBudget);
+                        return debtOverflow > 0 ? (
+                          <div className="p-3 bg-[#D91222]/5 rounded-xl border border-[#D91222]/15 flex items-start gap-2">
+                            <span className="text-[#D91222] text-sm mt-0.5">⚠️</span>
+                            <div className="flex flex-col">
+                              <span className="text-[11px] text-[#D91222] font-semibold leading-relaxed">
+                                Debt overflow: {formatCurrency(debtOverflow)}/mo eating into savings
+                              </span>
+                              <span className="text-[10px] text-[#D91222]/70 leading-relaxed mt-0.5">
+                                Your debt payments ({formatCurrency(totalDebtPayments)}/mo) exceed your lifestyle budget ({formatCurrency(lifestyleBudget)}/mo). The excess reduces your effective savings.
+                              </span>
+                            </div>
+                          </div>
+                        ) : null;
+                      })()}
+
                       <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] flex justify-between items-center mb-1">
                         <div className="flex flex-col">
                           <span className="text-[10px] text-[#A2A3A5] uppercase font-semibold">Monthly Expenses</span>
-                          <span className="text-[11px] text-[#727579] italic leading-none mt-0.5">Derived from savings</span>
+                          <span className="text-[11px] text-[#727579] italic leading-none mt-0.5">
+                            {inputs.debts.length > 0 ? 'Lifestyle + Debt payments' : 'Derived from savings'}
+                          </span>
                         </div>
                         <span className="text-sm font-mono text-[#FFB300] font-bold">
-                          {formatCurrency(inputs.monthlySalary * (1 - inputs.savingsRate))}
+                          {formatCurrency(inputs.monthlySalary * (1 - inputs.savingsRate) + inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0))}
                         </span>
                       </div>
 
