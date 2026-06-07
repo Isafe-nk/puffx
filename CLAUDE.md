@@ -41,9 +41,17 @@ Code is organized by **feature** under `src/features/visualizer/`. The two visua
 
 `src/shared/` holds cross-feature primitives (`components/`: Card, KpiCard, SliderInput, AlertBanner; `utils/format.ts`). `src/navigation/navConfig.ts` defines the side-nav items — note several (Portfolio, Analysis, Market, Settings) have **no routes yet**; only Visualizer is wired up.
 
+## Agent setup
+
+This repo is worked by **both Antigravity and Claude Code**. Agent skills live in `.agents/skills/` (Antigravity's location) — `git-workflow` and `spec-driven-development`. Claude Code does **not** auto-load skills from `.agents/`, so treat those files as required reading referenced from here:
+- **`.agents/skills/git-workflow/SKILL.md`** — mandatory git workflow (branch-first, `--no-ff`, never merge to `main` without approval, one branch = one logical change). See the Git workflow section below.
+- **`.agents/skills/spec-driven-development/SKILL.md`** — anchor feature/bug work to `spec.md` before coding: read the spec, plan, implement, then verify against it.
+
+`.claude/settings.json` holds a permissions allowlist (safe read-only + `npm run lint`/`build`/`dev`, git read ops). Consequential git ops (`commit`, `merge`, `push`, `reset`, `rebase`) and `rm` are intentionally **not** allowlisted — they still prompt.
+
 ## Conventions
 
-- The spec/README contain the authoritative math. `spec.md` is more current than `README.md` (e.g. the LSE commission breakdown and bid-ask spread model live in `spec.md` and the code, not the README). When changing engine math, keep `spec.md` in sync.
+- The spec/README contain the authoritative math. `spec.md` is more current than `README.md` (e.g. the LSE commission breakdown and bid-ask spread model live in `spec.md` and the code, not the README). When changing engine math, keep `spec.md` in sync. Per the spec-driven-development skill, read `spec.md` before implementing engine changes.
 - `GEMINI_API_KEY` / `APP_URL` env vars exist (`.env.example`) for the AI Studio hosting environment but **Gemini is not currently used anywhere in `src/`**. Don't wire it in unless asked.
 
 ## Git workflow (enforced — see `.agents/skills/git-workflow/SKILL.md`)
