@@ -3,8 +3,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { AssetAllocation, MarketAssumptions, MonteCarloResult, UserInputs } from "./types";
+import { MarketAssumptions, MonteCarloResult, UserInputs } from "./types";
 import { getPortfolioStats } from "./finance";
+import { getDebtBalanceAt, getActiveMonthlyDebtPayments } from "./debtUtils";
 
 /**
  * Box-Muller transform for generating normally distributed random numbers.
@@ -26,22 +27,6 @@ export function runMonteCarlo(
   
   const paths: number[][] = [];
 
-  // Helper to calculate total debt balance at a specific point in time (months elapsed)
-  const getDebtBalanceAt = (months: number) => {
-    return inputs.debts.reduce((sum, debt) => {
-      const totalMonths = debt.termYears * 12;
-      if (totalMonths <= 0 || months >= totalMonths) return sum;
-      const monthlyRate = debt.interestRate / 12;
-      if (monthlyRate === 0) {
-        return sum + (debt.principal * (totalMonths - months) / totalMonths);
-      } else {
-        const p1r_n = Math.pow(1 + monthlyRate, totalMonths);
-        const p1r_p = Math.pow(1 + monthlyRate, months);
-        return sum + (debt.principal * (p1r_n - p1r_p) / (p1r_n - 1));
-      }
-    }, 0);
-  };
-
   const finalSalary = (inputs.monthlySalary * 12) * Math.pow(1 + inputs.salaryGrowth, yearsToSimulate);
   const annualExpenses = (finalSalary * (1 - inputs.savingsRate));
   const retirementGoal = annualExpenses * 25;
@@ -54,13 +39,20 @@ export function runMonteCarlo(
     let currentMonthlyContribution = inputs.monthlyContribution;
 
     // Year 0
-    const initialDebt = getDebtBalanceAt(0);
+    const initialDebt = getDebtBalanceAt(inputs.debts, 0);
     path.push(currentBalance + currentCashBalance - initialDebt);
 
     for (let year = 1; year <= yearsToSimulate; year++) {
+      // --- Cashflow Routing with Debt Overflow ---
+      const lifestyleBudget = currentMonthlySalary * (1 - inputs.savingsRate);
+      const activeDebtPayments = getActiveMonthlyDebtPayments(inputs.debts, (year - 1) * 12);
+      const debtOverflow = Math.max(0, activeDebtPayments - lifestyleBudget);
+      const annualDebtOverflow = debtOverflow * 12;
+
       const totalAnnualSaved = (currentMonthlySalary * inputs.savingsRate) * 12;
-      const investmentContribution = Math.min(currentMonthlyContribution * 12, totalAnnualSaved);
-      const cashContribution = totalAnnualSaved - investmentContribution;
+      const effectiveTotalSaved = Math.max(0, totalAnnualSaved - annualDebtOverflow);
+      const investmentContribution = Math.min(currentMonthlyContribution * 12, effectiveTotalSaved);
+      const cashContribution = effectiveTotalSaved - investmentContribution;
 
       // Growth logic: 
       const borrowingRate = 0.06;
@@ -77,7 +69,7 @@ export function runMonteCarlo(
       currentBalance = currentBalance + growth + investmentContribution;
       currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + cashContribution;
       
-      const endOfYearDebt = getDebtBalanceAt(year * 12);
+      const endOfYearDebt = getDebtBalanceAt(inputs.debts, year * 12);
 
       path.push(currentBalance + currentCashBalance - endOfYearDebt);
       

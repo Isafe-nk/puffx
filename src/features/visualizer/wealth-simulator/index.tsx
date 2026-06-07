@@ -130,28 +130,33 @@ export default function App() {
   const finalInflationAdjusted = deterministicData[deterministicData.length - 1]?.inflationAdjustedNetWorth || 0;
 
   return (
-    <div className="w-full bg-[#FAFBFC] text-[#212121] font-sans selection:bg-[#0EB35B]/30 rounded-xl shadow-sm ring-1 ring-[#E8E8E9]">
-      {/* Top Bar inside component */}
-      <div className="px-6 py-4 flex justify-between items-center border-b border-[#E6E6E6] bg-white rounded-t-xl">
-        <h2 className="text-lg font-bold flex items-center gap-2 font-display"><TrendingUp size={20} className="text-[#D91222]" /> Wealth Simulator</h2>
-        <div className="flex items-center gap-6 text-sm font-medium text-[#727579]">
-          <div className="flex flex-col items-end hidden sm:flex">
-            <span className="text-[10px] text-[#A2A3A5] uppercase tracking-wider font-bold">Projected Net Worth</span>
-            <span className="text-[#212121] font-mono font-bold text-base">{formatCurrency(finalNetWorth)}</span>
+    <div className="w-full">
+      {/* Top Premium Status Navigation */}
+      <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <h2 className="text-xl font-bold flex items-center gap-2 font-display">
+            <TrendingUp size={20} className="text-[#D91222]" /> 
+            Wealth Simulator
+          </h2>
+          <div className="flex items-center gap-6 text-sm font-medium text-[#727579]">
+            <div className="flex flex-col items-end hidden sm:flex">
+              <span className="text-[10px] text-[#A2A3A5] uppercase tracking-wider font-bold">Projected Net Worth</span>
+              <span className="text-[#212121] font-mono font-bold text-base">{formatCurrency(finalNetWorth)}</span>
+            </div>
+            <button
+              onClick={() => setShowSidebar(!showSidebar)}
+              className={`p-1.5 rounded-lg transition-all flex items-center gap-2 border ${showSidebar
+                ? "bg-white border-[#E6E6E6] text-[#727579] hover:text-[#212121] hover:border-[#D0D1D2] shadow-sm"
+                : "bg-[#D91222] border-[#D91222] text-white hover:bg-[#C01A2F] shadow-sm"
+                }`}
+            >
+              {showSidebar ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
+            </button>
           </div>
-          <button
-            onClick={() => setShowSidebar(!showSidebar)}
-            className={`p-1.5 rounded-lg transition-all flex items-center gap-2 border ${showSidebar
-              ? "bg-white border-[#E6E6E6] text-[#727579] hover:text-[#212121] hover:border-[#D0D1D2] shadow-sm"
-              : "bg-[#D91222] border-[#D91222] text-white hover:bg-[#C01A2F] shadow-sm"
-              }`}
-          >
-            {showSidebar ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
-          </button>
         </div>
-      </div>
+      </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Sidebar Inputs */}
         <AnimatePresence>
           {showSidebar && (
@@ -192,7 +197,8 @@ export default function App() {
                         value={inputs.currentAge}
                         min={18} max={60}
                         layout="inline"
-                        inputWidth="w-16"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, currentAge: v })}
                       />
                       <SliderInput
@@ -200,7 +206,8 @@ export default function App() {
                         value={inputs.retirementAge}
                         min={inputs.currentAge + 1} max={80}
                         layout="inline"
-                        inputWidth="w-16"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, retirementAge: v })}
                       />
                       <SliderInput
@@ -209,7 +216,8 @@ export default function App() {
                         min={2000} max={30000} step={100}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, monthlySalary: v })}
                         subLabel={`(${formatCurrency(inputs.monthlySalary * 12)}/yr)`}
                         tooltip="Your gross monthly income before taxes."
@@ -220,7 +228,8 @@ export default function App() {
                         min={0} max={70}
                         format={(v) => `${Math.round(v)}%`}
                         layout="inline"
-                        inputWidth="w-16"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => {
                           const newRate = v / 100;
                           // Ensure contribution doesn't exceed new savings
@@ -236,7 +245,8 @@ export default function App() {
                         min={0} max={inputs.monthlySalary * inputs.savingsRate} step={50}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, monthlyContribution: v })}
                         tooltip="The exact amount deployed into your portfolio each month."
                       />
@@ -253,13 +263,43 @@ export default function App() {
                         </div>
                       )}
 
+                      {inputs.savingsRate === 0 && (
+                        <div className="p-3 bg-[#FFB300]/5 rounded-xl border border-[#FFB300]/15 flex items-start gap-2">
+                          <span className="text-[#FFB300] text-sm mt-0.5">⚠️</span>
+                          <span className="text-[11px] text-[#FFB300] leading-relaxed">
+                            Savings rate is 0% — no contributions will be made to your portfolio or cash buffer, regardless of your contribution setting.
+                          </span>
+                        </div>
+                      )}
+
+                      {(() => {
+                        const totalDebtPayments = inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0);
+                        const lifestyleBudget = inputs.monthlySalary * (1 - inputs.savingsRate);
+                        const debtOverflow = Math.max(0, totalDebtPayments - lifestyleBudget);
+                        return debtOverflow > 0 ? (
+                          <div className="p-3 bg-[#D91222]/5 rounded-xl border border-[#D91222]/15 flex items-start gap-2">
+                            <span className="text-[#D91222] text-sm mt-0.5">⚠️</span>
+                            <div className="flex flex-col">
+                              <span className="text-[11px] text-[#D91222] font-semibold leading-relaxed">
+                                Debt overflow: {formatCurrency(debtOverflow)}/mo eating into savings
+                              </span>
+                              <span className="text-[10px] text-[#D91222]/70 leading-relaxed mt-0.5">
+                                Your debt payments ({formatCurrency(totalDebtPayments)}/mo) exceed your lifestyle budget ({formatCurrency(lifestyleBudget)}/mo). The excess reduces your effective savings.
+                              </span>
+                            </div>
+                          </div>
+                        ) : null;
+                      })()}
+
                       <div className="p-3 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] flex justify-between items-center mb-1">
                         <div className="flex flex-col">
                           <span className="text-[10px] text-[#A2A3A5] uppercase font-semibold">Monthly Expenses</span>
-                          <span className="text-[11px] text-[#727579] italic leading-none mt-0.5">Derived from savings</span>
+                          <span className="text-[11px] text-[#727579] italic leading-none mt-0.5">
+                            {inputs.debts.length > 0 ? 'Lifestyle + Debt payments' : 'Derived from savings'}
+                          </span>
                         </div>
                         <span className="text-sm font-mono text-[#FFB300] font-bold">
-                          {formatCurrency(inputs.monthlySalary * (1 - inputs.savingsRate))}
+                          {formatCurrency(inputs.monthlySalary * (1 - inputs.savingsRate) + inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0))}
                         </span>
                       </div>
 
@@ -269,7 +309,8 @@ export default function App() {
                         min={0} max={500000} step={1000}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, initialSavings: v })}
                       />
                       <SliderInput
@@ -278,7 +319,8 @@ export default function App() {
                         min={0} max={200000} step={1000}
                         format={formatCurrency}
                         layout="inline"
-                        inputWidth="w-24"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, initialCash: v })}
                       />
                       <SliderInput
@@ -287,7 +329,8 @@ export default function App() {
                         min={0} max={10} step={0.1}
                         format={(v) => `${v}%`}
                         layout="inline"
-                        inputWidth="w-16"
+                        inputWidth={90}
+                        labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, salaryGrowth: v / 100 })}
                       />
 
@@ -407,7 +450,8 @@ export default function App() {
                             min={0} max={200000} step={1000}
                             format={formatCurrency}
                             layout="inline"
-                            inputWidth="w-24"
+                            labelWidth={100}
+                            inputWidth={90}
                             onChange={(v) => updateDebt(idx, { principal: v })}
                           />
                           <SliderInput
@@ -416,7 +460,8 @@ export default function App() {
                             min={0} max={20} step={0.1}
                             format={(v) => `${v}%`}
                             layout="inline"
-                            inputWidth="w-16"
+                            labelWidth={100}
+                            inputWidth={90}
                             onChange={(v) => updateDebt(idx, { interestRate: v / 100 })}
                           />
                           <SliderInput
@@ -425,7 +470,8 @@ export default function App() {
                             min={1} max={35} step={1}
                             format={(v) => `${v} Years`}
                             layout="inline"
-                            inputWidth="w-20"
+                            labelWidth={100}
+                            inputWidth={90}
                             onChange={(v) => updateDebt(idx, { termYears: v })}
                           />
 
@@ -605,26 +651,35 @@ export default function App() {
                     <div className="bg-[#D91222]/5 border border-[#D91222]/15 p-4 rounded-xl space-y-3">
                       <div className="flex items-center gap-3 border-b border-[#D91222]/15 pb-2">
                         <CreditCard className="text-[#D91222]" size={20} />
-                        <h4 className="text-sm font-semibold text-[#D91222]">Active Debts</h4>
+                        <h4 className="text-sm font-semibold text-[#D91222]">Debt Projection</h4>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {inputs.debts.map((debt) => (
-                          <div key={debt.id} className="flex justify-between items-center">
-                            <div>
-                              <p className="text-xs font-medium text-[#44474D]">{debt.name}</p>
-                              <p className="text-[10px] text-[#A2A3A5]">
-                                {formatCurrency(debt.principal)} @ {(debt.interestRate * 100).toFixed(1)}%
-                              </p>
+                        {inputs.debts.map((debt) => {
+                          const payoffAge = inputs.currentAge + debt.termYears;
+                          const carriesIntoRetirement = payoffAge > inputs.retirementAge;
+                          return (
+                            <div key={debt.id} className="flex justify-between items-center bg-white/50 p-2.5 rounded-lg border border-[#D91222]/10">
+                              <div>
+                                <p className="text-xs font-medium text-[#44474D] flex items-center gap-2">
+                                  {debt.name}
+                                  <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${carriesIntoRetirement ? 'bg-[#D91222]/10 text-[#D91222]' : 'bg-[#0EB35B]/10 text-[#0EB35B]'}`}>
+                                    Settles Age {payoffAge}
+                                  </span>
+                                </p>
+                                <p className="text-[10px] text-[#A2A3A5] mt-0.5">
+                                  {formatCurrency(debt.principal)} @ {(debt.interestRate * 100).toFixed(1)}% for {debt.termYears}y
+                                </p>
+                              </div>
+                              <div className="text-right flex flex-col justify-center">
+                                <p className="text-xs font-mono font-bold text-[#D91222]">{formatCurrency(debt.monthlyPayment)}<span className="text-[10px] font-normal text-[#A2A3A5]">/mo</span></p>
+                              </div>
                             </div>
-                            <div className="text-right">
-                              <p className="text-xs font-mono text-[#D91222]">{formatCurrency(debt.monthlyPayment)}/mo</p>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                       <div className="pt-2 border-t border-[#D91222]/15 flex justify-between items-center">
-                        <span className="text-[10px] text-[#A2A3A5] uppercase">Total Monthly Commitment</span>
-                        <span className="text-sm font-bold text-[#D91222]">
+                        <span className="text-[10px] text-[#D91222]/70 uppercase font-bold tracking-wider">Initial Monthly Commitment</span>
+                        <span className="text-sm font-mono font-bold text-[#D91222]">
                           {formatCurrency(inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0))}
                         </span>
                       </div>
