@@ -651,26 +651,35 @@ export default function App() {
                     <div className="bg-[#D91222]/5 border border-[#D91222]/15 p-4 rounded-xl space-y-3">
                       <div className="flex items-center gap-3 border-b border-[#D91222]/15 pb-2">
                         <CreditCard className="text-[#D91222]" size={20} />
-                        <h4 className="text-sm font-semibold text-[#D91222]">Active Debts</h4>
+                        <h4 className="text-sm font-semibold text-[#D91222]">Debt Projection</h4>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {inputs.debts.map((debt) => (
-                          <div key={debt.id} className="flex justify-between items-center">
-                            <div>
-                              <p className="text-xs font-medium text-[#44474D]">{debt.name}</p>
-                              <p className="text-[10px] text-[#A2A3A5]">
-                                {formatCurrency(debt.principal)} @ {(debt.interestRate * 100).toFixed(1)}%
-                              </p>
+                        {inputs.debts.map((debt) => {
+                          const payoffAge = inputs.currentAge + debt.termYears;
+                          const carriesIntoRetirement = payoffAge > inputs.retirementAge;
+                          return (
+                            <div key={debt.id} className="flex justify-between items-center bg-white/50 p-2.5 rounded-lg border border-[#D91222]/10">
+                              <div>
+                                <p className="text-xs font-medium text-[#44474D] flex items-center gap-2">
+                                  {debt.name}
+                                  <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${carriesIntoRetirement ? 'bg-[#D91222]/10 text-[#D91222]' : 'bg-[#0EB35B]/10 text-[#0EB35B]'}`}>
+                                    Settles Age {payoffAge}
+                                  </span>
+                                </p>
+                                <p className="text-[10px] text-[#A2A3A5] mt-0.5">
+                                  {formatCurrency(debt.principal)} @ {(debt.interestRate * 100).toFixed(1)}% for {debt.termYears}y
+                                </p>
+                              </div>
+                              <div className="text-right flex flex-col justify-center">
+                                <p className="text-xs font-mono font-bold text-[#D91222]">{formatCurrency(debt.monthlyPayment)}<span className="text-[10px] font-normal text-[#A2A3A5]">/mo</span></p>
+                              </div>
                             </div>
-                            <div className="text-right">
-                              <p className="text-xs font-mono text-[#D91222]">{formatCurrency(debt.monthlyPayment)}/mo</p>
-                            </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                       <div className="pt-2 border-t border-[#D91222]/15 flex justify-between items-center">
-                        <span className="text-[10px] text-[#A2A3A5] uppercase">Total Monthly Commitment</span>
-                        <span className="text-sm font-bold text-[#D91222]">
+                        <span className="text-[10px] text-[#D91222]/70 uppercase font-bold tracking-wider">Initial Monthly Commitment</span>
+                        <span className="text-sm font-mono font-bold text-[#D91222]">
                           {formatCurrency(inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0))}
                         </span>
                       </div>
