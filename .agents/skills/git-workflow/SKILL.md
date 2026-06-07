@@ -34,6 +34,18 @@ Every change — no matter how small — follows this sequence:
 ### Why `--no-ff`?
 Always merge with `--no-ff` (no fast-forward) to preserve branch history as a distinct rail in the git graph. This makes feature, fix, and chore work visually distinguishable by color in Git Graph tools.
 
+### One Branch = One Logical Change
+
+A branch is **disposable scaffolding for a single task**, not a long-lived home for an area of the code. Keep each branch to **one logical chunk of work**, then merge and delete it. Start a fresh branch when you start the next task.
+
+- **Do NOT** create standing per-feature branches (e.g. a permanent `etf-visualizer` or `wealth-simulator` branch). Features live as **folders on `main`** (`src/features/...`); the "area" is captured by the branch *name prefix* and the commit *scope*, never by a branch that never dies.
+- **Do NOT** let unrelated work accumulate on an open branch. If you're on a `feat/debt-overflow` branch and notice some slider polish to do, that polish is a **separate task** — finish and merge the debt work first, delete the branch, then cut a new `fix/slider-...` branch for the polish.
+- **Symptom you got it wrong:** the branch name no longer describes everything on it (e.g. a `debt-overflow` branch that also contains slider, layout, and engine commits). The individual commit messages may still be accurate, but the branch has outgrown its purpose.
+
+> **Rule of thumb:** finish the task → merge `--no-ff` → delete the branch → start a *new* branch for the next task. One branch should never span multiple unrelated tasks.
+
+This keeps the live branch list small (it reflects *work in progress*, not *everything that ever existed*) and the git graph readable as a sequence of single-purpose, well-named rails.
+
 ---
 
 ## 3. Branch Naming Convention
