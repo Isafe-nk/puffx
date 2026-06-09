@@ -47,6 +47,7 @@ export interface UserInputs {
   monthlyContribution: number; // Actual dollar amount invested
   initialSavings: number; // Starting portfolio balance
   initialCash: number; // Starting cash buffer
+  emergencyFundTargetMonths: number; // Cash buffer target, in months of essential expenses
   allocation: AssetAllocation;
   debts: DebtProfile[];
 }
@@ -57,7 +58,8 @@ export interface SimulationYear {
   salary: number;
   totalSaved: number;
   investmentContribution: number;
-  cashContribution: number;
+  cashContribution: number; // routed into the emergency buffer (capped by the moving target)
+  discretionarySpend: number; // surplus that leaks out as lifestyle/travel spend
   investmentBalance: number;
   cashBalance: number;
   debtBalance: number;
