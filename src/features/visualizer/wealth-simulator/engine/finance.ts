@@ -118,6 +118,7 @@ export function runDeterministicSimulation(
     totalSaved: 0,
     investmentContribution: 0,
     cashContribution: 0,
+    discretionarySpend: 0,
     investmentBalance: currentInvestmentBalance,
     cashBalance: currentCashBalance,
     debtBalance: initialDebt,
@@ -130,32 +131,31 @@ export function runDeterministicSimulation(
   for (let year = 1; year <= yearsToSimulate; year++) {
     const age = inputs.currentAge + year;
 
-    // --- Cashflow Routing with Debt Overflow ---
-    const lifestyleBudget = currentMonthlySalary * (1 - inputs.savingsRate);
+    // --- Cashflow Routing: Discretionary Leakage with Debt Overflow ---
     // Debt payments active at the START of this year
     const activeDebtPayments = getActiveMonthlyDebtPayments(inputs.debts, (year - 1) * 12);
-    // If debt payments exceed lifestyle budget, overflow eats into savings
-    const debtOverflow = Math.max(0, activeDebtPayments - lifestyleBudget);
-    const annualDebtOverflow = debtOverflow * 12;
+    const { effectiveTotalSaved, investmentContribution, bufferContribution, discretionarySpend } =
+      routeCashflow({
+        monthlySalary: currentMonthlySalary,
+        savingsRate: inputs.savingsRate,
+        monthlyContribution: currentMonthlyContribution,
+        activeMonthlyDebtPayments: activeDebtPayments,
+        currentCashBalance,
+        bufferTargetMonths: inputs.emergencyFundTargetMonths,
+      });
 
-    const totalAnnualSaved = (currentMonthlySalary * inputs.savingsRate) * 12;
-    // Reduce effective savings by any debt overflow
-    const effectiveTotalSaved = Math.max(0, totalAnnualSaved - annualDebtOverflow);
-    // Investment contribution is capped at effective savings
-    const investmentContribution = Math.min(currentMonthlyContribution * 12, effectiveTotalSaved);
-    const cashContribution = effectiveTotalSaved - investmentContribution;
+    // Expenses include lifestyle + debt payments (full picture)
+    const currentExpenses =
+      getEssentialMonthlyExpenses(currentMonthlySalary, inputs.savingsRate, activeDebtPayments) * 12;
 
-    // Expenses now include lifestyle + debt payments (full picture)
-    const currentExpenses = (lifestyleBudget + activeDebtPayments) * 12;
-    
     const borrowingRate = 0.06;
     const growth = currentInvestmentBalance > 0 
       ? currentInvestmentBalance * expectedReturn 
       : currentInvestmentBalance * borrowingRate;
 
     currentInvestmentBalance = currentInvestmentBalance + growth + investmentContribution;
-    currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + cashContribution;
-    
+    currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + bufferContribution;
+
     const endOfYearDebt = getDebtBalanceAt(inputs.debts, year * 12);
 
     const netWorth = currentInvestmentBalance + currentCashBalance - endOfYearDebt;
@@ -167,7 +167,8 @@ export function runDeterministicSimulation(
       salary: currentMonthlySalary * 12,
       totalSaved: effectiveTotalSaved,
       investmentContribution,
-      cashContribution,
+      cashContribution: bufferContribution,
+      discretionarySpend,
       investmentBalance: currentInvestmentBalance,
       cashBalance: currentCashBalance,
       debtBalance: endOfYearDebt,
@@ -198,6 +199,77 @@ export function getEssentialMonthlyExpenses(
 ): number {
   const lifestyleBudget = monthlySalary * (1 - savingsRate);
   return lifestyleBudget + monthlyDebtPayments;
+}
+
+export interface CashflowRouting {
+  effectiveTotalSaved: number; // annual savings capacity after debt overflow
+  investmentContribution: number; // annual, deployed into the Growth portfolio
+  bufferContribution: number; // annual, added to the Safety buffer (capped by the moving target)
+  discretionarySpend: number; // annual surplus that leaks out (lifestyle/travel) — leaves the sim
+  bufferTarget: number; // this period's target buffer balance (moves with expenses)
+}
+
+/**
+ * Routes one period's savings through the "Discretionary Leakage" waterfall:
+ *   1. Invest the chosen fixed contribution into the Growth portfolio.
+ *   2. Top up the Safety buffer toward its target (N months of essential expenses).
+ *   3. Whatever is left LEAKS — it is spent on lifestyle/travel, neither invested nor hoarded.
+ *
+ * The buffer target is a *moving* target: it is recomputed from current expenses each period, so
+ * a buffer that is "full" today must keep topping up as expenses grow. Pre-existing cash above the
+ * target is left untouched (already banked) — only new surplus leaks.
+ *
+ * Figures are annual to match the year-step simulation loops. Used by both the deterministic and
+ * Monte Carlo engines so their cashflow math cannot drift apart.
+ */
+export function routeCashflow(params: {
+  monthlySalary: number;
+  savingsRate: number;
+  monthlyContribution: number;
+  activeMonthlyDebtPayments: number;
+  currentCashBalance: number;
+  bufferTargetMonths: number;
+}): CashflowRouting {
+  const {
+    monthlySalary,
+    savingsRate,
+    monthlyContribution,
+    activeMonthlyDebtPayments,
+    currentCashBalance,
+    bufferTargetMonths,
+  } = params;
+
+  const lifestyleBudget = monthlySalary * (1 - savingsRate);
+  const essentialMonthly = getEssentialMonthlyExpenses(
+    monthlySalary,
+    savingsRate,
+    activeMonthlyDebtPayments
+  );
+  const bufferTarget = bufferTargetMonths * essentialMonthly;
+
+  // Debt service beyond the lifestyle budget eats into savings before anything else.
+  const debtOverflow = Math.max(0, activeMonthlyDebtPayments - lifestyleBudget);
+  const annualDebtOverflow = debtOverflow * 12;
+
+  const totalAnnualSaved = monthlySalary * savingsRate * 12;
+  const effectiveTotalSaved = Math.max(0, totalAnnualSaved - annualDebtOverflow);
+
+  // 1. Invest the fixed contribution (capped at what's actually available).
+  const investmentContribution = Math.min(monthlyContribution * 12, effectiveTotalSaved);
+  const uninvested = effectiveTotalSaved - investmentContribution;
+
+  // 2. Top up the buffer toward its (moving) target. 3. The rest leaks.
+  const bufferShortfall = Math.max(0, bufferTarget - currentCashBalance);
+  const bufferContribution = Math.min(uninvested, bufferShortfall);
+  const discretionarySpend = uninvested - bufferContribution;
+
+  return {
+    effectiveTotalSaved,
+    investmentContribution,
+    bufferContribution,
+    discretionarySpend,
+    bufferTarget,
+  };
 }
 
 export function auditFinancialHealth(inputs: UserInputs): FinancialHealth {

@@ -4,7 +4,7 @@
  */
 
 import { MarketAssumptions, MonteCarloResult, UserInputs } from "./types";
-import { getPortfolioStats } from "./finance";
+import { getPortfolioStats, routeCashflow } from "./finance";
 import { getDebtBalanceAt, getActiveMonthlyDebtPayments } from "./debtUtils";
 
 /**
@@ -43,18 +43,18 @@ export function runMonteCarlo(
     path.push(currentBalance + currentCashBalance - initialDebt);
 
     for (let year = 1; year <= yearsToSimulate; year++) {
-      // --- Cashflow Routing with Debt Overflow ---
-      const lifestyleBudget = currentMonthlySalary * (1 - inputs.savingsRate);
+      // --- Cashflow Routing: Discretionary Leakage with Debt Overflow (shared with finance.ts) ---
       const activeDebtPayments = getActiveMonthlyDebtPayments(inputs.debts, (year - 1) * 12);
-      const debtOverflow = Math.max(0, activeDebtPayments - lifestyleBudget);
-      const annualDebtOverflow = debtOverflow * 12;
+      const { investmentContribution, bufferContribution } = routeCashflow({
+        monthlySalary: currentMonthlySalary,
+        savingsRate: inputs.savingsRate,
+        monthlyContribution: currentMonthlyContribution,
+        activeMonthlyDebtPayments: activeDebtPayments,
+        currentCashBalance,
+        bufferTargetMonths: inputs.emergencyFundTargetMonths,
+      });
 
-      const totalAnnualSaved = (currentMonthlySalary * inputs.savingsRate) * 12;
-      const effectiveTotalSaved = Math.max(0, totalAnnualSaved - annualDebtOverflow);
-      const investmentContribution = Math.min(currentMonthlyContribution * 12, effectiveTotalSaved);
-      const cashContribution = effectiveTotalSaved - investmentContribution;
-
-      // Growth logic: 
+      // Growth logic:
       const borrowingRate = 0.06;
       let growth = 0;
       
@@ -67,7 +67,7 @@ export function runMonteCarlo(
       }
       
       currentBalance = currentBalance + growth + investmentContribution;
-      currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + cashContribution;
+      currentCashBalance = currentCashBalance * (1 + assumptions.cashReturn) + bufferContribution;
       
       const endOfYearDebt = getDebtBalanceAt(inputs.debts, year * 12);
 

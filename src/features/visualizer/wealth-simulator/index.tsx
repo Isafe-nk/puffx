@@ -30,7 +30,7 @@ import { TimelineChart, AllocationPie } from "./components/Charts";
 import { MonteCarloChart } from "./components/MonteCarloChart";
 import { DebtVsInvestingLab } from "./components/DebtVsInvestingLab";
 import { RiskProfile } from "./components/RiskProfile";
-import { runDeterministicSimulation, getPortfolioStats, calculateMonthlyPayment, auditFinancialHealth } from "./engine/finance";
+import { runDeterministicSimulation, getPortfolioStats, calculateMonthlyPayment, auditFinancialHealth, routeCashflow } from "./engine/finance";
 import { runMonteCarlo } from "./engine/monteCarlo";
 import { INITIAL_USER_INPUTS, DEFAULT_MARKET_ASSUMPTIONS } from "./constants";
 import { UserInputs, DebtProfile, AssetAllocation, FinancialHealth } from "./engine/types";
@@ -251,17 +251,47 @@ export default function App() {
                         tooltip="The exact amount deployed into your portfolio each month."
                       />
 
-                      {inputs.monthlySalary * inputs.savingsRate > inputs.monthlyContribution && (
-                        <div className="p-3 bg-[#307EF2]/5 rounded-xl border border-[#307EF2]/15 flex justify-between items-center mb-1">
-                          <div className="flex flex-col">
-                            <span className="text-[10px] text-[#307EF2] uppercase font-semibold">Uninvested Cash Flow</span>
-                            <span className="text-[11px] text-[#727579] italic leading-none mt-0.5">Added to Cash Buffer</span>
+                      {(() => {
+                        const totalDebtPayments = inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0);
+                        const { bufferContribution, discretionarySpend, bufferTarget } = routeCashflow({
+                          monthlySalary: inputs.monthlySalary,
+                          savingsRate: inputs.savingsRate,
+                          monthlyContribution: inputs.monthlyContribution,
+                          activeMonthlyDebtPayments: totalDebtPayments,
+                          currentCashBalance: inputs.initialCash,
+                          bufferTargetMonths: inputs.emergencyFundTargetMonths,
+                        });
+                        const toBufferMo = bufferContribution / 12;
+                        const leakMo = discretionarySpend / 12;
+                        if (toBufferMo + leakMo <= 0.005) return null;
+                        const filling = toBufferMo > 0.005;
+                        const leaking = leakMo > 0.005;
+                        return (
+                          <div className="p-3 bg-[#307EF2]/5 rounded-xl border border-[#307EF2]/15 space-y-1.5 mb-1">
+                            <div className="flex justify-between items-center">
+                              <span className="text-[10px] text-[#307EF2] uppercase font-semibold">Uninvested Cash Flow</span>
+                              <span className="text-sm font-mono text-[#307EF2] font-bold">{formatCurrency(toBufferMo + leakMo)}/mo</span>
+                            </div>
+                            {filling && (
+                              <div className="flex justify-between items-center text-[11px]">
+                                <span className="text-[#727579]">↳ Filling cash buffer</span>
+                                <span className="font-mono text-[#307EF2]">{formatCurrency(toBufferMo)}/mo</span>
+                              </div>
+                            )}
+                            {leaking && (
+                              <div className="flex justify-between items-center text-[11px]">
+                                <span className="text-[#727579]">↳ Discretionary / lifestyle spend</span>
+                                <span className="font-mono text-[#FFB300]">{formatCurrency(leakMo)}/mo</span>
+                              </div>
+                            )}
+                            <p className="text-[10px] text-[#A2A3A5] italic leading-relaxed pt-0.5">
+                              {leaking && !filling
+                                ? `Buffer is at its ${inputs.emergencyFundTargetMonths}-month target (${formatCurrency(bufferTarget)}). Surplus is spent, not hoarded.`
+                                : `Cash tops up toward a ${inputs.emergencyFundTargetMonths}-month buffer (${formatCurrency(bufferTarget)}); any excess is spent.`}
+                            </p>
                           </div>
-                          <span className="text-sm font-mono text-[#307EF2] font-bold">
-                            {formatCurrency((inputs.monthlySalary * inputs.savingsRate) - inputs.monthlyContribution)}/mo
-                          </span>
-                        </div>
-                      )}
+                        );
+                      })()}
 
                       {inputs.savingsRate === 0 && (
                         <div className="p-3 bg-[#FFB300]/5 rounded-xl border border-[#FFB300]/15 flex items-start gap-2">
@@ -322,6 +352,18 @@ export default function App() {
                         inputWidth={90}
                         labelWidth={150}
                         onChange={(v) => setInputs({ ...inputs, initialCash: v })}
+                      />
+                      <SliderInput
+                        label="Emergency Fund Target"
+                        value={inputs.emergencyFundTargetMonths}
+                        min={3} max={12} step={1}
+                        format={(v) => `${v} Months`}
+                        layout="inline"
+                        inputWidth={90}
+                        labelWidth={150}
+                        onChange={(v) => setInputs({ ...inputs, emergencyFundTargetMonths: v })}
+                        subLabel={`(${formatCurrency((inputs.monthlySalary * (1 - inputs.savingsRate) + inputs.debts.reduce((s, d) => s + d.monthlyPayment, 0)) * inputs.emergencyFundTargetMonths)} target)`}
+                        tooltip="Cash buffer target, in months of essential expenses (lifestyle + debt). Savings top up to this level; any surplus is spent, not hoarded or invested."
                       />
                       <SliderInput
                         label="Salary Growth"

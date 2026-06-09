@@ -28,6 +28,7 @@ export const INITIAL_USER_INPUTS: UserInputs = {
   monthlyContribution: 500, // $500/mo invested
   initialSavings: 5000,
   initialCash: 10000,
+  emergencyFundTargetMonths: 6,
   allocation: {
     equity: 0.7,
     fixedIncome: 0.2,
