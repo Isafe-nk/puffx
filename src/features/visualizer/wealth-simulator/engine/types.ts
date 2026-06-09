@@ -17,10 +17,14 @@ export interface MarketAssumptions {
   inflation: number;
 }
 
+/**
+ * Composition of the invested (Growth) portfolio only. Cash is deliberately excluded:
+ * it lives as the separate emergency buffer (Safety pool), not as a portfolio sleeve.
+ * Weights are expected to sum to 1; getPortfolioStats normalizes defensively.
+ */
 export interface AssetAllocation {
   equity: number;
   fixedIncome: number;
-  cash: number;
   realEstate: number;
   gold: number;
 }

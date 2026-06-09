@@ -46,13 +46,13 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
     },
     {
       name: "Flat Market",
-      impact: (allocation.equity * 0.02 + allocation.fixedIncome * 0.03 + allocation.realEstate * 0.01 + allocation.cash * 0.02 - allocation.gold * 0.02),
+      impact: (allocation.equity * 0.02 + allocation.fixedIncome * 0.03 + allocation.realEstate * 0.01 - allocation.gold * 0.02),
       color: "#6366f1",
       desc: "Sideways Year"
     },
     {
       name: "Bull Market",
-      impact: (allocation.equity * 0.25 + allocation.fixedIncome * 0.02 + allocation.realEstate * 0.15 + allocation.gold * 0.05 + allocation.cash * 0.02),
+      impact: (allocation.equity * 0.25 + allocation.fixedIncome * 0.02 + allocation.realEstate * 0.15 + allocation.gold * 0.05),
       color: "#0EB35B",
       desc: "Strong Growth"
     }
@@ -216,10 +216,9 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
           <div className="mt-4 flex items-baseline gap-1.5">
             <span className="text-xl font-black text-[#0EB35B] tracking-tight">
               {formatPercent(
-                (allocation.equity * 0.15 + 
-                 allocation.fixedIncome * 0.05 + 
-                 allocation.cash * 0.01 + 
-                 allocation.realEstate * 0.09 + 
+                (allocation.equity * 0.15 +
+                 allocation.fixedIncome * 0.05 +
+                 allocation.realEstate * 0.09 +
                  allocation.gold * 0.12) - stats.volatility
               )}
             </span>

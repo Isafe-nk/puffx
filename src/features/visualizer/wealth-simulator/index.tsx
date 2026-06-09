@@ -508,7 +508,6 @@ export default function App() {
                       {[
                         { key: 'equity', label: 'Equity (Stocks)', color: 'bg-emerald-500' },
                         { key: 'fixedIncome', label: 'Fixed Income (Bonds/Funds)', color: 'bg-indigo-500' },
-                        { key: 'cash', label: 'Cash (Savings/FD)', color: 'bg-amber-500' },
                         { key: 'realEstate', label: 'Real Estate (REITs)', color: 'bg-pink-500' },
                         { key: 'gold', label: 'Gold/Alternatives', color: 'bg-yellow-500' },
                       ].map((asset) => (
@@ -712,7 +711,6 @@ export default function App() {
                       {[
                         { key: 'equity', label: 'Equity', color: 'bg-emerald-500' },
                         { key: 'fixedIncome', label: 'Fixed Income', color: 'bg-indigo-500' },
-                        { key: 'cash', label: 'Cash', color: 'bg-amber-500' },
                         { key: 'realEstate', label: 'Real Estate', color: 'bg-pink-500' },
                         { key: 'gold', label: 'Gold', color: 'bg-yellow-500' },
                       ].map((asset) => (
