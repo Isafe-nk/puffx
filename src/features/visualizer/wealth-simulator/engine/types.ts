@@ -67,6 +67,7 @@ export interface FinancialHealth {
   emergencyFundStatus: 'danger' | 'warning' | 'good';
   emergencyFundMonths: number;
   debtToIncomeRatio: number;
+  debtToIncomeStatus: 'healthy' | 'caution' | 'high';
   savingsRateStatus: 'low' | 'healthy' | 'aggressive';
 }
 
