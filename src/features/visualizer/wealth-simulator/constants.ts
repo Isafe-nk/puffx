@@ -29,9 +29,8 @@ export const INITIAL_USER_INPUTS: UserInputs = {
   initialSavings: 5000,
   initialCash: 10000,
   allocation: {
-    equity: 0.6,
+    equity: 0.7,
     fixedIncome: 0.2,
-    cash: 0.1,
     realEstate: 0.05,
     gold: 0.05,
   },

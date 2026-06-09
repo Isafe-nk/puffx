@@ -128,7 +128,6 @@ export const AllocationPie: React.FC<{ allocation: AssetAllocation }> = ({ alloc
   const data = [
     { name: "Equity", value: allocation.equity, color: "#0EB35B" },
     { name: "Fixed Income", value: allocation.fixedIncome, color: "#6366f1" },
-    { name: "Cash", value: allocation.cash, color: "#f59e0b" },
     { name: "Real Estate", value: allocation.realEstate, color: "#ec4899" },
     { name: "Gold", value: allocation.gold, color: "#eab308" },
   ].filter(d => d.value > 0);

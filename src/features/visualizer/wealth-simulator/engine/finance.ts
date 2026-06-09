@@ -13,27 +13,36 @@ export function getPortfolioStats(
   allocation: AssetAllocation,
   assumptions: MarketAssumptions
 ) {
-  const expectedReturn =
-    allocation.equity * assumptions.equityReturn +
-    allocation.fixedIncome * assumptions.fixedIncomeReturn +
-    allocation.cash * assumptions.cashReturn +
-    allocation.realEstate * assumptions.realEstateReturn +
-    allocation.gold * assumptions.goldReturn;
-
-  // Asset correlation matrix (estimated historical averages)
-  const correlations: Record<string, Record<string, number>> = {
-    equity: { equity: 1.0, fixedIncome: 0.15, cash: 0.05, realEstate: 0.65, gold: -0.10 },
-    fixedIncome: { equity: 0.15, fixedIncome: 1.0, cash: 0.30, realEstate: 0.20, gold: 0.10 },
-    cash: { equity: 0.05, fixedIncome: 0.30, cash: 1.0, realEstate: 0.05, gold: 0.0 },
-    realEstate: { equity: 0.65, fixedIncome: 0.20, cash: 0.05, realEstate: 1.0, gold: 0.15 },
-    gold: { equity: -0.10, fixedIncome: 0.10, cash: 0.0, realEstate: 0.15, gold: 1.0 },
+  // Defensive normalization: stats are only meaningful if weights sum to 1. If the UI ever
+  // hands us a drifted allocation, renormalize so expected return and variance stay coherent.
+  const rawTotal =
+    allocation.equity + allocation.fixedIncome + allocation.realEstate + allocation.gold;
+  const norm = rawTotal > 0 ? rawTotal : 1;
+  const w: AssetAllocation = {
+    equity: allocation.equity / norm,
+    fixedIncome: allocation.fixedIncome / norm,
+    realEstate: allocation.realEstate / norm,
+    gold: allocation.gold / norm,
   };
 
-  const assets = ['equity', 'fixedIncome', 'cash', 'realEstate', 'gold'] as const;
+  const expectedReturn =
+    w.equity * assumptions.equityReturn +
+    w.fixedIncome * assumptions.fixedIncomeReturn +
+    w.realEstate * assumptions.realEstateReturn +
+    w.gold * assumptions.goldReturn;
+
+  // Asset correlation matrix (estimated historical averages) for the invested portfolio.
+  const correlations: Record<string, Record<string, number>> = {
+    equity: { equity: 1.0, fixedIncome: 0.15, realEstate: 0.65, gold: -0.10 },
+    fixedIncome: { equity: 0.15, fixedIncome: 1.0, realEstate: 0.20, gold: 0.10 },
+    realEstate: { equity: 0.65, fixedIncome: 0.20, realEstate: 1.0, gold: 0.15 },
+    gold: { equity: -0.10, fixedIncome: 0.10, realEstate: 0.15, gold: 1.0 },
+  };
+
+  const assets = ['equity', 'fixedIncome', 'realEstate', 'gold'] as const;
   const volatilities: Record<string, number> = {
     equity: assumptions.equityVolatility,
     fixedIncome: assumptions.fixedIncomeVolatility,
-    cash: assumptions.cashVolatility,
     realEstate: assumptions.realEstateVolatility,
     gold: assumptions.goldVolatility,
   };
@@ -42,8 +51,8 @@ export function getPortfolioStats(
   let variance = 0;
   assets.forEach((i) => {
     assets.forEach((j) => {
-      const weightI = allocation[i as keyof AssetAllocation];
-      const weightJ = allocation[j as keyof AssetAllocation];
+      const weightI = w[i as keyof AssetAllocation];
+      const weightJ = w[j as keyof AssetAllocation];
       const volI = volatilities[i];
       const volJ = volatilities[j];
       const corrIJ = correlations[i][j];
