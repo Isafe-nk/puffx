@@ -9,3 +9,11 @@ coverage/
 .agents/*
 !.agents/skills/
 .antigravity/
+
+# graphify: ignore machine-local artifacts (absolute paths, cache, cost log),
+# track only the portable knowledge-graph outputs
+graphify-out/*
+!graphify-out/graph.json
+!graphify-out/graph.html
+!graphify-out/GRAPH_REPORT.md
+!graphify-out/.graphify_labels.json
