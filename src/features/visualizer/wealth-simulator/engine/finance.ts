@@ -175,19 +175,42 @@ export function runDeterministicSimulation(
   return timeline;
 }
 
+/**
+ * Essential (non-discretionary) monthly expenses = lifestyle budget + active debt service.
+ *
+ * This is the single, authoritative definition of "expenses" in the wealth model. Both the
+ * Financial Health Audit's emergency-fund metric and the cash-buffer target are derived from
+ * it, so "N months of expenses" means the exact same ringgit figure everywhere.
+ */
+export function getEssentialMonthlyExpenses(
+  monthlySalary: number,
+  savingsRate: number,
+  monthlyDebtPayments: number
+): number {
+  const lifestyleBudget = monthlySalary * (1 - savingsRate);
+  return lifestyleBudget + monthlyDebtPayments;
+}
+
 export function auditFinancialHealth(inputs: UserInputs): FinancialHealth {
-  const monthlyLifestyle = inputs.monthlySalary * (1 - inputs.savingsRate);
   const totalMonthlyDebtPayments = inputs.debts.reduce((sum, d) => sum + d.monthlyPayment, 0);
-  const totalMonthlyOutflow = monthlyLifestyle + totalMonthlyDebtPayments;
+  const totalMonthlyOutflow = getEssentialMonthlyExpenses(
+    inputs.monthlySalary,
+    inputs.savingsRate,
+    totalMonthlyDebtPayments
+  );
   const emergencyFundMonths = inputs.initialCash / (totalMonthlyOutflow || 1);
-  
+
   let emergencyFundStatus: 'danger' | 'warning' | 'good' = 'danger';
   if (emergencyFundMonths >= 6) emergencyFundStatus = 'good';
   else if (emergencyFundMonths >= 3) emergencyFundStatus = 'warning';
 
-  const totalMonthlyDebt = totalMonthlyDebtPayments;
   const monthlyGrossIncome = inputs.monthlySalary || 1; // Avoid division by zero
-  const debtToIncomeRatio = totalMonthlyDebt / monthlyGrossIncome;
+  const debtToIncomeRatio = totalMonthlyDebtPayments / monthlyGrossIncome;
+
+  // Standard lending thresholds: <=36% healthy, 36-43% caution, >43% high (overstretched).
+  let debtToIncomeStatus: 'healthy' | 'caution' | 'high' = 'healthy';
+  if (debtToIncomeRatio > 0.43) debtToIncomeStatus = 'high';
+  else if (debtToIncomeRatio > 0.36) debtToIncomeStatus = 'caution';
 
   const savingsRate = inputs.savingsRate;
   let savingsRateStatus: 'low' | 'healthy' | 'aggressive' = 'low';
@@ -198,6 +221,7 @@ export function auditFinancialHealth(inputs: UserInputs): FinancialHealth {
     emergencyFundStatus,
     emergencyFundMonths,
     debtToIncomeRatio,
+    debtToIncomeStatus,
     savingsRateStatus
   };
 }

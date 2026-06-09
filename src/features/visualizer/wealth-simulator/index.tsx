@@ -371,7 +371,7 @@ export default function App() {
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-[#A2A3A5]">Debt-to-Income (DTI)</span>
-                          <span className={`text-xs font-bold ${(healthAudit.debtToIncomeRatio * 100) > 36 ? 'text-[#D91222]' : 'text-[#0EB35B]'}`}>
+                          <span className={`text-xs font-bold ${healthAudit.debtToIncomeStatus === 'high' ? 'text-[#D91222]' : healthAudit.debtToIncomeStatus === 'caution' ? 'text-[#FFB300]' : 'text-[#0EB35B]'}`}>
                             {(healthAudit.debtToIncomeRatio * 100).toFixed(1)}%
                           </span>
                         </div>
