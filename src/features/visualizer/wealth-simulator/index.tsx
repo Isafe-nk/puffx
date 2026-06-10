@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import {
   TrendingUp,
   PieChart as PieChartIcon,
@@ -34,7 +34,18 @@ import { runDeterministicSimulation, getPortfolioStats, calculateMonthlyPayment,
 import { runMonteCarlo } from "./engine/monteCarlo";
 import { INITIAL_USER_INPUTS, DEFAULT_MARKET_ASSUMPTIONS } from "./constants";
 import { UserInputs, DebtProfile, AssetAllocation, FinancialHealth } from "./engine/types";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, MotionConfig } from "motion/react";
+
+// Tab order drives the page-transition direction (left/right slide).
+const TAB_IDS = ["timeline", "allocation", "risk", "debt"];
+
+// Directional page slide: new page enters from the side you're navigating toward,
+// old page exits the opposite way. Subtle offset so it reads as a page swipe.
+const pageVariants = {
+  enter: (dir: number) => ({ x: dir >= 0 ? 28 : -28, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir: number) => ({ x: dir >= 0 ? -28 : 28, opacity: 0 }),
+};
 
 export default function App() {
   const [inputs, setInputs] = useState<UserInputs>(INITIAL_USER_INPUTS);
@@ -42,31 +53,12 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<"timeline" | "allocation" | "risk" | "debt">("timeline");
   const [showSidebar, setShowSidebar] = useState(true);
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
+  const [tabDirection, setTabDirection] = useState(0);
 
-  // Refs for dynamic height syncing
-  const rightPanelRef = useRef<HTMLDivElement>(null);
-  const [rightHeight, setRightHeight] = useState<number | null>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const el = rightPanelRef.current;
-    if (!el) return;
-
-    const observer = new ResizeObserver(() => {
-      setRightHeight(el.offsetHeight);
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [activeTab]);
+  const selectTab = (id: string) => {
+    setTabDirection(TAB_IDS.indexOf(id) >= TAB_IDS.indexOf(activeTab) ? 1 : -1);
+    setActiveTab(id as any);
+  };
 
   const toggleSection = (id: string) => {
     const newCollapsed = new Set(collapsedSections);
@@ -130,9 +122,11 @@ export default function App() {
   const finalInflationAdjusted = deterministicData[deterministicData.length - 1]?.inflationAdjustedNetWorth || 0;
 
   return (
-    <div className="w-full">
+    <MotionConfig reducedMotion="user">
+    {/* page-aurora: soft brand-tinted backdrop the glass surfaces refract against */}
+    <div className="w-full page-aurora">
       {/* Top Premium Status Navigation */}
-      <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
+      <header className="border-b border-[#E6E6E6] bg-white/75 backdrop-blur-xl backdrop-saturate-150 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h2 className="text-xl font-bold flex items-center gap-2 font-display">
             <TrendingUp size={20} className="text-[#D91222]" /> 
@@ -156,6 +150,13 @@ export default function App() {
         </div>
       </header>
 
+      {/*
+        On desktop the two columns are independent scroll panes (the page itself does not
+        scroll): the parameter sidebar scrolls on its own while the results panel stays put,
+        so adjusting an input always keeps the chart in view. The 210px subtracted from the
+        pane height accounts for the fixed chrome above the grid (visualizer nav + page header
+        ~158px) plus the grid's vertical padding (~48px). Mobile keeps natural stacking.
+      */}
       <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Sidebar Inputs */}
         <AnimatePresence>
@@ -165,14 +166,9 @@ export default function App() {
               animate={{ opacity: 1, x: 0, width: "auto" }}
               exit={{ opacity: 0, x: -20, width: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="lg:col-span-4 lg:sticky lg:top-6 overflow-y-auto pr-2 pb-4 scrollbar-thin space-y-6"
-              style={
-                isDesktop && rightHeight
-                  ? { maxHeight: `min(${rightHeight}px, calc(100vh - 120px))` }
-                  : { maxHeight: 'calc(100vh - 120px)' }
-              }
+              className="lg:col-span-4 pr-2 pb-4 space-y-6 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
             >
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('life')}
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
@@ -382,7 +378,7 @@ export default function App() {
               </div>
 
               {/* Financial Health Audit */}
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('health')}
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
@@ -436,7 +432,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <div className="p-6 flex items-center justify-between">
                   <button
                     onClick={() => toggleSection('debt')}
@@ -528,7 +524,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('allocation')}
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
@@ -637,52 +633,69 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        {/* Main Content Area */}
-        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} transition-all duration-300`}>
-          <div ref={rightPanelRef} className="space-y-6">
-          {/* Tabs */}
-          <div className="flex gap-1 p-1 bg-white rounded-xl border border-[#E6E6E6]">
+        {/* Main Content Area — own scroll pane; the glass bar is sticky so the content
+            scrolls underneath and refracts through it (native iOS liquid-glass behaviour) */}
+        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin transition-all duration-300`}>
+          {/* Tabs — static frosted-glass bar (iOS Liquid Glass): it does not move or
+              animate; the "liquid" effect is the content heavily blurred + saturated as it
+              scrolls beneath it. Sticky so content passes under it. */}
+          <div className="lg:sticky lg:top-0 z-20 mx-auto flex w-fit gap-1 p-1.5 rounded-full glass-navbar">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
               { id: "risk", label: "Risk Reality", icon: ShieldAlert },
               { id: "debt", label: "Debt vs Invest", icon: CreditCard },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id
-                  ? "bg-white text-[#D91222] shadow-sm font-semibold border border-[#E6E6E6]"
-                  : "text-[#A2A3A5] hover:text-[#44474D] hover:bg-[#E8E8E9]/50"
-                  }`}
-              >
-                <tab.icon size={16} />
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
+            ].map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <motion.button
+                  key={tab.id}
+                  onClick={() => selectTab(tab.id)}
+                  whileTap={{ scale: 0.93 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                  className={`relative flex items-center justify-center gap-2 py-2.5 px-5 rounded-full text-sm font-medium transition-colors duration-200 ${isActive
+                    ? "text-[#D91222] font-semibold"
+                    : "text-[#A2A3A5] hover:text-[#44474D]"
+                    }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="tabGlass"
+                      className="absolute inset-0 rounded-full glass-pill"
+                      transition={{ type: "spring", stiffness: 280, damping: 24 }}
+                    />
+                  )}
+                  <tab.icon size={16} className="relative z-10" />
+                  <span className="relative z-10 hidden sm:inline">{tab.label}</span>
+                </motion.button>
+              );
+            })}
           </div>
 
-          {/* Tab Content */}
-          <AnimatePresence mode="wait">
+          {/* Tab Content — scrolls underneath the sticky glass bar; slides directionally on switch */}
+          <div className="mt-6 pr-1 pb-2 overflow-x-clip relative">
+          <AnimatePresence mode="popLayout" custom={tabDirection}>
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              custom={tabDirection}
+              variants={pageVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ type: "spring", stiffness: 280, damping: 26 }}
             >
               {activeTab === "timeline" && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                    <div className="glass-card p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Retirement Age</p>
                       <p className="text-2xl font-bold">{inputs.retirementAge}</p>
                     </div>
-                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                    <div className="glass-card p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Inflation Adjusted</p>
                       <p className="text-2xl font-bold text-[#307EF2]">{formatCurrency(finalInflationAdjusted)}</p>
                     </div>
-                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                    <div className="glass-card p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Success Prob.</p>
                       <p className="text-2xl font-bold text-[#0EB35B]">{(mcResult.successProbability * 100).toFixed(0)}%</p>
                     </div>
@@ -728,7 +741,7 @@ export default function App() {
                   )}
 
                   <TimelineChart data={deterministicData} />
-                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] flex items-start gap-4">
+                  <div className="glass-card p-6 rounded-2xl flex items-start gap-4">
                     <div className="p-2 bg-[#307EF2]/10 rounded-lg">
                       <Info className="text-[#307EF2]" size={20} />
                     </div>
@@ -746,7 +759,7 @@ export default function App() {
 
               {activeTab === "allocation" && (
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                  <div className="xl:col-span-4 bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                  <div className="xl:col-span-4 glass-card p-6 rounded-2xl">
                     <h3 className="text-lg font-bold mb-4 text-[#212121]">Portfolio Composition</h3>
                     <AllocationPie allocation={inputs.allocation} />
                     <div className="space-y-3 mt-4">
@@ -766,7 +779,7 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-                  <div className="xl:col-span-8 bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] space-y-6">
+                  <div className="xl:col-span-8 glass-card p-6 rounded-2xl space-y-6">
                     <h3 className="text-lg font-bold text-[#212121]">Risk/Return Profile</h3>
                     <RiskProfile stats={portfolioStats} allocation={inputs.allocation} />
                   </div>
@@ -775,7 +788,7 @@ export default function App() {
 
               {activeTab === "risk" && (
                 <div className="space-y-6">
-                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                  <div className="glass-card p-6 rounded-2xl">
                     <div className="flex justify-between items-center mb-6">
                       <div>
                         <h3 className="text-lg font-bold">Monte Carlo Simulation</h3>
@@ -796,7 +809,7 @@ export default function App() {
                       </p>
                     </div>
                   </div>
-                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] space-y-4">
+                  <div className="glass-card p-6 rounded-2xl space-y-4">
                     <h4 className="text-sm font-semibold text-[#212121]">Understanding the "Spaghetti" Chart</h4>
                     <p className="text-sm text-[#727579] leading-relaxed">
                       The thin lines represent 50 individual market paths. Even with the same strategy,
@@ -828,5 +841,6 @@ export default function App() {
         </section>
       </main>
     </div>
+    </MotionConfig>
   );
 }
