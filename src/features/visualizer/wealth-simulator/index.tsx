@@ -34,7 +34,7 @@ import { runDeterministicSimulation, getPortfolioStats, calculateMonthlyPayment,
 import { runMonteCarlo } from "./engine/monteCarlo";
 import { INITIAL_USER_INPUTS, DEFAULT_MARKET_ASSUMPTIONS } from "./constants";
 import { UserInputs, DebtProfile, AssetAllocation, FinancialHealth } from "./engine/types";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, MotionConfig } from "motion/react";
 
 export default function App() {
   const [inputs, setInputs] = useState<UserInputs>(INITIAL_USER_INPUTS);
@@ -105,9 +105,10 @@ export default function App() {
   const finalInflationAdjusted = deterministicData[deterministicData.length - 1]?.inflationAdjustedNetWorth || 0;
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="w-full">
       {/* Top Premium Status Navigation */}
-      <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
+      <header className="border-b border-[#E6E6E6] bg-white/75 backdrop-blur-xl backdrop-saturate-150 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <h2 className="text-xl font-bold flex items-center gap-2 font-display">
             <TrendingUp size={20} className="text-[#D91222]" /> 
@@ -653,10 +654,10 @@ export default function App() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              initial={{ opacity: 0, y: 8, scale: 0.995 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -8, scale: 0.995 }}
+              transition={{ type: "spring", stiffness: 400, damping: 34, mass: 0.8 }}
             >
               {activeTab === "timeline" && (
                 <div className="space-y-6">
@@ -815,5 +816,6 @@ export default function App() {
         </section>
       </main>
     </div>
+    </MotionConfig>
   );
 }
