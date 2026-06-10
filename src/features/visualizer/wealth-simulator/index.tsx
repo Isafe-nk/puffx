@@ -36,12 +36,29 @@ import { INITIAL_USER_INPUTS, DEFAULT_MARKET_ASSUMPTIONS } from "./constants";
 import { UserInputs, DebtProfile, AssetAllocation, FinancialHealth } from "./engine/types";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
 
+// Tab order drives the page-transition direction (left/right slide).
+const TAB_IDS = ["timeline", "allocation", "risk", "debt"];
+
+// Directional page slide: new page enters from the side you're navigating toward,
+// old page exits the opposite way. Subtle offset so it reads as a page swipe.
+const pageVariants = {
+  enter: (dir: number) => ({ x: dir >= 0 ? 28 : -28, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (dir: number) => ({ x: dir >= 0 ? -28 : 28, opacity: 0 }),
+};
+
 export default function App() {
   const [inputs, setInputs] = useState<UserInputs>(INITIAL_USER_INPUTS);
   const [lockedAssets, setLockedAssets] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState<"timeline" | "allocation" | "risk" | "debt">("timeline");
   const [showSidebar, setShowSidebar] = useState(true);
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
+  const [tabDirection, setTabDirection] = useState(0);
+
+  const selectTab = (id: string) => {
+    setTabDirection(TAB_IDS.indexOf(id) >= TAB_IDS.indexOf(activeTab) ? 1 : -1);
+    setActiveTab(id as any);
+  };
 
   const toggleSection = (id: string) => {
     const newCollapsed = new Set(collapsedSections);
@@ -633,7 +650,7 @@ export default function App() {
               return (
                 <motion.button
                   key={tab.id}
-                  onClick={() => setActiveTab(tab.id as any)}
+                  onClick={() => selectTab(tab.id)}
                   whileTap={{ scale: 0.93 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   className={`relative flex items-center justify-center gap-2 py-2.5 px-5 rounded-full text-sm font-medium transition-colors duration-200 ${isActive
@@ -655,15 +672,17 @@ export default function App() {
             })}
           </div>
 
-          {/* Tab Content — scrolls underneath the sticky glass bar */}
-          <div className="mt-6 pr-1 pb-2">
-          <AnimatePresence mode="wait">
+          {/* Tab Content — scrolls underneath the sticky glass bar; slides directionally on switch */}
+          <div className="mt-6 pr-1 pb-2 overflow-x-clip">
+          <AnimatePresence mode="wait" custom={tabDirection}>
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, y: 8, scale: 0.995 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -8, scale: 0.995 }}
-              transition={{ type: "spring", stiffness: 400, damping: 34, mass: 0.8 }}
+              custom={tabDirection}
+              variants={pageVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.7 }}
             >
               {activeTab === "timeline" && (
                 <div className="space-y-6">
