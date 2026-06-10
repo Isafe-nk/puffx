@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import {
   TrendingUp,
   PieChart as PieChartIcon,
@@ -35,6 +35,7 @@ import { runMonteCarlo } from "./engine/monteCarlo";
 import { INITIAL_USER_INPUTS, DEFAULT_MARKET_ASSUMPTIONS } from "./constants";
 import { UserInputs, DebtProfile, AssetAllocation, FinancialHealth } from "./engine/types";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
+import { useLiquidGlass } from "../../../shared/lib/liquidGlass";
 
 export default function App() {
   const [inputs, setInputs] = useState<UserInputs>(INITIAL_USER_INPUTS);
@@ -42,6 +43,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<"timeline" | "allocation" | "risk" | "debt">("timeline");
   const [showSidebar, setShowSidebar] = useState(true);
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
+
+  // Real optical refraction on the tab bar — content scrolling beneath it bends like
+  // glass (Chromium; degrades to a blur fallback on Safari/Firefox).
+  const navbarRef = useRef<HTMLDivElement>(null);
+  useLiquidGlass(navbarRef, {
+    borderRadius: 28,
+    scale: -70,
+    blur: 9,
+    border: 0.1,
+    saturation: 1.4,
+    aberration: [0, 8, 16],
+  });
 
   const toggleSection = (id: string) => {
     const newCollapsed = new Set(collapsedSections);
@@ -616,11 +629,12 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        {/* Main Content Area — results pane: tabs pinned at top, only the content below scrolls */}
-        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:flex lg:flex-col transition-all duration-300`}>
-          {/* Tabs — iOS Liquid Glass style: a frosted floating capsule bar with a glass
-              lozenge that glides between tabs */}
-          <div className="lg:shrink-0 flex gap-1 p-1.5 rounded-full glass-navbar">
+        {/* Main Content Area — own scroll pane; the glass bar is sticky so the content
+            scrolls underneath and refracts through it (native iOS liquid-glass behaviour) */}
+        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin transition-all duration-300`}>
+          {/* Tabs — frosted glass capsule with a lozenge that glides between tabs; sticky
+              so content scrolls (and refracts) beneath it */}
+          <div ref={navbarRef} className="lg:sticky lg:top-0 z-20 flex gap-1 p-1.5 rounded-full glass-navbar">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
@@ -651,8 +665,8 @@ export default function App() {
             })}
           </div>
 
-          {/* Tab Content — the only part that scrolls within the results pane */}
-          <div className="lg:flex-1 lg:min-h-0 lg:overflow-y-auto scrollbar-thin mt-6 pr-1 pb-2">
+          {/* Tab Content — scrolls underneath the sticky glass bar */}
+          <div className="mt-6 pr-1 pb-2">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
