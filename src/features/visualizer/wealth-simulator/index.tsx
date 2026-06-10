@@ -631,9 +631,11 @@ export default function App() {
             ].map((tab) => {
               const isActive = activeTab === tab.id;
               return (
-                <button
+                <motion.button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
+                  whileTap={{ scale: 0.93 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
                   className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-sm font-medium transition-colors duration-200 ${isActive
                     ? "text-[#D91222] font-semibold glass-pill"
                     : "text-[#A2A3A5] hover:text-[#44474D]"
@@ -641,7 +643,7 @@ export default function App() {
                 >
                   <tab.icon size={16} className="relative z-10" />
                   <span className="relative z-10 hidden sm:inline">{tab.label}</span>
-                </button>
+                </motion.button>
               );
             })}
           </div>
