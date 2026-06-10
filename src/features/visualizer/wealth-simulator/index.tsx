@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo, useRef, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import {
   TrendingUp,
   PieChart as PieChartIcon,
@@ -42,31 +42,6 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<"timeline" | "allocation" | "risk" | "debt">("timeline");
   const [showSidebar, setShowSidebar] = useState(true);
   const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
-
-  // Refs for dynamic height syncing
-  const rightPanelRef = useRef<HTMLDivElement>(null);
-  const [rightHeight, setRightHeight] = useState<number | null>(null);
-  const [isDesktop, setIsDesktop] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  useEffect(() => {
-    const el = rightPanelRef.current;
-    if (!el) return;
-
-    const observer = new ResizeObserver(() => {
-      setRightHeight(el.offsetHeight);
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [activeTab]);
 
   const toggleSection = (id: string) => {
     const newCollapsed = new Set(collapsedSections);
@@ -156,6 +131,13 @@ export default function App() {
         </div>
       </header>
 
+      {/*
+        On desktop the two columns are independent scroll panes (the page itself does not
+        scroll): the parameter sidebar scrolls on its own while the results panel stays put,
+        so adjusting an input always keeps the chart in view. The 210px subtracted from the
+        pane height accounts for the fixed chrome above the grid (visualizer nav + page header
+        ~158px) plus the grid's vertical padding (~48px). Mobile keeps natural stacking.
+      */}
       <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Sidebar Inputs */}
         <AnimatePresence>
@@ -165,12 +147,7 @@ export default function App() {
               animate={{ opacity: 1, x: 0, width: "auto" }}
               exit={{ opacity: 0, x: -20, width: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="lg:col-span-4 lg:sticky lg:top-6 overflow-y-auto pr-2 pb-4 scrollbar-thin space-y-6"
-              style={
-                isDesktop && rightHeight
-                  ? { maxHeight: `min(${rightHeight}px, calc(100vh - 120px))` }
-                  : { maxHeight: 'calc(100vh - 120px)' }
-              }
+              className="lg:col-span-4 pr-2 pb-4 space-y-6 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
             >
               <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
                 <button
@@ -637,11 +614,10 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        {/* Main Content Area */}
-        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} transition-all duration-300`}>
-          <div ref={rightPanelRef} className="space-y-6">
-          {/* Tabs */}
-          <div className="flex gap-1 p-1 bg-white rounded-xl border border-[#E6E6E6]">
+        {/* Main Content Area — results pane: tabs pinned at top, only the content below scrolls */}
+        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:flex lg:flex-col transition-all duration-300`}>
+          {/* Tabs — stay visible while the tab content scrolls */}
+          <div className="lg:shrink-0 flex gap-1 p-1 bg-white rounded-xl border border-[#E6E6E6]">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
@@ -662,7 +638,8 @@ export default function App() {
             ))}
           </div>
 
-          {/* Tab Content */}
+          {/* Tab Content — the only part that scrolls within the results pane */}
+          <div className="lg:flex-1 lg:min-h-0 lg:overflow-y-auto scrollbar-thin mt-6 pr-1 pb-2">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
