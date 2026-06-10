@@ -641,7 +641,7 @@ export default function App() {
                     <motion.span
                       layoutId="tabGlass"
                       className="absolute inset-0 rounded-full glass-pill"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 17, mass: 1 }}
                     />
                   )}
                   <tab.icon size={16} className="relative z-10" />
