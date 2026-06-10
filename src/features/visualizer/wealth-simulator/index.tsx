@@ -618,8 +618,9 @@ export default function App() {
 
         {/* Main Content Area — results pane: tabs pinned at top, only the content below scrolls */}
         <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:flex lg:flex-col transition-all duration-300`}>
-          {/* Tabs — segmented control with a liquid-glass lozenge that glides between tabs */}
-          <div className="lg:shrink-0 flex gap-1 p-1.5 bg-[#F3F3F4]/70 rounded-2xl border border-[#E6E6E6]">
+          {/* Tabs — iOS Liquid Glass style: a frosted floating capsule bar with a glass
+              lozenge that glides between tabs */}
+          <div className="lg:shrink-0 flex gap-1 p-1.5 rounded-full glass-navbar">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
@@ -631,7 +632,7 @@ export default function App() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium transition-colors duration-200 ${isActive
+                  className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-sm font-medium transition-colors duration-200 ${isActive
                     ? "text-[#D91222] font-semibold"
                     : "text-[#A2A3A5] hover:text-[#44474D]"
                     }`}
@@ -639,7 +640,7 @@ export default function App() {
                   {isActive && (
                     <motion.span
                       layoutId="tabGlass"
-                      className="absolute inset-0 rounded-xl glass-pill"
+                      className="absolute inset-0 rounded-full glass-pill"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
