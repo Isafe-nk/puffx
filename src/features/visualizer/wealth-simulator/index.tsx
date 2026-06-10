@@ -673,8 +673,8 @@ export default function App() {
           </div>
 
           {/* Tab Content — scrolls underneath the sticky glass bar; slides directionally on switch */}
-          <div className="mt-6 pr-1 pb-2 overflow-x-clip">
-          <AnimatePresence mode="wait" custom={tabDirection}>
+          <div className="mt-6 pr-1 pb-2 overflow-x-clip relative">
+          <AnimatePresence mode="popLayout" custom={tabDirection}>
             <motion.div
               key={activeTab}
               custom={tabDirection}
@@ -682,7 +682,7 @@ export default function App() {
               initial="enter"
               animate="center"
               exit="exit"
-              transition={{ type: "spring", stiffness: 420, damping: 38, mass: 0.7 }}
+              transition={{ type: "spring", stiffness: 280, damping: 26 }}
             >
               {activeTab === "timeline" && (
                 <div className="space-y-6">
