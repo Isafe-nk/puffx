@@ -120,7 +120,7 @@ export default function App() {
   return (
     <MotionConfig reducedMotion="user">
     {/* page-aurora: soft brand-tinted backdrop the glass surfaces refract against */}
-    <div className="w-full page-aurora min-h-screen">
+    <div className="w-full page-aurora">
       {/* Top Premium Status Navigation */}
       <header className="border-b border-[#E6E6E6] bg-white/75 backdrop-blur-xl backdrop-saturate-150 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
