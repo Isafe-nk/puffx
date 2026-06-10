@@ -616,26 +616,36 @@ export default function App() {
 
         {/* Main Content Area — results pane: tabs pinned at top, only the content below scrolls */}
         <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:flex lg:flex-col transition-all duration-300`}>
-          {/* Tabs — stay visible while the tab content scrolls */}
-          <div className="lg:shrink-0 flex gap-1 p-1 bg-white rounded-xl border border-[#E6E6E6]">
+          {/* Tabs — segmented control with a liquid-glass lozenge that glides between tabs */}
+          <div className="lg:shrink-0 flex gap-1 p-1.5 bg-[#F3F3F4]/70 rounded-2xl border border-[#E6E6E6]">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
               { id: "risk", label: "Risk Reality", icon: ShieldAlert },
               { id: "debt", label: "Debt vs Invest", icon: CreditCard },
-            ].map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as any)}
-                className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id
-                  ? "bg-white text-[#D91222] shadow-sm font-semibold border border-[#E6E6E6]"
-                  : "text-[#A2A3A5] hover:text-[#44474D] hover:bg-[#E8E8E9]/50"
-                  }`}
-              >
-                <tab.icon size={16} />
-                <span className="hidden sm:inline">{tab.label}</span>
-              </button>
-            ))}
+            ].map((tab) => {
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as any)}
+                  className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-sm font-medium transition-colors duration-200 ${isActive
+                    ? "text-[#D91222] font-semibold"
+                    : "text-[#A2A3A5] hover:text-[#44474D]"
+                    }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="tabGlass"
+                      className="absolute inset-0 rounded-xl glass-pill"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  <tab.icon size={16} className="relative z-10" />
+                  <span className="relative z-10 hidden sm:inline">{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
 
           {/* Tab Content — the only part that scrolls within the results pane */}
