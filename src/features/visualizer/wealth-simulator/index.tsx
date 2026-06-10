@@ -622,7 +622,7 @@ export default function App() {
           {/* Tabs — static frosted-glass bar (iOS Liquid Glass): it does not move or
               animate; the "liquid" effect is the content heavily blurred + saturated as it
               scrolls beneath it. Sticky so content passes under it. */}
-          <div className="lg:sticky lg:top-0 z-20 flex gap-1 p-1.5 rounded-full glass-navbar">
+          <div className="lg:sticky lg:top-0 z-20 mx-auto flex w-fit gap-1 p-1.5 rounded-full glass-navbar">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
@@ -636,7 +636,7 @@ export default function App() {
                   onClick={() => setActiveTab(tab.id as any)}
                   whileTap={{ scale: 0.93 }}
                   transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                  className={`relative flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-full text-sm font-medium transition-colors duration-200 ${isActive
+                  className={`relative flex items-center justify-center gap-2 py-2.5 px-5 rounded-full text-sm font-medium transition-colors duration-200 ${isActive
                     ? "text-[#D91222] font-semibold"
                     : "text-[#A2A3A5] hover:text-[#44474D]"
                     }`}
