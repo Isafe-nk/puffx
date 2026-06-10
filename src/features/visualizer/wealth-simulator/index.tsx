@@ -106,7 +106,8 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-    <div className="w-full">
+    {/* page-aurora: soft brand-tinted backdrop the glass surfaces refract against */}
+    <div className="w-full page-aurora min-h-screen">
       {/* Top Premium Status Navigation */}
       <header className="border-b border-[#E6E6E6] bg-white/75 backdrop-blur-xl backdrop-saturate-150 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -150,7 +151,7 @@ export default function App() {
               transition={{ duration: 0.3, ease: "easeInOut" }}
               className="lg:col-span-4 pr-2 pb-4 space-y-6 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
             >
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('life')}
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
@@ -360,7 +361,7 @@ export default function App() {
               </div>
 
               {/* Financial Health Audit */}
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('health')}
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
@@ -414,7 +415,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <div className="p-6 flex items-center justify-between">
                   <button
                     onClick={() => toggleSection('debt')}
@@ -506,7 +507,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden">
+              <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('allocation')}
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
@@ -662,15 +663,15 @@ export default function App() {
               {activeTab === "timeline" && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                    <div className="glass-card p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Retirement Age</p>
                       <p className="text-2xl font-bold">{inputs.retirementAge}</p>
                     </div>
-                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                    <div className="glass-card p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Inflation Adjusted</p>
                       <p className="text-2xl font-bold text-[#307EF2]">{formatCurrency(finalInflationAdjusted)}</p>
                     </div>
-                    <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                    <div className="glass-card p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Success Prob.</p>
                       <p className="text-2xl font-bold text-[#0EB35B]">{(mcResult.successProbability * 100).toFixed(0)}%</p>
                     </div>
@@ -716,7 +717,7 @@ export default function App() {
                   )}
 
                   <TimelineChart data={deterministicData} />
-                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] flex items-start gap-4">
+                  <div className="glass-card p-6 rounded-2xl flex items-start gap-4">
                     <div className="p-2 bg-[#307EF2]/10 rounded-lg">
                       <Info className="text-[#307EF2]" size={20} />
                     </div>
@@ -734,7 +735,7 @@ export default function App() {
 
               {activeTab === "allocation" && (
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                  <div className="xl:col-span-4 bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                  <div className="xl:col-span-4 glass-card p-6 rounded-2xl">
                     <h3 className="text-lg font-bold mb-4 text-[#212121]">Portfolio Composition</h3>
                     <AllocationPie allocation={inputs.allocation} />
                     <div className="space-y-3 mt-4">
@@ -754,7 +755,7 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-                  <div className="xl:col-span-8 bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] space-y-6">
+                  <div className="xl:col-span-8 glass-card p-6 rounded-2xl space-y-6">
                     <h3 className="text-lg font-bold text-[#212121]">Risk/Return Profile</h3>
                     <RiskProfile stats={portfolioStats} allocation={inputs.allocation} />
                   </div>
@@ -763,7 +764,7 @@ export default function App() {
 
               {activeTab === "risk" && (
                 <div className="space-y-6">
-                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6]">
+                  <div className="glass-card p-6 rounded-2xl">
                     <div className="flex justify-between items-center mb-6">
                       <div>
                         <h3 className="text-lg font-bold">Monte Carlo Simulation</h3>
@@ -784,7 +785,7 @@ export default function App() {
                       </p>
                     </div>
                   </div>
-                  <div className="bg-white/50 p-6 rounded-2xl border border-[#E6E6E6] space-y-4">
+                  <div className="glass-card p-6 rounded-2xl space-y-4">
                     <h4 className="text-sm font-semibold text-[#212121]">Understanding the "Spaghetti" Chart</h4>
                     <p className="text-sm text-[#727579] leading-relaxed">
                       The thin lines represent 50 individual market paths. Even with the same strategy,
