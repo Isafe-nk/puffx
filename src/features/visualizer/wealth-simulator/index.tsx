@@ -165,7 +165,7 @@ export default function App() {
               animate={{ opacity: 1, x: 0, width: "auto" }}
               exit={{ opacity: 0, x: -20, width: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="lg:col-span-4 pr-2 pb-4 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
+              className="lg:col-span-4 pr-2 max-lg:pb-4 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
             >
               {/* top veil — content fades into the page background instead of a hard cut */}
               <div className="hidden lg:block sticky top-0 z-10 h-24 -mb-24 pointer-events-none bg-gradient-to-b from-[#F7F8FA] to-transparent" />
