@@ -123,8 +123,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-    {/* page-aurora: soft brand-tinted backdrop the glass surfaces refract against */}
-    <div className="w-full page-aurora">
+    <div className="w-full bg-[#F7F8FA]">
       {/* Top Premium Status Navigation */}
       <header className="border-b border-[#E6E6E6] bg-white/75 backdrop-blur-xl backdrop-saturate-150 px-6 py-4 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
@@ -166,8 +165,11 @@ export default function App() {
               animate={{ opacity: 1, x: 0, width: "auto" }}
               exit={{ opacity: 0, x: -20, width: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="lg:col-span-4 pr-2 pb-4 space-y-6 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
+              className="lg:col-span-4 pr-2 max-lg:pb-4 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
             >
+              {/* top veil — content fades into the page background instead of a hard cut */}
+              <div className="hidden lg:block sticky top-0 z-10 h-24 -mb-24 pointer-events-none bg-gradient-to-b from-[#F7F8FA] to-transparent" />
+              <div className="space-y-6">
               <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('life')}
@@ -629,6 +631,9 @@ export default function App() {
                   Not financial advice.
                 </p>
               </div>
+              </div>
+              {/* bottom veil */}
+              <div className="hidden lg:block sticky bottom-0 z-10 h-24 -mt-24 pointer-events-none bg-gradient-to-t from-[#F7F8FA] to-transparent" />
             </motion.aside>
           )}
         </AnimatePresence>
@@ -636,6 +641,8 @@ export default function App() {
         {/* Main Content Area — own scroll pane; the glass bar is sticky so the content
             scrolls underneath and refracts through it (native iOS liquid-glass behaviour) */}
         <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin transition-all duration-300`}>
+          {/* top veil — fades content into the background behind the floating glass bar */}
+          <div className="hidden lg:block sticky top-0 z-10 h-24 -mb-24 pointer-events-none bg-gradient-to-b from-[#F7F8FA] to-transparent" />
           {/* Tabs — static frosted-glass bar (iOS Liquid Glass): it does not move or
               animate; the "liquid" effect is the content heavily blurred + saturated as it
               scrolls beneath it. Sticky so content passes under it. */}
@@ -838,6 +845,8 @@ export default function App() {
             </motion.div>
           </AnimatePresence>
           </div>
+          {/* bottom veil — content fades into the page background at the pane's bottom edge */}
+          <div className="hidden lg:block sticky bottom-0 z-10 h-24 -mt-24 pointer-events-none bg-gradient-to-t from-[#F7F8FA] to-transparent" />
         </section>
       </main>
     </div>
