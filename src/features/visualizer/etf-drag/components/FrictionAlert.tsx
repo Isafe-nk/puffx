@@ -59,7 +59,7 @@ export default function FrictionAlert({
         </ul>
         {feeOptimizationFreq === "monthly" ? (
           <p className="text-[11px] text-[#44474D] pt-1">
-            💡 <span className="text-[#212121] font-semibold">Change your purchase frequency to &quot;Quarterly&quot; (or wider) in the sidebar parameter panel</span> to pool your funds into <strong>{formatVal(monthlyContributionRM * 3)}</strong> per transaction. This drastically reduces the recurring overhead drag from {actualFrictionA > actualFrictionB ? actualFrictionA.toFixed(1) : actualFrictionB.toFixed(1)}% down to <strong>{( (actualFrictionA > actualFrictionB ? actualFrictionA : actualFrictionB) / 3 ).toFixed(2)}%</strong>!
+            💡 <span className="text-[#212121] font-semibold">Change your purchase frequency to &quot;Quarterly&quot; (or wider) in the sidebar parameter panel</span> to pool your funds into <strong>{formatVal((monthlyContributionRM * 3) / usdMyrRate)}</strong> per transaction. This drastically reduces the recurring overhead drag from {actualFrictionA > actualFrictionB ? actualFrictionA.toFixed(1) : actualFrictionB.toFixed(1)}% down to <strong>{( (actualFrictionA > actualFrictionB ? actualFrictionA : actualFrictionB) / 3 ).toFixed(2)}%</strong>!
           </p>
         ) : (
           <p className="text-[11px] text-[#44474D] pt-1">
