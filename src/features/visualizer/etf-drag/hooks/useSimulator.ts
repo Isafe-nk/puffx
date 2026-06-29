@@ -104,24 +104,24 @@ export const useSimulator = (inputs: SimulatorInputs) => {
     // Push Year 0 (immediate state after Initial Purchase Fees)
     yearsArray.push({
       year: 0,
-      valueA: balA * usdMyrRate,
-      contribA: initialInvestmentRM,
-      feesA: cumFeesA * usdMyrRate,
+      valueA: balA,
+      contribA: initialUSD,
+      feesA: cumFeesA,
       terA: 0,
       taxA: 0,
-      spreadA: cumSpreadA * usdMyrRate,
-      totalDragA: (balBench - balA) * usdMyrRate,
+      spreadA: cumSpreadA,
+      totalDragA: balBench - balA,
 
-      valueB: balB * usdMyrRate,
-      contribB: initialInvestmentRM,
-      feesB: cumFeesB * usdMyrRate,
+      valueB: balB,
+      contribB: initialUSD,
+      feesB: cumFeesB,
       terB: 0,
       taxB: 0,
-      spreadB: cumSpreadB * usdMyrRate,
-      totalDragB: (balBench - balB) * usdMyrRate,
+      spreadB: cumSpreadB,
+      totalDragB: balBench - balB,
 
-      valueBench: balBench * usdMyrRate,
-      contribBench: initialInvestmentRM
+      valueBench: balBench,
+      contribBench: initialUSD
     });
 
     const totalMonths = horizonYears * 12;
@@ -193,24 +193,24 @@ export const useSimulator = (inputs: SimulatorInputs) => {
         const year = m / 12;
         yearsArray.push({
           year,
-          valueA: balA * usdMyrRate,
-          contribA: cumContributedA * usdMyrRate,
-          feesA: cumFeesA * usdMyrRate,
-          terA: cumTerA * usdMyrRate,
-          taxA: cumTaxA * usdMyrRate,
-          spreadA: cumSpreadA * usdMyrRate,
-          totalDragA: Math.max(0, (balBench - balA) * usdMyrRate),
+          valueA: balA,
+          contribA: cumContributedA,
+          feesA: cumFeesA,
+          terA: cumTerA,
+          taxA: cumTaxA,
+          spreadA: cumSpreadA,
+          totalDragA: Math.max(0, balBench - balA),
 
-          valueB: balB * usdMyrRate,
-          contribB: cumContributedB * usdMyrRate,
-          feesB: cumFeesB * usdMyrRate,
-          terB: cumTerB * usdMyrRate,
-          taxB: cumTaxB * usdMyrRate,
-          spreadB: cumSpreadB * usdMyrRate,
-          totalDragB: Math.max(0, (balBench - balB) * usdMyrRate),
+          valueB: balB,
+          contribB: cumContributedB,
+          feesB: cumFeesB,
+          terB: cumTerB,
+          taxB: cumTaxB,
+          spreadB: cumSpreadB,
+          totalDragB: Math.max(0, balBench - balB),
 
-          valueBench: balBench * usdMyrRate,
-          contribBench: cumContributedBench * usdMyrRate
+          valueBench: balBench,
+          contribBench: cumContributedBench
         });
       }
     }
@@ -273,12 +273,12 @@ export const useSimulator = (inputs: SimulatorInputs) => {
     const annualConversionSaving = (latestData.feesA + latestData.feesB) > 0;
     if (!annualConversionSaving) return null;
     
-    const monthlyCostA = (fxMinUSD + getBrokerMin(selectedA.domicile)) * usdMyrRate;
-    const monthlyCostB = (fxMinUSD + getBrokerMin(selectedB.domicile)) * usdMyrRate;
+    const monthlyCostA = fxMinUSD + getBrokerMin(selectedA.domicile);
+    const monthlyCostB = fxMinUSD + getBrokerMin(selectedB.domicile);
 
     const totalTransactionsHorizon = horizonYears * 12;
-    const estimateMonthlyFeesHorizonA = totalTransactionsHorizon * (fxMinUSD + getBrokerMin(selectedA.domicile)) * usdMyrRate;
-    const estimateQuarterlyFeesHorizonA = (horizonYears * 4) * (fxMinUSD + getBrokerMin(selectedA.domicile)) * usdMyrRate;
+    const estimateMonthlyFeesHorizonA = totalTransactionsHorizon * (fxMinUSD + getBrokerMin(selectedA.domicile));
+    const estimateQuarterlyFeesHorizonA = (horizonYears * 4) * (fxMinUSD + getBrokerMin(selectedA.domicile));
     const A_saved = estimateMonthlyFeesHorizonA - estimateQuarterlyFeesHorizonA;
 
     return {
@@ -287,7 +287,7 @@ export const useSimulator = (inputs: SimulatorInputs) => {
       quarterlySavingsA: A_saved,
       suggestedQuarterlyRM: monthlyContributionRM * 3
     };
-  }, [latestData, selectedA, selectedB, horizonYears, monthlyContributionRM, usdMyrRate]);
+  }, [latestData, selectedA, selectedB, horizonYears, monthlyContributionRM, fxMinUSD]);
 
   return {
     selectedA,

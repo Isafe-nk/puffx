@@ -14,7 +14,7 @@ import {
 } from "recharts";
 import { LineChart, TrendingUp, AlertCircle } from "lucide-react";
 import { ETF, SimulationDataPoint } from "../types";
-import { formatCurrency } from "../../../../shared/utils/format";
+import { convertCurrency, formatDisplay } from "../../../../shared/utils/format";
 import Card from "../../../../shared/components/Card";
 
 interface PerformanceChartsProps {
@@ -44,7 +44,7 @@ const CustomTooltip = ({ active, payload, label, showInUsd }: any) => {
                 </span>
               </div>
               <span className="text-[#212121] text-xs font-mono font-semibold">
-                {formatCurrency(entry.value as number, showInUsd, 1, 0)}
+                {formatDisplay(entry.value as number, showInUsd, 0)}
               </span>
             </div>
           ))}
@@ -69,18 +69,18 @@ export default function PerformanceCharts({
     return simData.map(d => ({
       ...d,
       displayYear: `Year ${d.year}`,
-      valueA: showInUsd ? d.valueA / usdMyrRate : d.valueA,
-      valueB: showInUsd ? d.valueB / usdMyrRate : d.valueB,
-      valueBench: showInUsd ? d.valueBench / usdMyrRate : d.valueBench,
+      valueA: convertCurrency(d.valueA, showInUsd, usdMyrRate),
+      valueB: convertCurrency(d.valueB, showInUsd, usdMyrRate),
+      valueBench: convertCurrency(d.valueBench, showInUsd, usdMyrRate),
       // Stack values
-      taxA: showInUsd ? d.taxA / usdMyrRate : d.taxA,
-      terA: showInUsd ? d.terA / usdMyrRate : d.terA,
-      spreadA: showInUsd ? d.spreadA / usdMyrRate : d.spreadA,
-      feesA: showInUsd ? d.feesA / usdMyrRate : d.feesA,
-      taxB: showInUsd ? d.taxB / usdMyrRate : d.taxB,
-      terB: showInUsd ? d.terB / usdMyrRate : d.terB,
-      spreadB: showInUsd ? d.spreadB / usdMyrRate : d.spreadB,
-      feesB: showInUsd ? d.feesB / usdMyrRate : d.feesB,
+      taxA: convertCurrency(d.taxA, showInUsd, usdMyrRate),
+      terA: convertCurrency(d.terA, showInUsd, usdMyrRate),
+      spreadA: convertCurrency(d.spreadA, showInUsd, usdMyrRate),
+      feesA: convertCurrency(d.feesA, showInUsd, usdMyrRate),
+      taxB: convertCurrency(d.taxB, showInUsd, usdMyrRate),
+      terB: convertCurrency(d.terB, showInUsd, usdMyrRate),
+      spreadB: convertCurrency(d.spreadB, showInUsd, usdMyrRate),
+      feesB: convertCurrency(d.feesB, showInUsd, usdMyrRate),
     }));
   }, [simData, showInUsd, usdMyrRate]);
 
