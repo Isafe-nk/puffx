@@ -96,8 +96,7 @@ export default function App() {
     actualFrictionB,
     showOptimizationWarning,
     advisoryData,
-    transactionSumUSD,
-    freqMultiplier
+    transactionSumUSD
   } = useSimulator({
     initialInvestmentRM,
     monthlyContributionRM,
@@ -286,8 +285,8 @@ export default function App() {
             showOptimizationWarning={showOptimizationWarning}
             feeOptimizationFreq={feeOptimizationFreq}
             monthlyContributionRM={monthlyContributionRM}
-            freqMultiplier={freqMultiplier}
             transactionSumUSD={transactionSumUSD}
+            showInUsd={showInUsd}
             selectedA={selectedA}
             selectedB={selectedB}
             actualFrictionA={actualFrictionA}

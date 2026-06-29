@@ -6,8 +6,8 @@ interface FrictionAlertProps {
   showOptimizationWarning: boolean;
   feeOptimizationFreq: string;
   monthlyContributionRM: number;
-  freqMultiplier: number;
   transactionSumUSD: number;
+  showInUsd: boolean;
   selectedA: ETF;
   selectedB: ETF;
   actualFrictionA: number;
@@ -21,8 +21,8 @@ export default function FrictionAlert({
   showOptimizationWarning,
   feeOptimizationFreq,
   monthlyContributionRM,
-  freqMultiplier,
   transactionSumUSD,
+  showInUsd,
   selectedA,
   selectedB,
   actualFrictionA,
@@ -47,14 +47,14 @@ export default function FrictionAlert({
     >
       <div className="text-[11px] text-[#44474D] leading-relaxed space-y-2">
         <p>
-          Your current execution frequency (<strong>{feeOptimizationFreq}</strong>) pools your contribution into purchases of <strong>RM {monthlyContributionRM * freqMultiplier}</strong> (approx. <strong>${transactionSumUSD.toFixed(1)} USD</strong>). This transaction size suffers from high recurring fixed costs relative to IBKR's commission minimums:
+          Your current execution frequency (<strong>{feeOptimizationFreq}</strong>) pools your contribution into purchases of <strong>{formatVal(transactionSumUSD)}</strong>{!showInUsd && <> (approx. <strong>${transactionSumUSD.toFixed(1)} USD</strong>)</>} per cycle. This transaction size suffers from high recurring fixed costs relative to IBKR's commission minimums:
         </p>
         <ul className="list-disc pl-4 space-y-1.5 text-[#727579] font-mono text-[10.5px]">
           <li>
-            <strong>{selectedA.ticker} ({selectedA.domicile} fund):</strong> Minimum buying commission of <strong>${brokerMinA.toFixed(2)} USD</strong>{depositDirectUSD ? "" : " + $2.00 USD FX min conversion fee"} = <strong>${overheadA.toFixed(2)} USD</strong> total overhead (around <strong>RM {(overheadA * usdMyrRate).toFixed(2)}</strong>), which eats up <strong>{actualFrictionA.toFixed(1)}%</strong> of your purchase.
+            <strong>{selectedA.ticker} ({selectedA.domicile} fund):</strong> Minimum buying commission of <strong>${brokerMinA.toFixed(2)} USD</strong>{depositDirectUSD ? "" : " + $2.00 USD FX min conversion fee"} = <strong>${overheadA.toFixed(2)} USD</strong> total overhead{!showInUsd && <> (around <strong>RM {(overheadA * usdMyrRate).toFixed(2)}</strong>)</>}, which eats up <strong>{actualFrictionA.toFixed(1)}%</strong> of your purchase.
           </li>
           <li>
-            <strong>{selectedB.ticker} ({selectedB.domicile} fund):</strong> Minimum buying commission of <strong>${brokerMinB.toFixed(2)} USD</strong>{depositDirectUSD ? "" : " + $2.00 USD FX min conversion fee"} = <strong>${overheadB.toFixed(2)} USD</strong> total overhead (around <strong>RM {(overheadB * usdMyrRate).toFixed(2)}</strong>), which eats up <strong>{actualFrictionB.toFixed(1)}%</strong> of your purchase.
+            <strong>{selectedB.ticker} ({selectedB.domicile} fund):</strong> Minimum buying commission of <strong>${brokerMinB.toFixed(2)} USD</strong>{depositDirectUSD ? "" : " + $2.00 USD FX min conversion fee"} = <strong>${overheadB.toFixed(2)} USD</strong> total overhead{!showInUsd && <> (around <strong>RM {(overheadB * usdMyrRate).toFixed(2)}</strong>)</>}, which eats up <strong>{actualFrictionB.toFixed(1)}%</strong> of your purchase.
           </li>
         </ul>
         {feeOptimizationFreq === "monthly" ? (
