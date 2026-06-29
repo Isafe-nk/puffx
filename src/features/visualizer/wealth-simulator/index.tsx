@@ -152,9 +152,10 @@ export default function App() {
       {/*
         On desktop the two columns are independent scroll panes (the page itself does not
         scroll): the parameter sidebar scrolls on its own while the results panel stays put,
-        so adjusting an input always keeps the chart in view. The 210px subtracted from the
-        pane height accounts for the fixed chrome above the grid (visualizer nav + page header
-        ~158px) plus the grid's vertical padding (~48px). Mobile keeps natural stacking.
+        so adjusting an input always keeps the chart in view. The 120px subtracted from the
+        pane height accounts for the fixed chrome above the grid (just this page's own header
+        ~70px, now that tool switching moved to the SideNav) plus the grid's vertical padding
+        (~48px). Mobile keeps natural stacking.
       */}
       <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Sidebar Inputs */}
@@ -165,7 +166,7 @@ export default function App() {
               animate={{ opacity: 1, x: 0, width: "auto" }}
               exit={{ opacity: 0, x: -20, width: 0 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="lg:col-span-4 pr-2 max-lg:pb-4 lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin"
+              className="lg:col-span-4 pr-2 max-lg:pb-4 lg:h-[calc(100vh-120px)] lg:overflow-y-auto scrollbar-thin"
             >
               {/* top veil — content fades into the page background instead of a hard cut */}
               <div className="hidden lg:block sticky top-0 z-10 h-24 -mb-24 pointer-events-none bg-gradient-to-b from-[#F7F8FA] to-transparent" />
@@ -640,7 +641,7 @@ export default function App() {
 
         {/* Main Content Area — own scroll pane; the glass bar is sticky so the content
             scrolls underneath and refracts through it (native iOS liquid-glass behaviour) */}
-        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-210px)] lg:overflow-y-auto scrollbar-thin transition-all duration-300`}>
+        <section className={`${showSidebar ? 'lg:col-span-8' : 'lg:col-span-12'} lg:h-[calc(100vh-120px)] lg:overflow-y-auto scrollbar-thin transition-all duration-300`}>
           {/* top veil — fades content into the background behind the floating glass bar */}
           <div className="hidden lg:block sticky top-0 z-10 h-24 -mb-24 pointer-events-none bg-gradient-to-b from-[#F7F8FA] to-transparent" />
           {/* Tabs — static frosted-glass bar (iOS Liquid Glass): it does not move or
