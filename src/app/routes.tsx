@@ -2,7 +2,6 @@ import React from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from './Layout';
 import VisualizerLayout from '../features/visualizer/VisualizerLayout';
-import VisualizerHub from '../features/visualizer/VisualizerHub';
 import EtfDragVisualizer from '../features/visualizer/etf-drag/index';
 import WealthSimulator from '../features/visualizer/wealth-simulator/index';
 
@@ -21,7 +20,7 @@ export const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: <VisualizerHub />
+            element: <Navigate to="/visualizer/etf-drag" replace />
           },
           {
             path: 'etf-drag',
