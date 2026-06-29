@@ -1,4 +1,4 @@
-import { TrendingUp, Building, BarChart, Globe, Settings } from 'lucide-react';
+import { TrendingUp, GraduationCap, Building, BarChart, Globe, Settings } from 'lucide-react';
 
 export const navConfig = [
   {
@@ -10,6 +10,7 @@ export const navConfig = [
       { label: "Wealth Simulator", path: "/visualizer/wealth-simulator" }
     ]
   },
+  { label: "Learn", icon: GraduationCap, path: "/learn" },
   { label: "Portfolio", icon: Building, path: "/portfolio", comingSoon: true },
   { label: "Analysis", icon: BarChart, path: "/analysis", comingSoon: true },
   { label: "Market", icon: Globe, path: "/market", comingSoon: true },
