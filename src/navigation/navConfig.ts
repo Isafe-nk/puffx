@@ -1,4 +1,4 @@
-import { TrendingUp, GraduationCap, Building, BarChart, Globe, Settings } from 'lucide-react';
+import { TrendingUp, GraduationCap, Library, Building, BarChart, Globe, Settings } from 'lucide-react';
 import { LEARN_MODULES } from '../features/learn/learnConfig';
 
 export const navConfig = [
@@ -17,6 +17,7 @@ export const navConfig = [
     path: "/learn",
     children: LEARN_MODULES.map((m) => ({ label: `${m.code} · ${m.title}`, path: `/learn/${m.slug}` }))
   },
+  { label: "Glossary", icon: Library, path: "/glossary" },
   { label: "Portfolio", icon: Building, path: "/portfolio", comingSoon: true },
   { label: "Analysis", icon: BarChart, path: "/analysis", comingSoon: true },
   { label: "Market", icon: Globe, path: "/market", comingSoon: true },
