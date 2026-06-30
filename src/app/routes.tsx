@@ -40,12 +40,12 @@ export const router = createBrowserRouter([
         element: <Learn />
       },
       {
-        path: 'learn/:moduleSlug',
-        element: <LearnModule />
+        path: 'learn/glossary',
+        element: <Glossary />
       },
       {
-        path: 'glossary',
-        element: <Glossary />
+        path: 'learn/:moduleSlug',
+        element: <LearnModule />
       }
     ]
   }

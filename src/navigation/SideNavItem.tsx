@@ -2,50 +2,71 @@ import React, { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
-export const SideNavItem: React.FC<{ item: any }> = ({ item }) => {
+// A group is "active" when the current path is its own landing or any of its
+// (recursive) descendants — so Learn lights up on a module page, but not when
+// you're on a sibling like Glossary.
+function isActivePath(item: any, pathname: string): boolean {
+  if (Array.isArray(item.children) && item.children.length > 0) {
+    return pathname === item.path || item.children.some((c: any) => isActivePath(c, pathname));
+  }
+  return pathname === item.path;
+}
+
+export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, depth = 0 }) => {
+  const location = useLocation();
   const comingSoon = item.comingSoon;
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
-  const location = useLocation();
-  const sectionActive = hasChildren && location.pathname.startsWith(item.path);
-  const [expanded, setExpanded] = useState(sectionActive);
+  const active = !comingSoon && isActivePath(item, location.pathname);
+  const [expanded, setExpanded] = useState(active);
 
-  // Leaf item (no children) — original behavior.
+  const nested = depth > 0;
+  const labelCls = nested
+    ? 'text-[11px] font-semibold tracking-wide'
+    : 'text-xs uppercase font-bold tracking-wider';
+  const rowPad = nested ? 'px-3 py-2' : 'px-3 py-2.5';
+
+  // Leaf
   if (!hasChildren) {
     return (
       <NavLink
-        to={comingSoon ? "#" : item.path}
+        to={comingSoon ? '#' : item.path}
         end
+        onClick={(e) => comingSoon && e.preventDefault()}
         className={({ isActive }) =>
-          `flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors duration-200 ${
+          `flex items-center gap-3 ${rowPad} rounded-lg font-bold transition-colors duration-200 ${
             isActive && !comingSoon
-              ? 'text-white bg-white/15 border-l-2 border-[#D91222]'
+              ? nested
+                ? 'text-white bg-white/10'
+                : 'text-white bg-white/15 border-l-2 border-[#D91222]'
               : comingSoon
                 ? 'text-white/30 cursor-not-allowed pointer-events-none'
-                : 'text-white/60 hover:text-white hover:bg-white/10'
+                : 'text-white/55 hover:text-white hover:bg-white/5'
           }`
         }
-        onClick={(e) => comingSoon && e.preventDefault()}
       >
-        <item.icon className="w-4 h-4" />
-        <span className="text-xs uppercase font-bold tracking-wider">{item.label}</span>
+        {item.icon && <item.icon className="w-4 h-4 shrink-0" />}
+        <span className={labelCls}>{item.label}</span>
       </NavLink>
     );
   }
 
-  // Expandable group: the whole row toggles the children open/closed; the chevron
-  // is just the state indicator. Auto-expanded when you're inside the section.
+  // Expandable group — whole row toggles; chevron is the indicator.
   return (
     <div>
       <button
         type="button"
         onClick={() => setExpanded((v) => !v)}
         aria-expanded={expanded}
-        className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg font-bold transition-colors duration-200 ${
-          sectionActive ? 'text-white bg-white/15 border-l-2 border-[#D91222]' : 'text-white/60 hover:text-white hover:bg-white/10'
+        className={`w-full flex items-center gap-3 ${rowPad} rounded-lg font-bold transition-colors duration-200 ${
+          active
+            ? nested
+              ? 'text-white bg-white/10'
+              : 'text-white bg-white/15 border-l-2 border-[#D91222]'
+            : 'text-white/55 hover:text-white hover:bg-white/5'
         }`}
       >
-        <item.icon className="w-4 h-4 shrink-0" />
-        <span className="text-xs uppercase font-bold tracking-wider">{item.label}</span>
+        {item.icon && <item.icon className="w-4 h-4 shrink-0" />}
+        <span className={labelCls}>{item.label}</span>
         <ChevronRight className={`w-3.5 h-3.5 ml-auto transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`} />
       </button>
 
@@ -53,20 +74,7 @@ export const SideNavItem: React.FC<{ item: any }> = ({ item }) => {
         <div className="overflow-hidden">
           <div className="ml-4 pl-3 border-l border-white/10 flex flex-col gap-0.5">
             {item.children.map((child: any) => (
-              <NavLink
-                key={child.path}
-                to={child.path}
-                end
-                className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg text-[11px] font-semibold tracking-wide transition-colors duration-200 ${
-                    isActive
-                      ? 'text-white bg-white/10'
-                      : 'text-white/50 hover:text-white hover:bg-white/5'
-                  }`
-                }
-              >
-                {child.label}
-              </NavLink>
+              <SideNavItem key={`${child.path}:${child.label}`} item={child} depth={depth + 1} />
             ))}
           </div>
         </div>
