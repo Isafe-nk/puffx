@@ -7,6 +7,7 @@ import WealthSimulator from '../features/visualizer/wealth-simulator/index';
 import Learn from '../features/learn/index';
 import LearnPhase from '../features/learn/LearnPhase';
 import LearnModule from '../features/learn/LearnModule';
+import LessonView from '../features/learn/LessonView';
 import Glossary from '../features/glossary/index';
 
 export const router = createBrowserRouter([
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
       {
         path: 'learn/:moduleSlug',
         element: <LearnModule />
+      },
+      {
+        path: 'learn/:moduleSlug/:lessonSlug',
+        element: <LessonView />
       }
     ]
   }

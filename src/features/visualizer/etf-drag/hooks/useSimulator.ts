@@ -237,6 +237,7 @@ export const useSimulator = (inputs: SimulatorInputs) => {
 
   // Last snapshot values
   const latestData = useMemo(() => simData[simData.length - 1] || {
+    year: 0,
     valueA: 0, valueB: 0, valueBench: 0,
     contribA: 0, contribB: 0, feesA: 0, feesB: 0,
     terA: 0, terB: 0, taxA: 0, taxB: 0,

@@ -1,6 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { ChevronLeft } from 'lucide-react';
-import { getModule, phaseSlugForModule } from './learnConfig';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getModule, phaseSlugForModule, lessonSlug } from './learnConfig';
+import { getLessonContent, moduleHasContent } from './content';
 
 export default function LearnModule() {
   const { moduleSlug } = useParams();
@@ -32,17 +33,39 @@ export default function LearnModule() {
 
         {/* Lessons */}
         <ol className="mt-10 border-t border-[#E6E6E6]">
-          {mod.lessons.map((l) => (
-            <li key={l.id} className="flex items-baseline gap-4 py-3.5 border-b border-[#EEEEEE]">
-              <span className="text-[11px] font-mono text-[#A2A3A5] w-10 shrink-0">{l.id}</span>
-              <span className="text-[14px] text-[#44474D] leading-snug">{l.title}</span>
-            </li>
-          ))}
+          {mod.lessons.map((l) => {
+            const hasContent = !!getLessonContent(mod.code, l.id);
+            const id = <span className="text-[11px] font-mono text-[#A2A3A5] w-10 shrink-0">{l.id}</span>;
+            const title = <span className="text-[14px] leading-snug">{l.title}</span>;
+
+            if (!hasContent) {
+              return (
+                <li key={l.id} className="flex items-center gap-4 py-3.5 border-b border-[#EEEEEE] text-[#44474D]">
+                  {id}
+                  {title}
+                </li>
+              );
+            }
+            return (
+              <li key={l.id} className="border-b border-[#EEEEEE]">
+                <Link
+                  to={`/learn/${mod.slug}/${lessonSlug(l.id)}`}
+                  className="group flex items-center gap-4 py-3.5 text-[#44474D] hover:text-[#212121] transition-colors"
+                >
+                  {id}
+                  {title}
+                  <ChevronRight className="w-4 h-4 ml-auto shrink-0 text-[#D0D1D2] group-hover:text-[#D91222] group-hover:translate-x-0.5 transition-all" strokeWidth={1.5} />
+                </Link>
+              </li>
+            );
+          })}
         </ol>
 
-        <p className="text-[11px] text-[#A2A3A5] mt-5">
-          Lesson content is being written — each opens as a short, bite-sized read once published.
-        </p>
+        {!moduleHasContent(mod.code) && (
+          <p className="text-[11px] text-[#A2A3A5] mt-5">
+            Lesson content is being written — each opens as a short, bite-sized read once published.
+          </p>
+        )}
       </div>
     </div>
   );

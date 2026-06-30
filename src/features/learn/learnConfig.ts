@@ -208,3 +208,27 @@ export const getPhase = (slug: string) => PHASES.find((p) => p.slug === slug);
 export const modulesInPhase = (name: string) => LEARN_MODULES.filter((m) => m.phase === name);
 export const phaseSlugForModule = (m: LearnModule) => PHASES.find((p) => p.name === m.phase)?.slug;
 export const lessonCount = (mods: LearnModule[]) => mods.reduce((n, m) => n + m.lessons.length, 0);
+
+/** Lesson URL slug, derived from its id: "L0.1" → "l0-1". */
+export const lessonSlug = (id: string) => id.toLowerCase().replace('.', '-');
+
+export interface LessonLocation {
+  module: LearnModule;
+  lesson: Lesson;
+  prev?: Lesson;
+  next?: Lesson;
+}
+
+/** Resolve a module + lesson from their URL slugs, with prev/next within the module. */
+export function findLesson(moduleSlug: string, lSlug: string): LessonLocation | undefined {
+  const module = getModule(moduleSlug);
+  if (!module) return undefined;
+  const idx = module.lessons.findIndex((l) => lessonSlug(l.id) === lSlug);
+  if (idx < 0) return undefined;
+  return {
+    module,
+    lesson: module.lessons[idx],
+    prev: module.lessons[idx - 1],
+    next: module.lessons[idx + 1],
+  };
+}
