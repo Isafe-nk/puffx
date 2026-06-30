@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom';
-import { Compass, Wallet, TrendingUp, ArrowRight } from 'lucide-react';
-import { PHASES, LEARN_MODULES, modulesInPhase, lessonCount } from './learnConfig';
+import { ListOrdered, Scale, MapPin, Wallet, TrendingUp, ArrowRight } from 'lucide-react';
+import { PHASES, modulesInPhase, lessonCount } from './learnConfig';
 
 const PHASE_ICONS = [Wallet, TrendingUp];
+
+const PRINCIPLES = [
+  { icon: ListOrdered, title: 'Go in order', desc: 'Start at Module 0 — each lesson builds on the one before.' },
+  { icon: Scale, title: 'Independent & neutral', desc: 'We explain the options and never sell a product.' },
+  { icon: MapPin, title: 'Built for Malaysia', desc: 'EPF, LHDN, ASB and the local vehicles, in plain English.' },
+];
 
 export default function Learn() {
   return (
@@ -23,16 +29,17 @@ export default function Learn() {
           </p>
         </section>
 
-        {/* How this works — one calm strip */}
-        <section className="mb-12">
-          <div className="rounded-xl border border-[#E6E6E6] bg-[#F7F8FA] p-5 flex items-start gap-3.5">
-            <Compass className="w-4 h-4 text-[#A2A3A5] mt-0.5 shrink-0" strokeWidth={1.5} />
-            <div>
-              <p className="text-[10px] uppercase tracking-[0.2em] text-[#A2A3A5] font-semibold mb-1.5">How this works</p>
-              <p className="text-[13px] text-[#44474D] leading-relaxed">
-                {LEARN_MODULES.length} modules · {lessonCount(LEARN_MODULES)} bite-sized lessons · Start at Module 0 and go in order — each builds on the last · Independent &amp; neutral: we explain, we never sell a product.
-              </p>
-            </div>
+        {/* How it works — principles, not counts */}
+        <section className="mb-14 border-t border-[#E6E6E6] pt-8">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#A2A3A5] font-semibold mb-6">How it works</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-7">
+            {PRINCIPLES.map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="flex flex-col gap-2">
+                <Icon className="w-4 h-4 text-[#A2A3A5]" strokeWidth={1.5} />
+                <h3 className="text-[13px] font-semibold text-[#212121]">{title}</h3>
+                <p className="text-[12px] text-[#727579] leading-relaxed">{desc}</p>
+              </div>
+            ))}
           </div>
         </section>
 
@@ -40,7 +47,7 @@ export default function Learn() {
         <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {PHASES.map((p, i) => {
             const mods = modulesInPhase(p.name);
-            const Icon = PHASE_ICONS[i] ?? Compass;
+            const Icon = PHASE_ICONS[i] ?? Wallet;
             return (
               <Link
                 key={p.slug}
