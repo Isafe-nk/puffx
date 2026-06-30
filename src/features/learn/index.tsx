@@ -19,7 +19,7 @@ export default function Learn() {
         <section className="pt-16 lg:pt-24 pb-12">
           <div className="flex items-center gap-2.5 mb-5">
             <span className="w-6 h-px bg-[#D91222]" />
-            <span className="text-[11px] uppercase tracking-[0.22em] text-[#A2A3A5] font-semibold">Course</span>
+            <span className="text-[11px] uppercase tracking-[0.22em] text-[#A2A3A5] font-semibold">Free · self-paced</span>
           </div>
           <h1 className="text-4xl lg:text-5xl font-black font-display tracking-tight text-[#212121] leading-[1.05]">
             Finance for Malaysians
