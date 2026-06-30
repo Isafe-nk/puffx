@@ -1,6 +1,6 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ChevronLeft, Circle } from 'lucide-react';
-import { getModule } from './learnConfig';
+import { getModule, phaseSlugForModule } from './learnConfig';
 
 export default function LearnModule() {
   const { moduleSlug } = useParams();
@@ -13,8 +13,8 @@ export default function LearnModule() {
     <div className="w-full">
       <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
         <div className="max-w-3xl mx-auto">
-          <Link to="/learn" className="inline-flex items-center gap-1 text-[11px] text-[#727579] hover:text-[#212121] font-medium mb-2 transition-colors">
-            <ChevronLeft className="w-3.5 h-3.5" /> All modules
+          <Link to={`/learn/phase/${phaseSlugForModule(mod)}`} className="inline-flex items-center gap-1 text-[11px] text-[#727579] hover:text-[#212121] font-medium mb-2 transition-colors">
+            <ChevronLeft className="w-3.5 h-3.5" /> {mod.phase}
           </Link>
           <div className="flex items-center gap-2.5">
             <span className="text-[10px] font-mono font-bold text-[#D91222] bg-[#D91222]/10 px-2 py-0.5 rounded shrink-0">{mod.code}</span>

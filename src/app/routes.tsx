@@ -5,6 +5,7 @@ import VisualizerLayout from '../features/visualizer/VisualizerLayout';
 import EtfDragVisualizer from '../features/visualizer/etf-drag/index';
 import WealthSimulator from '../features/visualizer/wealth-simulator/index';
 import Learn from '../features/learn/index';
+import LearnPhase from '../features/learn/LearnPhase';
 import LearnModule from '../features/learn/LearnModule';
 import Glossary from '../features/glossary/index';
 
@@ -40,8 +41,12 @@ export const router = createBrowserRouter([
         element: <Learn />
       },
       {
-        path: 'learn/glossary',
+        path: 'glossary',
         element: <Glossary />
+      },
+      {
+        path: 'learn/phase/:phaseSlug',
+        element: <LearnPhase />
       },
       {
         path: 'learn/:moduleSlug',

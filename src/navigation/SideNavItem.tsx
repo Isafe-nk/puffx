@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ChevronRight } from 'lucide-react';
 
-// A group is "active" when the current path is its own landing or any of its
-// (recursive) descendants — so Learn lights up on a module page, but not when
-// you're on a sibling like Glossary.
+// A group is "active" when the current path is under its own path prefix
+// (so Learn/FFM light up on phase and module pages), or when any of its
+// (recursive) children match — which catches a child whose URL lives outside
+// the parent's prefix (e.g. Glossary at /glossary under the Learn group).
 function isActivePath(item: any, pathname: string): boolean {
   if (Array.isArray(item.children) && item.children.length > 0) {
-    return pathname === item.path || item.children.some((c: any) => isActivePath(c, pathname));
+    if (pathname === item.path || pathname.startsWith(item.path + '/')) return true;
+    return item.children.some((c: any) => isActivePath(c, pathname));
   }
   return pathname === item.path;
 }

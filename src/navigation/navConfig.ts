@@ -1,5 +1,5 @@
 import { TrendingUp, GraduationCap, Building, BarChart, Globe, Settings } from 'lucide-react';
-import { LEARN_MODULES } from '../features/learn/learnConfig';
+import { PHASES } from '../features/learn/learnConfig';
 
 export const navConfig = [
   {
@@ -19,9 +19,9 @@ export const navConfig = [
       {
         label: "FFM",
         path: "/learn",
-        children: LEARN_MODULES.map((m) => ({ label: `${m.code} · ${m.title}`, path: `/learn/${m.slug}` }))
+        children: PHASES.map((p) => ({ label: `Phase ${p.num} · ${p.name}`, path: `/learn/phase/${p.slug}` }))
       },
-      { label: "Glossary", path: "/learn/glossary" }
+      { label: "Glossary", path: "/glossary" }
     ]
   },
   { label: "Portfolio", icon: Building, path: "/portfolio", comingSoon: true },

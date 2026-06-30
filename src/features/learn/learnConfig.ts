@@ -181,3 +181,30 @@ export const LEARN_MODULES: LearnModule[] = [
 ];
 
 export const getModule = (slug: string) => LEARN_MODULES.find((m) => m.slug === slug);
+
+export interface Phase {
+  num: number;
+  slug: string;
+  name: string;   // must match LearnModule.phase
+  blurb: string;
+}
+
+export const PHASES: Phase[] = [
+  {
+    num: 1,
+    slug: 'personal-finance',
+    name: 'Personal Finance',
+    blurb: 'The foundations — know your money, spend & save smart, conquer debt, and protect what you have.',
+  },
+  {
+    num: 2,
+    slug: 'investment',
+    name: 'Investment',
+    blurb: 'Put money to work — principles, Malaysian vehicles, the markets, and pulling it into a real plan.',
+  },
+];
+
+export const getPhase = (slug: string) => PHASES.find((p) => p.slug === slug);
+export const modulesInPhase = (name: string) => LEARN_MODULES.filter((m) => m.phase === name);
+export const phaseSlugForModule = (m: LearnModule) => PHASES.find((p) => p.name === m.phase)?.slug;
+export const lessonCount = (mods: LearnModule[]) => mods.reduce((n, m) => n + m.lessons.length, 0);
