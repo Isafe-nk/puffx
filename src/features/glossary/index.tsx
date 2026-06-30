@@ -1,9 +1,8 @@
 import React from 'react';
-import { Library, Landmark, Percent, Coins, Repeat, ShieldAlert } from 'lucide-react';
-import Card from '../../shared/components/Card';
+import { Percent, Coins, Repeat, ShieldAlert } from 'lucide-react';
 
 interface Term {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   title: string;
   body: React.ReactNode;
 }
@@ -72,27 +71,24 @@ const TERMS: Term[] = [
 export default function Glossary() {
   return (
     <div className="w-full">
-      <header className="border-b border-[#E6E6E6] bg-white/90 backdrop-blur-md px-6 py-4 sticky top-0 z-40">
-        <div className="max-w-5xl mx-auto flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-[#D91222]/10 flex items-center justify-center shrink-0">
-            <Library className="w-5 h-5 text-[#D91222]" />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold font-display tracking-tight text-[#212121]">Glossary</h1>
-            <p className="text-xs text-[#727579] font-sans mt-0.5">
-              The concepts behind the visualizer — the costs and rules the simulation models
-            </p>
-          </div>
-        </div>
-      </header>
+      <div className="max-w-4xl mx-auto px-6 lg:px-8 pb-20">
 
-      <main className="max-w-5xl mx-auto p-4 lg:p-6 space-y-6">
-        <Card className="!p-6 lg:!p-7">
-          <div className="flex items-center gap-2 text-[10px] text-[#727579] font-semibold uppercase tracking-[0.15em] mb-3">
-            <span className="w-0.5 h-4 bg-[#D91222] rounded-full"></span>
-            The Core Decision
+        {/* Header */}
+        <div className="pt-12 lg:pt-16">
+          <div className="flex items-center gap-2.5 mb-4">
+            <span className="w-6 h-px bg-[#D91222]" />
+            <span className="text-[11px] uppercase tracking-[0.22em] text-[#A2A3A5] font-semibold">Reference</span>
           </div>
-          <h2 className="text-lg lg:text-xl font-black font-display text-[#212121] tracking-tight mb-2">
+          <h1 className="text-3xl lg:text-4xl font-black font-display tracking-tight text-[#212121] leading-tight">Glossary</h1>
+          <p className="mt-4 text-[15px] text-[#727579] leading-relaxed max-w-2xl">
+            The concepts behind the visualizer — the costs and rules the simulation models.
+          </p>
+        </div>
+
+        {/* Core decision */}
+        <section className="mt-10 rounded-2xl border border-[#E6E6E6] bg-white p-6 lg:p-7">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#A2A3A5] font-semibold mb-2">The core decision</p>
+          <h2 className="text-lg lg:text-xl font-bold font-display text-[#212121] mb-2 tracking-tight">
             US-domiciled vs Ireland-domiciled S&P 500 ETFs
           </h2>
           <p className="text-sm text-[#44474D] leading-relaxed">
@@ -102,32 +98,27 @@ export default function Glossary() {
             withholding tax to 15% and remove the estate-tax risk. The visualizer compounds those opposing
             forces over your horizon to show which one actually leaves you with more.
           </p>
-        </Card>
+        </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Terms */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-5">
           {TERMS.map((t) => (
-            <React.Fragment key={t.title}>
-              <Card className="!p-5">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-lg bg-[#F7F8FA] border border-[#E6E6E6] flex items-center justify-center shrink-0">
-                    <t.icon className="w-4 h-4 text-[#D91222]" />
-                  </div>
-                  <h3 className="text-sm font-bold font-display text-[#212121]">{t.title}</h3>
-                </div>
-                <p className="text-[13px] text-[#727579] leading-relaxed">{t.body}</p>
-              </Card>
-            </React.Fragment>
+            <div key={t.title} className="rounded-2xl border border-[#E6E6E6] bg-white p-6">
+              <div className="flex items-center gap-2.5 mb-3">
+                <t.icon className="w-4 h-4 text-[#727579]" strokeWidth={1.5} />
+                <h3 className="text-sm font-bold font-display text-[#212121]">{t.title}</h3>
+              </div>
+              <p className="text-[13px] text-[#727579] leading-relaxed">{t.body}</p>
+            </div>
           ))}
         </div>
 
-        <div className="flex items-start gap-2.5 text-[11px] text-[#727579] leading-normal bg-[#F7F8FA] p-3.5 rounded-xl border border-[#E6E6E6]">
-          <Landmark className="w-3.5 h-3.5 text-[#D91222] shrink-0 mt-0.5" />
-          <span>
-            Educational only — not tax or investment advice. Rates and treaty treatment can change;
-            confirm current figures with Interactive Brokers and a qualified adviser before acting.
-          </span>
-        </div>
-      </main>
+        {/* Footnote */}
+        <p className="mt-8 text-[11px] text-[#A2A3A5] leading-relaxed max-w-2xl">
+          Educational only — not tax or investment advice. Rates and treaty treatment can change;
+          confirm current figures with Interactive Brokers and a qualified adviser before acting.
+        </p>
+      </div>
     </div>
   );
 }

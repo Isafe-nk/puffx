@@ -37,7 +37,7 @@ export default function LearnPhase() {
               className="group rounded-2xl border border-[#E6E6E6] bg-white p-6 hover:border-[#D91222] transition-colors duration-200 block"
             >
               <div className="flex items-center justify-between mb-6">
-                <span className="text-[11px] font-mono font-semibold text-[#727579]">{m.code}</span>
+                <span className="text-[11px] font-semibold text-[#727579]">Module {m.code.replace('M', '')}</span>
                 <span className="text-[11px] text-[#A2A3A5] font-mono">{m.lessons.length} lessons</span>
               </div>
               <h2 className="text-base font-bold font-display text-[#212121] flex items-center gap-1.5">
