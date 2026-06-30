@@ -194,13 +194,13 @@ export const PHASES: Phase[] = [
     num: 1,
     slug: 'personal-finance',
     name: 'Personal Finance',
-    blurb: 'The foundations — know your money, spend & save smart, conquer debt, and protect what you have.',
+    blurb: 'Understand, manage, and protect the money you already earn.',
   },
   {
     num: 2,
     slug: 'investment',
     name: 'Investment',
-    blurb: 'Put money to work — principles, Malaysian vehicles, the markets, and pulling it into a real plan.',
+    blurb: 'Grow your wealth — the principles, the Malaysian vehicles, and the markets.',
   },
 ];
 
