@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { ListOrdered, Scale, MapPin, Wallet, TrendingUp, ArrowRight } from 'lucide-react';
-import { PHASES, modulesInPhase, lessonCount } from './learnConfig';
+import { PHASES, LEARN_MODULES, modulesInPhase, lessonCount } from './learnConfig';
+
+const FIRST_MODULE = LEARN_MODULES[0];
 
 const PHASE_ICONS = [Wallet, TrendingUp];
 
@@ -27,6 +29,13 @@ export default function Learn() {
           <p className="mt-5 text-lg text-[#727579] leading-relaxed max-w-2xl">
             Money the way school never taught you — from your first payslip to building real wealth.
           </p>
+          <Link
+            to={`/learn/${FIRST_MODULE.slug}`}
+            className="group mt-8 inline-flex items-center gap-2 bg-[#D91222] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#C01A2F] transition-colors"
+          >
+            Start with Module 0
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
+          </Link>
         </section>
 
         {/* How it works — principles, not counts */}
@@ -65,7 +74,8 @@ export default function Learn() {
                 </h2>
                 <p className="mt-2 text-[13px] text-[#727579] leading-relaxed">{p.blurb}</p>
                 <p className="mt-5 pt-4 border-t border-[#EEEEEE] text-[11px] text-[#A2A3A5] leading-relaxed">
-                  {mods.map((m) => m.title).join('  ·  ')}
+                  {mods.slice(0, 3).map((m) => m.title).join('  ·  ')}
+                  {mods.length > 3 ? `  ·  +${mods.length - 3} more` : ''}
                 </p>
               </Link>
             );
