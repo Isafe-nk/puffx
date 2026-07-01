@@ -1,0 +1,124 @@
+{
+  "L1.1": {
+    "hook": "Your payslip is the most important financial document you never really read. The gap between your “salary” and what actually lands in your bank is full of deductions most people never question — and they add up to thousands of ringgit a year.",
+    "recall": "From Module 0: what must you do before you start investing? (Build an emergency fund and clear high-interest debt — foundation first.)",
+    "summary": "A Malaysian payslip = gross pay − statutory deductions (EPF, SOCSO, EIS, PCB tax) = net pay. Understanding each line is step one to controlling your money.",
+    "quiz": {
+      "q": "Is the EPF amount deducted on your payslip money you've lost?",
+      "a": "**No.** It's your own forced retirement savings — you still own every ringgit of it, and it earns dividends. It's moved, not lost."
+    },
+    "takeaway": "Gross − statutory deductions (EPF, SOCSO, EIS, PCB) = net. Know what every line on your payslip is.",
+    "action": "Pull up your latest payslip and find six things: gross pay, EPF, SOCSO, EIS, PCB, and net pay. If any line is a mystery, this module will clear it up.",
+    "body": "A typical Malaysian payslip has three parts:\n\n- **Gross pay** — your basic salary plus any allowances.\n\n- **Deductions** — EPF (your 11%), SOCSO, EIS, and PCB (monthly income tax). Sometimes zakat.\n\n- **Net pay** — what actually reaches your bank account.\n\nIt usually also lists what your employer pays on your behalf (EPF 12–13%, SOCSO, EIS). That's money spent on you, not taken from you. And here's the mindset shift: most of your deductions aren't money “lost” — EPF is your own forced savings, and SOCSO/EIS are protection that pays out if you're injured or lose your job.",
+    "malaysia": "The four standard statutory deductions are EPF, SOCSO, EIS, and PCB. We'll take each one apart over the next few lessons so no line on your payslip is a mystery."
+  },
+  "L1.2": {
+    "hook": "Most people plan their spending around their “salary” — but you never actually receive that number. Budgeting on gross instead of net is why so many budgets quietly fail.",
+    "recall": "From the last lesson: name the four statutory deductions on a Malaysian payslip. (EPF, SOCSO, EIS, PCB.)",
+    "summary": "Gross = what you're paid on paper. Net = what reaches your bank after EPF, SOCSO, EIS and tax. Always budget with net, never gross.",
+    "quiz": {
+      "q": "Should you build your monthly budget on your gross salary or your net pay?",
+      "a": "**Net pay.** Gross is money you never see in full — budgeting on it sets you up to overspend by hundreds of ringgit a month."
+    },
+    "takeaway": "Budget on net (take-home) pay, never gross. The difference is real money you don't receive.",
+    "action": "Find your exact net monthly pay from your payslip and write it down — that's the number every future budget lesson will use.",
+    "body": "**Gross pay** is your salary before any deductions. **Net pay** (take-home) is what's left after the statutory deductions come out. The two can differ by RM600–1,000+ a month.\n\nA rough example on RM5,000 gross: EPF −RM550 (11%), SOCSO −~RM25, EIS −RM10, plus PCB (income tax, which varies with your reliefs). You take home roughly RM4,400 before tax — not RM5,000. Budget around that RM4,400 figure, not the RM5,000 on your offer letter.",
+    "malaysia": "Remember your employer also pays on top of your gross — EPF 12–13%, SOCSO and EIS. So the true “cost to employ you” is higher than your gross salary; those employer contributions are an invisible part of your pay package."
+  },
+  "L1.3": {
+    "hook": "EPF is probably the single biggest pile of savings you own — and most Malaysians have no idea how it works or how much is in it. It's also the easiest “investment” you'll ever make, because it's automatic.",
+    "recall": "From the last lesson: should your budget use your gross or net pay? (Net.)",
+    "summary": "EPF (KWSP) is Malaysia's national retirement savings scheme. You put in 11% of wages, your employer adds 12–13%, and it grows with a yearly dividend. It's forced savings that quietly work for you.",
+    "sources": "KWSP — Employer Mandatory Contribution; KWSP declared dividends 2024 (6.30%) & 2025 (6.15%). Refresh annually.",
+    "quiz": {
+      "q": "Roughly how much goes into EPF each month for someone earning RM4,000?",
+      "a": "**About RM960.** Your 11% (~RM440) plus your employer's 13% (~RM520). You're saving nearly a quarter of your salary for retirement without lifting a finger."
+    },
+    "takeaway": "EPF is automatic retirement savings: your 11% + employer's 12–13%, growing ~5–6% a year. It's already working for you.",
+    "action": "Log in to (or register for) EPF i-Akaun and check two things: your current balance and last year's dividend credited.",
+    "body": "EPF — the Employees Provident Fund (_Kumpulan Wang Simpanan Pekerja_, KWSP) — is compulsory retirement savings for employees.\n\n- You contribute **11%** of your monthly wages (deducted automatically).\n\n- Your employer adds **13%** if you earn ≤ RM5,000, or **12%** if you earn more — on top of your salary.\n\n- It earns an annual dividend — **6.30% for 2024 and 6.15% for 2025** — and is guaranteed never to pay below 2.5%.\n\nIt's called “forced savings” because you can't casually spend it — and that's the whole point. Left to willpower, most of us would spend it; locked in EPF, it compounds into a retirement fund.",
+    "malaysia": "You check and manage your EPF through i-Akaun (the KWSP web portal and app) — your balance, dividends, and statements are all there. For wages under RM20,000/month, the exact amounts come from EPF's Third Schedule, so they're close to — but not exactly — 11%/13% of your salary."
+  },
+  "L1.4": {
+    "hook": "Since 2024, your EPF is split across three accounts with very different withdrawal rules. Knowing which is which tells you what you can actually touch — and what's locked away for your future self.",
+    "recall": "From the last lesson: what's your EPF employee contribution rate? (11% of wages.)",
+    "summary": "Since May 2024, new EPF contributions split 75/15/10 into three accounts: Akaun Persaraan (locked for retirement), Akaun Sejahtera (life needs), and Akaun Fleksibel (withdraw anytime).",
+    "sources": "KWSP — Account Restructuring (effective 11 May 2024). Refresh if rules change.",
+    "quiz": {
+      "q": "Which of the three EPF accounts can you withdraw from at any time?",
+      "a": "**Akaun Fleksibel (10%).** Persaraan is locked for retirement; Sejahtera is for specific life needs like housing or education."
+    },
+    "takeaway": "Three EPF accounts since 2024: Persaraan (retirement, locked) · Sejahtera (life needs) · Fleksibel (anytime). Split 75/15/10.",
+    "action": "Open i-Akaun and see how your savings are divided across Persaraan, Sejahtera, and Fleksibel.",
+    "body": "On 11 May 2024, EPF replaced its old two-account system with three accounts. New contributions are split:\n\n- **Akaun Persaraan — 75%**: long-term retirement savings, locked until age 55 (with limited exceptions).\n\n- **Akaun Sejahtera — 15%**: pre-retirement life needs — housing, education, health, takaful, hajj, and the age-50 withdrawal.\n\n- **Akaun Fleksibel — 10%**: short-term needs — you can withdraw any time, subject to terms.\n\nThe flexibility of Akaun Fleksibel is useful, but every ringgit you pull out is a ringgit not compounding for your retirement — so treat it as a genuine backstop, not a spending account.",
+    "malaysia": "In i-Akaun you can see your balance split across all three accounts. If you joined before May 2024, your old Account 1 became Akaun Persaraan and Account 2 became Akaun Sejahtera; Akaun Fleksibel started fresh from contributions after the switch."
+  },
+  "L1.5": {
+    "hook": "That small SOCSO line on your payslip is one of the best-value protections you own — it pays out if a work injury or permanent disability stops you earning. Most people never realise they're covered until they need it.",
+    "recall": "From the last lesson: which EPF account can you withdraw from anytime? (Akaun Fleksibel.)",
+    "summary": "SOCSO (PERKESO) protects you against work injury and invalidity. You pay just 0.5% of wages (capped at RM6,000); your employer pays 1.75%. It's protection, not savings.",
+    "sources": "PERKESO — Rate of Contribution (Category 1, under 60); ceiling RM6,000 since Oct 2024. Refresh annually.",
+    "quiz": {
+      "q": "Does SOCSO only cover accidents that happen at work?",
+      "a": "**No.** The Employment Injury scheme covers work and commuting, but the Invalidity scheme covers permanent disability or death from any cause."
+    },
+    "takeaway": "SOCSO = injury + invalidity protection for about 0.5% of your wage. Cheap insurance you already have.",
+    "action": "Find the SOCSO line on your payslip — and know that if you're ever injured or permanently disabled, you (or your family) can claim through PERKESO.",
+    "body": "SOCSO — the Social Security Organisation (_PERKESO_) — runs two main schemes for employees under 60:\n\n- **Employment Injury Scheme** — covers accidents at work or while commuting, plus occupational diseases: medical care, and disability benefits.\n\n- **Invalidity Scheme** — covers permanent disability or death from ANY cause (not just work), plus benefits for your survivors.\n\nYou contribute 0.5% of monthly wages; your employer pays 1.75%. It's capped at RM6,000 of wages. Unlike EPF, this is protection — you don't get it back, but it pays out exactly when life goes wrong.",
+    "malaysia": "The wage ceiling was raised from RM5,000 to RM6,000 in October 2024, and contribution rates were revised from January 2026. You claim through PERKESO (online portal or a branch)."
+  },
+  "L1.6": {
+    "hook": "If you lose your job, EIS gives you temporary income and help finding the next one — but only if you know to claim it. Plenty of retrenched Malaysians never do.",
+    "recall": "From the last lesson: does SOCSO's Invalidity scheme only cover work-related causes? (No — any cause.)",
+    "summary": "EIS cushions you if you lose your job — temporary financial aid plus job-search support. You and your employer each pay just 0.2% of wages.",
+    "sources": "PERKESO — EIS contribution 0.2% + 0.2%, ceiling RM6,000. Refresh annually.",
+    "quiz": {
+      "q": "Can you claim EIS if you resign voluntarily?",
+      "a": "**No.** EIS is for loss of employment you didn't choose — like retrenchment — not voluntary resignation."
+    },
+    "takeaway": "EIS is your safety net if you're retrenched: small 0.2% cost, real payout. Apply promptly.",
+    "action": "Make a mental note: if you're ever retrenched, your first call is the EIS portal — don't miss the application window.",
+    "body": "EIS — the Employment Insurance System (_Sistem Insurans Pekerjaan_), also run by PERKESO — helps if you lose your job through no fault of your own (e.g. retrenchment). It is NOT for voluntary resignations or dismissal for misconduct.\n\nIf you qualify, you can receive:\n\n- **Job Search Allowance** — temporary monthly income for several months while you look for work.\n\n- **Training & re-employment support** to help you get back to work faster.\n\nThe cost is tiny: 0.2% from you and 0.2% from your employer, capped at RM6,000 of wages.",
+    "malaysia": "If you're ever retrenched, apply promptly through the EIS portal — there's a limited application window after you lose your job, so don't sit on it. (Check the current window on the PERKESO/EIS portal.)"
+  },
+  "L1.7": {
+    "hook": "Income tax feels mysterious and a bit scary — but it's simple once you see how it works. Understanding it means you stop over-paying and start claiming what's legitimately yours.",
+    "recall": "From the last lesson: can you claim EIS if you resign by choice? (No.)",
+    "summary": "PCB is just monthly income tax deducted from your pay. Malaysia taxes only your chargeable income (after reliefs), on a progressive 0–30% scale. Earn little, pay little.",
+    "sources": "LHDN (hasil.gov.my) — resident individual tax rates, YA2025; RM9,000 personal relief; RM400 rebate (chargeable income ≤ RM35,000). Refresh each assessment year.",
+    "quiz": {
+      "q": "If your chargeable income is RM30,000, is your whole income taxed at one flat rate?",
+      "a": "**No.** It's progressive — the first RM5,000 is taxed at 0%, the next portion at 1%, and so on. And with chargeable income under RM35,000, the RM400 rebate likely wipes out the tax altogether."
+    },
+    "takeaway": "You're taxed only on chargeable income (after reliefs), progressively from 0% to 30%. PCB is just the monthly prepayment.",
+    "action": "Find the PCB line on your payslip. If you've never filed, register for MyTax on the LHDN portal — it takes minutes.",
+    "body": "PCB (_Potongan Cukai Bulanan_, or Monthly Tax Deduction) is income tax taken from your salary each month as an estimate. You reconcile it when you file your return (e-Filing), usually by April the following year — and may get a refund.\n\nCrucially, Malaysia is **progressive**: you're taxed only on chargeable income (gross minus reliefs like EPF and the RM9,000 personal relief), and each band is taxed at its own rate — not your whole income at the top rate. The YA2025 resident rates:\n\n- First RM5,000: **0%**\n\n- RM5,001–20,000: **1%**\n\n- RM20,001–35,000: **3%**\n\n- RM35,001–50,000: **6%**\n\n- RM50,001–70,000: **11%**  ·  RM70,001–100,000: **19%**  ·  then 25% and up, to 30% above RM2m.\n\nAnd a rebate: if your chargeable income is RM35,000 or less, you get an RM400 individual rebate — which often cancels the tax entirely.",
+    "malaysia": "You file through LHDN's MyTax / e-Filing portal. Tax reliefs (EPF, life/medical insurance, lifestyle, education, and more) reduce your chargeable income — we'll cover how to optimise them in the tax lesson in Phase 2."
+  },
+  "L1.8": {
+    "hook": "Your salary tells you what you earn. Your net worth tells you what you're actually building. It's the single best scoreboard for your financial life — and most people have never calculated it once.",
+    "recall": "From the last lesson: are you taxed on your gross income or your chargeable income? (Chargeable — after reliefs.)",
+    "summary": "Net worth = everything you own (assets) − everything you owe (liabilities). Track this one number and you're watching the score that actually matters.",
+    "quiz": {
+      "q": "Can someone with a high salary have a low — or even negative — net worth?",
+      "a": "**Yes.** If they spend everything or carry big debts, a fat salary can sit alongside near-zero net worth. Income is not the same as wealth."
+    },
+    "takeaway": "Net worth = assets − liabilities. Track the trend over time — it's the real scoreboard, not your salary.",
+    "action": "List your assets and liabilities, subtract, and write down your net worth with today's date. That's your starting line.",
+    "body": "Add up two lists:\n\n- **Assets** — cash and savings, EPF, ASB and investments, property, car (resale value).\n\n- **Liabilities** — PTPTN, car loan, home loan, credit-card balance, personal loans.\n\n**Net worth = Assets − Liabilities.** It can be negative early on — a fresh grad with PTPTN and no savings has negative net worth, and that's completely normal. What matters is the _trend_: is the number climbing over time?\n\nWhy this beats watching your salary: you can earn a lot and still have low net worth if you spend it all. Income is the tap; net worth is how much is actually in the tank.",
+    "malaysia": "Don't forget to count your EPF (check the balance in i-Akaun) and ASB as assets, and PTPTN as a liability — they're easy to overlook but they're real parts of your net worth."
+  },
+  "L1.9": {
+    "hook": "You can't fix what you can't see. Most people genuinely don't know where their money goes each month — tracking your cash flow is the flashlight that finds the leaks.",
+    "recall": "From the last lesson: what's the formula for net worth? (Assets − liabilities.)",
+    "summary": "Cash flow = money in vs money out each month. Positive means you're building wealth; negative means you're sliding backward. Measure it before you try to manage it.",
+    "quiz": {
+      "q": "What does negative cash flow mean?",
+      "a": "**You're spending more than you earn** — covering the gap by drawing down savings or taking on debt. It's the warning light to act on."
+    },
+    "takeaway": "Cash flow = money in − money out. Measure it for one month before you try to manage it.",
+    "action": "Track every ringgit you spend for the next 7 days. By day 7 you'll have spotted at least one leak worth plugging.",
+    "body": "**Cash flow = monthly income − monthly expenses.** If it's positive, the surplus is what you can save and invest. If it's negative, you're quietly drawing down savings or piling on debt — even on a good salary.\n\nThe first step isn't budgeting — it's measuring. For one month, track every ringgit that goes out (a notes app, a spreadsheet, or your banking app's spending categories). You can't budget honestly until you know your real numbers.\n\nAlmost everyone is surprised by the “small” recurring leaks — unused subscriptions, daily kopi, food-delivery fees — that quietly add up to hundreds of ringgit a month.",
+    "malaysia": "Most Malaysian banking apps and e-wallets now categorise your spending automatically, and your DuitNow/transaction history is a ready-made record. Use them — the data's already there."
+  }
+}

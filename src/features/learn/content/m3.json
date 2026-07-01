@@ -1,0 +1,110 @@
+{
+  "L3.1": {
+    "hook": "Not all debt is bad. Some debt makes you richer; some makes you poorer. Telling them apart is the first move to getting your debt under control instead of letting it control you.",
+    "recall": "From Module 2: which safe option gives both easy access and a decent return? (A money-market fund.)",
+    "summary": "Good debt buys things that grow in value or income (a home, education, a business). Bad debt buys things that lose value (gadgets, holidays on credit). Minimise bad debt; use good debt wisely.",
+    "quiz": {
+      "q": "Is a credit-card balance for a holiday good debt or bad debt?",
+      "a": "**Bad debt.** High interest, and nothing of lasting value behind it once the trip's over."
+    },
+    "takeaway": "Good debt builds wealth; bad debt drains it. Attack the bad debt first.",
+    "action": "List every debt you have and tag each one “good” or “bad.” The bad ones are your targets.",
+    "body": "- **Good debt** helps you build wealth or earning power — a mortgage on a property that can appreciate or rent out, a study loan that raises your income, a business loan. Usually lower interest, longer term, with an asset behind it.\n\n- **Bad debt** funds consumption that loses value — credit-card balances for shopping, a car beyond your means, “buy now pay later” for wants. Usually high interest, no lasting asset.\n\nThere's a grey zone — a car loan funds a need but a depreciating asset; an over-sized mortgage can turn good debt bad. The rule of thumb: avoid bad debt, and only take good debt when the expected return clearly beats the cost.",
+    "malaysia": "PTPTN is good-ish debt — a tiny 1% fee, and it raised your earning power. A credit-card balance at 18% is the textbook bad debt. Same person, very different debt."
+  },
+  "L3.2": {
+    "hook": "The same “interest rate” can cost wildly different amounts depending on how it's calculated. Banks understand this — and now you will too.",
+    "recall": "From the last lesson: what's the difference between good and bad debt? (Builds wealth vs drains it.)",
+    "summary": "Reducing-balance interest is charged only on what you still owe (fair). Flat-rate interest is charged on the full original amount the whole time (much pricier). A “2.5% flat” loan is really ~4.6%.",
+    "sources": "Hire-Purchase (Amendment) Act 2026 (effective 1 June 2026); car-loan EIR ≈ 1.85× flat rate. Refresh as rules bed in.",
+    "quiz": {
+      "q": "For the same headline rate, which costs you more — flat rate or reducing balance?",
+      "a": "**Flat rate.** It keeps charging interest on the full original amount even after you've paid much of it down."
+    },
+    "takeaway": "Compare the effective (reducing-balance/EIR) rate, not the flat headline. Flat costs ~1.85× what it looks.",
+    "action": "Check each of your loans: is it charged on a flat rate or a reducing balance?",
+    "body": "- **Reducing balance** — interest each period is charged on your outstanding balance, which shrinks as you repay, so total interest falls over time. Home loans use this. Fairer to you.\n\n- **Flat rate** — interest is charged on the original loan amount for the entire tenure, even as you pay it down. You're paying interest on money you've already repaid. Car loans traditionally used this.\n\nThe trap: a “2.5% flat” car loan sounds cheaper than a “4% home loan” — but the flat rate's true cost (its Effective Interest Rate, EIR) is roughly 1.85× the headline, so ~4.6%. Always compare the effective rate, never the flat number.",
+    "malaysia": "Big change: from 1 June 2026, the Hire-Purchase (Amendment) Act 2026 scrapped flat rate and the Rule of 78 for car loans, moving to EIR and reducing balance — fairer pricing, and early settlement now actually saves you money."
+  },
+  "L3.3": {
+    "hook": "PTPTN is most Malaysians' first debt — and one of the cheapest you'll ever carry. Knowing how it works tells you whether to rush it or take your time.",
+    "recall": "From the last lesson: flat rate vs reducing balance — which is more expensive? (Flat.)",
+    "summary": "PTPTN charges just 1% a year (ujrah, on a reducing balance) with no compounding spiral. Repay from 12 months after graduating; discounts reward lump-sum or consistent payments.",
+    "sources": "PTPTN (ptptn.gov.my) / malaysia.gov.my — 1% ujrah, 12-month grace, repayment discounts. Refresh — discount schemes change.",
+    "quiz": {
+      "q": "Does skipping PTPTN payments make the debt snowball like a credit card?",
+      "a": "**No.** The ujrah is a flat 1% fee on the balance — it doesn't compound the way credit-card interest does. (You should still pay, but it won't spiral.)"
+    },
+    "takeaway": "PTPTN is cheap debt (1% ujrah, no compounding). Clear pricier debt first — but grab the lump-sum discount if the maths works.",
+    "action": "Check your PTPTN balance, and whether you're getting a discount via salary deduction.",
+    "body": "The _ujrah_ is a 1% per annum management fee on your outstanding balance (reducing balance). Because it's a fee, not interest, it doesn't compound into a runaway debt spiral even if you fall behind.\n\n- Repayment starts **12 months after you finish studying** — you must begin yourself, without waiting for a notice. The ujrah only applies from month 13.\n\n- Discounts (current): **~15% off** for full lump-sum settlement; **~10%** for salary deduction or consistent monthly payments. (These change — check PTPTN.)\n\nStrategy: at only 1%, PTPTN is very cheap debt, so clearing higher-interest debt (credit cards at 18%, car loans) first usually wins. But a lump-sum settlement discount can tip the maths — do the comparison before deciding.",
+    "malaysia": "Salary deduction (SG-PTPTN), handled by your employer, is the easiest method for working graduates — and it earns you a repayment discount."
+  },
+  "L3.4": {
+    "hook": "Used well, a credit card is free convenience and rewards. Used badly, it's the most expensive debt most people will ever carry — up to 18% a year.",
+    "recall": "From the last lesson: roughly what's PTPTN's annual charge? (~1% ujrah.)",
+    "summary": "Pay your card in full each month and it's effectively free. Carry a balance and you're charged up to 18% a year — among the priciest debt there is.",
+    "sources": "Bank Negara Malaysia — credit-card interest tiers 15%/17%/18% p.a. Refresh annually.",
+    "quiz": {
+      "q": "How do you use a credit card at zero interest cost?",
+      "a": "**Pay the full statement balance every month, on time.** Then you enjoy the grace period and rewards while paying no interest at all."
+    },
+    "takeaway": "Pay in full = free. Carry a balance = up to 18% a year — the worst common debt.",
+    "action": "Set your credit card to auto-debit the FULL statement balance each month, so you never accidentally carry a balance.",
+    "body": "You get an interest-free grace period (around 20 days). Pay your statement balance IN FULL by the due date and you pay zero interest — plus you keep any cashback or points. That's the card working for you.\n\nPay only the minimum and the rest is charged interest — up to 18% a year — often from the transaction date, and on new purchases too. Minimum payments are designed to barely touch the principal, keeping you in debt for years. Cash advances are worse: interest from day one, plus a fee.",
+    "malaysia": "BNM tiers the rate by your 12-month payment record: 15% (always pay on time), 17%, or 18%. The cap has held since 2008 — but 15% is still expensive, so the goal is to never pay it at all."
+  },
+  "L3.5": {
+    "hook": "At 18% a year, credit-card debt grows faster than almost any investment earns. Escaping it is the single highest-return financial move you can make.",
+    "recall": "From the last lesson: how do you pay zero credit-card interest? (Pay in full each month.)",
+    "summary": "Stop adding to it, pay far more than the minimum, and cut the rate with a balance transfer or lower-interest loan. Clearing 18% debt is a guaranteed 18% return.",
+    "quiz": {
+      "q": "Why is paying off an 18% credit card like earning an 18% return?",
+      "a": "**Every ringgit you clear saves you 18% a year in interest — guaranteed.** That's a better, safer “return” than almost any investment."
+    },
+    "takeaway": "Stop charging, overpay the minimum, slash the rate. It's the best investment you can make.",
+    "action": "Pay more than the minimum on your highest-rate card this month, and look into a balance-transfer plan.",
+    "body": "- **Stop the bleeding** — switch to debit or cash so the balance stops growing.\n\n- **Overpay the minimum** — minimums are built to keep you in debt; pay as much as you can at the balance.\n\n- **Cut the rate** — a balance-transfer plan (0% for a promo period) or a lower-interest personal loan can move 18% debt into single digits, so more of your payment hits the principal.\n\n- **Keep a small buffer** — a starter emergency fund stops you falling back on the card at the next surprise.\n\nThe mindset: paying off an 18% card is a guaranteed, risk-free 18% return — no investment reliably beats that. It comes before investing, every time.",
+    "malaysia": "Balance-transfer plans (0% for 6–12 months) are widely offered. If debt feels unmanageable, AKPK — the BNM-backed Credit Counselling and Debt Management Agency — offers free advice and a debt-restructuring programme."
+  },
+  "L3.6": {
+    "hook": "A car is most people's first big loan — and the way it's priced hides costs that quietly make it more expensive than it looks.",
+    "recall": "From the last lesson: clearing an 18% card is equivalent to what return? (~18%, guaranteed.)",
+    "summary": "Car loans were sold at a low-looking “flat rate” whose true cost is ~1.85× higher — and the car loses value as you pay. From June 2026, the law moves to fairer reducing-balance pricing.",
+    "sources": "Hire-Purchase (Amendment) Act 2026 (effective 1 June 2026); new-car flat ~2.3–2.6%, EIR ~4.3–4.8%. Refresh annually.",
+    "quiz": {
+      "q": "Why is a “2.5% flat” car loan not really 2.5%?",
+      "a": "**Because flat rate charges interest on the full original amount for the whole tenure.** The true cost (EIR) is roughly 1.85× higher — about 4.6%."
+    },
+    "takeaway": "A car loses value, and flat-rate pricing hides ~1.85× the headline cost. Borrow less; compare EIR.",
+    "action": "If you have a car loan, find its effective interest rate (EIR), not just the flat rate you were quoted.",
+    "body": "A car is a depreciating asset — it loses value the moment you drive off, so a car loan means borrowing to buy something that shrinks in worth. The lesson: buy practical, and borrow as little as you sensibly can.\n\nRemember the flat-rate trap from earlier: a “2.5% flat” loan has an effective rate (EIR) of around 4.6% — nearly double the headline. Always judge a car loan by its EIR, not the flat number on the brochure.",
+    "malaysia": "Typical new-car flat rates were ~2.3–2.6% (EIR ~4.3–4.8%). And from 1 June 2026, the Hire-Purchase (Amendment) Act 2026 replaced flat rate + Rule of 78 with EIR + reducing balance — so pricing is fairer and settling early finally saves real money."
+  },
+  "L3.7": {
+    "hook": "A home loan is the biggest debt most people ever take on — and small differences in rate or tenure mean tens of thousands of ringgit over its life.",
+    "recall": "From the last lesson: is a car an appreciating or depreciating asset? (Depreciating.)",
+    "summary": "Home loans use (fairer) reducing-balance interest, around 4% a year, over a long tenure — so long that total interest can rival the price of the house. Rate, tenure, and extra payments matter enormously.",
+    "quiz": {
+      "q": "Why does a longer loan tenure cost more even at the same interest rate?",
+      "a": "**More years of interest accruing on the balance.** The monthly payment is lower, but you pay it for longer, so the total interest is much higher."
+    },
+    "takeaway": "Home loans use reducing balance (~4%); over a long tenure the total interest can rival the price. Mind the rate and tenure.",
+    "action": "If you have a mortgage, check your rate and roughly how much total interest you'll pay over the full tenure — it's usually eye-opening.",
+    "body": "- **Reducing balance** — interest is charged on the outstanding balance, which falls as you repay. Fairer than flat rate.\n\n- **Rate** — typically around 4% a year, tracking your bank's base rate (which moves with BNM's OPR). A small rate gap compounds over 30 years into serious money.\n\n- **Tenure trade-off** — a longer tenure means a lower monthly payment but far more total interest. A shorter tenure or extra repayments save a lot.\n\nA mortgage is usually “good debt” because property can appreciate — but only if you buy within your means. Over-buying turns good debt bad. Watch the total interest you'll pay, not just the comfortable monthly instalment.",
+    "malaysia": "Most Malaysian home loans are reducing-balance and track a base rate tied to the OPR. Budget for the extras too — legal fees, stamp duty, valuation, and (for some) MRTA/MRTT mortgage insurance."
+  },
+  "L3.8": {
+    "hook": "Once you owe on more than one thing, the order you clear them in changes both how much you pay and how likely you are to actually finish.",
+    "recall": "From the last lesson: what kind of interest do home loans use? (Reducing balance.)",
+    "summary": "Two proven methods: Avalanche = clear the highest-interest debt first (cheapest). Snowball = clear the smallest balance first (most motivating). Or restructure several debts into one lower-rate loan.",
+    "quiz": {
+      "q": "Which payoff method saves the most money — snowball or avalanche?",
+      "a": "**Avalanche.** Clearing the highest interest rate first minimises total interest. (Snowball wins on motivation, not money.)"
+    },
+    "takeaway": "Avalanche saves the most; snowball keeps you motivated. Pick the one you'll stick to — and consider consolidating.",
+    "action": "List your debts by interest rate and by balance, choose avalanche or snowball, and start this month.",
+    "body": "In both methods you pay the minimum on every debt, then throw all your spare cash at one target:\n\n- **Avalanche** — target the highest interest rate first. Saves the most money and time. Best if you're disciplined.\n\n- **Snowball** — target the smallest balance first. The quick win builds momentum and keeps you going. Best if motivation is your sticking point.\n\nMathematically the avalanche wins; psychologically the snowball often wins because people actually stick with it. The best method is the one you'll follow through. A third option — debt consolidation/restructuring — combines several debts into one lower-interest loan to simplify and cut the rate (watch the fees and tenure).",
+    "malaysia": "If you're overwhelmed, AKPK (the BNM-backed Credit Counselling and Debt Management Agency) offers a free Debt Management Programme that can restructure your debts with the banks."
+  }
+}

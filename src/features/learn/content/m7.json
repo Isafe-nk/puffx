@@ -1,0 +1,123 @@
+{
+  "L7.1": {
+    "hook": "“The stock market” sounds like gambling to a lot of people. Once you understand what a share actually is, it stops being a casino and becomes ownership.",
+    "recall": "From the last module: what is a sukuk? (The shariah-compliant equivalent of a bond.)",
+    "summary": "A share is a tiny piece of ownership in a real company. The stock market is just where people buy and sell those pieces. Prices move with the company's value and people's expectations.",
+    "quiz": {
+      "q": "When you buy a share, what do you actually own?",
+      "a": "**A small piece of a real company.** That ownership entitles you to a share of its profits and its growth over time."
+    },
+    "takeaway": "A share is real ownership in a company; the market just prices it. You earn through dividends plus long-term growth.",
+    "action": "Think of a company you use daily — Maybank, Nestlé, Tenaga. It's likely listed, and you could own a piece of it.",
+    "body": "When you buy a share, you own a sliver of a real business. Own Maybank shares and you own a tiny part of Maybank — entitled to a slice of its profits (dividends) and to gains if it grows. The stock market (an exchange) is simply the marketplace that matches buyers and sellers; prices move with supply and demand, driven by how the company performs and what people expect.\n\nYou make money two ways: dividends (your cut of the profits) and capital gains (the price rising) — exactly the “productive asset” idea from Module 5. And timing matters: short-term prices are noisy and unpredictable, but over the long run good companies and broad markets tend to rise. Investing for years is not the same as gambling on next week.",
+    "malaysia": "Malaysia's exchange is Bursa Malaysia (its main benchmark, the KLCI, tracks the top 30 companies). Global markets like the US (NYSE, Nasdaq) are reachable too — covered in a couple of lessons' time."
+  },
+  "L7.2": {
+    "hook": "Theory is useless without the first practical step. Here's exactly how a Malaysian actually buys their first share.",
+    "recall": "From the last lesson: what do you own when you buy a share? (A piece of a real company.)",
+    "summary": "To trade on Bursa you need two things: a CDS account (holds your shares) and a brokerage account (places trades). Open both via a broker or app, then buy in lots of 100 shares.",
+    "sources": "Bursa Malaysia (CDS account opening, Bursa Anywhere); broker features (Rakuten Trade, Moomoo). Refresh as promos change.",
+    "quiz": {
+      "q": "What two accounts do you need to trade Bursa stocks?",
+      "a": "**A CDS account and a brokerage account.** The CDS holds the shares; the brokerage places your trades."
+    },
+    "takeaway": "You need a CDS account + a broker. Choose direct (your name) vs nominee (cheaper). Buy in 100-share lots.",
+    "action": "Download Bursa Anywhere or a broker app (Rakuten/Moomoo) and look at what's needed to open an account.",
+    "body": "- **CDS account** (Central Depository System) — holds your Malaysian shares in your name. You open it through a stockbroker, easiest via the Bursa Anywhere app.\n\n- **Brokerage account** — where you place buy/sell orders. Popular options: Rakuten Trade (0% brokerage on the first RM1,000 of purchases a month), Moomoo MY (RM0-commission promos), or bank brokers like Maybank and CIMB.\n\nOne distinction: a **direct** CDS account holds shares in your own name (you can join AGMs and apply for IPOs); a **nominee** account (like Moomoo) holds them under the broker's name — cheaper, but with less direct control. Shares trade in lots of 100, so a RM3 stock costs about RM300 a lot.",
+    "malaysia": "Minimums are low — you can genuinely start with a few hundred ringgit. Download Bursa Anywhere or a broker app to begin."
+  },
+  "L7.3": {
+    "hook": "Index funds are how most people should invest — instant diversification, tiny fees, no stock-picking. It's the “lazy” strategy that quietly beats most experts.",
+    "recall": "From the last lesson: which account holds your Bursa shares in your name? (The CDS account.)",
+    "summary": "An index fund or ETF buys the whole market in one purchase — e.g. the 500 biggest US companies. Low fees, broad diversification, set-and-forget. Buffett recommends it for almost everyone.",
+    "sources": "S&P 500 long-run average ~10%/yr (historical, varies); Buffett's index-fund guidance. Past performance ≠ future.",
+    "quiz": {
+      "q": "What does an S&P 500 index fund hold?",
+      "a": "**A slice of the 500 largest US companies.** One purchase, instant diversification across all of them."
+    },
+    "takeaway": "Index funds/ETFs let you own the whole market cheaply. For most people, a low-cost global or S&P 500 index fund is the core holding.",
+    "action": "Look up an S&P 500 ETF on a broker app and note its expense ratio (it should be tiny — often under 0.1%).",
+    "body": "An index fund/ETF tracks a market index, so buying one unit makes you a part-owner of all its companies. The S&P 500 index is the 500 largest US firms — one S&P 500 ETF gives you a slice of all 500 at once.\n\n- **ETF** — trades like a stock, buy/sell anytime on an exchange.\n\n- **Index (unit-trust) fund** — bought via a fund platform. Both track the index cheaply.\n\nWhy it wins (remember active vs passive): instant diversification, very low fees, and no need to pick winners. The S&P 500 has historically returned around 10% a year on average over the long run — with big ups and downs along the way. This is the heart of the “S&P 500 question”: Buffett argues most people do better in a low-cost S&P 500 index fund than picking stocks or paying for active funds — and the data backs him.",
+    "malaysia": "You can buy global ETFs (S&P 500, or a whole-world fund) through brokers like Moomoo or Interactive Brokers; local KLCI-tracking ETFs exist on Bursa too."
+  },
+  "L7.4": {
+    "hook": "Malaysia is under 1% of the global stock market. Investing only locally means missing the world's biggest companies — and missing real diversification.",
+    "recall": "From the last lesson: why do index funds beat most stock-pickers? (Low fees + broad diversification.)",
+    "summary": "You can easily buy US and global stocks and ETFs from Malaysia via apps like Moomoo, Webull, or Interactive Brokers. Going global diversifies you beyond one small economy.",
+    "sources": "International brokers serving Malaysia (Moomoo MY, Webull MY, IBKR). US dividend withholding ~30% for Malaysian investors. Refresh as offerings change.",
+    "quiz": {
+      "q": "Why invest beyond Malaysia?",
+      "a": "**Bursa is a tiny slice of the world.** Global investing diversifies across economies and gives access to bigger growth companies."
+    },
+    "takeaway": "Don't invest only in Malaysia. Use Moomoo/Webull/IBKR to add global exposure — easiest via a single global or S&P 500 ETF.",
+    "action": "Compare one global broker (Moomoo, Webull, or IBKR) and note its fees and which markets it covers.",
+    "body": "Bursa is a small slice of the world, and many of the biggest growth companies — Apple, Microsoft, Nvidia and the like — are listed overseas. Adding global exposure spreads your money across many economies, not just one.\n\n- **Moomoo MY / Webull MY** — beginner-friendly, low fees, access to US and other markets.\n\n- **Interactive Brokers (IBKR)** — the widest access (well over 100 markets), more pro-grade.\n\nTwo things to note: investing in US-dollar assets adds some currency exposure (ringgit vs dollar) — a form of diversification, but also a risk — and the US withholds roughly 30% tax on dividends paid to Malaysian investors. The simplest route to global diversification is a single world or S&P 500 ETF, no stock-picking required.",
+    "malaysia": "These brokers are readily available to Malaysians. Mind the forex and the US dividend withholding when you compare options."
+  },
+  "L7.5": {
+    "hook": "REITs let you earn rental income from malls, offices and hospitals without the huge cost and hassle of actually buying property.",
+    "recall": "From the last lesson: name a broker for buying US stocks from Malaysia. (Moomoo, Webull, or IBKR.)",
+    "summary": "A REIT is a company that owns income-producing property and pays most of its rent to you as dividends. You buy it like a stock on Bursa. Malaysian REITs yield around 5–6%.",
+    "sources": "M-REIT yields ~5.6% (2025)/~6.1% (2026); 2026 change — REIT payouts taxed at personal rate vs old flat 10% (The Edge). Refresh annually.",
+    "quiz": {
+      "q": "How do you mainly earn money from a REIT?",
+      "a": "**Through dividends** — your share of the rent its properties collect, paid out regularly."
+    },
+    "takeaway": "REITs give you property income (rent → dividends) without buying property. M-REITs yield ~5–6% and trade like a stock.",
+    "action": "Look up one M-REIT on your broker app and check its dividend yield.",
+    "body": "A REIT (Real Estate Investment Trust) owns and manages income property — malls, offices, hospitals, warehouses — and is required to distribute most of its income to shareholders, which means high, regular dividends.\n\n- **Versus buying property** — no big down payment, no loan, no tenants or maintenance headaches; it's fully liquid (buy/sell like a share) and diversified across many buildings.\n\n- **Returns** — Malaysian REITs (M-REITs) yield around 5.6% (2025) and ~6.1% projected for 2026; some higher (CapitaLand Malaysia Trust ~7%, Sentral REIT ~7.8%).\n\nTax note for 2026: REIT distributions are now taxed at your personal income tax rate (0–30%) rather than the old flat 10% withholding — so lower earners may pay less and higher earners more.",
+    "malaysia": "You buy M-REITs on Bursa using the same CDS and brokerage account as ordinary shares."
+  },
+  "L7.6": {
+    "hook": "If you ever buy individual stocks, the financial statements tell you whether a company actually makes money — or is quietly sinking.",
+    "recall": "From the last lesson: how do REITs pay you? (Dividends from rental income.)",
+    "summary": "Three statements tell a company's story: the income statement (does it profit?), the balance sheet (what it owns vs owes), and the cash flow statement (real cash in and out).",
+    "quiz": {
+      "q": "Which statement shows whether a company is actually profitable?",
+      "a": "**The income statement (P&L).** Revenue minus expenses = profit. The balance sheet shows debt; the cash flow statement shows real cash."
+    },
+    "takeaway": "Income statement (profit?), balance sheet (debt?), cash flow (real cash?). Check all three before buying a stock.",
+    "action": "Pull up one listed company's latest results and find three numbers: revenue, net profit, and total debt.",
+    "body": "- **Income statement (P&L)** — revenue minus expenses equals profit. Is the company growing sales and actually profitable? Watch the revenue trend, net profit, and margins.\n\n- **Balance sheet** — assets (what it owns) versus liabilities (what it owes). Too much debt is a warning sign; healthy cash is reassuring.\n\n- **Cash flow statement** — the actual cash moving in and out. Profit on paper isn't the same as cash; strong operating cash flow is vital.\n\nYou don't need to be an accountant. For a quick health check, look for: growing revenue and profit, manageable debt, positive operating cash flow, and consistent dividends. (Or skip stock-picking entirely and use index funds, from earlier.)",
+    "malaysia": "Listed companies' results are published on Bursa announcements and in their annual reports — free to read before you buy a single share."
+  },
+  "L7.7": {
+    "hook": "A great company can still be a bad investment if you overpay. Valuation tells you whether a stock is cheap or expensive for what you get.",
+    "recall": "From the last lesson: which statement shows real cash in and out? (The cash flow statement.)",
+    "summary": "Price alone means nothing — what matters is price versus what you get. P/E (price ÷ earnings) and dividend yield are two quick gauges of whether a stock is fairly priced.",
+    "quiz": {
+      "q": "What does dividend yield tell you?",
+      "a": "**The income return — annual dividend ÷ price, as a %.** A 5% yield means RM5 a year per RM100 invested."
+    },
+    "takeaway": "Judge price against value. P/E = price per ringgit of profit; dividend yield = income return. Always compare like for like.",
+    "action": "Look up the P/E and dividend yield of one company you know, and compare it to a competitor in the same industry.",
+    "body": "A RM50 stock isn't “expensive” compared with a RM1 stock — you have to compare the price to what the company actually earns or owns. Two quick gauges:\n\n- **P/E ratio** (price ÷ earnings per share) — how many ringgit you pay for each ringgit of annual profit. A lower P/E can mean cheaper; a higher one means the market expects growth. Only compare within the same industry.\n\n- **Dividend yield** (annual dividend ÷ price) — the income return. A 5% yield pays RM5 a year for every RM100 invested; useful for income and dividend stocks.\n\nTreat these as starting points, not the whole story: a low P/E can be a value trap, and a high one can still be worth it. Cheap isn't automatically good, and expensive isn't automatically bad — understand the business too.",
+    "malaysia": "P/E and dividend yield are shown on broker apps and on i3investor for Bursa stocks — easy to look up before you buy."
+  },
+  "L7.8": {
+    "hook": "Crypto is hyped as a get-rich path and feared as a pure scam. The truth sits in between — and knowing it protects you from both FOMO and ruin.",
+    "recall": "From the last lesson: what does P/E measure? (Price per ringgit of earnings.)",
+    "summary": "Crypto (Bitcoin and others) is a high-risk, highly volatile, non-productive asset. It can be a tiny speculative slice at most — never your foundation, never money you can't afford to lose.",
+    "quiz": {
+      "q": "Should crypto be your main retirement investment?",
+      "a": "**No.** It's too volatile and speculative — at most a tiny slice of money you could afford to lose entirely, never your foundation."
+    },
+    "takeaway": "Crypto = high-risk, volatile, non-productive. At most a tiny speculative slice of money you can lose — never your foundation.",
+    "action": "If you're tempted, cap crypto at a small % you could lose entirely — and only after your basics are sorted.",
+    "body": "Crypto assets live on blockchains. Bitcoin carries a “digital gold” narrative; thousands of other coins vary wildly in quality. DeFi (decentralised finance) offers financial services like lending and trading through code instead of banks.\n\n- **Why caution** — extreme volatility (70–90% crashes have happened; remember the asymmetry of loss), no cash flow (it's a non-productive asset whose value relies purely on the next buyer), and it's rife with scams, hacks and “rug pulls.”\n\n- **A sober position** — if you're genuinely interested, treat it as a small speculative allocation (a few percent at most) of money you can fully afford to lose, and only after your foundation, EPF and core investing are in place. Invest only in what you understand.\n\nIt is not a retirement plan or an emergency fund, and any “guaranteed returns” crypto scheme is a scam.",
+    "malaysia": "Crypto is regulated by the Securities Commission — use only SC-approved exchanges, and treat the many “crypto investment” offers circulating in Malaysia with deep suspicion."
+  },
+  "L7.9": {
+    "hook": "The fastest way to destroy your finances isn't a bad investment — it's a scam. Malaysians lose billions to them every year. Spotting them is a core money skill.",
+    "recall": "From the last lesson: how much of your portfolio should crypto be? (A tiny slice at most.)",
+    "summary": "If it promises high returns with low or no risk, “guaranteed” profits, or pressure to recruit others — it's a scam. Real investing is never guaranteed or urgent.",
+    "quiz": {
+      "q": "Someone “guarantees” 10% a month with no risk and wants you to recruit friends. What is it?",
+      "a": "**A scam** — guaranteed high returns, “no risk,” and recruitment are classic Ponzi/pyramid red flags. Verify on the SC list and stay away."
+    },
+    "takeaway": "Guaranteed + high return + urgency + recruitment = scam. Verify on the SC list, and never let yourself be rushed.",
+    "action": "Bookmark the SC Investor Alert List and check any new “opportunity” against it before investing.",
+    "body": "The red flags cluster together: guaranteed high returns (“20% a month!”), claims of no or low risk, urgency and pressure to act now, a requirement to recruit others (Ponzi/pyramid), unlicensed operators, “secret” strategies, and miracle forex/crypto “robots.”\n\nThe core tell ties back to Module 5: return is the reward for risk, so “guaranteed + high” is impossible — and therefore a scam. Common Malaysian versions include fake investment schemes, “Macau scam” and love-scam apps, fake forex/crypto robots, and classic Ponzi schemes.\n\nProtect yourself: check the Securities Commission's list of licensed entities and its Investor Alert List before putting in a sen; never invest under pressure; and if anything feels too good to be true, it is.",
+    "malaysia": "Verify any operator on the Securities Commission (SC) website — licensed list plus the Investor Alert List — and check BNM's Financial Consumer Alert. When in doubt, walk away."
+  }
+}

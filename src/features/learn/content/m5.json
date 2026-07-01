@@ -1,0 +1,107 @@
+{
+  "L5.1": {
+    "hook": "Money left in a low-interest account doesn't sit still — it quietly loses buying power every year. Saving is essential, but saving alone slowly makes you poorer.",
+    "recall": "Before investing (from Phase 1), what three things should be in place? (Emergency fund, high-interest debt cleared, and insurance/takaful cover.)",
+    "summary": "Inflation erodes cash by ~2–3% a year, and a savings account often pays less — so idle money loses real value. To build wealth, your money has to outpace inflation. That's why you invest.",
+    "sources": "DOSM/World Bank — Malaysia inflation ~1.4% (2025), ~3% long-run average. Refresh annually.",
+    "quiz": {
+      "q": "Why isn't keeping all your money in a savings account enough?",
+      "a": "**Inflation erodes its buying power faster than the interest earns.** Cash is safe in ringgit terms but loses real value over time — you need investments to outpace it."
+    },
+    "takeaway": "Cash loses ~3% a year to inflation. Saving preserves; investing grows. You need both — saving first, then investing.",
+    "action": "Check your savings account's interest rate against ~3% inflation. If it's lower, your idle cash is quietly losing real value.",
+    "body": "Inflation means prices rise over time, so each ringgit buys a little less every year. Malaysia's inflation has averaged around 3% over the long run (about 1.4% in 2025). A typical savings account pays well under that — so cash sitting idle quietly shrinks in real value.\n\nA simple picture: RM10,000 left untouched, with 3% inflation, has the buying power of only about RM7,400 in ten years. You didn't lose ringgit — you lost what they can buy.\n\nSo saving and investing do different jobs. Saving protects (your emergency fund, short-term goals — kept safe and liquid). Investing grows — putting money into assets that earn more than inflation. You need both, in that order: only invest once the Phase 1 foundation is in place.",
+    "malaysia": "EPF (~6% a year) comfortably beats inflation — which is exactly why it builds real wealth over a career. Cash in a current account doesn't even keep up."
+  },
+  "L5.2": {
+    "hook": "Compound interest is the single most powerful force in building wealth — and time is its fuel. Starting even a few years earlier can mean hundreds of thousands more by retirement.",
+    "recall": "From the last lesson: what does inflation do to idle cash? (Erodes its buying power, ~3% a year.)",
+    "summary": "Compounding means earning returns on your returns. Reinvest your gains instead of spending them and growth accelerates. Its three levers: how much (capital), the rate, and — most powerful — time.",
+    "quiz": {
+      "q": "For compounding, which matters most — how much you invest, or how early you start?",
+      "a": "**How early you start (time).** Because compounding is exponential, extra years matter more than extra ringgit — starting sooner is the biggest lever."
+    },
+    "takeaway": "Compounding turns time into money. Reinvest your returns, and start as early as you can.",
+    "action": "Pick a date to start (or increase) investing. The best day was years ago; the second-best is today.",
+    "body": "Compounding is your returns earning returns. RM100,000 at 5% earns RM5,000 in year one; reinvest it and year two earns 5% on RM105,000 = RM5,250; year three on RM110,250… and it snowballs, faster and faster.\n\nCompare that with spending your gains each year (simple interest): a flat RM5,000 annually, no acceleration. Same rate, wildly different outcome over decades.\n\nThe three elements are capital, rate of return, and **time** — and time is the most powerful, because the growth is exponential. Someone who invests for 10 years then stops can out-finish someone who starts 10 years later and never stops. As Buffett put it: “Life is like a snowball — find wet snow and a really long hill.”",
+    "malaysia": "EPF already compounds for you — each year's ~6% dividend is reinvested and earns its own dividend next year. Starting your own investing early simply stacks a second snowball alongside it."
+  },
+  "L5.3": {
+    "hook": "Every investment is a trade-off between risk and return. Understanding it stops you from both reckless bets and hiding in cash that loses to inflation.",
+    "recall": "From the last lesson: what are compounding's three levers? (Capital, rate of return, and time.)",
+    "summary": "Higher potential returns always come with higher risk. There is no safe high-return investment — anything promising that is a scam. Match the risk to your goals and timeline.",
+    "quiz": {
+      "q": "Someone offers you a “guaranteed 5% return every month.” What is it?",
+      "a": "**Almost certainly a scam.** No safe investment delivers high guaranteed returns — high return always carries real risk. Guaranteed + high = red flag."
+    },
+    "takeaway": "Return is the reward for risk. No safe high returns exist — match risk to your goals, and invest only in what you understand.",
+    "action": "For anything you're tempted to invest in, ask “what's the risk?” If the answer is “none” but the return is high, walk away.",
+    "body": "The core law of investing: return is the reward for taking risk. Low-risk options (fixed deposit, EPF) give low, steady returns. Higher-risk ones (stocks) offer higher potential returns — but with volatility and real chance of loss along the way.\n\n“Risk comes from not knowing what you are doing,” said Buffett — so risk falls as your understanding rises. Invest only in what you actually understand. And remember there's no free lunch: anyone promising high returns with little or no risk is lying.\n\nRisk doesn't mean avoid investing entirely, though — cash feels safe but loses to inflation (last lesson but one). The goal is the right amount of risk for your timeline: longer horizon → you can take more risk for more growth; money you need soon → keep it safe.",
+    "malaysia": "Roughly: FD ~3.5% (low risk), EPF ~6% (low-to-moderate), stocks higher but volatile. Be especially wary of “investment schemes” promising fixed high monthly returns — those are a classic Malaysian scam pattern."
+  },
+  "L5.4": {
+    "hook": "Losses hurt more than equivalent gains help — mathematically. This is the reason protecting your capital is rule number one of investing.",
+    "recall": "From the last lesson: is there such a thing as a safe, high-return investment? (No.)",
+    "summary": "A 50% loss needs a 100% gain just to break even. Losses are asymmetric, so avoiding big losses matters more than chasing big gains. As Buffett says: never lose money.",
+    "quiz": {
+      "q": "If an investment drops 50%, what gain do you need just to break even?",
+      "a": "**100% — you have to double it.** That asymmetry is why avoiding large losses beats chasing large gains."
+    },
+    "takeaway": "A 50% loss needs a 100% gain to recover. Protect your capital — avoiding big losses beats chasing big wins.",
+    "action": "Look at any concentrated bet you hold (a single stock, a coin). Ask: if it dropped 50–80%, how many years would it set me back?",
+    "body": "The maths of recovery is brutal and gets worse the deeper you fall:\n\n- Lose 10% → you need +11% to get back.\n\n- Lose 25% → you need +33%.\n\n- Lose 50% → you need +100% (you have to double).\n\n- Lose 90% → you need +900%.\n\nThat's why a risky bet that could halve your portfolio is far worse than it sounds — you don't just need to “make it back,” you need to double. Buffett's Rule No.1 is “Never lose money,” and Rule No.2 is “Never forget Rule No.1.” In practice that means protect your capital: **win more by losing less.**\n\nHow: diversify, don't bet big on any single thing, invest only in what you understand, and never use money you can't afford to lose.",
+    "malaysia": "This applies to every market — Bursa, US stocks, and especially volatile bets like crypto, where 70–90% drawdowns have happened and the climb back is enormous."
+  },
+  "L5.5": {
+    "hook": "“Investing” isn't one thing. Knowing the main asset classes — and how they trade off risk and return — lets you build a portfolio instead of gambling on tips.",
+    "recall": "From the last lesson: a 50% loss needs what gain to recover? (100% — you have to double.)",
+    "summary": "The main asset classes — cash, bonds/sukuk, equities, property, gold — sit on a risk/return ladder. Each behaves differently, and you mix them to fit your goals.",
+    "quiz": {
+      "q": "Which generally has the highest long-term return — cash, bonds, or equities?",
+      "a": "**Equities (stocks).** Highest long-run return, but with the most volatility — which is why time horizon matters."
+    },
+    "takeaway": "Cash → bonds → equities → property → gold, rising in risk and return. Productive (income-generating) assets build wealth.",
+    "action": "List which asset classes you already own — and remember, your EPF and ASB count as investments too.",
+    "body": "- **Cash & equivalents** (savings, FD, money-market) — safest and most liquid, lowest return; loses to inflation over the long run.\n\n- **Bonds / sukuk** — you lend to a government or company for interest; lower risk than stocks, modest return.\n\n- **Equities (stocks)** — you own a slice of a company; the highest long-term return historically, but volatile.\n\n- **Property** — rental income plus potential appreciation; large, illiquid, often bought with a loan.\n\n- **Gold / commodities** — a store of value with no income; you only profit on price. A hedge, not a wealth engine.\n\nA useful lens from your own framework: **productive vs non-productive assets.** Productive assets (stocks, rental property, bonds) generate ongoing income; non-productive ones (gold, crypto) rely purely on someone paying more later. To build wealth, favour productive assets.",
+    "malaysia": "You can access all of these locally — EPF, ASB and unit trusts, Malaysian Government Securities and sukuk, Bursa and global stocks, property, and gold. We'll cover the specific Malaysian vehicles in Module 6 and the markets in Module 7."
+  },
+  "L5.6": {
+    "hook": "Diversification is the closest thing to a free lunch in investing — it cuts your risk without necessarily cutting your returns.",
+    "recall": "From the last lesson: which asset class has the highest long-term return? (Equities.)",
+    "summary": "Spreading your money across many investments means no single failure can sink you. Diversify across companies, sectors, asset classes, and countries.",
+    "quiz": {
+      "q": "Why is diversification often called a “free lunch”?",
+      "a": "**It reduces risk without necessarily reducing your expected return.** Spreading bets lowers the damage any single failure can do."
+    },
+    "takeaway": "Spread your bets across companies, sectors, asset classes, and countries — it cuts risk for free.",
+    "action": "Check whether your investments are concentrated in one stock or sector. If so, plan how to spread them out.",
+    "body": "The idea is simple: don't bet everything on one investment. If it fails, the others cushion the blow — so you reduce risk without giving up much expected return. Spread across companies (many, not one), sectors (not all gloves or all tech), asset classes (stocks plus bonds plus cash), and geographies (Malaysia plus global).\n\nIt works because different assets don't all fall at the same time — a loss in one is often offset by gains elsewhere. This is the direct defence against the asymmetry of loss from earlier: diversification is what stops a single bad bet from doing catastrophic, hard-to-recover damage.\n\nThe easiest way to diversify instantly is an index fund or ETF, which holds hundreds of companies at once (Module 7). Two cautions: don't “diversify” into things you don't understand, and owning ten similar tech stocks isn't real diversification.",
+    "malaysia": "Don't put everything into one Bursa stock — or even only into Malaysian assets. Adding global exposure (covered in Module 7) spreads your risk across economies, not just one."
+  },
+  "L5.7": {
+    "hook": "This single choice shapes your whole investing life — and the evidence strongly favours the simpler, cheaper option for most people.",
+    "recall": "From the last lesson: name two things you should diversify across. (Any two of: companies, sectors, asset classes, countries.)",
+    "summary": "Active = trying to beat the market by picking stocks or timing. Passive = buying the whole market (an index fund) and holding. For most people, low-cost passive wins.",
+    "quiz": {
+      "q": "Do most active fund managers beat the market over the long run?",
+      "a": "**No — most underperform after fees.** That's the core case for low-cost passive index investing for the average person."
+    },
+    "takeaway": "For most people, low-cost passive index investing beats active stock-picking. Don't try to outsmart the market.",
+    "action": "If you hold high-fee active funds, compare their after-fee returns to a simple broad index fund.",
+    "body": "- **Active investing** — picking individual stocks or funds that try to beat the market. It needs skill, time and research, and charges higher fees. The uncomfortable truth: most professional fund managers fail to beat the market over the long run, after fees.\n\n- **Passive investing** — buying an index fund/ETF that simply holds the whole market, and holding it. Low fees, instant diversification, no stock-picking.\n\nWhy passive wins for most people: lower fees compound in your favour year after year, you capture the market's long-term return without trying to outsmart it, and you trade less on emotion. It's why Buffett recommends low-cost index funds for the average investor. Active investing can pay off if you genuinely have the time, skill and interest — but treat it as a job, not the default.",
+    "malaysia": "You can buy both local (Bursa) and global index funds/ETFs cheaply — Module 7 covers how. A key Malaysian decision is high-fee active unit trusts versus low-cost index funds (more in Module 6)."
+  },
+  "L5.8": {
+    "hook": "The “right” investment isn't the same for everyone — it depends on how long until you need the money and how much volatility you can actually stomach.",
+    "recall": "From the last lesson: for most people, which wins — active or passive? (Low-cost passive.)",
+    "summary": "Your investment mix should match your time horizon (when you need the money) and risk tolerance (how much swing you can handle). Long horizon → more equities; money needed soon → keep it safe.",
+    "quiz": {
+      "q": "You need a house deposit in 2 years. Stocks or a fixed deposit?",
+      "a": "**A fixed deposit (or other safe option).** Two years is too short a horizon to risk a market drop you can't wait out — keep money you'll need soon safe."
+    },
+    "takeaway": "Match investments to your time horizon and risk tolerance: long horizon → more growth; money needed soon → keep it safe.",
+    "action": "For each of your goals, write down its time horizon — that alone tells you how much risk it can take.",
+    "body": "- **Time horizon** — how long until you need the money. Long (10+ years, e.g. retirement) → you can ride out volatility, so weight toward equities. Short (1–3 years, e.g. a house deposit) → keep it safe in cash/FD; don't risk it.\n\n- **Risk tolerance** — how much loss you can handle, financially and emotionally, without panic-selling. Be honest: selling in a crash locks in losses (remember the asymmetry of loss).\n\nTogether these set your asset allocation — the mix of stocks, bonds and cash. Younger with a long horizon → more growth assets; nearing your goal → gradually de-risk. And set your rules in advance (time horizon, risk appetite, entry/exit plan) so you act on a plan, not on emotion when markets move.",
+    "malaysia": "EPF is your built-in, long-horizon foundation — steady and low-volatility. What you add on top should be matched to each specific goal's timeline and your comfort with risk."
+  }
+}

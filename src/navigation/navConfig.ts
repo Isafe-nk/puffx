@@ -1,4 +1,5 @@
-import { TrendingUp, Building, BarChart, Globe, Settings } from 'lucide-react';
+import { TrendingUp, GraduationCap, Building, BarChart, Globe, Settings } from 'lucide-react';
+import { PHASES } from '../features/learn/learnConfig';
 
 export const navConfig = [
   {
@@ -8,6 +9,19 @@ export const navConfig = [
     children: [
       { label: "ETF Drag", path: "/visualizer/etf-drag" },
       { label: "Wealth Simulator", path: "/visualizer/wealth-simulator" }
+    ]
+  },
+  {
+    label: "Learn",
+    icon: GraduationCap,
+    path: "/learn",
+    children: [
+      {
+        label: "FFM",
+        path: "/learn",
+        children: PHASES.map((p) => ({ label: `Phase ${p.num} · ${p.name}`, path: `/learn/phase/${p.slug}` }))
+      },
+      { label: "Glossary", path: "/glossary" }
     ]
   },
   { label: "Portfolio", icon: Building, path: "/portfolio", comingSoon: true },

@@ -1,0 +1,108 @@
+{
+  "L4.1": {
+    "hook": "One accident, illness, or death can wipe out years of saving in weeks. Insurance is the wall that stops a single disaster from undoing all your financial progress.",
+    "recall": "From Module 3: which debt-payoff method saves the most money? (Avalanche — highest interest first.)",
+    "summary": "Insurance (and takaful) exist to transfer risk: you pay a small, known amount so a rare, catastrophic cost falls on the insurer instead of you. It's protection, not investment.",
+    "quiz": {
+      "q": "Is insurance an investment?",
+      "a": "**No.** It's risk transfer — protection against rare, catastrophic costs. Keep it separate from how you grow your money."
+    },
+    "takeaway": "Insurance/takaful swaps a rare, huge cost for a small, known one. It's protection, not investment — and it guards everything else you've built.",
+    "action": "List the financial disasters that would hurt you most — serious illness, accident, death, loss of income. Those are exactly what to insure against.",
+    "body": "You can't predict disaster — an accident, a serious illness, an early death — but you can transfer its financial blow. You pay a small premium; if the bad thing happens, the insurer absorbs the big cost. That's the whole idea.\n\nIt protects your foundation. Without cover, one hospital bill or a loss of income can force you to drain your emergency fund, sell investments at a bad time, or fall into debt — undoing everything in the earlier modules. That's also why protection comes before investing in the order we set out in Module 0.\n\nCrucially, insurance is NOT an investment. Its job is to protect you from ruin, not to grow your money — and confusing the two is how people get sold expensive products (more on that soon).",
+    "malaysia": "This works the same whether you choose conventional insurance or takaful — the next lesson covers the difference."
+  },
+  "L4.2": {
+    "hook": "In Malaysia you'll be offered both conventional insurance and takaful. They protect you in similar ways but run on very different principles — and you're free to choose either.",
+    "recall": "From the last lesson: what's the core purpose of insurance? (To transfer risk — protection.)",
+    "summary": "Conventional insurance transfers your risk to a company. Takaful is shariah-compliant mutual protection: participants donate into a shared pool, free of interest, excessive uncertainty, and gambling. Both are open to everyone.",
+    "sources": "BNM-regulated; takaful principles (tabarru'/ta'awun) per Malaysian takaful operators & RinggitPlus. Concepts stable.",
+    "quiz": {
+      "q": "Do you have to be Muslim to buy takaful?",
+      "a": "**No.** Takaful is open to everyone — Muslim or not. Choose on values and on the coverage and cost of the actual plan."
+    },
+    "takeaway": "Takaful = shariah-compliant mutual protection (shared pool, no riba/gharar/maisir); conventional = risk transfer to a company. Both work — choose on values and coverage.",
+    "action": "Decide whether takaful or conventional suits your values, then compare two plans on what they actually cover and cost.",
+    "body": "- **Conventional insurance** — you pay a premium, the company takes on your risk and keeps any profit.\n\n- **Takaful** — built on ta'awun (mutual help) and tabarru' (donation): participants contribute to a shared fund that pays members who suffer a loss, managed by a takaful operator. It's free from riba (interest), gharar (excessive uncertainty) and maisir (gambling), and invests only in halal assets.\n\nTwo practical differences: takaful may share surplus from the fund back to participants (conventional insurers keep profits), and takaful invests only in shariah-compliant assets. But coverage and claims feel similar in practice.",
+    "malaysia": "Both are regulated by Bank Negara Malaysia, and takaful is additionally overseen for shariah compliance. You don't have to be Muslim to choose takaful — pick based on your values, then compare actual plans on coverage and price."
+  },
+  "L4.3": {
+    "hook": "A serious hospital stay can cost tens of thousands of ringgit at a private hospital. A medical card is the single most important protection for most working Malaysians.",
+    "recall": "From the last lesson: what shared fund do takaful participants contribute to? (The tabarru' fund.)",
+    "summary": "A medical card covers hospitalisation and treatment costs, often cashless at panel hospitals. For most people, it's the first insurance to get.",
+    "quiz": {
+      "q": "Why is a medical card usually the first insurance to get?",
+      "a": "**Because illness and injury are common and hospital bills are large.** It protects your savings from the most likely big expense you'll face."
+    },
+    "takeaway": "A medical card covers big hospital bills, often cashless. Get this one first.",
+    "action": "Check whether you have a medical card (employer or personal), its annual limit, and its room-and-board rate.",
+    "body": "A medical/hospitalisation plan pays your hospital and treatment bills — room, surgery, ICU and more — usually up to an annual and a lifetime limit. At panel hospitals it's often cashless: the insurer settles directly, so you're not paying upfront.\n\nWhy it's priority #1: illness and injury are common (far more so than early death), and private hospital bills are huge. Public hospitals are cheap but can mean long waits — a medical card buys you speed and choice.\n\nRead the fine print: the annual limit, lifetime limit, any co-payment or deductible, and the room-and-board rate (it can cap which ward class you can claim).",
+    "malaysia": "Medical cards come as conventional or takaful plans. Check the panel-hospital list and whether your plan has a co-pay. If your employer provides one, find out exactly what it covers — and whether you need a personal top-up."
+  },
+  "L4.4": {
+    "hook": "Surviving a serious illness is increasingly likely — but treatment and months of lost income can drain you even when your medical card pays the hospital.",
+    "recall": "From the last lesson: which insurance should most people get first? (A medical card.)",
+    "summary": "Critical-illness cover pays a lump sum on diagnosis of a covered serious illness — cash you can use for anything: treatment, income replacement, or debts.",
+    "quiz": {
+      "q": "How is critical-illness cover different from a medical card?",
+      "a": "**The medical card pays the hospital bill; critical-illness cover pays YOU a lump sum** to use however you need — often to replace lost income."
+    },
+    "takeaway": "Critical-illness cover pays a lump sum on diagnosis — to replace income and protect savings. It pairs with, not replaces, a medical card.",
+    "action": "Check whether you have any critical-illness cover, and what lump sum it would actually pay out.",
+    "body": "Critical-illness cover pays a one-off lump sum when you're diagnosed with a covered condition. Modern plans cover 30–45+ illnesses — cancer, heart attack, stroke, kidney failure and more. (Older policies were marketed as “36 critical illnesses”; newer ones generally cover more.)\n\nIt's different from a medical card. The medical card pays the _hospital_; critical-illness cash goes to _you_ — to replace lost income, pay for home care, or cover anything else while you can't work.\n\nWhy it matters: survival rates keep improving, but recovery can mean months away from your job. The lump sum replaces that income and stops a health crisis from becoming a financial one.",
+    "malaysia": "It's sold standalone or as a rider on a life/takaful plan. Check the list of covered conditions and at what severity they pay out (early vs late stage)."
+  },
+  "L4.5": {
+    "hook": "Life insurance is sold to almost everyone — but not everyone needs it. Knowing whether you do, and how much, saves you from both over-buying and being dangerously under-covered.",
+    "recall": "From the last lesson: who receives the payout from critical-illness cover? (You — a lump sum to you.)",
+    "summary": "Life insurance pays your dependents if you die. If people rely on your income — or you have debts they'd be left with — you need it. If no one depends on you financially, you may not.",
+    "quiz": {
+      "q": "Does a single person with no dependents and no debt need life insurance?",
+      "a": "**Usually not.** Life insurance protects people who depend on your income — if there's no one, the money is better directed to medical cover and investing."
+    },
+    "takeaway": "Life insurance is for people who depend on you. Insure the breadwinner; size it to income plus debts (~10× income as a start).",
+    "action": "Ask yourself: “If I died tomorrow, who would be in financial trouble?” If there's someone, check whether your cover is enough.",
+    "body": "The purpose of life insurance is to replace your income and clear your debts for the people who depend on you — a spouse, children, ageing parents — if you die.\n\n- **Who needs it: **anyone with dependents or shared debts (like a mortgage).\n\n- **Who often doesn't: **a single person with no dependents and no debt — there's no one to protect.\n\n- **How much: **a common rule of thumb is roughly 10× your annual income, adjusted for your debts, your dependents' needs, and any savings you already have.\n\nInsure the breadwinner(s) first — the person whose lost income would hurt the family most. Children and non-earners come later, if at all.",
+    "malaysia": "It's available as conventional life insurance or family takaful. Note that home loans often come bundled with MRTA/MRTT, which clears the mortgage if you die — useful, but it protects the bank's loan, not your family's living costs."
+  },
+  "L4.6": {
+    "hook": "This single choice can cost — or save — you tens of thousands of ringgit. Most life cover is sold as the expensive option when the cheap one often serves you better.",
+    "recall": "From the last lesson: roughly how much life cover is a common rule of thumb? (About 10× annual income.)",
+    "summary": "Term insurance is pure, cheap protection for a set period. Whole-life and investment-linked plans mix protection with savings — pricier, and often lower returns. Many experts say: buy term, invest the rest.",
+    "quiz": {
+      "q": "What does “buy term, invest the rest” mean?",
+      "a": "**Buy cheap term cover for protection, and invest the premium you save yourself** — often leaving you both better insured and better off than a bundled whole-life/ILP plan."
+    },
+    "takeaway": "Term = cheap pure protection. Whole-life/ILP = a pricey bundle. For most people: buy term, invest the difference.",
+    "action": "If you hold an ILP, find out how much of your premium goes to protection vs investment — and what the fees are.",
+    "body": "- **Term life** — covers you for a fixed period (say 20 years). Pure protection, nothing back if you outlive it, and the cheapest cover per ringgit.\n\n- **Whole life / investment-linked (ILP)** — covers you for life and builds a cash/investment value, but premiums are far higher and the investment portion often underperforms a low-cost fund after fees.\n\n“**Buy term, invest the rest**” means: buy cheap term cover for the protection you need, and invest the premium difference yourself in low-cost funds. People who do this are often both better protected AND wealthier than those in a bundled policy.\n\nWhole life has niche uses (a lifelong dependent, certain estate-planning needs), but for most working people, term plus investing wins.",
+    "malaysia": "Investment-linked policies (ILPs) are heavily marketed here — partly because they pay agents more. Understand the fees, and remember protection and investment usually work better kept separate."
+  },
+  "L4.7": {
+    "hook": "Insurance agents are often paid by commission, so their advice can tilt toward expensive products you may not need. Knowing how the game works protects your wallet.",
+    "recall": "From the last lesson: which is cheaper for pure protection — term or whole life? (Term.)",
+    "summary": "Buy protection for real risks, not products for commission. Budget ~10% of income, insure the breadwinner first, go medical → critical illness → life, and never confuse insurance with investment.",
+    "quiz": {
+      "q": "What's a warning sign that you're being oversold?",
+      "a": "**A policy pitched as both protection AND a great investment.** Those bundled, high-commission products usually serve the agent more than you — keep the two needs separate."
+    },
+    "takeaway": "Buy for your real risks, not the agent's commission: ~10% budget, breadwinner first, medical → CI → life, and keep insurance separate from investing.",
+    "action": "Review your current policies — are you paying for protection you actually need, or products you were sold?",
+    "body": "Agents typically earn commission — highest on investment-linked and whole-life policies — so be aware of the incentive behind a recommendation. A few rules keep you in control:\n\n- **Budget ~10% of net income** on protection — too little leaves you underinsured; too much leaves nothing to save and invest.\n\n- **Insure the breadwinner(s) first,** then dependents.\n\n- **Follow the order: **medical card → critical illness → life, adding more as your income grows. “First to have, then seek better.”\n\n- **Keep insurance and investment separate** — be wary of anything sold as “protection plus great returns.”\n\nBefore signing, ask: what exactly does this cover, what's excluded, what are the fees/commission, and do I genuinely need it?",
+    "malaysia": "ILPs are commission-heavy and widely pushed. You can also buy term and medical cover directly or online. Review your policies every couple of years as your life changes."
+  },
+  "L4.8": {
+    "hook": "If you die without a plan, the law decides who gets your money — and in Malaysia that can be slow, costly, and not what you'd have wanted. A simple will fixes most of it.",
+    "recall": "From the last lesson: roughly what % of income is a rule of thumb for insurance? (About 10%.)",
+    "summary": "A will (wasiat for Muslims) directs your estate. For Muslims, faraid sets fixed heir shares and a wasiat can direct up to one-third to non-heirs/charity. For non-Muslims, a will distributes as you choose.",
+    "sources": "Syariah inheritance (faraid/wasiat/hibah) per Malaysian estate-planning sources (e.g. as-Salihin, MahWengKwai); EPF/insurance nomination rules. Verify specifics with a professional.",
+    "quiz": {
+      "q": "For a Muslim, how much of the estate can a wasiat direct to non-heirs or charity?",
+      "a": "**Up to one-third.** The rest is distributed to heirs under faraid; hibah (lifetime gifts) can go beyond the one-third because they leave your estate while you're alive."
+    },
+    "takeaway": "Decide where your money goes. Muslims: faraid sets shares, wasiat covers up to ⅓, hibah gifts during life. Non-Muslims: a will distributes as you choose. Always name your nominees.",
+    "action": "Name or update your EPF and insurance nominees today — and if you have dependents or real assets, start a will or wasiat.",
+    "body": "Die without a plan and your estate goes through a longer legal process under default rules — assets can be frozen for months or years, and the outcome may not match your wishes. A little planning saves those you leave behind a lot of pain.\n\n- **Non-Muslims** — a will lets you decide who gets what, name an executor, and (vital if you have kids) name guardians.\n\n- **Muslims — Faraid**: Islamic inheritance law, enforced under Syariah in Malaysia, sets fixed shares for specific heirs (spouse, children, parents).\n\n- **Muslims — Wasiat**: an Islamic will that can direct up to one-third of your estate to non-heirs or charity (it can't change the heirs' faraid shares).\n\n- **Muslims — Hibah**: a lifetime gift — the asset leaves your estate while you're alive, so it isn't bound by faraid or the one-third limit.\n\nEither way, name beneficiaries/nominees on assets that allow it (EPF, insurance/takaful) so those pass quickly, outside the slower estate process.",
+    "malaysia": "EPF and insurance/takaful let you nominate beneficiaries directly. Trustee firms (e.g. Amanah Raya, as-Salihin) and lawyers can draft wills, wasiat and hibah."
+  }
+}

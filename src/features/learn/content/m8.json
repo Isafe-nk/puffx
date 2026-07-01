@@ -1,0 +1,82 @@
+{
+  "L8.1": {
+    "hook": "Every ringgit of tax relief you claim is money back in your pocket — completely legally. Most Malaysians leave reliefs unclaimed and quietly overpay tax every single year.",
+    "recall": "From the last module: what's the core tell of a scam? (Guaranteed high returns — too good to be true.)",
+    "summary": "Tax reliefs reduce your chargeable income, which cuts your tax bill. Claim everything you're entitled to — EPF, insurance, lifestyle, medical, education, PRS, SSPN — when you e-file.",
+    "sources": "LHDN (hasil.gov.my) — Tax Reliefs YA2025: personal RM9,000; EPF RM4,000 + life/takaful RM3,000; lifestyle RM2,500; medical up to RM10,000; PRS RM3,000; etc. Refresh each YA.",
+    "quiz": {
+      "q": "Do tax reliefs reduce your tax rate, or your chargeable income?",
+      "a": "**Your chargeable income.** Lowering chargeable income then lowers the tax you pay — claim every relief you qualify for."
+    },
+    "takeaway": "Reliefs cut your tax legally by lowering chargeable income. Claim everything you qualify for — check LHDN for the full list.",
+    "action": "List the reliefs you can claim this year, and start keeping the receipts in one folder.",
+    "body": "Reliefs reduce your chargeable income (remember how tax works from Module 1), so you're taxed on less. Claiming RM7,000 of reliefs in an 11% bracket saves about RM770. The main YA2025 reliefs:\n\n- **Personal (self): RM9,000** — automatic.\n\n- **EPF up to RM4,000 + life insurance/takaful (or voluntary EPF) up to RM3,000** — combined cap RM7,000.\n\n- **Lifestyle (books, devices, internet, sports): up to RM2,500**\n\n- Medical (incl. serious illness, parents): up to RM10,000  ·  Education (self): up to RM7,000\n\n- PRS: up to RM3,000  ·  SSPN (kids' education savings), SOCSO, and more.\n\n“Optimisation” means legally maximising what you claim — topping up PRS or SSPN before year-end, keeping your receipts — not evasion. Even the lifestyle relief is free money if you'd buy a laptop or books anyway.",
+    "malaysia": "Claim through LHDN's MyTax / e-Filing (typically by 30 April, a bit later for e-filing). Keep your receipts for seven years. The full, current list lives on the LHDN website."
+  },
+  "L8.2": {
+    "hook": "Knowing individual investments isn't enough — how you mix them (your asset allocation) drives most of your long-term results, more than any single stock pick.",
+    "recall": "From the last lesson: tax reliefs reduce what? (Your chargeable income.)",
+    "summary": "Asset allocation is your mix of stocks, bonds and cash. The right mix depends on your time horizon: younger → more stocks; nearing the goal → more bonds and cash.",
+    "quiz": {
+      "q": "Who should hold more in stocks — a 28-year-old or a 58-year-old?",
+      "a": "**The 28-year-old.** A longer time horizon means more capacity to ride out volatility for higher growth."
+    },
+    "takeaway": "Your stock/bond/cash mix drives results. Younger → more stocks; older → more bonds/cash (≈110 minus age in stocks).",
+    "action": "Estimate your current stock/bond/cash split (include EPF) and check whether it fits your age and goals.",
+    "body": "Your asset allocation — the split between stocks, bonds and cash — is the biggest driver of your risk and return, bigger than which individual investments you choose.\n\n- **A rule of thumb** — keep roughly (110 minus your age)% in stocks. At 30 that's ~80%; at 55, ~55%. Younger means a longer horizon, so you can hold more growth assets and ride out the swings; older means gradually de-risking toward bonds and cash.\n\n- **Count your EPF** — it's already a stable, bond-like base, so you can afford to take more equity risk in the money you invest elsewhere.\n\nDiversify within each slice too (across companies, sectors and countries, from Module 5), and review your allocation as life changes — marriage, kids, or nearing retirement all shift the right mix.",
+    "malaysia": "EPF and ASB make a solid low-risk core; add global equity ETFs for growth and bonds/money-market for stability, in proportions that fit your age and goals."
+  },
+  "L8.3": {
+    "hook": "Two simple habits — investing regularly and rebalancing — let you invest consistently without trying to time the market or letting emotion take the wheel.",
+    "recall": "From the last lesson: the rule of thumb for % in stocks? (Roughly 110 minus your age.)",
+    "summary": "Dollar-cost averaging (DCA) means investing a fixed amount regularly, regardless of price. Rebalancing means periodically resetting your mix back to target. Both remove emotion and timing.",
+    "quiz": {
+      "q": "What does dollar-cost averaging remove the need to do?",
+      "a": "**Time the market.** By investing a fixed amount on a schedule, you stop trying to pick the “perfect” moment — which nobody can do reliably."
+    },
+    "takeaway": "DCA = invest a fixed amount regularly (no timing). Rebalance ~yearly to hold your target mix. Automate both.",
+    "action": "Set up an automatic monthly investment of a fixed amount into a low-cost fund or robo-advisor.",
+    "body": "**Dollar-cost averaging** (your “定期定额” regular fixed investing) means putting in a set sum every month — say RM500 on payday. You automatically buy more units when prices are low and fewer when high, lowering your average cost and killing the urge to time the market. It pairs perfectly with “pay yourself first”: automate the transfer, automate the investment.\n\n**Rebalancing** handles the drift: as winners grow, a 70/30 stocks/bonds mix might creep to 80/20 — quietly raising your risk. Once a year, trim a little of the overweight and top up the underweight to return to your target. It locks in some gains and keeps your risk where you intended.\n\nBoth habits are boring, automatic and effective — exactly what works for busy people who don't want investing to be a second job.",
+    "malaysia": "Most robo-advisors rebalance for you automatically; you can set up DCA via standing instructions into a fund, robo-advisor, or brokerage."
+  },
+  "L8.4": {
+    "hook": "“Save for retirement” is vague and easy to ignore. A specific number turns it into a target you can actually plan for and hit.",
+    "recall": "From the last lesson: what does dollar-cost averaging let you avoid? (Timing the market.)",
+    "summary": "A common rule: you need roughly 25× your annual expenses invested to retire — the “4% rule.” EPF's benchmarks give a Malaysian yardstick too.",
+    "sources": "4% rule / 25× (widely-used retirement guideline); EPF RIA benchmarks RM240k / RM390k / RM650k / RM1.3m. Estimates — adjust to your situation.",
+    "quiz": {
+      "q": "Under the 4% rule, how much do you need to retire on RM40,000 a year?",
+      "a": "**About RM1 million (25 × RM40,000).** It's a rough target — adjust for inflation, healthcare and lifestyle."
+    },
+    "takeaway": "Target ~25× your annual expenses (the 4% rule); cross-check with EPF's RM650k–RM1.3m benchmarks.",
+    "action": "Multiply your expected annual retirement spending by 25 — that's your rough number to aim for.",
+    "body": "**The 25× / 4% rule:** if you withdraw about 4% of your invested savings a year, the money should last 30+ years. So your target is roughly 25 × your annual expenses. Spend RM48,000 a year → you'd aim for about RM1.2 million.\n\nIt's a starting estimate, not a law — adjust for inflation, healthcare, your lifestyle, and how long you expect to live. As a Malaysian cross-check, use EPF's retirement benchmarks: the long-standing Basic of RM240,000, and the newer Basic RM390,000 / Adequate RM650,000 / Enhanced RM1.3 million by age 55 (from Module 0).\n\nThen work backwards: your number, your timeline, and an expected return tell you how much to invest each month — and compounding does the heavy lifting from there.",
+    "malaysia": "EPF alone often falls short of a comfortable retirement — which is exactly why PRS and investing on top matter. Aim beyond the Basic benchmark if you want choices later."
+  },
+  "L8.5": {
+    "hook": "FIRE — Financial Independence, Retire Early — is the ultimate goal of everything in this course: enough passive income that work becomes optional.",
+    "recall": "From the last lesson: roughly how many times your annual expenses do you need to retire? (~25×.)",
+    "summary": "FIRE means building enough invested assets that their returns cover your living costs — so you're free to work or not. You get there with a high savings rate, consistent investing, and time.",
+    "quiz": {
+      "q": "What's the single biggest lever for reaching FIRE?",
+      "a": "**Your savings rate.** Saving a bigger share of income both builds the fund faster and shrinks the number you need."
+    },
+    "takeaway": "FIRE = investments cover your expenses. Driven by savings rate + consistent investing + time — work becomes optional.",
+    "action": "Work out your savings rate (amount saved ÷ income). Raising it is the fastest route to independence.",
+    "body": "FIRE is financial independence: the point where your investments' income meets or exceeds your expenses — the same “passive income > expenses” milestone from Module 0, just made concrete and aimed for early.\n\nThe levers: **save a high percentage of your income** (your savings rate is the single biggest driver), invest it consistently (DCA into low-cost funds), and let compounding and time work. A higher savings rate is doubly powerful — it grows your fund faster AND lowers the number you need, because you're living on less.\n\n- **Lean FIRE** — a modest lifestyle; **Fat FIRE** — a generous one; **Coast FIRE** — invest hard early, then let it grow while you stop adding.\n\nIt's a long game, not get-rich-quick: control lifestyle inflation (Module 2), and combine EPF + PRS + your own investing to get there.",
+    "malaysia": "EPF is a built-in FIRE base; layer global/taxable investing on top, and keep an eye on the ringgit and local cost of living when you set your number."
+  },
+  "L8.6": {
+    "hook": "You now have all the pieces. A financial plan is simply putting them in the right order — and it's the difference between knowing this stuff and actually doing it.",
+    "recall": "From the last lesson: the biggest lever for FIRE? (Your savings rate.)",
+    "summary": "Your plan, in order: know your money → budget + emergency fund → kill bad debt → protect → invest → optimise. Set goals, automate, and review yearly. That's the whole course on one page.",
+    "quiz": {
+      "q": "In the plan, what comes first — investing, or building an emergency fund?",
+      "a": "**The emergency fund.** Foundation before growth: you protect and stabilise before you invest. That order is the whole point of the course."
+    },
+    "takeaway": "A plan is the priority ladder in action: know → budget → debt → protect → grow → optimise. Automate it and review yearly.",
+    "action": "Write your one-page plan: where you are on the ladder, your next step, and your goals with dates. Then take that next step.",
+    "body": "Your financial plan is the priority ladder from Module 0, now filled in with everything you've learned:\n\n- **Know your money** — payslip, EPF, tax (Module 1).\n\n- **Budget + a 3–6 month emergency fund** (Module 2).\n\n- **Clear high-interest debt** (Module 3).\n\n- **Protect** — insurance/takaful and a will/wasiat (Module 4).\n\n- **Grow** — EPF top-up / ASB / PRS, then low-cost index funds & ETFs via DCA (Modules 5–7).\n\n- **Optimise** — tax reliefs, asset allocation, your retirement number, FIRE (Module 8).\n\nThen make it real: set goals with a number and a date, automate everything (pay yourself first, DCA), and review the plan once a year and at big life changes. It's a living document — consistency beats perfection. Finish first, then perfect.",
+    "malaysia": "Anchor every step to your real numbers — EPF, LHDN reliefs, your own budget — and refresh the figures each year as rates and rules change."
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "L6.1": {
+    "hook": "You already own Malaysia's most reliable investment — EPF. Beyond the forced contributions, you can actively boost it, and most people never realise they can.",
+    "recall": "From the last module: with a long time horizon, do you lean toward more growth or more safety? (More growth.)",
+    "summary": "EPF isn't just a deduction — it's a low-risk investment paying ~6% a year. You can top it up voluntarily (with tax relief) and even invest part of it into funds via i-Invest.",
+    "sources": "KWSP — declared dividends 2024 (6.30%) & 2025 (6.15%); i-Invest / self-contribution via i-Akaun. Refresh annually.",
+    "quiz": {
+      "q": "Is EPF only forced savings, or can you add to it yourself?",
+      "a": "**You can voluntarily top it up** — and get tax relief for doing so. You can also invest part of it via i-Invest."
+    },
+    "takeaway": "EPF is a low-risk ~6% investment you can boost — top up voluntarily (tax relief) or invest part via i-Invest.",
+    "action": "Log in to i-Akaun and look at the self-contribution and i-Invest options.",
+    "body": "As an investment, EPF is hard to beat for safety: it paid 6.30% for 2024 and 6.15% for 2025, is guaranteed never to go below 2.5%, and carries very low risk — comfortably beating both fixed deposits and inflation. It's the bedrock of most Malaysians' retirement.\n\n- **Self-contribution** — you can voluntarily top up your EPF beyond the mandatory deduction (e.g. via i-Saraan for the self-employed), and it qualifies for tax relief (details in Module 8).\n\n- **i-Invest** — through i-Akaun you can move part of your EPF savings (above a threshold) into approved unit-trust funds, at much lower sales charges than buying them directly.\n\nThe trade-off: EPF is for retirement, so topping up locks money away (mostly until 55). Great for long-term wealth, not for money you'll need soon.",
+    "malaysia": "Everything lives in EPF i-Akaun — your balance, dividends, the self-contribution option, and i-Invest. It's the first place to look before paying for any other investment."
+  },
+  "L6.2": {
+    "hook": "ASB is one of the most popular investments in Malaysia for good reason — stable, fixed-price, and historically strong returns. But eligibility and financing need care.",
+    "recall": "From the last lesson: roughly what does EPF pay a year? (~6%.)",
+    "summary": "ASB is a fixed-price (RM1/unit) unit trust by PNB/ASNB, historically paying ~5–6% a year with very low volatility. It's for Bumiputera; ASNB has other funds open to all Malaysians.",
+    "sources": "PNB/ASNB — ASB FY2024 & FY2025 distribution 5.75 sen/unit. Refresh annually.",
+    "quiz": {
+      "q": "Does ASB's unit price rise and fall like a stock?",
+      "a": "**No — it's fixed at RM1 per unit.** Your capital value stays stable; returns come as the annual distribution."
+    },
+    "takeaway": "ASB = stable fixed-price fund, ~5.75% recently, low risk (Bumiputera). Non-Bumi: ASNB's open funds like ASM.",
+    "action": "If eligible, check ASB; if not, look at ASNB funds open to all Malaysians (e.g. ASM).",
+    "body": "ASB (Amanah Saham Bumiputera) is a fixed-price unit trust — its price stays at RM1/unit, so your capital doesn't swing up and down like a stock — managed by ASNB under PNB, for Bumiputera investors.\n\n- **Returns** — ASB distributed 5.75 sen per unit (~5.75%) for both FY2024 and FY2025, comfortably above fixed deposits and with very low risk.\n\n- **Why it's popular** — stable, capital doesn't fluctuate, easy to start, strong long track record.\n\n- **ASB financing** — some borrow to invest in ASB. That amplifies both gains and risk; only consider it if you fully understand the loan maths.\n\nNot Bumiputera? ASNB offers other funds — such as ASM (Amanah Saham Malaysia) — that are open to all Malaysians, with similar low-volatility, fixed-price structures.",
+    "malaysia": "Open and manage via the myASNB app or agent banks."
+  },
+  "L6.3": {
+    "hook": "PRS lets you build extra retirement savings on top of EPF — and claim up to RM3,000 in tax relief for it. If you'd invest for retirement anyway, that relief is close to free money.",
+    "recall": "From the last lesson: does ASB's price fluctuate? (No — fixed at RM1/unit.)",
+    "summary": "PRS is a voluntary retirement scheme on top of EPF. Contribute and claim up to RM3,000 a year in tax relief — a direct cut to your tax bill.",
+    "sources": "PPA (ppa.my) & LHDN — PRS tax relief up to RM3,000. ⚠️ Relief is periodically extended; verify it applies to the current YA.",
+    "quiz": {
+      "q": "What's the main tax perk of PRS?",
+      "a": "**Up to RM3,000 a year in tax relief** — on top of building extra retirement savings beyond EPF."
+    },
+    "takeaway": "PRS = extra retirement savings + up to RM3,000 tax relief. Worth it if you'll invest for retirement anyway — confirm the relief still applies this year.",
+    "action": "If you pay income tax, check the current PRS relief status on LHDN/PPA and consider opening a PPA account.",
+    "body": "PRS (Private Retirement Scheme) is voluntary, long-term retirement investing, separate from and on top of EPF. It's administered centrally by PPA (the Private Pension Administrator); you pick a provider and a fund matched to your age and risk, starting from as little as RM100.\n\n- **Tax relief** — up to RM3,000 a year. In an 11% tax bracket, contributing RM3,000 saves you about RM330 in tax.\n\n- **Locked for retirement** — like EPF, early withdrawal is taxed/penalised, so only contribute money you won't need soon.\n\nOne caveat to check each year: the RM3,000 PRS relief is granted for set periods and extended in the Budget — confirm it's in effect for the current year of assessment before relying on it.",
+    "malaysia": "Open a PPA account at ppa.my and choose an approved provider (e.g. Principal, Public Mutual). Claim the relief in your e-Filing using your provider's contribution statement."
+  },
+  "L6.4": {
+    "hook": "For Muslim Malaysians, Tabung Haji combines saving for the hajj with a shariah-compliant return — but it's a savings vehicle, not a wealth-builder.",
+    "recall": "From the last lesson: PRS tax relief is up to how much a year? (RM3,000.)",
+    "summary": "Tabung Haji is a shariah-compliant savings fund for Malaysian Muslims — it saves for hajj and pays an annual hibah (recently ~3.25%). Safe and liquid, but lower-return than EPF or ASB.",
+    "sources": "Tabung Haji — 2024 hibah 3.25% (after zakat); hibah eligibility on deposits ≤ RM100,000. Refresh annually.",
+    "quiz": {
+      "q": "Is Tabung Haji a high-growth investment?",
+      "a": "**No.** It's safe and liquid with a modest hibah (~3.25%) — better for saving toward hajj than for building wealth. For growth, lean on EPF/ASB/investing."
+    },
+    "takeaway": "Tabung Haji = shariah-compliant hajj savings, ~3.25% hibah, safe and liquid but lower-return. Right tool for its purpose.",
+    "action": "Saving for hajj? Use TH. Saving for long-term growth? Weight toward EPF, ASB, and investing instead.",
+    "body": "Tabung Haji (TH) is a savings institution for Malaysian Muslims, primarily to save for the hajj pilgrimage. It's fully shariah-compliant, and zakat is automatically deducted.\n\n- **Return** — an annual hibah (gift). For 2024 it paid 3.25% (after zakat), its highest in seven years. Hibah eligibility applies to deposits up to RM100,000.\n\n- **Profile** — conservative and very liquid (TH must be ready to fund pilgrims' withdrawals), so the return is lower than EPF (~6%) or ASB (~5.75%).\n\nIn short, it's a safe place to park money and save for hajj — excellent for that purpose, but not the engine for long-term wealth growth.",
+    "malaysia": "For Muslims; manage via the TH app or branches."
+  },
+  "L6.5": {
+    "hook": "These are the safe end of investing — where to keep money you can't afford to lose, but still want earning something rather than sitting idle.",
+    "recall": "From the last lesson: is Tabung Haji a high-growth investment? (No — safe, liquid, modest.)",
+    "summary": "Fixed deposits lock money for a term at a fixed rate (~3.5–3.85%); money-market funds stay flexible at ~3–3.5%. Both low-risk — and bank deposits are PIDM-protected to RM250k.",
+    "quiz": {
+      "q": "Which is more flexible — a fixed deposit or a money-market fund?",
+      "a": "**A money-market fund.** An FD locks your money for the term (penalty to break early); an MMF stays accessible."
+    },
+    "takeaway": "FD (locked, ~3.5%) and MMF (flexible, ~3–3.5%) are the safe sleeve of your money — low risk, deposits PIDM-covered. Not for long-term growth.",
+    "action": "Move any idle cash earning ~0% into an FD or money-market fund.",
+    "body": "- **Fixed deposit (FD)** — lock money for a set term for a guaranteed rate (best 12-month rates ~3.5–3.85% in 2026). Penalty if you break it early. PIDM-protected.\n\n- **Money-market fund (MMF)** — a low-risk unit trust holding short-term deposits; recent returns ~3–3.5%, with access in a few days. Flexible.\n\nTheir role in a portfolio is the safe, stable sleeve — your emergency fund, short-term goals, and “dry powder” waiting to be invested. They won't beat equities over the long run, so they're not your growth engine — but they beat idle cash, and they're where your short-horizon money belongs (remember matching risk to time horizon).",
+    "malaysia": "FDs at every bank; money-market funds via banks, ASNB, or fund/robo platforms (e.g. Versa). Deposits (savings + FD) are PIDM-insured up to RM250,000 per bank."
+  },
+  "L6.6": {
+    "hook": "Unit trusts are Malaysia's most-sold investment — but high fees can quietly eat a large chunk of your returns over time. Know exactly what you're paying.",
+    "recall": "From the last lesson: which is more flexible, an FD or a money-market fund? (MMF.)",
+    "summary": "A unit trust pools many investors' money under a fund manager — convenient and diversified, but watch the fees: often a 3–5.5% sales charge plus 1.5–1.8% a year.",
+    "sources": "Typical Malaysian unit-trust fees: 3–5.5% sales charge + 1.5–1.8% annual management. Compare before buying.",
+    "quiz": {
+      "q": "What two fees do unit trusts typically charge?",
+      "a": "**An upfront sales charge and an annual management fee.** Both eat into returns — the sales charge immediately, the management fee every year."
+    },
+    "takeaway": "Unit trusts are pooled, managed and diversified — but high fees (3–5.5% upfront + ~1.5%/yr) drag returns. Always compare to index funds.",
+    "action": "Check the sales charge and annual fee on any unit trust you hold — then compare to a low-cost alternative.",
+    "body": "A unit trust pools investors' money and a professional manager invests it across stocks, bonds and so on; you buy “units.” The appeal is instant diversification and a hands-off experience.\n\nThe catch is fees. Most charge a **sales charge (front load) of about 3–5.5% upfront** — gone the moment you invest — plus an **annual management fee of ~1.5–1.8%.** Over decades, those fees compound against you and can quietly consume a big slice of your returns.\n\nAnd most unit trusts are actively managed, so after fees many underperform a cheap index fund (remember active vs passive). Cheaper routes in: buy via EPF i-Invest (reduced sales charge), or skip them for low-cost index funds and robo-advisors (next lesson).",
+    "malaysia": "They're sold by banks and agents on commission — much like insurance — so be fee-aware and don't be rushed. Providers include Public Mutual, ASNB, Principal and others."
+  },
+  "L6.7": {
+    "hook": "Robo-advisors made low-cost, diversified, global investing dead-simple for beginners — often at a fraction of unit-trust fees.",
+    "recall": "From the last lesson: what's a unit trust's big drawback? (High fees.)",
+    "summary": "A robo-advisor automatically invests your money into a diversified global portfolio of low-cost ETFs, for a small annual fee (~0.2–0.8%) and no sales charge. Ideal for hands-off beginners.",
+    "sources": "Robo-advisor fees ~0.2–0.8%/yr (e.g. StashAway tiers); vs unit trusts 3–5.5% upfront + 1.5–1.8%/yr. Refresh as fees change.",
+    "quiz": {
+      "q": "How do robo-advisor fees compare with unit trusts?",
+      "a": "**Much lower.** Roughly 0.2–0.8% a year with no sales charge, versus 3–5.5% upfront plus ~1.5% a year for typical unit trusts."
+    },
+    "takeaway": "Robo-advisors = automated, diversified, low-fee (~0.2–0.8%) investing. Ideal for hands-off beginners.",
+    "action": "Compare a robo-advisor's all-in fee to any unit trust you hold — the difference compounds over the years.",
+    "body": "A robo-advisor builds and manages a diversified portfolio for you (usually low-cost ETFs), based on your risk profile, and handles the rebalancing automatically. You just set your risk level and contribute.\n\n- **Fees** — about 0.2–0.8% a year (e.g. StashAway charges 0.8% below RM50k, dropping toward 0.2% above RM500k), with no upfront sales charge and no withdrawal fee. Far cheaper than unit trusts.\n\n- **Pros** — low fees, low minimums, instant global diversification, beginner-friendly. **Cons** — you don't pick individual holdings, and you still carry market risk.\n\nOptions include StashAway, Wahed (shariah-compliant), Versa (more cash-management focused), and others — all licensed by the Securities Commission.",
+    "malaysia": "All the main robo-advisors are SC-licensed and let you start with small amounts — a low-friction first step into investing."
+  },
+  "L6.8": {
+    "hook": "Bonds and sukuk are the “lend money for interest” asset class — steadier than stocks, and a key diversifier that can hold up when shares fall.",
+    "recall": "From the last lesson: are robo-advisor fees higher or lower than unit trusts? (Much lower.)",
+    "summary": "A bond (or sukuk, its shariah-compliant version) is a loan to a government or company that pays you regular interest. Lower risk and return than stocks — good for stability and income.",
+    "quiz": {
+      "q": "What is a sukuk?",
+      "a": "**The shariah-compliant equivalent of a bond** — asset-backed and structured to avoid interest (riba), while still paying the holder a return."
+    },
+    "takeaway": "Bonds/sukuk = lending for interest: lower risk and return than stocks, and a portfolio stabiliser. Easiest accessed via funds.",
+    "action": "Check whether your fund or robo portfolio includes bonds/sukuk for stability — especially as you get closer to a goal.",
+    "body": "With a bond, you lend money to a government or company; they pay you periodic interest (the coupon) and return your principal at maturity. A sukuk is the shariah-compliant equivalent — asset-backed, structured to avoid riba.\n\n- **Risk/return** — generally lower than equities. Government issues (Malaysian Government Securities / MGS, and Government Investment Issues / sukuk) are very safe; corporate bonds pay more but carry more risk.\n\n- **Role in a portfolio** — stability and income; bonds often hold up when stocks fall, making them a useful diversifier.\n\nFor most retail investors, buying individual bonds is hard and large-ticket, so the easy way to get bond/sukuk exposure is through bond funds, ETFs, or a robo-advisor portfolio.",
+    "malaysia": "Government (MGS/GII) and corporate bonds/sukuk exist, but the simplest access for most people is via a bond/sukuk fund or a robo-advisor that includes them."
+  }
+}
