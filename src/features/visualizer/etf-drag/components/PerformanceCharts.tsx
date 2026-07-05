@@ -113,14 +113,14 @@ export default function PerformanceCharts({
         <div className="inline-flex rounded-xl p-0.5 bg-[#F3F3F4] border border-[#E6E6E6]">
           <button 
             onClick={() => setActiveTab("performance")}
-            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "performance" ? 'bg-white text-[#D91222] border border-[#D91222]/20 shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
+            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "performance" ? 'bg-white text-[#D91222] border border-[#D91222]/20 shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
           >
             <TrendingUp className="w-3.5 h-3.5 text-[#D91222]" />
             Portfolio Projection
           </button>
           <button 
             onClick={() => setActiveTab("leakage")}
-            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "leakage" ? 'bg-white text-[#D91222] border border-[#D91222]/20 shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
+            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "leakage" ? 'bg-white text-[#D91222] border border-[#D91222]/20 shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
           >
             <AlertCircle className="w-3.5 h-3.5 text-[#FFB300]" />
             Cumulative Lost Cost

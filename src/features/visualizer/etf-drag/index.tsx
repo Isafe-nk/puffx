@@ -173,13 +173,13 @@ export default function App() {
             <div className="inline-flex rounded-full p-0.5 bg-[#F3F3F4] border border-[#E6E6E6]">
               <button 
                 onClick={() => setShowInUsd(false)}
-                className={`px-3 py-1 text-[11px] rounded-full transition-all font-semibold cursor-pointer tracking-wide ${!showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${!showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
               >
                 RM
               </button>
               <button 
                 onClick={() => setShowInUsd(true)}
-                className={`px-3 py-1 text-[11px] rounded-full transition-all font-semibold cursor-pointer tracking-wide ${showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
               >
                 USD
               </button>

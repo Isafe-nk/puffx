@@ -31,7 +31,7 @@ export default function Learn() {
           </p>
           <Link
             to={`/learn/${FIRST_MODULE.slug}`}
-            className="group mt-8 inline-flex items-center gap-2 bg-[#D91222] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#C01A2F] transition-colors"
+            className="group mt-8 inline-flex items-center gap-2 bg-[#D91222] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#C01A2F] active:scale-[0.98] transition duration-200"
           >
             Start with Module 0
             <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
@@ -61,7 +61,7 @@ export default function Learn() {
               <Link
                 key={p.slug}
                 to={`/learn/phase/${p.slug}`}
-                className="group rounded-2xl border border-[#E6E6E6] bg-white p-6 hover:border-[#D91222] transition-colors duration-200 block"
+                className="group rounded-2xl border border-[#E6E6E6] bg-white p-6 hover:border-[#D91222] active:scale-[0.99] transition duration-200 block"
               >
                 <div className="flex items-center justify-between mb-6">
                   <Icon className="w-5 h-5 text-[#727579]" strokeWidth={1.5} />

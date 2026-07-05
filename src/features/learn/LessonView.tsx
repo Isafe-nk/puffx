@@ -27,7 +27,7 @@ function Quiz({ q, a }: { q: string; a: string }) {
       {!open ? (
         <button
           onClick={() => setOpen(true)}
-          className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#D91222] hover:text-[#C01A2F] transition-colors cursor-pointer"
+          className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#D91222] hover:text-[#C01A2F] active:scale-[0.97] transition duration-200 cursor-pointer"
         >
           Reveal answer
           <ChevronRight className="w-3.5 h-3.5" strokeWidth={2} />
@@ -141,7 +141,7 @@ export default function LessonView() {
           {prev ? (
             <Link
               to={`/learn/${module.slug}/${lessonSlug(prev.id)}`}
-              className="group rounded-xl border border-[#E6E6E6] p-4 hover:border-[#D91222] transition-colors"
+              className="group rounded-xl border border-[#E6E6E6] p-4 hover:border-[#D91222] active:scale-[0.99] transition duration-200"
             >
               <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.18em] text-[#A2A3A5] font-semibold mb-1">
                 <ChevronLeft className="w-3 h-3" strokeWidth={1.5} /> Previous
@@ -154,7 +154,7 @@ export default function LessonView() {
           {next ? (
             <Link
               to={`/learn/${module.slug}/${lessonSlug(next.id)}`}
-              className="group rounded-xl border border-[#E6E6E6] p-4 hover:border-[#D91222] transition-colors text-right"
+              className="group rounded-xl border border-[#E6E6E6] p-4 hover:border-[#D91222] active:scale-[0.99] transition duration-200 text-right"
             >
               <span className="flex items-center justify-end gap-1 text-[10px] uppercase tracking-[0.18em] text-[#A2A3A5] font-semibold mb-1">
                 Next <ChevronRight className="w-3 h-3" strokeWidth={1.5} />

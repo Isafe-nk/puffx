@@ -202,7 +202,7 @@ export default function Sidebar({
                 <button
                   key={freq}
                   onClick={() => setFeeOptimizationFreq(freq)}
-                  className={`px-2.5 py-2 text-[11px] font-mono rounded-xl border text-center transition-all capitalize cursor-pointer ${feeOptimizationFreq === freq ? 'bg-[#D91222]/10 border-[#D91222] text-[#D91222] font-semibold' : 'bg-white border-[#E6E6E6] text-[#727579] hover:text-[#44474D] hover:border-[#D0D1D2]'}`}
+                  className={`px-2.5 py-2 text-[11px] font-mono rounded-xl border text-center transition-all active:scale-[0.97] capitalize cursor-pointer ${feeOptimizationFreq === freq ? 'bg-[#D91222]/10 border-[#D91222] text-[#D91222] font-semibold' : 'bg-white border-[#E6E6E6] text-[#727579] hover:text-[#44474D] hover:border-[#D0D1D2]'}`}
                 >
                   {freq}
                 </button>
@@ -229,7 +229,7 @@ export default function Sidebar({
             </div>
             <button
               onClick={() => setDepositDirectUSD(!depositDirectUSD)}
-              className={`relative inline-flex h-5.5 w-9.5 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none ${depositDirectUSD ? 'bg-[#D91222]' : 'bg-[#E8E8E9]'}`}
+              className={`relative inline-flex h-5.5 w-9.5 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition duration-200 ease-in-out active:scale-95 focus:outline-none ${depositDirectUSD ? 'bg-[#D91222]' : 'bg-[#E8E8E9]'}`}
             >
               <span
                 className={`pointer-events-none inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${depositDirectUSD ? 'translate-x-4' : 'translate-x-0'}`}
@@ -319,7 +319,7 @@ export default function Sidebar({
           <div className="border-t border-[#E6E6E6] pt-4">
             <button
               onClick={() => setShowTuning(!showTuning)}
-              className="w-full flex items-center justify-between text-[#727579] hover:text-[#212121] transition-colors py-2 px-3 rounded-xl border border-[#E6E6E6] bg-[#F7F8FA] cursor-pointer"
+              className="w-full flex items-center justify-between text-[#727579] hover:text-[#212121] active:scale-[0.99] transition duration-200 py-2 px-3 rounded-xl border border-[#E6E6E6] bg-[#F7F8FA] cursor-pointer"
             >
               <span className="text-xs font-semibold flex items-center gap-2">
                 <Settings className="w-3.5 h-3.5 text-[#D91222] animate-spin-hover" />
@@ -508,7 +508,7 @@ export default function Sidebar({
 
                 <button
                   onClick={handleRestorePresets}
-                  className="mt-1 w-full flex items-center justify-center gap-1.5 py-2 text-[11px] text-[#727579] hover:text-[#212121] bg-[#F7F8FA] border border-[#E6E6E6] rounded-xl hover:bg-[#F3F3F4] transition-colors cursor-pointer"
+                  className="mt-1 w-full flex items-center justify-center gap-1.5 py-2 text-[11px] text-[#727579] hover:text-[#212121] bg-[#F7F8FA] border border-[#E6E6E6] rounded-xl hover:bg-[#F3F3F4] active:scale-[0.99] transition duration-200 cursor-pointer"
                 >
                   <RefreshCw className="w-3 h-3" />
                   Restore Base Presets

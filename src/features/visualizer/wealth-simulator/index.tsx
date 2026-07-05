@@ -138,7 +138,7 @@ export default function App() {
             </div>
             <button
               onClick={() => setShowSidebar(!showSidebar)}
-              className={`p-1.5 rounded-lg transition-all flex items-center gap-2 border ${showSidebar
+              className={`p-1.5 rounded-lg transition-all active:scale-90 flex items-center gap-2 border ${showSidebar
                 ? "bg-white border-[#E6E6E6] text-[#727579] hover:text-[#212121] hover:border-[#D0D1D2] shadow-sm"
                 : "bg-[#D91222] border-[#D91222] text-white hover:bg-[#C01A2F] shadow-sm"
                 }`}
@@ -449,7 +449,7 @@ export default function App() {
                   {!collapsedSections.has('debt') && (
                     <button
                       onClick={addDebt}
-                      className="ml-4 p-1.5 bg-[#0EB35B]/10 text-[#0EB35B] rounded-lg hover:bg-[#0EB35B]/20 transition-colors"
+                      className="ml-4 p-1.5 bg-[#0EB35B]/10 text-[#0EB35B] rounded-lg hover:bg-[#0EB35B]/20 active:scale-90 transition duration-200"
                       title="Add Debt"
                     >
                       <Plus size={16} />
@@ -472,7 +472,7 @@ export default function App() {
                         <div key={debt.id} className="p-4 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] relative group flex flex-col gap-3">
                           <button
                             onClick={() => removeDebt(idx)}
-                            className="absolute top-2 right-2 p-1 text-[#727579] hover:text-[#D91222] opacity-0 group-hover:opacity-100 transition-all z-10"
+                            className="absolute top-2 right-2 p-1 text-[#727579] hover:text-[#D91222] opacity-0 group-hover:opacity-100 active:scale-90 transition-all z-10"
                           >
                             <Trash2 size={14} />
                           </button>
@@ -562,7 +562,7 @@ export default function App() {
                                 else newLocked.add(asset.key);
                                 setLockedAssets(newLocked);
                               }}
-                              className={`p-1 rounded transition-colors ${lockedAssets.has(asset.key) ? 'text-[#0EB35B] bg-[#0EB35B]/10' : 'text-[#727579] hover:text-[#727579]'}`}
+                              className={`p-1 rounded active:scale-90 transition duration-200 ${lockedAssets.has(asset.key) ? 'text-[#0EB35B] bg-[#0EB35B]/10' : 'text-[#727579] hover:text-[#727579]'}`}
                               title={lockedAssets.has(asset.key) ? "Unlock asset" : "Lock asset"}
                             >
                               {lockedAssets.has(asset.key) ? <Lock size={12} /> : <Unlock size={12} />}

@@ -42,7 +42,7 @@ export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, dep
         end
         onClick={(e) => comingSoon && e.preventDefault()}
         className={({ isActive }) =>
-          `flex items-center gap-3 ${rowPad} rounded-lg font-bold transition-colors duration-200 ${
+          `flex items-center gap-3 ${rowPad} rounded-lg font-bold active:scale-[0.98] transition duration-200 ${
             isActive && !comingSoon ? activeCls : comingSoon ? 'text-white/30 cursor-not-allowed pointer-events-none' : idleCls
           }`
         }
@@ -57,7 +57,7 @@ export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, dep
   // chevron is a separate control to collapse/expand without navigating.
   return (
     <div>
-      <div className={`flex items-center rounded-lg font-bold transition-colors duration-200 ${active ? activeCls : idleCls}`}>
+      <div className={`flex items-center rounded-lg font-bold active:scale-[0.98] transition duration-200 ${active ? activeCls : idleCls}`}>
         <NavLink
           to={item.path}
           onClick={() => setExpanded(true)}
@@ -71,7 +71,7 @@ export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, dep
           onClick={() => setExpanded((v) => !v)}
           aria-label={expanded ? `Collapse ${item.label}` : `Expand ${item.label}`}
           aria-expanded={expanded}
-          className="p-2 mr-1 rounded-md text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+          className="p-2 mr-1 rounded-md text-white/60 hover:text-white hover:bg-white/10 active:scale-90 transition duration-200"
         >
           <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`} />
         </button>
