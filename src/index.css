@@ -70,6 +70,18 @@
   }
 }
 
+/* Visible keyboard focus everywhere (WCAG 2.4.7). Inputs/selects that swap the
+   outline for a red border+ring keep their own treatment via focus:outline-none. */
+:focus-visible {
+  outline: 2px solid #D91222;
+  outline-offset: 2px;
+}
+
+/* Light outline variant on the dark sidebar rail */
+.sidenav-dark :focus-visible {
+  outline-color: rgba(255, 255, 255, 0.9);
+}
+
 /* Users who prefer reduced motion get instant state changes — no scale/slide/breathe */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

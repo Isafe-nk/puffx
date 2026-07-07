@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ListOrdered, Scale, MapPin, Wallet, TrendingUp, ArrowRight } from 'lucide-react';
 import { PHASES, LEARN_MODULES, modulesInPhase, lessonCount } from './learnConfig';
+import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 const FIRST_MODULE = LEARN_MODULES[0];
 
@@ -13,6 +14,7 @@ const PRINCIPLES = [
 ];
 
 export default function Learn() {
+  usePageTitle('Learn');
   return (
     <div className="w-full">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 pb-20">

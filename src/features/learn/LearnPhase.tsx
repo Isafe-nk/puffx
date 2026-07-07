@@ -1,10 +1,12 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ChevronLeft, ArrowRight } from 'lucide-react';
 import { getPhase, modulesInPhase, lessonCount } from './learnConfig';
+import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 export default function LearnPhase() {
   const { phaseSlug } = useParams();
   const phase = phaseSlug ? getPhase(phaseSlug) : undefined;
+  usePageTitle(phase ? `Phase ${phase.num} · ${phase.name}` : undefined);
 
   if (!phase) return <Navigate to="/learn" replace />;
 

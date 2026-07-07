@@ -5,13 +5,13 @@ import {
   BadgePercent,
   Settings,
   RefreshCw,
-  Flame,
-  HelpCircle
+  Flame
 } from "lucide-react";
 import { ETF, FeeOptimizationFrequency } from "../types";
 import { ETF_REGISTRY } from "../constants";
 import SliderInput from "../../../../shared/components/SliderInput";
 import Card from "../../../../shared/components/Card";
+import HelpTip from "../../../../shared/components/HelpTip";
 
 interface SidebarProps {
   initialInvestmentRM: number;
@@ -183,32 +183,30 @@ export default function Sidebar({
           />
 
           {/* Broker Frequency Settings Optimization Selector */}
-          <div className="bg-[#F7F8FA] border border-[#E6E6E6] rounded-2xl p-4 mt-1 text-[#44474D]">
+          <fieldset className="bg-[#F7F8FA] border border-[#E6E6E6] rounded-2xl p-4 mt-1 text-[#44474D]">
+            <legend className="sr-only">Execution frequency</legend>
             <div className="flex justify-between items-center mb-2.5">
-              <label className="text-xs text-[#727579] font-medium flex items-center gap-1.5">
+              <span className="text-xs text-[#727579] font-medium flex items-center gap-1.5">
                 <BadgePercent className="w-4 h-4 text-[#D91222]" />
                 Execution Frequency Optimization
-              </label>
-              <div className="relative group inline-block">
-                <HelpCircle className="w-3.5 h-3.5 text-[#A2A3A5] hover:text-[#44474D] cursor-help transition-colors" />
-                <div className="absolute right-0 bottom-full mb-2 w-64 p-3 bg-white border border-[#E6E6E6] text-[#44474D] text-[10.5px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case">
-                  How often you execute buy orders. Batching (e.g., Quarterly) pools RM allocations into larger single USD purchases, slashing recurring fixed FX and brokerage commission minimums.
-                  <div className="absolute top-full right-1 -translate-x-1.5 -mt-1 border-4 border-transparent border-t-white"></div>
-                </div>
-              </div>
+              </span>
+              <HelpTip label="About execution frequency">
+                How often you execute buy orders. Batching (e.g., Quarterly) pools RM allocations into larger single USD purchases, slashing recurring fixed FX and brokerage commission minimums.
+              </HelpTip>
             </div>
             <div className="grid grid-cols-2 gap-2">
               {(["monthly", "quarterly", "biannually", "annually"] as const).map((freq) => (
                 <button
                   key={freq}
                   onClick={() => setFeeOptimizationFreq(freq)}
+                  aria-pressed={feeOptimizationFreq === freq}
                   className={`px-2.5 py-2 text-[11px] font-mono rounded-xl border text-center transition-all active:scale-[0.97] capitalize cursor-pointer ${feeOptimizationFreq === freq ? 'bg-[#D91222]/10 border-[#D91222] text-[#D91222] font-semibold' : 'bg-white border-[#E6E6E6] text-[#727579] hover:text-[#44474D] hover:border-[#D0D1D2]'}`}
                 >
                   {freq}
                 </button>
               ))}
             </div>
-          </div>
+          </fieldset>
 
           {/* Direct USD Deposit Toggle */}
           <div className="bg-[#F7F8FA] border border-[#E6E6E6] rounded-2xl p-4 mt-1 flex items-center justify-between text-[#44474D]">
@@ -218,18 +216,17 @@ export default function Sidebar({
                   <Coins className="w-4 h-4 text-[#D91222]" />
                   Direct USD Deposit
                 </label>
-                <div className="relative group inline-block">
-                  <HelpCircle className="w-3.5 h-3.5 text-[#A2A3A5] hover:text-[#44474D] cursor-help transition-colors" />
-                  <div className="absolute right-0 bottom-full mb-2 w-64 p-3 bg-white border border-[#E6E6E6] text-[#44474D] text-[10.5px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case">
-                    Enable this if you transfer USD directly into your Interactive Brokers account (e.g., using Wise, BigPay, or multi-currency wire transfers). Bypasses IBKR's standard spot FX currency conversion charges completely.
-                    <div className="absolute top-full right-1 -translate-x-1.5 -mt-1 border-4 border-transparent border-t-white"></div>
-                  </div>
-                </div>
+                <HelpTip label="About direct USD deposit">
+                  Enable this if you transfer USD directly into your Interactive Brokers account (e.g., using Wise, BigPay, or multi-currency wire transfers). Bypasses IBKR's standard spot FX currency conversion charges completely.
+                </HelpTip>
               </div>
             </div>
             <button
               onClick={() => setDepositDirectUSD(!depositDirectUSD)}
-              className={`relative inline-flex h-5.5 w-9.5 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition duration-200 ease-in-out active:scale-95 focus:outline-none ${depositDirectUSD ? 'bg-[#D91222]' : 'bg-[#E8E8E9]'}`}
+              role="switch"
+              aria-checked={depositDirectUSD}
+              aria-label="Direct USD deposit"
+              className={`relative inline-flex h-5.5 w-9.5 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition duration-200 ease-in-out active:scale-95 ${depositDirectUSD ? 'bg-[#D91222]' : 'bg-[#E8E8E9]'}`}
             >
               <span
                 className={`pointer-events-none inline-block h-4.5 w-4.5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out ${depositDirectUSD ? 'translate-x-4' : 'translate-x-0'}`}
@@ -240,13 +237,14 @@ export default function Sidebar({
           {/* Dropdown Selector: Asset A */}
           <div className="border-t border-[#E6E6E6] pt-4 mt-1">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-xs font-medium text-[#727579] flex items-center gap-1.5">
+              <label htmlFor="ticker-a" className="text-xs font-medium text-[#727579] flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#727579] shadow-sm"></div>
                 Compare ETF A (Baseline Target)
-              </span>
+              </label>
             </div>
             <div className="relative">
               <select
+                id="ticker-a"
                 value={tickerA}
                 onChange={(e) => setTickerA(e.target.value)}
                 className="w-full text-sm bg-white border border-[#E6E6E6] focus:border-[#D91222] text-[#212121] px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#D91222]/30 cursor-pointer"
@@ -262,15 +260,15 @@ export default function Sidebar({
             {/* Fast Summary Badge Asset A */}
             <div className="grid grid-cols-3 gap-2 mt-2 bg-[#F7F8FA] p-2.5 rounded-xl border border-[#E6E6E6]">
               <div className="text-center border-r border-[#E6E6E6]">
-                <div className="text-[10px] text-[#A2A3A5]">Domicile / WHT</div>
+                <div className="text-[10px] text-[#727579]">Domicile / WHT</div>
                 <div className="text-[11px] font-bold text-[#44474D] font-mono">{selectedA.domicile} ({(selectedA.domicile === "US" ? 30 : 15)}%)</div>
               </div>
               <div className="text-center border-r border-[#E6E6E6]">
-                <div className="text-[10px] text-[#A2A3A5]">Expense TER</div>
+                <div className="text-[10px] text-[#727579]">Expense TER</div>
                 <div className="text-[11px] font-bold text-[#44474D] font-mono">{(finalTerA * 100).toFixed(3)}%</div>
               </div>
               <div className="text-center">
-                <div className="text-[10px] text-[#A2A3A5]">Structure</div>
+                <div className="text-[10px] text-[#727579]">Structure</div>
                 <div className="text-[11px] font-bold text-[#44474D] truncate">{selectedA.structure}</div>
               </div>
             </div>
@@ -279,13 +277,14 @@ export default function Sidebar({
           {/* Dropdown Selector: Compare ETF B */}
           <div>
             <div className="flex justify-between items-center mb-2">
-              <span className="text-xs font-medium text-[#727579] flex items-center gap-1.5">
+              <label htmlFor="ticker-b" className="text-xs font-medium text-[#727579] flex items-center gap-1.5">
                 <div className="w-2.5 h-2.5 rounded-full bg-[#D91222]"></div>
                 Compare ETF B (Alternative Target)
-              </span>
+              </label>
             </div>
             <div className="relative">
               <select
+                id="ticker-b"
                 value={tickerB}
                 onChange={(e) => setTickerB(e.target.value)}
                 className="w-full text-sm bg-white border border-[#E6E6E6] focus:border-[#D91222] text-[#212121] px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#D91222]/30 cursor-pointer"
@@ -301,15 +300,15 @@ export default function Sidebar({
             {/* Fast Summary Badge Asset B */}
             <div className="grid grid-cols-3 gap-2 mt-2 bg-[#F7F8FA] p-2.5 rounded-xl border border-[#E6E6E6]">
               <div className="text-center border-r border-[#E6E6E6]">
-                <div className="text-[10px] text-[#A2A3A5]">Domicile / WHT</div>
+                <div className="text-[10px] text-[#727579]">Domicile / WHT</div>
                 <div className="text-[11px] font-bold text-[#44474D] font-mono">{selectedB.domicile} ({(selectedB.domicile === "US" ? 30 : 15)}%)</div>
               </div>
               <div className="text-center border-r border-[#E6E6E6]">
-                <div className="text-[10px] text-[#A2A3A5]">Expense TER</div>
+                <div className="text-[10px] text-[#727579]">Expense TER</div>
                 <div className="text-[11px] font-bold text-[#D91222] font-mono">{(finalTerB * 100).toFixed(3)}%</div>
               </div>
               <div className="text-center">
-                <div className="text-[10px] text-[#A2A3A5]">Structure</div>
+                <div className="text-[10px] text-[#727579]">Structure</div>
                 <div className="text-[11px] font-bold text-[#44474D] truncate">{selectedB.structure}</div>
               </div>
             </div>
@@ -319,6 +318,8 @@ export default function Sidebar({
           <div className="border-t border-[#E6E6E6] pt-4">
             <button
               onClick={() => setShowTuning(!showTuning)}
+              aria-expanded={showTuning}
+              aria-controls="ibkr-overrides"
               className="w-full flex items-center justify-between text-[#727579] hover:text-[#212121] active:scale-[0.99] transition duration-200 py-2 px-3 rounded-xl border border-[#E6E6E6] bg-[#F7F8FA] cursor-pointer"
             >
               <span className="text-xs font-semibold flex items-center gap-2">
@@ -331,7 +332,7 @@ export default function Sidebar({
             </button>
 
             {showTuning && (
-              <div className="mt-3 flex flex-col gap-4 bg-white p-4 rounded-xl border border-[#E6E6E6]">
+              <div id="ibkr-overrides" className="mt-3 flex flex-col gap-4 bg-white p-4 rounded-xl border border-[#E6E6E6]">
                 <h3 className="text-xs font-bold text-[#44474D] pb-2 border-b border-[#E6E6E6]">
                   Market Baseline Presets
                 </h3>
@@ -339,17 +340,17 @@ export default function Sidebar({
                 {/* Growth Assumption */}
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-[11px] text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5">
+                    <span className="text-[11px] text-[#727579] py-0.5 inline-flex items-center gap-1">
                       Assumed Annual Market Growth
-                      <span className="absolute left-1/2 bottom-full -translate-x-1/2 mb-2 w-52 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
+                      <HelpTip align="left" label="About market growth">
                         Expected long-term annual price appreciation of the S&P 500 index. S&P 500 historical average price growth is ~7-10%.
-                        <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white"></span>
-                      </span>
+                      </HelpTip>
                     </span>
                     <span className="text-[11px] font-bold text-[#212121] font-mono">{grossMarketGrowth}%</span>
                   </div>
                   <input
                     type="range"
+                    aria-label="Assumed annual market growth"
                     min="2"
                     max="18"
                     step="0.1"
@@ -362,17 +363,17 @@ export default function Sidebar({
                 {/* Dividend Assumption */}
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-[11px] text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5">
+                    <span className="text-[11px] text-[#727579] py-0.5 inline-flex items-center gap-1">
                       Underlying S&P 500 Dividend Yield
-                      <span className="absolute left-1/2 bottom-full -translate-x-1/2 mb-2 w-52 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
+                      <HelpTip align="left" label="About dividend yield">
                         Expected annual dividend yield of the index. Subject to dividend withholding taxes (30% for US funds, 15% for Irish UCITS funds).
-                        <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white"></span>
-                      </span>
+                      </HelpTip>
                     </span>
                     <span className="text-[11px] font-bold text-[#212121] font-mono">{marketDividendYield}%</span>
                   </div>
                   <input
                     type="range"
+                    aria-label="Underlying S&P 500 dividend yield"
                     min="0"
                     max="5"
                     step="0.1"
@@ -385,15 +386,15 @@ export default function Sidebar({
                 {/* FX USD MYR Rate */}
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <label className="text-[11px] text-[#727579] border-b border-dashed border-[#D0D1D2] hover:border-[#A2A3A5] cursor-help transition-all relative group py-0.5">
+                    <label htmlFor="usd-myr-rate" className="text-[11px] text-[#727579] py-0.5 inline-flex items-center gap-1">
                       USD to MYR Spot Rate Converter
-                      <span className="absolute left-1/2 bottom-full -translate-x-1/2 mb-2 w-52 p-2.5 bg-white border border-[#E6E6E6] text-[#44474D] text-[10px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case text-left">
+                      <HelpTip align="left" label="About the spot rate">
                         Spot exchange conversion rate. Used to scale RM inputs into native USD terms for the simulator engine backend.
-                        <span className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-white"></span>
-                      </span>
+                      </HelpTip>
                     </label>
                   </div>
                   <input
+                    id="usd-myr-rate"
                     type="number"
                     step="0.01"
                     value={usdMyrRate}
@@ -528,13 +529,9 @@ export default function Sidebar({
             Purchase Fee Drag
           </h3>
 
-          <div className="relative group inline-block">
-            <HelpCircle className="w-3.5 h-3.5 text-[#A2A3A5] hover:text-[#44474D] cursor-help transition-colors" />
-            <div className="absolute right-0 bottom-full mb-2 w-64 p-3 bg-white border border-[#E6E6E6] text-[#44474D] text-[10.5px] rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-200 z-50 leading-relaxed font-normal normal-case">
-              A high drag state (above 2%) indicates that your investment amount per transaction is too small to overcome IBKR's fixed costs (Min $2.00 FX fee + broker commission of $1.91 all-in for LSE UCITS stocks or $0.35 for US stocks).
-              <div className="absolute top-full right-1 -translate-x-1.5 -mt-1 border-4 border-transparent border-t-white"></div>
-            </div>
-          </div>
+          <HelpTip label="About purchase fee drag">
+            A high drag state (above 2%) indicates that your investment amount per transaction is too small to overcome IBKR's fixed costs (Min $2.00 FX fee + broker commission of $1.91 all-in for LSE UCITS stocks or $0.35 for US stocks).
+          </HelpTip>
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-1">
