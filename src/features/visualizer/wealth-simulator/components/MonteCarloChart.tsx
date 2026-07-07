@@ -15,14 +15,10 @@ import {
   Legend,
 } from "recharts";
 import { MonteCarloResult } from "../engine/types";
+import { CHART_COLORS } from "../constants";
+import { formatRM } from "../../../../shared/utils/format";
 
-const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-MS", {
-    style: "currency",
-    currency: "MYR",
-    maximumFractionDigits: 0,
-    notation: "compact",
-  }).format(value);
+const formatCurrency = (value: number) => formatRM(value, true);
 
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
@@ -37,7 +33,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     if (items.length === 0) return null;
 
     return (
-      <div className="bg-white border border-[#E6E6E6] p-3 rounded-xl shadow-sm min-w-[200px] glass-card">
+      <div className="bg-white border border-[#E6E6E6] p-3 rounded-xl shadow-sm min-w-[200px]">
         <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
           Age {label} Projection
         </p>
@@ -106,7 +102,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
             content={() => (
               <div className="flex flex-wrap justify-center gap-6 mt-4">
                 {[
-                  { label: "Optimistic (Top 10%)", color: "#10b981" },
+                  { label: "Optimistic (Top 10%)", color: CHART_COLORS.success },
                   { label: "Median (Typical)", color: "#307EF2" },
                   { label: "Pessimistic (Bottom 10%)", color: "#ef4444" }
                 ].map((item, index) => (

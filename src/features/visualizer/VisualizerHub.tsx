@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { TrendingUp, PieChart } from 'lucide-react';
+import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 export default function VisualizerHub() {
+  usePageTitle('Visualizer');
   return (
     <div className="p-8 max-w-5xl mx-auto w-full">
       <div className="mb-8">

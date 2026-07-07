@@ -1,14 +1,17 @@
 import { useState, useEffect, useMemo } from 'react';
-import { 
-  Sparkles, 
-  BookOpen, 
-  ShieldAlert, 
+import { Link } from 'react-router-dom';
+import {
+  Sparkles,
+  BookOpen,
+  ShieldAlert,
   Info,
   Download,
   Briefcase,
   BarChart3,
   LineChart,
-  Settings
+  Settings,
+  SlidersHorizontal,
+  ChevronDown
 } from 'lucide-react';
 import { FeeOptimizationFrequency } from './types';
 import { useSimulator } from './hooks/useSimulator';
@@ -25,6 +28,8 @@ export default function App() {
   usePageTitle('ETF Drag');
   // Input settings
   const [initialInvestmentRM, setInitialInvestmentRM] = useState<number>(20000);
+  // Mobile-only: the controls collapse into an "Adjust assumptions" panel (UX review C6)
+  const [showMobileControls, setShowMobileControls] = useState<boolean>(false);
   const [monthlyContributionRM, setMonthlyContributionRM] = useState<number>(1000);
   const [horizonYears, setHorizonYears] = useState<number>(20);
   
@@ -191,11 +196,36 @@ export default function App() {
         </div>
       </header>
 
+      {/* Plain-English on-ramp for non-finance users (UX review C1) */}
+      <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-4 lg:pt-6">
+        <p className="bg-white border border-[#E6E6E6] rounded-2xl p-4 lg:p-5 text-[13px] text-[#44474D] leading-relaxed">
+          This tool compares two ways to buy the S&amp;P 500 through IBKR: a US-listed ETF and an Ireland-listed (UCITS) one.
+          US funds charge a lower annual fee (TER) but lose 30% of every dividend to US withholding tax (WHT); Irish funds lose only 15%.
+          Set your numbers in the control panel and the charts show how fees, taxes and bid-ask spreads (quoted in basis points — hundredths of a percent) drag on your final balance.
+          {' '}<Link to="/glossary" className="text-[#D91222] font-semibold hover:underline">All terms are explained in the Glossary</Link>.
+        </p>
+      </div>
+
       {/* Main Grid Wrapper */}
       <main className="max-w-7xl mx-auto p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
-        
-        {/* SIDEBAR MODULE (4 Columns on Desktop) */}
-        <Sidebar 
+
+        {/* SIDEBAR MODULE (4 cols on desktop; collapsible "Adjust assumptions" panel on mobile) */}
+        <div className="lg:col-span-4">
+          <button
+            type="button"
+            onClick={() => setShowMobileControls((v) => !v)}
+            aria-expanded={showMobileControls}
+            aria-controls="assumption-panel"
+            className="lg:hidden w-full flex items-center justify-between bg-white border border-[#E6E6E6] rounded-xl px-4 py-3 text-sm font-semibold text-[#212121] active:scale-[0.99] transition duration-200 cursor-pointer"
+          >
+            <span className="flex items-center gap-2">
+              <SlidersHorizontal className="w-4 h-4 text-[#D91222]" />
+              Adjust assumptions
+            </span>
+            <ChevronDown className={`w-4 h-4 text-[#727579] transition-transform duration-200 ${showMobileControls ? 'rotate-180' : ''}`} />
+          </button>
+          <div id="assumption-panel" className={`${showMobileControls ? 'block mt-3' : 'hidden'} lg:block lg:mt-0`}>
+        <Sidebar
           initialInvestmentRM={initialInvestmentRM}
           setInitialInvestmentRM={setInitialInvestmentRM}
           monthlyContributionRM={monthlyContributionRM}
@@ -241,6 +271,8 @@ export default function App() {
           depositDirectUSD={depositDirectUSD}
           setDepositDirectUSD={setDepositDirectUSD}
         />
+          </div>
+        </div>
 
         {/* ANALYTICS CANVAS (8 Columns on Desktop) */}
         <section className="lg:col-span-8 flex flex-col gap-6">

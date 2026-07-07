@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useDeferredValue } from "react";
 import {
   TrendingUp,
   PieChart as PieChartIcon,
@@ -37,9 +37,20 @@ import { INITIAL_USER_INPUTS, DEFAULT_MARKET_ASSUMPTIONS } from "./constants";
 import { UserInputs, DebtProfile, AssetAllocation, FinancialHealth } from "./engine/types";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
 import { usePageTitle } from "../../../shared/hooks/usePageTitle";
+import { formatRM } from "../../../shared/utils/format";
 
 // Tab order drives the page-transition direction (left/right slide).
 const TAB_IDS = ["timeline", "allocation", "risk", "debt"];
+
+// Health-audit verdicts as words, not just colored dots (UX review D8).
+const HealthBadge = ({ tone }: { tone: 'good' | 'warn' | 'bad' }) => {
+  const cls =
+    tone === 'good' ? 'bg-[#0EB35B]/10 text-[#0EB35B]' :
+    tone === 'warn' ? 'bg-[#FFB300]/10 text-[#FFB300]' :
+    'bg-[#D91222]/10 text-[#D91222]';
+  const label = tone === 'good' ? 'On track' : tone === 'warn' ? 'Tight' : 'At risk';
+  return <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${cls}`}>{label}</span>;
+};
 
 // Directional page slide: new page enters from the side you're navigating toward,
 // old page exits the opposite way. Subtle offset so it reads as a page swipe.
@@ -55,7 +66,11 @@ export default function App() {
   const [lockedAssets, setLockedAssets] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState<"timeline" | "allocation" | "risk" | "debt">("timeline");
   const [showSidebar, setShowSidebar] = useState(true);
-  const [collapsedSections, setCollapsedSections] = useState<Set<string>>(new Set());
+  // Only Life Parameters starts open — the full stack of sections at once is
+  // overwhelming on a first visit (UX review D4).
+  const [collapsedSections, setCollapsedSections] = useState<Set<string>>(
+    () => new Set(['health', 'debt', 'allocation'])
+  );
   const [tabDirection, setTabDirection] = useState(0);
 
   const selectTab = (id: string) => {
@@ -106,9 +121,14 @@ export default function App() {
     return runDeterministicSimulation(inputs, DEFAULT_MARKET_ASSUMPTIONS);
   }, [inputs]);
 
+  // The 1000-path Monte Carlo is the one expensive computation — run it on a
+  // deferred copy of the inputs so slider drags stay responsive; while the
+  // deferred value lags, the Risk tab shows a "Recalculating" hint.
+  const deferredInputs = useDeferredValue(inputs);
   const mcResult = useMemo(() => {
-    return runMonteCarlo(inputs, DEFAULT_MARKET_ASSUMPTIONS, 1000);
-  }, [inputs]);
+    return runMonteCarlo(deferredInputs, DEFAULT_MARKET_ASSUMPTIONS, 1000);
+  }, [deferredInputs]);
+  const mcRecalculating = deferredInputs !== inputs;
 
   const portfolioStats = useMemo(() => {
     return getPortfolioStats(inputs.allocation, DEFAULT_MARKET_ASSUMPTIONS);
@@ -118,8 +138,7 @@ export default function App() {
     return auditFinancialHealth(inputs);
   }, [inputs]);
 
-  const formatCurrency = (v: number) =>
-    new Intl.NumberFormat("en-MS", { style: "currency", currency: "MYR", maximumFractionDigits: 0 }).format(v);
+  const formatCurrency = formatRM;
 
   const finalNetWorth = deterministicData[deterministicData.length - 1]?.netWorth || 0;
   const finalInflationAdjusted = deterministicData[deterministicData.length - 1]?.inflationAdjustedNetWorth || 0;
@@ -176,7 +195,10 @@ export default function App() {
               {/* top veil — content fades into the page background instead of a hard cut */}
               <div className="hidden lg:block sticky top-0 z-10 h-24 -mb-24 pointer-events-none bg-gradient-to-b from-[#F7F8FA] to-transparent" />
               <div className="space-y-6">
-              <div className="glass-card rounded-2xl overflow-hidden">
+              <p className="text-[11px] text-[#727579] leading-relaxed px-1">
+                Start with your life parameters — everything on the right updates as you go. Open the other sections when you're ready.
+              </p>
+              <div className="bg-white border border-[#E6E6E6] shadow-sm rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('life')}
                   aria-expanded={!collapsedSections.has('life')}
@@ -389,7 +411,7 @@ export default function App() {
               </div>
 
               {/* Financial Health Audit */}
-              <div className="glass-card rounded-2xl overflow-hidden">
+              <div className="bg-white border border-[#E6E6E6] shadow-sm rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('health')}
                   aria-expanded={!collapsedSections.has('health')}
@@ -418,20 +440,26 @@ export default function App() {
                             <span className={`text-xs font-bold ${healthAudit.emergencyFundStatus === 'good' ? 'text-[#0EB35B]' : healthAudit.emergencyFundStatus === 'warning' ? 'text-[#FFB300]' : 'text-[#D91222]'}`}>
                               {healthAudit.emergencyFundMonths.toFixed(1)} Months
                             </span>
-                            <div className={`w-2 h-2 rounded-full ${healthAudit.emergencyFundStatus === 'good' ? 'bg-emerald-500' : healthAudit.emergencyFundStatus === 'warning' ? 'bg-amber-500' : 'bg-red-500'}`} />
+                            <HealthBadge tone={healthAudit.emergencyFundStatus === 'good' ? 'good' : healthAudit.emergencyFundStatus === 'warning' ? 'warn' : 'bad'} />
                           </div>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-[#A2A3A5]">Debt-to-Income (DTI)</span>
-                          <span className={`text-xs font-bold ${healthAudit.debtToIncomeStatus === 'high' ? 'text-[#D91222]' : healthAudit.debtToIncomeStatus === 'caution' ? 'text-[#FFB300]' : 'text-[#0EB35B]'}`}>
-                            {(healthAudit.debtToIncomeRatio * 100).toFixed(1)}%
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs font-bold ${healthAudit.debtToIncomeStatus === 'high' ? 'text-[#D91222]' : healthAudit.debtToIncomeStatus === 'caution' ? 'text-[#FFB300]' : 'text-[#0EB35B]'}`}>
+                              {(healthAudit.debtToIncomeRatio * 100).toFixed(1)}%
+                            </span>
+                            <HealthBadge tone={healthAudit.debtToIncomeStatus === 'high' ? 'bad' : healthAudit.debtToIncomeStatus === 'caution' ? 'warn' : 'good'} />
+                          </div>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-xs text-[#A2A3A5]">Savings Rate</span>
-                          <span className={`text-xs font-bold ${healthAudit.savingsRateStatus === 'aggressive' ? 'text-[#0EB35B]' : healthAudit.savingsRateStatus === 'healthy' ? 'text-[#0EB35B]/70' : 'text-[#FFB300]'}`}>
-                            {healthAudit.savingsRateStatus.toUpperCase()}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs font-bold ${healthAudit.savingsRateStatus === 'aggressive' ? 'text-[#0EB35B]' : healthAudit.savingsRateStatus === 'healthy' ? 'text-[#0EB35B]/70' : 'text-[#FFB300]'}`}>
+                              {healthAudit.savingsRateStatus.toUpperCase()}
+                            </span>
+                            <HealthBadge tone={healthAudit.savingsRateStatus === 'low' ? 'warn' : 'good'} />
+                          </div>
                         </div>
                       </div>
                       {healthAudit.emergencyFundStatus !== 'good' && (
@@ -446,7 +474,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="glass-card rounded-2xl overflow-hidden">
+              <div className="bg-white border border-[#E6E6E6] shadow-sm rounded-2xl overflow-hidden">
                 <div className="p-6 flex items-center justify-between">
                   <button
                     onClick={() => toggleSection('debt')}
@@ -542,7 +570,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="glass-card rounded-2xl overflow-hidden">
+              <div className="bg-white border border-[#E6E6E6] shadow-sm rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('allocation')}
                   aria-expanded={!collapsedSections.has('allocation')}
@@ -565,10 +593,10 @@ export default function App() {
                       className="px-6 pb-6 space-y-4"
                     >
                       {[
-                        { key: 'equity', label: 'Equity (Stocks)', color: 'bg-emerald-500' },
-                        { key: 'fixedIncome', label: 'Fixed Income (Bonds/Funds)', color: 'bg-indigo-500' },
-                        { key: 'realEstate', label: 'Real Estate (REITs)', color: 'bg-pink-500' },
-                        { key: 'gold', label: 'Gold/Alternatives', color: 'bg-yellow-500' },
+                        { key: 'equity', label: 'Equity (Stocks)', color: 'bg-[#0EB35B]' },
+                        { key: 'fixedIncome', label: 'Fixed Income (Bonds/Funds)', color: 'bg-[#307EF2]' },
+                        { key: 'realEstate', label: 'Real Estate (REITs)', color: 'bg-[#0B3944]' },
+                        { key: 'gold', label: 'Gold/Alternatives', color: 'bg-[#FFB300]' },
                       ].map((asset) => (
                         <div key={asset.key} className="relative">
                           <div className="flex justify-between items-center mb-1">
@@ -628,6 +656,19 @@ export default function App() {
                           />
                         </div>
                       ))}
+
+                      {(() => {
+                        const totalPct = Object.values(inputs.allocation).reduce((s, v) => s + v, 0) * 100;
+                        const balanced = Math.abs(totalPct - 100) < 0.5;
+                        return (
+                          <div className="flex justify-between items-center pt-3 border-t border-[#E6E6E6] text-xs">
+                            <span className="text-[#727579] font-semibold">Total Allocation</span>
+                            <span className={`font-mono font-bold ${balanced ? 'text-[#0EB35B]' : 'text-[#D91222]'}`}>
+                              {totalPct.toFixed(0)}%
+                            </span>
+                          </div>
+                        );
+                      })()}
 
                       <div className="mt-6 p-4 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6]">
                         <div className="flex justify-between text-xs mb-2">
@@ -713,15 +754,15 @@ export default function App() {
               {activeTab === "timeline" && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="glass-card p-6 rounded-2xl">
+                    <div className="bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Retirement Age</p>
                       <p className="text-2xl font-bold">{inputs.retirementAge}</p>
                     </div>
-                    <div className="glass-card p-6 rounded-2xl">
+                    <div className="bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Inflation Adjusted</p>
                       <p className="text-2xl font-bold text-[#307EF2]">{formatCurrency(finalInflationAdjusted)}</p>
                     </div>
-                    <div className="glass-card p-6 rounded-2xl">
+                    <div className="bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl">
                       <p className="text-xs text-[#A2A3A5] uppercase mb-1">Success Prob.</p>
                       <p className="text-2xl font-bold text-[#0EB35B]">{(mcResult.successProbability * 100).toFixed(0)}%</p>
                     </div>
@@ -767,14 +808,14 @@ export default function App() {
                   )}
 
                   <TimelineChart data={deterministicData} />
-                  <div className="glass-card p-6 rounded-2xl flex items-start gap-4">
+                  <div className="bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl flex items-start gap-4">
                     <div className="p-2 bg-[#307EF2]/10 rounded-lg">
                       <Info className="text-[#307EF2]" size={20} />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold mb-1">Understanding the Curve</h3>
                       <p className="text-sm text-[#727579] leading-relaxed">
-                        The solid green area represents your nominal net worth. The dashed indigo line shows your
+                        The solid green area represents your nominal net worth. The dashed blue line shows your
                         <span className="text-[#307EF2] font-medium"> inflation-adjusted</span> net worth,
                         representing today's purchasing power. Notice how compounding accelerates in the final 15 years.
                       </p>
@@ -785,15 +826,15 @@ export default function App() {
 
               {activeTab === "allocation" && (
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                  <div className="xl:col-span-4 glass-card p-6 rounded-2xl">
+                  <div className="xl:col-span-4 bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl">
                     <h3 className="text-lg font-bold mb-4 text-[#212121]">Portfolio Composition</h3>
                     <AllocationPie allocation={inputs.allocation} />
                     <div className="space-y-3 mt-4">
                       {[
-                        { key: 'equity', label: 'Equity', color: 'bg-emerald-500' },
-                        { key: 'fixedIncome', label: 'Fixed Income', color: 'bg-indigo-500' },
-                        { key: 'realEstate', label: 'Real Estate', color: 'bg-pink-500' },
-                        { key: 'gold', label: 'Gold', color: 'bg-yellow-500' },
+                        { key: 'equity', label: 'Equity', color: 'bg-[#0EB35B]' },
+                        { key: 'fixedIncome', label: 'Fixed Income', color: 'bg-[#307EF2]' },
+                        { key: 'realEstate', label: 'Real Estate', color: 'bg-[#0B3944]' },
+                        { key: 'gold', label: 'Gold', color: 'bg-[#FFB300]' },
                       ].map((asset) => (
                         <div key={asset.key} className="flex justify-between items-center">
                           <div className="flex items-center gap-2">
@@ -805,7 +846,7 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-                  <div className="xl:col-span-8 glass-card p-6 rounded-2xl space-y-6">
+                  <div className="xl:col-span-8 bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl space-y-6">
                     <h3 className="text-lg font-bold text-[#212121]">Risk/Return Profile</h3>
                     <RiskProfile stats={portfolioStats} allocation={inputs.allocation} />
                   </div>
@@ -814,10 +855,17 @@ export default function App() {
 
               {activeTab === "risk" && (
                 <div className="space-y-6">
-                  <div className="glass-card p-6 rounded-2xl">
+                  <div className="bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl">
                     <div className="flex justify-between items-center mb-6">
                       <div>
-                        <h3 className="text-lg font-bold">Monte Carlo Simulation</h3>
+                        <h3 className="text-lg font-bold flex items-center gap-2">
+                          Monte Carlo Simulation
+                          {mcRecalculating && (
+                            <span className="text-[10px] font-semibold uppercase tracking-wider text-[#727579] bg-[#F7F8FA] border border-[#E6E6E6] rounded-full px-2 py-0.5 animate-pulse">
+                              Recalculating
+                            </span>
+                          )}
+                        </h3>
                         <p className="text-sm text-[#A2A3A5]">1,000 randomized market paths based on current allocation.</p>
                       </div>
                       <div className="text-right">
@@ -825,9 +873,14 @@ export default function App() {
                         <p className={`text-2xl font-bold ${mcResult.successProbability > 0.8 ? 'text-[#0EB35B]' : mcResult.successProbability > 0.5 ? 'text-[#FFB300]' : 'text-[#D91222]'}`}>
                           {(mcResult.successProbability * 100).toFixed(0)}%
                         </p>
+                        <p className="text-[11px] text-[#727579]">
+                          Out of 1,000 simulated futures, you reached your goal in {Math.round(mcResult.successProbability * 1000).toLocaleString()}.
+                        </p>
                       </div>
                     </div>
-                    <MonteCarloChart result={mcResult} currentAge={inputs.currentAge} />
+                    <div className={mcRecalculating ? 'opacity-60 transition-opacity' : 'transition-opacity'}>
+                      <MonteCarloChart result={mcResult} currentAge={inputs.currentAge} />
+                    </div>
                     <div className="mt-4 p-4 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6]">
                       <p className="text-xs text-[#727579] leading-relaxed">
                         <span className="text-[#0EB35B] font-semibold">Success Definition:</span> We define success as reaching a net worth of at least <span className="text-[#212121] font-mono font-bold">25x your final annual expenses</span> at the point of retirement.
@@ -835,7 +888,7 @@ export default function App() {
                       </p>
                     </div>
                   </div>
-                  <div className="glass-card p-6 rounded-2xl space-y-4">
+                  <div className="bg-white border border-[#E6E6E6] shadow-sm p-6 rounded-2xl space-y-4">
                     <h4 className="text-sm font-semibold text-[#212121]">Understanding the "Spaghetti" Chart</h4>
                     <p className="text-sm text-[#727579] leading-relaxed">
                       The thin lines represent 50 individual market paths. Even with the same strategy,

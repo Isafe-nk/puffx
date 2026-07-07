@@ -29,6 +29,14 @@ interface PerformanceChartsProps {
   finalTerB: number;
 }
 
+// Cumulative-lost-cost stack series: same cost category, darker shade for ETF B.
+const LEAK_SERIES = [
+  { key: 'tax', label: 'Tax Leakage', a: '#F59E0B', b: '#D97706' },
+  { key: 'ter', label: 'Asset TER', a: '#EF4444', b: '#B91C1C' },
+  { key: 'spread', label: 'Bid-Ask Spread', a: '#8B5CF6', b: '#7C3AED' },
+  { key: 'fees', label: 'Trade & FX Fees', a: '#38BDF8', b: '#D91222' },
+];
+
 const CustomTooltip = ({ active, payload, label, showInUsd }: any) => {
   if (active && payload && payload.length) {
     return (
@@ -129,7 +137,7 @@ export default function PerformanceCharts({
       </div>
 
       {/* Container for chart rendering */}
-      <div className="relative h-[340px] w-full bg-[#FAFBFC] rounded-2xl p-2 md:p-4 border border-[#E8E8E9]">
+      <div className="relative h-[240px] md:h-[340px] w-full bg-[#FAFBFC] rounded-2xl p-2 md:p-4 border border-[#E8E8E9]">
         {activeTab === "performance" ? (
           <ResponsiveContainer width="100%" height="100%">
             <RechartsLineChart data={chartData} margin={{ top: 10, right: 10, left: 20, bottom: 0 }}>
@@ -150,21 +158,40 @@ export default function PerformanceCharts({
               <XAxis dataKey="displayYear" tick={{ fontSize: 11, fill: '#A2A3A5', fontFamily: 'Inter' }} axisLine={false} tickLine={false} />
               <YAxis tickFormatter={yAxisFormatter} tick={{ fontSize: 11, fill: '#A2A3A5', fontFamily: 'Inter' }} axisLine={false} tickLine={false} width={60} />
               <Tooltip content={<CustomTooltip showInUsd={showInUsd} />} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
-              <Legend wrapperStyle={{ fontSize: '11px', color: '#727579', fontFamily: 'Inter' }} iconType="circle" />
-              
-              <Bar dataKey="taxA" name={`${selectedA.ticker} Tax Leakage`} stackId="A" fill="#F59E0B" />
-              <Bar dataKey="terA" name={`${selectedA.ticker} Asset TER`} stackId="A" fill="#EF4444" />
-              <Bar dataKey="spreadA" name={`${selectedA.ticker} Bid-Ask Spread`} stackId="A" fill="#8B5CF6" />
-              <Bar dataKey="feesA" name={`${selectedA.ticker} Trade & FX Fees`} stackId="A" fill="#38BDF8" />
 
-              <Bar dataKey="taxB" name={`${selectedB.ticker} Tax Leakage`} stackId="B" fill="#D97706" />
-              <Bar dataKey="terB" name={`${selectedB.ticker} Asset TER`} stackId="B" fill="#B91C1C" />
-              <Bar dataKey="spreadB" name={`${selectedB.ticker} Bid-Ask Spread`} stackId="B" fill="#7C3AED" />
-              <Bar dataKey="feesB" name={`${selectedB.ticker} Trade & FX Fees`} stackId="B" fill="#D91222" />
+              <Bar dataKey="taxA" name={`${selectedA.ticker} Tax Leakage`} stackId="A" fill={LEAK_SERIES[0].a} />
+              <Bar dataKey="terA" name={`${selectedA.ticker} Asset TER`} stackId="A" fill={LEAK_SERIES[1].a} />
+              <Bar dataKey="spreadA" name={`${selectedA.ticker} Bid-Ask Spread`} stackId="A" fill={LEAK_SERIES[2].a} />
+              <Bar dataKey="feesA" name={`${selectedA.ticker} Trade & FX Fees`} stackId="A" fill={LEAK_SERIES[3].a} />
+
+              <Bar dataKey="taxB" name={`${selectedB.ticker} Tax Leakage`} stackId="B" fill={LEAK_SERIES[0].b} />
+              <Bar dataKey="terB" name={`${selectedB.ticker} Asset TER`} stackId="B" fill={LEAK_SERIES[1].b} />
+              <Bar dataKey="spreadB" name={`${selectedB.ticker} Bid-Ask Spread`} stackId="B" fill={LEAK_SERIES[2].b} />
+              <Bar dataKey="feesB" name={`${selectedB.ticker} Trade & FX Fees`} stackId="B" fill={LEAK_SERIES[3].b} />
             </BarChart>
           </ResponsiveContainer>
         )}
       </div>
+
+      {/* Grouped legend for the 8-series stack — one labelled row per ETF (UX review C4) */}
+      {activeTab === "leakage" && (
+        <div className="flex flex-col gap-1.5 text-[11px] text-[#727579]">
+          {[
+            { label: `ETF A · ${selectedA.ticker} (${selectedA.domicile})`, tone: 'a' as const },
+            { label: `ETF B · ${selectedB.ticker} (${selectedB.domicile})`, tone: 'b' as const },
+          ].map((group) => (
+            <div key={group.label} className="flex flex-wrap items-center gap-x-4 gap-y-1">
+              <span className="font-semibold text-[#44474D] w-32 shrink-0">{group.label}</span>
+              {LEAK_SERIES.map((s) => (
+                <span key={s.key} className="inline-flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-sm shrink-0" style={{ backgroundColor: s[group.tone] }}></span>
+                  {s.label}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Chart Legend Explanation Accent */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 text-[11px] text-[#727579] leading-normal border-t border-[#E6E6E6]">
