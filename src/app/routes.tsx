@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import Layout from './Layout';
 import VisualizerLayout from '../features/visualizer/VisualizerLayout';
-import EtfDragVisualizer from '../features/visualizer/etf-drag/index';
-import WealthSimulator from '../features/visualizer/wealth-simulator/index';
-import Learn from '../features/learn/index';
-import LearnPhase from '../features/learn/LearnPhase';
-import LearnModule from '../features/learn/LearnModule';
-import LessonView from '../features/learn/LessonView';
-import VisualizerHub from '../features/visualizer/VisualizerHub';
-import Glossary from '../features/glossary/index';
+
+// Route groups are lazy so the first paint doesn't pull recharts + motion
+// (visualizers) or react-markdown + course content (learn) into the main chunk.
+const VisualizerHub = lazy(() => import('../features/visualizer/VisualizerHub'));
+const EtfDragVisualizer = lazy(() => import('../features/visualizer/etf-drag/index'));
+const WealthSimulator = lazy(() => import('../features/visualizer/wealth-simulator/index'));
+const Learn = lazy(() => import('../features/learn/index'));
+const LearnPhase = lazy(() => import('../features/learn/LearnPhase'));
+const LearnModule = lazy(() => import('../features/learn/LearnModule'));
+const LessonView = lazy(() => import('../features/learn/LessonView'));
+const Glossary = lazy(() => import('../features/glossary/index'));
 
 export const router = createBrowserRouter([
   {

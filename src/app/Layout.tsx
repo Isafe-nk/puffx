@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import SideNav from '../navigation/SideNav';
+import PageLoader from '../shared/components/PageLoader';
 
 export default function Layout() {
   return (
@@ -14,7 +15,9 @@ export default function Layout() {
       <SideNav />
       {/* pt-14 clears the fixed mobile header; none needed once the rail is visible */}
       <main id="main" className="flex-1 lg:ml-72 flex flex-col min-h-screen pt-14 lg:pt-0">
-        <Outlet />
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
       </main>
       <ScrollRestoration />
     </div>

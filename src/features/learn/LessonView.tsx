@@ -1,11 +1,11 @@
-import { useId, useState } from 'react';
+import { useId, useState, useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'motion/react';
-import { ChevronLeft, ChevronRight, Info, Check } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Info, Check, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import AlertBanner from '../../shared/components/AlertBanner';
 import { findLesson, lessonSlug } from './learnConfig';
-import { getLessonContent } from './content';
+import { getLessonContent, LessonContent } from './content';
 import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 // Renders a markdown string in the muted body type used across Learn.
@@ -60,11 +60,31 @@ export default function LessonView() {
   const loc = moduleSlug && lSlug ? findLesson(moduleSlug, lSlug) : undefined;
   usePageTitle(loc ? `${loc.lesson.id} · ${loc.lesson.title}` : undefined);
 
+  // Content lives in a per-module chunk, fetched on open. The page shell (header,
+  // prev/next) renders from config immediately; only the body waits.
+  const [c, setC] = useState<LessonContent | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+  const moduleCode = loc?.module.code;
+  const lessonId = loc?.lesson.id;
+
+  useEffect(() => {
+    if (!moduleCode || !lessonId) return;
+    let cancelled = false;
+    setLoading(true);
+    setC(undefined);
+    getLessonContent(moduleCode, lessonId).then((res) => {
+      if (!cancelled) {
+        setC(res);
+        setLoading(false);
+      }
+    });
+    return () => { cancelled = true; };
+  }, [moduleCode, lessonId]);
+
   // Unknown module/lesson → back to the Learn landing.
   if (!loc) return <Navigate to="/learn" replace />;
 
   const { module, lesson, prev, next } = loc;
-  const c = getLessonContent(module.code, lesson.id);
 
   return (
     <div className="w-full">
@@ -85,7 +105,11 @@ export default function LessonView() {
           <h1 className="text-3xl lg:text-4xl font-black font-display tracking-tight text-[#212121] leading-tight">{lesson.title}</h1>
         </div>
 
-        {!c ? (
+        {loading ? (
+          <div className="mt-10 flex items-center gap-2 text-[14px] text-[#A2A3A5]" role="status" aria-label="Loading lesson">
+            <Loader2 className="w-4 h-4 animate-spin" /> Loading lesson…
+          </div>
+        ) : !c ? (
           <p className="mt-8 text-[14px] text-[#727579] leading-relaxed">
             This lesson is being written — check back soon.
           </p>
