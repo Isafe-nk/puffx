@@ -1,4 +1,4 @@
-import { ShieldAlert } from "lucide-react";
+import { ShieldAlert, Lightbulb } from "lucide-react";
 import { ETF } from "../types";
 import AlertBanner from "../../../../shared/components/AlertBanner";
 
@@ -59,11 +59,13 @@ export default function FrictionAlert({
         </ul>
         {feeOptimizationFreq === "monthly" ? (
           <p className="text-[11px] text-[#44474D] pt-1">
-            💡 <span className="text-[#212121] font-semibold">Change your purchase frequency to &quot;Quarterly&quot; (or wider) in the sidebar parameter panel</span> to pool your funds into <strong>{formatVal((monthlyContributionRM * 3) / usdMyrRate)}</strong> per transaction. This drastically reduces the recurring overhead drag from {actualFrictionA > actualFrictionB ? actualFrictionA.toFixed(1) : actualFrictionB.toFixed(1)}% down to <strong>{( (actualFrictionA > actualFrictionB ? actualFrictionA : actualFrictionB) / 3 ).toFixed(2)}%</strong>!
+            <Lightbulb className="w-3.5 h-3.5 inline-block align-[-2px] mr-1 text-[#44474D]" strokeWidth={1.75} />
+            <span className="text-[#212121] font-semibold">Change your purchase frequency to &quot;Quarterly&quot; (or wider) in the sidebar parameter panel</span> to pool your funds into <strong>{formatVal((monthlyContributionRM * 3) / usdMyrRate)}</strong> per transaction. This drastically reduces the recurring overhead drag from {actualFrictionA > actualFrictionB ? actualFrictionA.toFixed(1) : actualFrictionB.toFixed(1)}% down to <strong>{( (actualFrictionA > actualFrictionB ? actualFrictionA : actualFrictionB) / 3 ).toFixed(2)}%</strong>!
           </p>
         ) : (
           <p className="text-[11px] text-[#44474D] pt-1">
-            💡 <span className="text-[#212121] font-semibold">Consider pooling your purchases even further (e.g., &quot;Semi-Annually&quot; or &quot;Annually&quot;)</span> in the sidebar settings to let your funds accumulate into even larger single purchase volumes and suppress this transaction drag.
+            <Lightbulb className="w-3.5 h-3.5 inline-block align-[-2px] mr-1 text-[#44474D]" strokeWidth={1.75} />
+            <span className="text-[#212121] font-semibold">Consider pooling your purchases even further (e.g., &quot;Semi-Annually&quot; or &quot;Annually&quot;)</span> in the sidebar settings to let your funds accumulate into even larger single purchase volumes and suppress this transaction drag.
           </p>
         )}
       </div>

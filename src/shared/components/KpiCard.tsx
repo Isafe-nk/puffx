@@ -22,7 +22,7 @@ export default function KpiCard({
         {value}
       </span>
       {subtitle && (
-        <span className="text-[9px] text-[#A2A3A5] mt-0.5 leading-none">{subtitle}</span>
+        <span className="text-[10px] text-[#727579] mt-0.5 leading-none">{subtitle}</span>
       )}
     </div>
   );

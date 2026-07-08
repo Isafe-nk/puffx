@@ -201,7 +201,7 @@ export const DebtVsInvestingLab: React.FC = () => {
                 <button
                   key={s.id}
                   onClick={() => setActiveStrategy(s.id as any)}
-                  className={`p-4 rounded-xl border text-left transition-all ${
+                  className={`p-4 rounded-xl border text-left transition-all active:scale-[0.98] ${
                     activeStrategy === s.id 
                       ? 'bg-indigo-500/10 border-indigo-500/50 ring-1 ring-indigo-500/20' 
                       : 'bg-[#F7F8FA] border-[#E6E6E6] hover:border-[#D0D1D2]'

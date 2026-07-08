@@ -21,7 +21,8 @@ import {
   Unlock,
   ShieldCheck,
   PanelLeftClose,
-  PanelLeftOpen
+  PanelLeftOpen,
+  AlertTriangle
 } from "lucide-react";
 import SliderInput from "../../../shared/components/SliderInput";
 import Card from "../../../shared/components/Card";
@@ -35,6 +36,7 @@ import { runMonteCarlo } from "./engine/monteCarlo";
 import { INITIAL_USER_INPUTS, DEFAULT_MARKET_ASSUMPTIONS } from "./constants";
 import { UserInputs, DebtProfile, AssetAllocation, FinancialHealth } from "./engine/types";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
+import { usePageTitle } from "../../../shared/hooks/usePageTitle";
 
 // Tab order drives the page-transition direction (left/right slide).
 const TAB_IDS = ["timeline", "allocation", "risk", "debt"];
@@ -48,6 +50,7 @@ const pageVariants = {
 };
 
 export default function App() {
+  usePageTitle('Wealth Simulator');
   const [inputs, setInputs] = useState<UserInputs>(INITIAL_USER_INPUTS);
   const [lockedAssets, setLockedAssets] = useState<Set<string>>(new Set());
   const [activeTab, setActiveTab] = useState<"timeline" | "allocation" | "risk" | "debt">("timeline");
@@ -138,7 +141,9 @@ export default function App() {
             </div>
             <button
               onClick={() => setShowSidebar(!showSidebar)}
-              className={`p-1.5 rounded-lg transition-all flex items-center gap-2 border ${showSidebar
+              aria-label={showSidebar ? 'Hide input panel' : 'Show input panel'}
+              aria-expanded={showSidebar}
+              className={`p-1.5 rounded-lg transition-all active:scale-90 flex items-center gap-2 border ${showSidebar
                 ? "bg-white border-[#E6E6E6] text-[#727579] hover:text-[#212121] hover:border-[#D0D1D2] shadow-sm"
                 : "bg-[#D91222] border-[#D91222] text-white hover:bg-[#C01A2F] shadow-sm"
                 }`}
@@ -174,6 +179,8 @@ export default function App() {
               <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('life')}
+                  aria-expanded={!collapsedSections.has('life')}
+                  aria-controls="section-life"
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
                 >
                   <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
@@ -185,6 +192,7 @@ export default function App() {
                 <AnimatePresence>
                   {!collapsedSections.has('life') && (
                     <motion.div
+                      id="section-life"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -294,7 +302,7 @@ export default function App() {
 
                       {inputs.savingsRate === 0 && (
                         <div className="p-3 bg-[#FFB300]/5 rounded-xl border border-[#FFB300]/15 flex items-start gap-2">
-                          <span className="text-[#FFB300] text-sm mt-0.5">⚠️</span>
+                          <AlertTriangle size={14} className="text-[#FFB300] mt-0.5 shrink-0" />
                           <span className="text-[11px] text-[#FFB300] leading-relaxed">
                             Savings rate is 0% — no contributions will be made to your portfolio or cash buffer, regardless of your contribution setting.
                           </span>
@@ -307,7 +315,7 @@ export default function App() {
                         const debtOverflow = Math.max(0, totalDebtPayments - lifestyleBudget);
                         return debtOverflow > 0 ? (
                           <div className="p-3 bg-[#D91222]/5 rounded-xl border border-[#D91222]/15 flex items-start gap-2">
-                            <span className="text-[#D91222] text-sm mt-0.5">⚠️</span>
+                            <AlertTriangle size={14} className="text-[#D91222] mt-0.5 shrink-0" />
                             <div className="flex flex-col">
                               <span className="text-[11px] text-[#D91222] font-semibold leading-relaxed">
                                 Debt overflow: {formatCurrency(debtOverflow)}/mo eating into savings
@@ -384,6 +392,8 @@ export default function App() {
               <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('health')}
+                  aria-expanded={!collapsedSections.has('health')}
+                  aria-controls="section-health"
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
                 >
                   <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
@@ -395,6 +405,7 @@ export default function App() {
                 <AnimatePresence>
                   {!collapsedSections.has('health') && (
                     <motion.div
+                      id="section-health"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -439,6 +450,8 @@ export default function App() {
                 <div className="p-6 flex items-center justify-between">
                   <button
                     onClick={() => toggleSection('debt')}
+                    aria-expanded={!collapsedSections.has('debt')}
+                    aria-controls="section-debt"
                     className="flex-1 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors text-left"
                   >
                     <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
@@ -449,7 +462,7 @@ export default function App() {
                   {!collapsedSections.has('debt') && (
                     <button
                       onClick={addDebt}
-                      className="ml-4 p-1.5 bg-[#0EB35B]/10 text-[#0EB35B] rounded-lg hover:bg-[#0EB35B]/20 transition-colors"
+                      className="ml-4 p-1.5 bg-[#0EB35B]/10 text-[#0EB35B] rounded-lg hover:bg-[#0EB35B]/20 active:scale-90 transition duration-200"
                       title="Add Debt"
                     >
                       <Plus size={16} />
@@ -460,6 +473,7 @@ export default function App() {
                 <AnimatePresence>
                   {!collapsedSections.has('debt') && (
                     <motion.div
+                      id="section-debt"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -472,7 +486,8 @@ export default function App() {
                         <div key={debt.id} className="p-4 bg-[#F7F8FA] rounded-xl border border-[#E6E6E6] relative group flex flex-col gap-3">
                           <button
                             onClick={() => removeDebt(idx)}
-                            className="absolute top-2 right-2 p-1 text-[#727579] hover:text-[#D91222] opacity-0 group-hover:opacity-100 transition-all z-10"
+                            aria-label="Remove debt"
+                            className="absolute top-2 right-2 p-1 text-[#A2A3A5] hover:text-[#D91222] focus-visible:text-[#D91222] active:scale-90 transition-all z-10"
                           >
                             <Trash2 size={14} />
                           </button>
@@ -530,6 +545,8 @@ export default function App() {
               <div className="glass-card rounded-2xl overflow-hidden">
                 <button
                   onClick={() => toggleSection('allocation')}
+                  aria-expanded={!collapsedSections.has('allocation')}
+                  aria-controls="section-allocation"
                   className="w-full p-6 flex items-center justify-between text-[#44474D] hover:text-[#212121] transition-colors"
                 >
                   <h2 className="text-sm font-semibold flex items-center gap-2 uppercase tracking-wider">
@@ -541,6 +558,7 @@ export default function App() {
                 <AnimatePresence>
                   {!collapsedSections.has('allocation') && (
                     <motion.div
+                      id="section-allocation"
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
@@ -562,7 +580,7 @@ export default function App() {
                                 else newLocked.add(asset.key);
                                 setLockedAssets(newLocked);
                               }}
-                              className={`p-1 rounded transition-colors ${lockedAssets.has(asset.key) ? 'text-[#0EB35B] bg-[#0EB35B]/10' : 'text-[#727579] hover:text-[#727579]'}`}
+                              className={`p-1 rounded active:scale-90 transition duration-200 ${lockedAssets.has(asset.key) ? 'text-[#0EB35B] bg-[#0EB35B]/10' : 'text-[#727579] hover:text-[#727579]'}`}
                               title={lockedAssets.has(asset.key) ? "Unlock asset" : "Lock asset"}
                             >
                               {lockedAssets.has(asset.key) ? <Lock size={12} /> : <Unlock size={12} />}
@@ -724,7 +742,7 @@ export default function App() {
                               <div>
                                 <p className="text-xs font-medium text-[#44474D] flex items-center gap-2">
                                   {debt.name}
-                                  <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider ${carriesIntoRetirement ? 'bg-[#D91222]/10 text-[#D91222]' : 'bg-[#0EB35B]/10 text-[#0EB35B]'}`}>
+                                  <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${carriesIntoRetirement ? 'bg-[#D91222]/10 text-[#D91222]' : 'bg-[#0EB35B]/10 text-[#0EB35B]'}`}>
                                     Settles Age {payoffAge}
                                   </span>
                                 </p>

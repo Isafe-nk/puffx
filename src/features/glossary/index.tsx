@@ -1,5 +1,6 @@
 import React from 'react';
 import { Percent, Coins, Repeat, ShieldAlert } from 'lucide-react';
+import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 interface Term {
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
@@ -69,6 +70,7 @@ const TERMS: Term[] = [
 ];
 
 export default function Glossary() {
+  usePageTitle('Glossary');
   return (
     <div className="w-full">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 pb-20">

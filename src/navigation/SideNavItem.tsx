@@ -16,6 +16,7 @@ function isActivePath(item: any, pathname: string): boolean {
 
 export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, depth = 0 }) => {
   const location = useLocation();
+  const groupId = React.useId();
   const comingSoon = item.comingSoon;
   const hasChildren = Array.isArray(item.children) && item.children.length > 0;
   const active = !comingSoon && isActivePath(item, location.pathname);
@@ -34,16 +35,26 @@ export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, dep
   const activeCls = nested ? 'text-white bg-white/10' : 'text-white bg-white/15 border-l-2 border-[#D91222]';
   const idleCls = 'text-white/55 hover:text-white hover:bg-white/5';
 
+  // Planned sections: visibly labeled, not focusable, not clickable.
+  if (comingSoon) {
+    return (
+      <span aria-disabled="true" className={`flex items-center gap-3 ${rowPad} rounded-lg font-bold text-white/30 cursor-not-allowed select-none`}>
+        {item.icon && <item.icon className="w-4 h-4 shrink-0" />}
+        <span className={labelCls}>{item.label}</span>
+        <span className="ml-auto text-[10px] uppercase tracking-wide text-white/40 border border-white/15 rounded px-1.5 py-px font-semibold normal-case">Soon</span>
+      </span>
+    );
+  }
+
   // Leaf
   if (!hasChildren) {
     return (
       <NavLink
-        to={comingSoon ? '#' : item.path}
+        to={item.path}
         end
-        onClick={(e) => comingSoon && e.preventDefault()}
         className={({ isActive }) =>
-          `flex items-center gap-3 ${rowPad} rounded-lg font-bold transition-colors duration-200 ${
-            isActive && !comingSoon ? activeCls : comingSoon ? 'text-white/30 cursor-not-allowed pointer-events-none' : idleCls
+          `flex items-center gap-3 ${rowPad} rounded-lg font-bold active:scale-[0.98] transition duration-200 ${
+            isActive ? activeCls : idleCls
           }`
         }
       >
@@ -57,7 +68,7 @@ export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, dep
   // chevron is a separate control to collapse/expand without navigating.
   return (
     <div>
-      <div className={`flex items-center rounded-lg font-bold transition-colors duration-200 ${active ? activeCls : idleCls}`}>
+      <div className={`flex items-center rounded-lg font-bold active:scale-[0.98] transition duration-200 ${active ? activeCls : idleCls}`}>
         <NavLink
           to={item.path}
           onClick={() => setExpanded(true)}
@@ -71,13 +82,14 @@ export const SideNavItem: React.FC<{ item: any; depth?: number }> = ({ item, dep
           onClick={() => setExpanded((v) => !v)}
           aria-label={expanded ? `Collapse ${item.label}` : `Expand ${item.label}`}
           aria-expanded={expanded}
-          className="p-2 mr-1 rounded-md text-white/60 hover:text-white hover:bg-white/10 transition-colors"
+          aria-controls={groupId}
+          className="p-2 mr-1 rounded-md text-white/60 hover:text-white hover:bg-white/10 active:scale-90 transition duration-200"
         >
           <ChevronRight className={`w-3.5 h-3.5 transition-transform duration-200 ${expanded ? 'rotate-90' : ''}`} />
         </button>
       </div>
 
-      <div className={`grid transition-all duration-200 ease-in-out ${expanded ? 'grid-rows-[1fr] opacity-100 mt-1' : 'grid-rows-[0fr] opacity-0'}`}>
+      <div id={groupId} className={`grid transition-all duration-200 ease-in-out ${expanded ? 'grid-rows-[1fr] opacity-100 mt-1' : 'grid-rows-[0fr] opacity-0'}`}>
         <div className="overflow-hidden">
           <div className="ml-4 pl-3 border-l border-white/10 flex flex-col gap-0.5">
             {item.children.map((child: any) => (

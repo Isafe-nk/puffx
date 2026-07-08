@@ -1,10 +1,12 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { ChevronLeft, ArrowRight } from 'lucide-react';
 import { getPhase, modulesInPhase, lessonCount } from './learnConfig';
+import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 export default function LearnPhase() {
   const { phaseSlug } = useParams();
   const phase = phaseSlug ? getPhase(phaseSlug) : undefined;
+  usePageTitle(phase ? `Phase ${phase.num} · ${phase.name}` : undefined);
 
   if (!phase) return <Navigate to="/learn" replace />;
 
@@ -34,7 +36,7 @@ export default function LearnPhase() {
             <Link
               key={m.slug}
               to={`/learn/${m.slug}`}
-              className="group rounded-2xl border border-[#E6E6E6] bg-white p-6 hover:border-[#D91222] transition-colors duration-200 block"
+              className="group rounded-2xl border border-[#E6E6E6] bg-white p-6 hover:border-[#D91222] active:scale-[0.99] transition duration-200 block"
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="text-[11px] font-semibold text-[#727579]">Module {m.code.replace('M', '')}</span>

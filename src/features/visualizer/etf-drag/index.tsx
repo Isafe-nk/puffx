@@ -19,8 +19,10 @@ import PerformanceCharts from './components/PerformanceCharts';
 import TcoMatrix from './components/TcoMatrix';
 import KpiCard from '../../../shared/components/KpiCard';
 import { formatCurrency } from '../../../shared/utils/format';
+import { usePageTitle } from '../../../shared/hooks/usePageTitle';
 
 export default function App() {
+  usePageTitle('ETF Drag');
   // Input settings
   const [initialInvestmentRM, setInitialInvestmentRM] = useState<number>(20000);
   const [monthlyContributionRM, setMonthlyContributionRM] = useState<number>(1000);
@@ -144,7 +146,7 @@ export default function App() {
             <div>
               <h1 className="text-xl font-bold font-display tracking-tight text-[#212121] flex items-center gap-2">
                 S&P 500 ETF Return Visualizer
-                <span className="text-[9px] text-[#A2A3A5] font-mono font-normal uppercase tracking-widest border-l-2 border-[#D91222] pl-2 ml-1">
+                <span className="text-[10px] text-[#727579] font-mono font-normal uppercase tracking-widest border-l-2 border-[#D91222] pl-2 ml-1">
                   IBKR Tiered
                 </span>
               </h1>
@@ -158,14 +160,14 @@ export default function App() {
           <div className="flex flex-wrap items-center gap-4 lg:gap-6">
             <div className="flex items-center gap-1.5 bg-[#F7F8FA] border border-[#E6E6E6] px-2.5 py-1.5 rounded-lg" title={rateError ? 'Using cached rate — API offline' : 'Source: fawazahmed0/exchange-api'}>
               <span className={`flex h-1.5 w-1.5 rounded-full ${rateLoading ? 'bg-[#F5A623] animate-pulse' : rateError ? 'bg-[#D91222]' : 'bg-[#0EB35B] animate-breathe'}`}></span>
-              <span className="text-[10px] text-[#A2A3A5] font-mono">USD/MYR</span>
+              <span className="text-[10px] text-[#727579] font-mono">USD/MYR</span>
               <span className="text-xs font-semibold text-[#212121] font-mono">
                 {rateLoading && !hasAppliedLiveRate ? '—' : usdMyrRate.toFixed(4)}
               </span>
               {rateDate && (
                 <>
                   <span className="w-px h-3 bg-[#D0D1D2]"></span>
-                  <span className="text-[9px] text-[#A2A3A5] font-mono">{rateDate}</span>
+                  <span className="text-[10px] text-[#727579] font-mono">{rateDate}</span>
                 </>
               )}
             </div>
@@ -173,13 +175,13 @@ export default function App() {
             <div className="inline-flex rounded-full p-0.5 bg-[#F3F3F4] border border-[#E6E6E6]">
               <button 
                 onClick={() => setShowInUsd(false)}
-                className={`px-3 py-1 text-[11px] rounded-full transition-all font-semibold cursor-pointer tracking-wide ${!showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${!showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
               >
                 RM
               </button>
               <button 
                 onClick={() => setShowInUsd(true)}
-                className={`px-3 py-1 text-[11px] rounded-full transition-all font-semibold cursor-pointer tracking-wide ${showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${showInUsd ? 'bg-[#212121] text-white shadow-sm' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
               >
                 USD
               </button>

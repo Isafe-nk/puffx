@@ -212,23 +212,46 @@ export const lessonCount = (mods: LearnModule[]) => mods.reduce((n, m) => n + m.
 /** Lesson URL slug, derived from its id: "L0.1" → "l0-1". */
 export const lessonSlug = (id: string) => id.toLowerCase().replace('.', '-');
 
+export interface AdjacentLesson {
+  module: LearnModule;
+  lesson: Lesson;
+  crossModule: boolean; // true when the step crosses into another module
+}
+
 export interface LessonLocation {
   module: LearnModule;
   lesson: Lesson;
-  prev?: Lesson;
-  next?: Lesson;
+  prev?: AdjacentLesson;
+  next?: AdjacentLesson;
 }
 
-/** Resolve a module + lesson from their URL slugs, with prev/next within the module. */
+/**
+ * Resolve a module + lesson from their URL slugs, with prev/next.
+ * Prev/next roll over module boundaries (LEARN_MODULES is in phase + module
+ * order), so the course reads as one continuous 68-lesson sequence.
+ */
 export function findLesson(moduleSlug: string, lSlug: string): LessonLocation | undefined {
   const module = getModule(moduleSlug);
   if (!module) return undefined;
   const idx = module.lessons.findIndex((l) => lessonSlug(l.id) === lSlug);
   if (idx < 0) return undefined;
-  return {
-    module,
-    lesson: module.lessons[idx],
-    prev: module.lessons[idx - 1],
-    next: module.lessons[idx + 1],
-  };
+  const mIdx = LEARN_MODULES.findIndex((m) => m.slug === module.slug);
+
+  let prev: AdjacentLesson | undefined;
+  if (idx > 0) {
+    prev = { module, lesson: module.lessons[idx - 1], crossModule: false };
+  } else {
+    const pm = LEARN_MODULES[mIdx - 1];
+    if (pm?.lessons.length) prev = { module: pm, lesson: pm.lessons[pm.lessons.length - 1], crossModule: true };
+  }
+
+  let next: AdjacentLesson | undefined;
+  if (idx < module.lessons.length - 1) {
+    next = { module, lesson: module.lessons[idx + 1], crossModule: false };
+  } else {
+    const nm = LEARN_MODULES[mIdx + 1];
+    if (nm?.lessons.length) next = { module: nm, lesson: nm.lessons[0], crossModule: true };
+  }
+
+  return { module, lesson: module.lessons[idx], prev, next };
 }

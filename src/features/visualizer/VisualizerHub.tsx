@@ -11,7 +11,7 @@ export default function VisualizerHub() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Link to="/visualizer/etf-drag" className="group bg-white border border-[#E6E6E6] hover:border-[#D91222] hover:shadow-md rounded-2xl p-6 transition-all duration-200 block">
+        <Link to="/visualizer/etf-drag" className="group bg-white border border-[#E6E6E6] hover:border-[#D91222] hover:shadow-md active:scale-[0.99] rounded-2xl p-6 transition-all duration-200 block">
           <div className="w-12 h-12 bg-[#F7F8FA] group-hover:bg-[#D91222]/10 rounded-xl flex items-center justify-center mb-4 transition-colors">
             <TrendingUp className="w-6 h-6 text-[#212121] group-hover:text-[#D91222] transition-colors" />
           </div>
@@ -21,7 +21,7 @@ export default function VisualizerHub() {
           </p>
         </Link>
 
-        <Link to="/visualizer/wealth-simulator" className="group bg-white border border-[#E6E6E6] hover:border-[#D91222] hover:shadow-md rounded-2xl p-6 transition-all duration-200 block">
+        <Link to="/visualizer/wealth-simulator" className="group bg-white border border-[#E6E6E6] hover:border-[#D91222] hover:shadow-md active:scale-[0.99] rounded-2xl p-6 transition-all duration-200 block">
           <div className="w-12 h-12 bg-[#F7F8FA] group-hover:bg-[#D91222]/10 rounded-xl flex items-center justify-center mb-4 transition-colors">
             <PieChart className="w-6 h-6 text-[#212121] group-hover:text-[#D91222] transition-colors" />
           </div>

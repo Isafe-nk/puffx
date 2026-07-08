@@ -2,10 +2,12 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { getModule, phaseSlugForModule, lessonSlug } from './learnConfig';
 import { getLessonContent, moduleHasContent } from './content';
+import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 export default function LearnModule() {
   const { moduleSlug } = useParams();
   const mod = moduleSlug ? getModule(moduleSlug) : undefined;
+  usePageTitle(mod ? `Module ${mod.code.replace('M', '')} · ${mod.title}` : undefined);
 
   // Unknown slug → back to the Learn landing.
   if (!mod) return <Navigate to="/learn" replace />;
