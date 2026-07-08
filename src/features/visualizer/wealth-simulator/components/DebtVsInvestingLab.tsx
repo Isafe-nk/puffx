@@ -16,6 +16,7 @@ import {
   Area
 } from "recharts";
 import { TrendingUp, CreditCard, ShieldCheck, Zap, BarChart3, Target, AlertCircle } from "lucide-react";
+import { formatRM } from "../../../../shared/utils/format";
 
 interface StrategyResult {
   month: number;
@@ -24,18 +25,12 @@ interface StrategyResult {
   netWorth: number;
 }
 
-const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-MS", {
-    style: "currency",
-    currency: "MYR",
-    maximumFractionDigits: 0,
-    notation: value > 100000 ? "compact" : "standard",
-  }).format(value);
+const formatCurrency = (value: number) => formatRM(value);
 
 const CustomLabTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[240px] glass-card">
+      <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[240px]">
         <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
           Year {label} Strategy Snapshot
         </p>
@@ -130,32 +125,32 @@ export const DebtVsInvestingLab: React.FC = () => {
     <div className="space-y-8">
       {/* Executive Summary Header */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="md:col-span-3 bg-white p-6 rounded-2xl border border-[#E6E6E6] flex items-center glass-card gap-6">
-          <div className={`p-4 rounded-2xl shrink-0 ${arbitrageOpportunity ? 'bg-emerald-500/10' : 'bg-amber-500/10'}`}>
-            <Target className={arbitrageOpportunity ? 'text-[#0EB35B]' : 'text-amber-400'} size={32} />
+        <div className="md:col-span-3 bg-white p-6 rounded-2xl border border-[#E6E6E6] flex items-center gap-6">
+          <div className={`p-4 rounded-2xl shrink-0 ${arbitrageOpportunity ? 'bg-[#0EB35B]/10' : 'bg-[#FFB300]/10'}`}>
+            <Target className={arbitrageOpportunity ? 'text-[#0EB35B]' : 'text-[#FFB300]'} size={32} />
           </div>
           <div>
             <h2 className="text-xl font-bold text-[#212121] mb-1">Capital Allocation Strategy</h2>
             <p className="text-sm text-[#727579]">
-              Current market spread is <span className={arbitrageOpportunity ? 'text-[#0EB35B] font-bold' : 'text-amber-400 font-bold'}>{spread.toFixed(1)}%</span>. 
+              Current market spread is <span className={arbitrageOpportunity ? 'text-[#0EB35B] font-bold' : 'text-[#FFB300] font-bold'}>{spread.toFixed(1)}%</span>. 
               {arbitrageOpportunity 
                 ? " An arbitrage opportunity exists; however, risk-adjusted returns must be considered." 
                 : " Debt reduction is the mathematically superior risk-free return."}
             </p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] flex flex-col justify-center text-center glass-card shadow-sm">
+        <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] flex flex-col justify-center text-center shadow-sm">
           <p className="text-[10px] text-[#A2A3A5] uppercase font-bold mb-1">Efficiency Score</p>
-          <p className="text-2xl font-bold text-indigo-400">{(spread / 2 + 5).toFixed(1)}/10</p>
+          <p className="text-2xl font-bold text-[#307EF2]">{(spread / 2 + 5).toFixed(1)}/10</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Strategy Controls */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] shadow-sm glass-card">
+          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] shadow-sm">
             <h3 className="text-sm font-semibold text-[#44474D] flex items-center gap-2 uppercase tracking-wider mb-6">
-              <Zap size={16} className="text-yellow-500" /> Strategic Inputs
+              <Zap size={16} className="text-[#FFB300]" /> Strategic Inputs
             </h3>
             
             <div className="space-y-6">
@@ -190,25 +185,25 @@ export const DebtVsInvestingLab: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] glass-card">
+          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6]">
             <h3 className="text-sm font-semibold text-[#44474D] uppercase tracking-wider mb-4">Select Strategy</h3>
             <div className="grid grid-cols-1 gap-2">
               {[
                 { id: 'debt_first', label: 'Debt Avalanche', icon: CreditCard, desc: 'Minimize interest expense' },
                 { id: 'invest_first', label: 'Growth Maximizer', icon: TrendingUp, desc: 'Leverage market returns' },
-                { id: 'split', label: 'Balanced Allocation', icon: BarChart3, desc: 'Psychological middle ground' }
+                { id: 'split', label: 'Balanced Allocation', icon: BarChart3, desc: 'Pay half toward debt, invest half' }
               ].map((s) => (
                 <button
                   key={s.id}
                   onClick={() => setActiveStrategy(s.id as any)}
                   className={`p-4 rounded-xl border text-left transition-all active:scale-[0.98] ${
                     activeStrategy === s.id 
-                      ? 'bg-indigo-500/10 border-indigo-500/50 ring-1 ring-indigo-500/20' 
+                      ? 'bg-[#307EF2]/10 border-[#307EF2]/50 ring-1 ring-[#307EF2]/20' 
                       : 'bg-[#F7F8FA] border-[#E6E6E6] hover:border-[#D0D1D2]'
                   }`}
                 >
                   <div className="flex items-center gap-3 mb-1">
-                    <s.icon size={16} className={activeStrategy === s.id ? 'text-indigo-400' : 'text-[#A2A3A5]'} />
+                    <s.icon size={16} className={activeStrategy === s.id ? 'text-[#307EF2]' : 'text-[#A2A3A5]'} />
                     <span className={`text-sm font-bold ${activeStrategy === s.id ? 'text-[#212121]' : 'text-[#727579]'}`}>{s.label}</span>
                   </div>
                   <p className="text-[10px] text-[#A2A3A5]">{s.desc}</p>
@@ -220,7 +215,7 @@ export const DebtVsInvestingLab: React.FC = () => {
 
         {/* Strategic Visualization */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] shadow-sm glass-card">
+          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] shadow-sm">
             <div className="flex justify-between items-center mb-8">
               <div>
                 <h3 className="text-lg font-bold text-[#212121]">Balance Sheet Evolution</h3>
@@ -228,10 +223,10 @@ export const DebtVsInvestingLab: React.FC = () => {
               </div>
               <div className="flex gap-2">
                 <div className="flex items-center gap-2 text-[10px] text-[#A2A3A5] uppercase font-bold">
-                  <div className="w-2 h-2 rounded-full bg-emerald-500" /> Assets
+                  <div className="w-2 h-2 rounded-full bg-[#0EB35B]" /> Assets
                 </div>
                 <div className="flex items-center gap-2 text-[10px] text-[#A2A3A5] uppercase font-bold">
-                  <div className="w-2 h-2 rounded-full bg-red-500" /> Debt
+                  <div className="w-2 h-2 rounded-full bg-[#D91222]" /> Debt
                 </div>
               </div>
             </div>
@@ -289,7 +284,7 @@ export const DebtVsInvestingLab: React.FC = () => {
           {/* Strategic Insights Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="p-5 bg-[#F7F8FA] rounded-2xl border border-[#E6E6E6] space-y-3">
-              <div className="flex items-center gap-2 text-indigo-400">
+              <div className="flex items-center gap-2 text-[#307EF2]">
                 <ShieldCheck size={18} />
                 <h4 className="text-xs font-bold uppercase tracking-wider">Risk-Adjusted Return</h4>
               </div>
@@ -299,7 +294,7 @@ export const DebtVsInvestingLab: React.FC = () => {
               </p>
             </div>
             <div className="p-5 bg-[#F7F8FA] rounded-2xl border border-[#E6E6E6] space-y-3">
-              <div className="flex items-center gap-2 text-amber-400">
+              <div className="flex items-center gap-2 text-[#FFB300]">
                 <AlertCircle size={18} />
                 <h4 className="text-xs font-bold uppercase tracking-wider">Liquidity Constraint</h4>
               </div>

@@ -64,7 +64,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
     if (active && payload && payload.length) {
       const data = payload[0].payload;
       return (
-        <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[220px] glass-card">
+        <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[220px]">
           <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
             Scenario Analysis
           </p>
@@ -99,9 +99,9 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
         <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
           {/* Accent decoration */}
           <div className={`absolute top-0 left-0 w-1 h-full ${
-            stats.riskLevel === 'Aggressive' ? 'bg-gradient-to-b from-red-500 to-red-600' : 
-            stats.riskLevel === 'Moderate' ? 'bg-gradient-to-b from-amber-500 to-amber-600' : 
-            'bg-gradient-to-b from-emerald-500 to-emerald-600'
+            stats.riskLevel === 'Aggressive' ? 'bg-[#D91222]' : 
+            stats.riskLevel === 'Moderate' ? 'bg-[#FFB300]' : 
+            'bg-[#0EB35B]'
           }`} />
           
           <div className="flex items-start justify-between gap-1">
@@ -112,9 +112,9 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
               </h4>
             </div>
             <span className={`px-2 py-0.5 text-[8px] rounded-full font-bold uppercase tracking-widest shrink-0 ${
-              stats.riskLevel === 'Aggressive' ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 
-              stats.riskLevel === 'Moderate' ? 'bg-amber-500/10 text-amber-500 border border-amber-500/20' : 
-              'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
+              stats.riskLevel === 'Aggressive' ? 'bg-[#D91222]/10 text-[#D91222] border border-[#D91222]/20' : 
+              stats.riskLevel === 'Moderate' ? 'bg-[#FFB300]/10 text-[#FFB300] border border-[#FFB300]/20' : 
+              'bg-[#0EB35B]/10 text-[#0EB35B] border border-[#0EB35B]/20'
             }`}>
               {stats.riskLevel}
             </span>
@@ -129,9 +129,9 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
               {stats.riskLevel}
             </span>
             <div className={`w-2 h-2 rounded-full animate-pulse shrink-0 ${
-              stats.riskLevel === 'Aggressive' ? 'bg-red-500' : 
-              stats.riskLevel === 'Moderate' ? 'bg-amber-500' : 
-              'bg-emerald-500'
+              stats.riskLevel === 'Aggressive' ? 'bg-[#D91222]' : 
+              stats.riskLevel === 'Moderate' ? 'bg-[#FFB300]' : 
+              'bg-[#0EB35B]'
             }`} />
           </div>
           <p className="text-[10.5px] text-[#A2A3A5] mt-2 leading-relaxed">
@@ -141,7 +141,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
         
         {/* Sharpe Ratio Card */}
         <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-indigo-600" />
+          <div className="absolute top-0 left-0 w-1 h-full bg-[#307EF2]" />
           
           <div className="flex items-start justify-between gap-1">
             <div>
@@ -151,8 +151,8 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
               </h4>
             </div>
             <span className={`px-2 py-0.5 text-[8px] rounded-full font-bold uppercase tracking-widest shrink-0 ${
-              stats.sharpeRatio > 1 ? 'bg-emerald-500/10 text-[#0EB35B] border border-emerald-500/20' :
-              stats.sharpeRatio > 0.5 ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20' :
+              stats.sharpeRatio > 1 ? 'bg-[#0EB35B]/10 text-[#0EB35B] border border-[#0EB35B]/20' :
+              stats.sharpeRatio > 0.5 ? 'bg-[#307EF2]/10 text-[#307EF2] border border-[#307EF2]/20' :
               'bg-[#E8E8E9]/50 text-[#727579] border border-[#E6E6E6]'
             }`}>
               {stats.sharpeRatio > 1 ? 'Excellent' : stats.sharpeRatio > 0.5 ? 'Good' : 'Sub-Optimal'}
@@ -160,7 +160,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
           </div>
 
           <div className="mt-4 flex items-baseline gap-1.5">
-            <span className="text-xl font-black text-indigo-400 tracking-tight">
+            <span className="text-xl font-black text-[#307EF2] tracking-tight">
               {stats.sharpeRatio.toFixed(2)}
             </span>
             <span className="text-[#A2A3A5] text-[10px] font-medium font-mono">Index</span>
@@ -172,7 +172,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
 
         {/* Annual Volatility Card */}
         <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-amber-500 to-amber-600" />
+          <div className="absolute top-0 left-0 w-1 h-full bg-[#FFB300]" />
           
           <div className="flex items-start justify-between gap-1">
             <div>
@@ -181,7 +181,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
                 <Activity size={13} className="text-[#A2A3A5] shrink-0" /> Volatility
               </h4>
             </div>
-            <span className="px-2 py-0.5 text-[8px] bg-amber-500/10 text-amber-500 border border-amber-500/20 rounded-full font-bold uppercase tracking-widest shrink-0">
+            <span className="px-2 py-0.5 text-[8px] bg-[#FFB300]/10 text-[#FFB300] border border-[#FFB300]/20 rounded-full font-bold uppercase tracking-widest shrink-0">
               Annualized
             </span>
           </div>
@@ -199,7 +199,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
 
         {/* Diversification Benefit Card */}
         <div className="bg-gradient-to-br from-[#FAFBFC] to-white p-5 rounded-xl border border-[#E6E6E6] shadow-sm flex flex-col justify-between hover:border-[#D0D1D2] shadow-sm transition-all duration-300 relative overflow-hidden group">
-          <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-emerald-500 to-emerald-600" />
+          <div className="absolute top-0 left-0 w-1 h-full bg-[#0EB35B]" />
           
           <div className="flex items-start justify-between gap-1">
             <div>
@@ -208,7 +208,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
                 <Layers size={13} className="text-[#A2A3A5] shrink-0" /> Benefit
               </h4>
             </div>
-            <span className="px-2 py-0.5 text-[8px] bg-emerald-500/10 text-[#0EB35B] border border-emerald-500/20 rounded-full font-bold uppercase tracking-widest shrink-0">
+            <span className="px-2 py-0.5 text-[8px] bg-[#0EB35B]/10 text-[#0EB35B] border border-[#0EB35B]/20 rounded-full font-bold uppercase tracking-widest shrink-0">
               Correlation
             </span>
           </div>
@@ -231,7 +231,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
       </div>
 
       {/* Stress Test Chart */}
-      <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] glass-card">
+      <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6]">
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-sm font-semibold text-[#44474D] flex items-center gap-2 uppercase tracking-wider">
             <ShieldAlert size={16} className="text-[#D91222]" /> Portfolio Stress Test
@@ -272,7 +272,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
 
       {/* Risk Insights */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="p-4 bg-red-500/5 border border-red-500/10 rounded-xl flex gap-3">
+        <div className="p-4 bg-[#D91222]/5 border border-[#D91222]/10 rounded-xl flex gap-3">
           <Zap size={20} className="text-[#D91222] shrink-0" />
           <div>
             <h4 className="text-xs font-bold text-[#D91222] uppercase mb-1">Tail Risk</h4>
@@ -282,7 +282,7 @@ export const RiskProfile: React.FC<RiskProfileProps> = ({ stats, allocation }) =
             </p>
           </div>
         </div>
-        <div className="p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl flex gap-3">
+        <div className="p-4 bg-[#0EB35B]/5 border border-[#0EB35B]/10 rounded-xl flex gap-3">
           <TrendingUp size={20} className="text-[#0EB35B] shrink-0" />
           <div>
             <h4 className="text-xs font-bold text-[#0EB35B] uppercase mb-1">Efficiency</h4>

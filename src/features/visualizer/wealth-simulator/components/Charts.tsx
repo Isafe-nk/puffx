@@ -19,19 +19,15 @@ import {
   Cell,
 } from "recharts";
 import { SimulationYear, AssetAllocation } from "../engine/types";
+import { CHART_COLORS, ASSET_COLORS } from "../constants";
+import { formatRM } from "../../../../shared/utils/format";
 
-const formatCurrency = (value: number) =>
-  new Intl.NumberFormat("en-MS", {
-    style: "currency",
-    currency: "MYR",
-    maximumFractionDigits: 0,
-    notation: value > 1000000 ? "compact" : "standard",
-  }).format(value);
+const formatCurrency = (value: number) => formatRM(value);
 
 const CustomTimelineTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[240px] glass-card">
+      <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[240px]">
         <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
           Age {label} Financial Snapshot
         </p>
@@ -104,7 +100,7 @@ export const TimelineChart: React.FC<{ data: SimulationYear[] }> = ({ data }) =>
           <Line
             type="monotone"
             dataKey="debtBalance"
-            stroke="#ef4444"
+            stroke={CHART_COLORS.danger}
             strokeWidth={2}
             dot={false}
             name="Debt Balance"
@@ -112,7 +108,7 @@ export const TimelineChart: React.FC<{ data: SimulationYear[] }> = ({ data }) =>
           <Line
             type="monotone"
             dataKey="inflationAdjustedNetWorth"
-            stroke="#6366f1"
+            stroke={CHART_COLORS.info}
             strokeWidth={1}
             strokeDasharray="5 5"
             dot={false}
@@ -126,10 +122,10 @@ export const TimelineChart: React.FC<{ data: SimulationYear[] }> = ({ data }) =>
 
 export const AllocationPie: React.FC<{ allocation: AssetAllocation }> = ({ allocation }) => {
   const data = [
-    { name: "Equity", value: allocation.equity, color: "#0EB35B" },
-    { name: "Fixed Income", value: allocation.fixedIncome, color: "#6366f1" },
-    { name: "Real Estate", value: allocation.realEstate, color: "#ec4899" },
-    { name: "Gold", value: allocation.gold, color: "#eab308" },
+    { name: "Equity", value: allocation.equity, color: ASSET_COLORS.equity },
+    { name: "Fixed Income", value: allocation.fixedIncome, color: ASSET_COLORS.fixedIncome },
+    { name: "Real Estate", value: allocation.realEstate, color: ASSET_COLORS.realEstate },
+    { name: "Gold", value: allocation.gold, color: ASSET_COLORS.gold },
   ].filter(d => d.value > 0);
 
   return (

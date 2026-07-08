@@ -5,6 +5,26 @@
 
 import { MarketAssumptions, UserInputs } from "./engine/types";
 
+// Central chart/status color map — every visualization color in this feature
+// comes from here, keyed to the Puffx tokens (no raw Tailwind palette colors).
+export const CHART_COLORS = {
+  success: "#0EB35B",
+  warning: "#FFB300",
+  danger: "#D91222",
+  info: "#307EF2",
+  neutral: "#727579",
+  faint: "#A2A3A5",
+} as const;
+
+// Asset-class palette for the allocation pie + legends (Puffx tokens + the
+// brand teal for the fourth distinguishable hue).
+export const ASSET_COLORS: Record<string, string> = {
+  equity: CHART_COLORS.success,
+  fixedIncome: CHART_COLORS.info,
+  realEstate: "#0B3944",
+  gold: CHART_COLORS.warning,
+};
+
 export const DEFAULT_MARKET_ASSUMPTIONS: MarketAssumptions = {
   equityReturn: 0.085,
   equityVolatility: 0.15,

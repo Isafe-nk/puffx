@@ -30,3 +30,16 @@ export const formatCurrency = (
   fractionDigits: number = 0
 ): string =>
   formatDisplay(convertCurrency(valueUsd, showInUsd, usdMyrRate), showInUsd, fractionDigits);
+
+/**
+ * Format a native-MYR value (no conversion). The Wealth Simulator engine works
+ * in RM throughout — this is its single formatter so axis labels, tooltips and
+ * KPIs all abbreviate the same way.
+ */
+export const formatRM = (value: number, compact: boolean = false): string =>
+  new Intl.NumberFormat('en-MY', {
+    style: 'currency',
+    currency: 'MYR',
+    maximumFractionDigits: 0,
+    notation: compact || Math.abs(value) >= 1_000_000 ? 'compact' : 'standard',
+  }).format(value);

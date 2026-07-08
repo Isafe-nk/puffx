@@ -112,9 +112,21 @@ export default function Sidebar({
   depositDirectUSD,
   setDepositDirectUSD
 }: SidebarProps) {
+  // RM sliders show what the input converts to in USD (the engine's native
+  // currency) — labelled explicitly so two currencies in one control read as
+  // input vs. conversion, not a contradiction (UX review C2).
   const formatValForSlider = (v: number) => {
-    return `$${(v / usdMyrRate).toLocaleString(undefined, { maximumFractionDigits: 0 })} USD`;
+    return `≈ $${(v / usdMyrRate).toLocaleString(undefined, { maximumFractionDigits: 0 })} USD converted`;
   };
+
+  // Overrides below the sane floor (or non-numeric) are cleared on blur — an
+  // empty override falls back to the registry default, so the engine never
+  // sees a negative price/TER/spread (UX review C7).
+  const clampOverride = (setter: (v: string) => void, min: number) =>
+    (e: { target: { value: string } }) => {
+      const v = parseFloat(e.target.value);
+      if (e.target.value !== '' && (!Number.isFinite(v) || v < min)) setter('');
+    };
 
   const handleRestorePresets = () => {
     setOverridePriceA("");
@@ -129,7 +141,7 @@ export default function Sidebar({
   };
 
   return (
-    <section className="lg:col-span-4 flex flex-col gap-6">
+    <section className="flex flex-col gap-6">
 
       <Card>
         <div className="flex items-center gap-2 pb-4 mb-4 border-b border-[#E6E6E6]">
@@ -150,7 +162,7 @@ export default function Sidebar({
             max={200000}
             step={1000}
             leftLabel="RM 1k"
-            centerLabel={`Est. ${formatValForSlider(initialInvestmentRM)}`}
+            centerLabel={formatValForSlider(initialInvestmentRM)}
             rightLabel="RM 200k"
           />
 
@@ -163,7 +175,7 @@ export default function Sidebar({
             max={10000}
             step={100}
             leftLabel="RM 0"
-            centerLabel={`Est. ${formatValForSlider(monthlyContributionRM)}`}
+            centerLabel={formatValForSlider(monthlyContributionRM)}
             rightLabel="RM 10k+"
           />
 
@@ -264,7 +276,7 @@ export default function Sidebar({
                 <div className="text-[11px] font-bold text-[#44474D] font-mono">{selectedA.domicile} ({(selectedA.domicile === "US" ? 30 : 15)}%)</div>
               </div>
               <div className="text-center border-r border-[#E6E6E6]">
-                <div className="text-[10px] text-[#727579]">Expense TER</div>
+                <div className="text-[10px] text-[#727579]">TER (annual fee)</div>
                 <div className="text-[11px] font-bold text-[#44474D] font-mono">{(finalTerA * 100).toFixed(3)}%</div>
               </div>
               <div className="text-center">
@@ -304,7 +316,7 @@ export default function Sidebar({
                 <div className="text-[11px] font-bold text-[#44474D] font-mono">{selectedB.domicile} ({(selectedB.domicile === "US" ? 30 : 15)}%)</div>
               </div>
               <div className="text-center border-r border-[#E6E6E6]">
-                <div className="text-[10px] text-[#727579]">Expense TER</div>
+                <div className="text-[10px] text-[#727579]">TER (annual fee)</div>
                 <div className="text-[11px] font-bold text-[#D91222] font-mono">{(finalTerB * 100).toFixed(3)}%</div>
               </div>
               <div className="text-center">
@@ -419,9 +431,11 @@ export default function Sidebar({
                     <input
                       type="number"
                       step="0.01"
+                      min="0"
                       placeholder={`${(selectedA.ter * 100).toFixed(2)}`}
                       value={overrideTerA}
                       onChange={(e) => setOverrideTerA(e.target.value)}
+                      onBlur={clampOverride(setOverrideTerA, 0)}
                       className="w-full bg-white border border-[#E6E6E6] text-xs text-[#212121] rounded-xl p-2 font-mono"
                     />
                   </div>
@@ -432,9 +446,11 @@ export default function Sidebar({
                     <input
                       type="number"
                       step="1"
+                      min="1"
                       placeholder={`${selectedA.defaultPrice}`}
                       value={overridePriceA}
                       onChange={(e) => setOverridePriceA(e.target.value)}
+                      onBlur={clampOverride(setOverridePriceA, 1)}
                       className="w-full bg-white border border-[#E6E6E6] text-xs text-[#212121] rounded-xl p-2 font-mono"
                     />
                   </div>
@@ -449,9 +465,11 @@ export default function Sidebar({
                     <input
                       type="number"
                       step="0.01"
+                      min="0"
                       placeholder={`${(selectedB.ter * 100).toFixed(2)}`}
                       value={overrideTerB}
                       onChange={(e) => setOverrideTerB(e.target.value)}
+                      onBlur={clampOverride(setOverrideTerB, 0)}
                       className="w-full bg-white border border-[#E6E6E6] text-xs text-[#212121] rounded-xl p-2 font-mono"
                     />
                   </div>
@@ -462,9 +480,11 @@ export default function Sidebar({
                     <input
                       type="number"
                       step="1"
+                      min="1"
                       placeholder={`${selectedB.defaultPrice}`}
                       value={overridePriceB}
                       onChange={(e) => setOverridePriceB(e.target.value)}
+                      onBlur={clampOverride(setOverridePriceB, 1)}
                       className="w-full bg-white border border-[#E6E6E6] text-xs text-[#212121] rounded-xl p-2 font-mono"
                     />
                   </div>
@@ -472,7 +492,7 @@ export default function Sidebar({
 
                 {/* ETF Bid-Ask Spread Overrides */}
                 <h3 className="text-xs font-bold text-[#44474D] pb-1 pt-2 border-b border-[#E6E6E6]">
-                  ETF Bid-Ask Spread (bps)
+                  ETF Bid-Ask Spread (basis points)
                 </h3>
                 <p className="text-[10px] text-[#A2A3A5] leading-normal">
                   Override the default bid-ask spread in basis points. Half the spread is applied as implicit cost on each purchase (mid→ask crossing).
@@ -486,9 +506,11 @@ export default function Sidebar({
                     <input
                       type="number"
                       step="0.5"
+                      min="0"
                       placeholder={`${selectedA.defaultSpreadBps}`}
                       value={overrideSpreadA}
                       onChange={(e) => setOverrideSpreadA(e.target.value)}
+                      onBlur={clampOverride(setOverrideSpreadA, 0)}
                       className="w-full bg-white border border-[#E6E6E6] text-xs text-[#212121] rounded-xl p-2 font-mono"
                     />
                   </div>
@@ -499,9 +521,11 @@ export default function Sidebar({
                     <input
                       type="number"
                       step="0.5"
+                      min="0"
                       placeholder={`${selectedB.defaultSpreadBps}`}
                       value={overrideSpreadB}
                       onChange={(e) => setOverrideSpreadB(e.target.value)}
+                      onBlur={clampOverride(setOverrideSpreadB, 0)}
                       className="w-full bg-white border border-[#E6E6E6] text-xs text-[#212121] rounded-xl p-2 font-mono"
                     />
                   </div>
