@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ListOrdered, Scale, MapPin, Wallet, TrendingUp, ArrowRight } from 'lucide-react';
 import { PHASES, LEARN_MODULES, modulesInPhase, lessonCount } from './learnConfig';
 import { usePageTitle } from '../../shared/hooks/usePageTitle';
+import { useVisited, readCount, firstUnread, lessonPath, ALL_LESSONS, TOTAL_LESSONS } from './progress';
 
 const FIRST_MODULE = LEARN_MODULES[0];
 
@@ -15,6 +16,11 @@ const PRINCIPLES = [
 
 export default function Learn() {
   usePageTitle('Learn');
+  const visited = useVisited();
+  const overallRead = readCount(visited, ALL_LESSONS.map((l) => l.lessonId));
+  const next = firstUnread(visited);
+  const started = overallRead > 0;
+
   return (
     <div className="w-full">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 pb-20">
@@ -31,13 +37,33 @@ export default function Learn() {
           <p className="mt-5 text-lg text-[#727579] leading-relaxed max-w-2xl">
             Money the way school never taught you — from your first payslip to building real wealth.
           </p>
-          <Link
-            to={`/learn/${FIRST_MODULE.slug}`}
-            className="group mt-8 inline-flex items-center gap-2 bg-[#D91222] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#C01A2F] active:scale-[0.98] transition duration-200"
-          >
-            Start with Module 0
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
-          </Link>
+
+          {started && next ? (
+            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-x-5 gap-y-3">
+              <Link
+                to={lessonPath(next.module, next.lessonId)}
+                className="group inline-flex items-center gap-2 bg-[#D91222] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#C01A2F] active:scale-[0.98] transition duration-200 self-start"
+              >
+                Continue · {next.lessonId}
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
+              </Link>
+              <span className="text-[13px] text-[#727579]">
+                <span className="font-semibold text-[#212121]">{overallRead}</span> of {TOTAL_LESSONS} lessons read
+                <span className="text-[#A2A3A5]"> · </span>
+                <Link to={`/learn/${FIRST_MODULE.slug}`} className="text-[#727579] hover:text-[#212121] underline underline-offset-2">
+                  start from the beginning
+                </Link>
+              </span>
+            </div>
+          ) : (
+            <Link
+              to={`/learn/${FIRST_MODULE.slug}`}
+              className="group mt-8 inline-flex items-center gap-2 bg-[#D91222] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#C01A2F] active:scale-[0.98] transition duration-200"
+            >
+              Start with Module 0
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
+            </Link>
+          )}
         </section>
 
         {/* How it works — principles, not counts */}
@@ -58,6 +84,8 @@ export default function Learn() {
         <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {PHASES.map((p, i) => {
             const mods = modulesInPhase(p.name);
+            const total = lessonCount(mods);
+            const read = readCount(visited, mods.flatMap((m) => m.lessons.map((l) => l.id)));
             const Icon = PHASE_ICONS[i] ?? Wallet;
             return (
               <Link
@@ -67,7 +95,10 @@ export default function Learn() {
               >
                 <div className="flex items-center justify-between mb-6">
                   <Icon className="w-5 h-5 text-[#727579]" strokeWidth={1.5} />
-                  <span className="text-[11px] text-[#A2A3A5] font-mono">{mods.length} modules · {lessonCount(mods)} lessons</span>
+                  <span className="text-[11px] text-[#A2A3A5] font-mono">
+                    {read > 0 && <span className="text-[#0EB35B]">{read}/{total} read · </span>}
+                    {mods.length} modules · {total} lessons
+                  </span>
                 </div>
                 <p className="text-[10px] uppercase tracking-[0.2em] text-[#A2A3A5] font-semibold mb-1">Phase {p.num}</p>
                 <h2 className="text-lg font-bold font-display text-[#212121] flex items-center gap-1.5">
