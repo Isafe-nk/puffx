@@ -6,6 +6,7 @@ import ReactMarkdown from 'react-markdown';
 import AlertBanner from '../../shared/components/AlertBanner';
 import { findLesson, lessonSlug } from './learnConfig';
 import { getLessonContent, LessonContent } from './content';
+import { markVisited } from './progress';
 import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 // Renders a markdown string in the muted body type used across Learn.
@@ -80,6 +81,11 @@ export default function LessonView() {
     });
     return () => { cancelled = true; };
   }, [moduleCode, lessonId]);
+
+  // Opening a lesson marks it read (v1: low-friction, no explicit "done" button).
+  useEffect(() => {
+    if (lessonId) markVisited(lessonId);
+  }, [lessonId]);
 
   // Unknown module/lesson → back to the Learn landing.
   if (!loc) return <Navigate to="/learn" replace />;
