@@ -6,6 +6,30 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-display: "Hanken Grotesk", sans-serif;
+
+  /* ---- Dragon palette (design.md §3, draft values) — the v2 tokens.
+     The shell is built on these; apps migrate in a later phase. ---- */
+  --color-canvas: #F6F4EC;
+  --color-surface: #FDFCF7;
+  --color-sage: #A9C6B0;
+  --color-sage-soft: #DCE9DF;
+  --color-sage-tint: #EDF3EC;
+  --color-accent: #3E7355;
+  --color-accent-hover: #325E45;
+  --color-ink: #243129;
+  --color-body: #4A544C;
+  --color-mute: #75806F;
+  --color-faint: #9AA394;
+  --color-hairline: #DCE0D2;
+  --color-hairline-soft: #E8EADF;
+  --color-success: #3E7355;
+  --color-warning: #D99A2B;
+  --color-error: #C4453C;
+  --color-info: #4E7A96;
+  --color-info-tint: #EBF0F1;
+
+  /* ---- LEGACY (IBKR-era) — used only by unmigrated app interiors; retired
+     app-wide in the "apps conform" phase (design.md migration worklist #5). ---- */
   --color-primary: #D91222;
   --color-primary-hover: #C01A2F;
   --color-ibkr-teal: #0B3944;
@@ -19,6 +43,28 @@
   --color-ibkr-warning: #FFB300;
   --color-ibkr-info: #307EF2;
 }
+
+/* ============ Puffx OS shell (design.md §1, mock v1) ============ */
+
+/* Wallpaper: warm cream with faint radial sage blooms — calm, not busy */
+.os-wallpaper {
+  background:
+    radial-gradient(900px 480px at 78% 18%, rgba(169, 198, 176, 0.28), transparent 60%),
+    radial-gradient(700px 420px at 12% 88%, rgba(169, 198, 176, 0.18), transparent 60%),
+    var(--color-canvas);
+}
+
+/* Soft traffic lights (mock v1 values — decorative fiction; red is the close control) */
+.light-r { background: #DFA49F; }
+.light-y { background: #E3C88F; }
+.light-g { background: #A9C6B0; }
+
+/* The one shadow the direction allows: the open AppWindow floating over the desk */
+.os-window-shadow { box-shadow: 0 18px 44px rgba(36, 49, 41, 0.10); }
+
+/* Inside the shell, keyboard focus is accent moss (design.md §8). The global
+   red ring below still governs unmigrated app interiors. */
+.os-shell :focus-visible { outline-color: var(--color-accent); }
 
 @layer utilities {
   .glass-card, .glass-panel {
@@ -76,11 +122,6 @@
 :focus-visible {
   outline: 2px solid #D91222;
   outline-offset: 2px;
-}
-
-/* Light outline variant on the dark sidebar rail */
-.sidenav-dark :focus-visible {
-  outline-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Users who prefer reduced motion get instant state changes — no scale/slide/breathe */
