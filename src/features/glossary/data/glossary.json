@@ -1,0 +1,350 @@
+{
+  "terms": [
+    {
+      "term": "50/30/20 rule",
+      "slug": "50-30-20-rule",
+      "definition": "A simple budgeting split: about 50% of take-home pay to needs, 30% to wants, and 20% to savings and debt repayment. It is a starting guideline, not a strict rule.",
+      "modules": [
+        "M2"
+      ]
+    },
+    {
+      "term": "ASB / ASNB",
+      "slug": "asb-asnb",
+      "definition": "Amanah Saham Bumiputera (ASB) is a unit trust fund managed by ASNB, a subsidiary of Permodalan Nasional Berhad. It is open to eligible Bumiputera investors and pays annual income distributions that vary from year to year and are not guaranteed.",
+      "modules": [
+        "M6"
+      ]
+    },
+    {
+      "term": "Asset allocation",
+      "slug": "asset-allocation",
+      "definition": "How you divide your money across asset classes such as cash, bonds, equities, property and gold. It is the main driver of both your expected return and how much your portfolio swings in value.",
+      "modules": [
+        "M5",
+        "M8"
+      ]
+    },
+    {
+      "term": "Bursa Malaysia",
+      "slug": "bursa-malaysia",
+      "definition": "Malaysia's national stock exchange, where shares of listed Malaysian companies are bought and sold.",
+      "modules": [
+        "M7"
+      ]
+    },
+    {
+      "term": "Cash flow",
+      "slug": "cash-flow",
+      "definition": "The money coming in (income) versus going out (expenses) over a period. Positive cash flow means you earn more than you spend, and tracking it is the starting point of any financial plan.",
+      "modules": [
+        "M1"
+      ]
+    },
+    {
+      "term": "CDS account",
+      "slug": "cds-account",
+      "definition": "A Central Depository System account that holds the Malaysian shares you own in electronic form. You open one through a licensed broker before you can trade on Bursa Malaysia.",
+      "modules": [
+        "M7"
+      ]
+    },
+    {
+      "term": "Compound interest",
+      "slug": "compound-interest",
+      "definition": "Earning returns on both your original money and the returns it has already generated, so growth accelerates over time. The longer your money compounds, the larger the effect.",
+      "modules": [
+        "M5"
+      ]
+    },
+    {
+      "term": "Debt snowball vs avalanche",
+      "slug": "debt-snowball-vs-avalanche",
+      "definition": "Two methods for clearing multiple debts. The snowball clears the smallest balance first for quick motivation; the avalanche clears the highest interest rate first to save the most money.",
+      "modules": [
+        "M3"
+      ]
+    },
+    {
+      "term": "Diversification",
+      "slug": "diversification",
+      "definition": "Spreading your money across different investments so a loss in one is cushioned by the others. It reduces risk without necessarily reducing expected return.",
+      "modules": [
+        "M5"
+      ]
+    },
+    {
+      "term": "Dollar-cost averaging",
+      "slug": "dollar-cost-averaging",
+      "definition": "Investing a fixed amount at regular intervals regardless of price. It removes the pressure of timing the market and smooths out your average purchase price over time.",
+      "modules": [
+        "M5",
+        "M8"
+      ]
+    },
+    {
+      "term": "DSR (Debt Service Ratio)",
+      "slug": "dsr-debt-service-ratio",
+      "definition": "The share of your monthly income that goes to repaying debts. Banks use it to decide how much you can borrow; a lower DSR means more borrowing room and healthier finances. Each bank sets its own acceptable limit.",
+      "modules": [
+        "M3"
+      ]
+    },
+    {
+      "term": "EIS (Employment Insurance System)",
+      "slug": "eis-employment-insurance-system",
+      "definition": "A PERKESO scheme that provides temporary financial help and job-search support if you lose your job.",
+      "modules": [
+        "M1"
+      ],
+      "figure": "Contribution is 0.2% employee + 0.2% employer of wages, based on a RM6,000 monthly wage ceiling (about RM11.90 each per month at the ceiling).",
+      "source": "PERKESO, perkeso.gov.my"
+    },
+    {
+      "term": "Emergency fund",
+      "slug": "emergency-fund",
+      "definition": "Easily accessible savings set aside for unexpected events such as job loss or medical bills. A common guideline is three to six months of essential expenses.",
+      "modules": [
+        "M2"
+      ]
+    },
+    {
+      "term": "EPF / KWSP",
+      "slug": "epf-kwsp",
+      "definition": "The Employees Provident Fund, Malaysia's compulsory retirement savings scheme for private-sector employees. Both you and your employer contribute a share of your wages each month.",
+      "modules": [
+        "M1",
+        "M6"
+      ],
+      "figure": "Employees contribute 11% of wages (employers 12–13%). The EPF declared a 6.15% dividend for 2025 for both Simpanan Konvensional and Simpanan Shariah; conventional savings carry a guaranteed minimum of 2.5%.",
+      "source": "KWSP, kwsp.gov.my"
+    },
+    {
+      "term": "ETF (Exchange-Traded Fund)",
+      "slug": "etf-exchange-traded-fund",
+      "definition": "A fund that holds a basket of assets (often tracking an index) and trades on an exchange like a single share. ETFs give instant diversification, usually at low cost.",
+      "modules": [
+        "M7"
+      ]
+    },
+    {
+      "term": "Faraid",
+      "slug": "faraid",
+      "definition": "The Islamic law of inheritance, which sets fixed shares of a deceased Muslim's estate among eligible heirs and determines how assets are distributed.",
+      "modules": [
+        "M4"
+      ]
+    },
+    {
+      "term": "Fixed deposit (FD)",
+      "slug": "fixed-deposit-fd",
+      "definition": "A savings product where you lock money with a bank for a set term in exchange for a fixed interest rate, usually higher than a regular savings account.",
+      "modules": [
+        "M2",
+        "M6"
+      ]
+    },
+    {
+      "term": "Flat vs reducing balance interest",
+      "slug": "flat-vs-reducing-balance-interest",
+      "definition": "Two ways loan interest is charged. Flat rate charges interest on the original amount for the whole term; reducing balance charges interest only on the outstanding balance, so the true cost of a flat-rate loan is higher than it looks.",
+      "modules": [
+        "M3"
+      ]
+    },
+    {
+      "term": "Gross vs net pay",
+      "slug": "gross-vs-net-pay",
+      "definition": "Gross pay is your total salary before deductions; net (take-home) pay is what reaches your account after EPF, SOCSO, EIS, PCB and any other deductions.",
+      "modules": [
+        "M1"
+      ]
+    },
+    {
+      "term": "Index fund",
+      "slug": "index-fund",
+      "definition": "A fund designed to track the performance of a market index (such as the S&P 500) rather than beat it, typically with very low fees.",
+      "modules": [
+        "M7"
+      ]
+    },
+    {
+      "term": "Inflation",
+      "slug": "inflation",
+      "definition": "The gradual rise in the general price of goods and services, which erodes the purchasing power of cash over time. It is the main reason saving alone is not enough.",
+      "modules": [
+        "M5"
+      ]
+    },
+    {
+      "term": "Insurance vs takaful",
+      "slug": "insurance-vs-takaful",
+      "definition": "Both transfer financial risk to a provider in exchange for regular payments. Takaful is the Shariah-compliant form, built on mutual assistance and free of interest and other prohibited elements; conventional insurance is not bound by these rules.",
+      "modules": [
+        "M4"
+      ]
+    },
+    {
+      "term": "LHDN",
+      "slug": "lhdn",
+      "definition": "Lembaga Hasil Dalam Negeri, Malaysia's Inland Revenue Board, which administers income tax. Resident individuals are taxed on a progressive scale.",
+      "modules": [
+        "M1",
+        "M8"
+      ],
+      "figure": "Resident individual rates run from 0% to 30% depending on chargeable income (YA2025).",
+      "source": "LHDN, hasil.gov.my"
+    },
+    {
+      "term": "MGS (Malaysian Government Securities)",
+      "slug": "mgs-malaysian-government-securities",
+      "definition": "Long-term bonds issued by the Malaysian government to raise funds. They pay periodic interest and are considered very low risk; the Shariah-compliant equivalent is Government Investment Issues.",
+      "modules": [
+        "M6"
+      ]
+    },
+    {
+      "term": "Net worth",
+      "slug": "net-worth",
+      "definition": "What you own minus what you owe (assets minus liabilities). It is the clearest single snapshot of your financial position at a point in time.",
+      "modules": [
+        "M1"
+      ]
+    },
+    {
+      "term": "PCB (Potongan Cukai Bulanan)",
+      "slug": "pcb-potongan-cukai-bulanan",
+      "definition": "Monthly Tax Deduction, also called MTD: income tax your employer withholds from your salary each month and pays to LHDN on your behalf, offset against your final tax bill.",
+      "modules": [
+        "M1"
+      ]
+    },
+    {
+      "term": "PIDM",
+      "slug": "pidm",
+      "definition": "Perbadanan Insurans Deposit Malaysia, the government agency that protects your bank deposits if a member bank fails.",
+      "modules": [
+        "M2"
+      ],
+      "figure": "Coverage is up to RM250,000 per depositor per member bank, with conventional and Islamic deposits protected separately.",
+      "source": "PIDM, pidm.gov.my"
+    },
+    {
+      "term": "PRS (Private Retirement Scheme)",
+      "slug": "prs-private-retirement-scheme",
+      "definition": "A voluntary, long-term retirement savings scheme that invests in approved funds to supplement your EPF.",
+      "modules": [
+        "M6",
+        "M8"
+      ],
+      "figure": "Contributions qualify for personal tax relief of up to RM3,000 per year (YA2025).",
+      "source": "LHDN, hasil.gov.my"
+    },
+    {
+      "term": "PTPTN",
+      "slug": "ptptn",
+      "definition": "Perbadanan Tabung Pendidikan Tinggi Nasional, the national higher-education loan fund. Repayment is normally made by scheduled instalments or salary deduction once you begin earning.",
+      "modules": [
+        "M3"
+      ]
+    },
+    {
+      "term": "REIT (Real Estate Investment Trust)",
+      "slug": "reit-real-estate-investment-trust",
+      "definition": "A listed fund that owns income-producing property such as malls and offices and passes most of the rental income to investors as distributions, letting you earn property income without buying a building.",
+      "modules": [
+        "M7"
+      ]
+    },
+    {
+      "term": "Risk vs return",
+      "slug": "risk-vs-return",
+      "definition": "The principle that higher potential returns come with a higher risk of loss. There is no reliable high return without accepting more uncertainty.",
+      "modules": [
+        "M5"
+      ]
+    },
+    {
+      "term": "SOCSO / PERKESO",
+      "slug": "socso-perkeso",
+      "definition": "The Social Security Organisation, which protects employees against workplace injury and invalidity.",
+      "modules": [
+        "M1"
+      ],
+      "figure": "Contributions are based on a RM6,000 monthly wage ceiling (raised from RM5,000 on 1 Oct 2024); the employee share is about 0.5% of wages for those under 60.",
+      "source": "PERKESO, perkeso.gov.my"
+    },
+    {
+      "term": "SSPN",
+      "slug": "sspn",
+      "definition": "Simpanan Pendidikan Nasional, a national education savings scheme that lets parents save for their children's higher education.",
+      "modules": [
+        "M3",
+        "M8"
+      ],
+      "figure": "Net annual deposits qualify for tax relief of up to RM8,000 (YA2025).",
+      "source": "LHDN, hasil.gov.my"
+    },
+    {
+      "term": "Sukuk",
+      "slug": "sukuk",
+      "definition": "A Shariah-compliant alternative to a bond. Instead of paying interest, sukuk represent a share in an underlying asset or venture and pay returns generated from it, making them permissible under Islamic finance.",
+      "modules": [
+        "M6"
+      ]
+    },
+    {
+      "term": "Tabung Haji",
+      "slug": "tabung-haji",
+      "definition": "Malaysia's Islamic pilgrimage savings fund, which lets Muslims save for the Hajj while their savings are invested in Shariah-compliant assets and may earn annual returns.",
+      "modules": [
+        "M6"
+      ]
+    },
+    {
+      "term": "Tax relief",
+      "slug": "tax-relief",
+      "definition": "An amount you can deduct from your taxable income to lower the tax you owe.",
+      "modules": [
+        "M1",
+        "M8"
+      ],
+      "figure": "The individual personal relief is RM9,000 for YA2025, with further reliefs for EPF, insurance and takaful, medical, education and more.",
+      "source": "LHDN, hasil.gov.my"
+    },
+    {
+      "term": "TER (Total Expense Ratio)",
+      "slug": "ter-total-expense-ratio",
+      "definition": "The yearly cost of owning a fund or ETF, shown as a percentage of the amount invested. A lower TER leaves more of the return with you, and over decades even small differences compound significantly.",
+      "modules": [
+        "M7"
+      ]
+    },
+    {
+      "term": "Unit trust",
+      "slug": "unit-trust",
+      "definition": "A pooled fund where many investors' money is managed together by a professional fund manager. It offers diversification but charges fees, such as sales charges and annual management fees, that reduce returns.",
+      "modules": [
+        "M6"
+      ]
+    },
+    {
+      "term": "Wasiat",
+      "slug": "wasiat",
+      "definition": "An Islamic will that lets a Muslim direct up to one-third of the estate to non-heirs or specific causes, with the remainder distributed according to faraid. It makes your wishes clear and eases administration.",
+      "modules": [
+        "M4"
+      ]
+    },
+    {
+      "term": "WHT (Withholding Tax)",
+      "slug": "wht-withholding-tax",
+      "definition": "Tax deducted at source from investment income such as dividends before it reaches you. Where your ETF is domiciled changes the rate a Malaysian investor pays.",
+      "modules": [
+        "M7"
+      ],
+      "figure": "US-listed ETFs withhold 30% of dividends from Malaysian investors (no US–Malaysia treaty), while Ireland-domiciled ETFs withhold 15% under the US–Ireland treaty.",
+      "source": "IRS; US–Ireland tax treaty; State Street (SSGA)"
+    }
+  ]
+}
