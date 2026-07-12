@@ -5,7 +5,6 @@ import VisualizerLayout from '../features/visualizer/VisualizerLayout';
 
 // Route groups are lazy so the first paint doesn't pull recharts + motion
 // (visualizers) or react-markdown + course content (learn) into the main chunk.
-const VisualizerHub = lazy(() => import('../features/visualizer/VisualizerHub'));
 const EtfDragVisualizer = lazy(() => import('../features/visualizer/etf-drag/index'));
 const WealthSimulator = lazy(() => import('../features/visualizer/wealth-simulator/index'));
 const Learn = lazy(() => import('../features/learn/index'));
@@ -20,16 +19,19 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
+        // The desktop is the landing surface — Layout renders it as the
+        // permanent ground, so the index route contributes no element.
         index: true,
-        element: <Navigate to="/visualizer" replace />
+        element: null
       },
       {
         path: 'visualizer',
         element: <VisualizerLayout />,
         children: [
           {
+            // The hub retired with the OS shell: the desktop is the launcher.
             index: true,
-            element: <VisualizerHub />
+            element: <Navigate to="/" replace />
           },
           {
             path: 'etf-drag',
