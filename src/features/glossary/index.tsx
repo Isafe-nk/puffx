@@ -25,6 +25,8 @@ const MODULE_SLUG: Record<string, string> = Object.fromEntries(
 // collect under "#", listed first.
 const letterOf = (term: string) => (/[a-z]/i.test(term[0]) ? term[0].toUpperCase() : '#');
 
+const ALPHABET = ['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
+
 function TermCard({ t }: { t: GlossaryTerm }) {
   return (
     <div className="rounded-2xl border border-[#E6E6E6] bg-white p-6">
@@ -135,6 +137,30 @@ export default function Glossary() {
           )}
         </div>
 
+        {/* A–Z jump bar — letters without terms (in the current filter) are dimmed */}
+        <nav aria-label="Jump to letter" className="mt-5 flex flex-wrap gap-x-0.5 gap-y-1">
+          {ALPHABET.map((letter) => {
+            const has = groups.some((g) => g.letter === letter);
+            return has ? (
+              <a
+                key={letter}
+                href={`#az-${letter}`}
+                className="w-7 h-7 flex items-center justify-center rounded-md text-[12px] font-mono font-semibold text-[#44474D] hover:text-[#D91222] hover:bg-white active:scale-90 transition duration-150"
+              >
+                {letter}
+              </a>
+            ) : (
+              <span
+                key={letter}
+                aria-hidden="true"
+                className="w-7 h-7 flex items-center justify-center text-[12px] font-mono text-[#D0D1D2] select-none"
+              >
+                {letter}
+              </span>
+            );
+          })}
+        </nav>
+
         {/* A–Z groups */}
         {matchCount === 0 ? (
           <p className="mt-10 text-[14px] text-[#727579]">
@@ -143,7 +169,10 @@ export default function Glossary() {
         ) : (
           groups.map(({ letter, terms }) => (
             <section key={letter} className="mt-2">
-              <h2 className="sticky top-14 lg:top-0 z-10 bg-[#F7F8FA] py-2.5 mt-4 text-[13px] font-bold font-display text-[#212121] border-b border-[#E6E6E6]">
+              <h2
+                id={`az-${letter}`}
+                className="sticky top-14 lg:top-0 z-10 bg-[#F7F8FA] py-2.5 mt-4 scroll-mt-14 lg:scroll-mt-0 text-[13px] font-bold font-display text-[#212121] border-b border-[#E6E6E6]"
+              >
                 {letter}
               </h2>
               <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5">
