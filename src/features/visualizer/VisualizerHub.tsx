@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { TrendingUp, PieChart, GraduationCap, ArrowRight } from 'lucide-react';
+import { TrendingUp, PieChart, ArrowRight } from 'lucide-react';
 import { usePageTitle } from '../../shared/hooks/usePageTitle';
 
 const TOOLS = [
@@ -63,21 +63,6 @@ export default function VisualizerHub() {
             </Link>
           ))}
         </div>
-
-        {/* On-ramp to the course — the tools assume concepts the course teaches */}
-        <Link
-          to="/learn"
-          className="group mt-6 rounded-2xl border border-[#E6E6E6] bg-white px-6 py-5 hover:border-[#D91222] active:scale-[0.99] transition duration-200 flex items-center gap-4"
-        >
-          <GraduationCap className="w-5 h-5 text-[#727579] shrink-0" strokeWidth={1.5} />
-          <span className="flex-1 min-w-0">
-            <span className="block text-[13px] font-semibold text-[#212121]">New to investing?</span>
-            <span className="block text-[12px] text-[#727579] mt-0.5">
-              Finance for Malaysians is the free course that explains every concept these tools use — from your first payslip up.
-            </span>
-          </span>
-          <ArrowRight className="w-4 h-4 text-[#D0D1D2] group-hover:text-[#D91222] group-hover:translate-x-0.5 transition-all shrink-0" strokeWidth={1.5} />
-        </Link>
 
         {/* Footer */}
         <p className="mt-12 text-[11px] text-[#A2A3A5]">Educational only — not financial advice.</p>
