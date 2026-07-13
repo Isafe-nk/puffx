@@ -163,8 +163,8 @@ export default function App() {
               aria-label={showSidebar ? 'Hide input panel' : 'Show input panel'}
               aria-expanded={showSidebar}
               className={`p-1.5 rounded-lg transition-all active:scale-90 flex items-center gap-2 border ${showSidebar
-                ? "bg-white border-[#DCE0D2] text-[#75806F] hover:text-[#243129] hover:border-[#C7CDBB] shadow-sm"
-                : "bg-[#3E7355] border-[#3E7355] text-white hover:bg-[#325E45] shadow-sm"
+                ? "bg-white border-[#DCE0D2] text-[#75806F] hover:text-[#243129] hover:border-[#C7CDBB]"
+                : "bg-[#3E7355] border-[#3E7355] text-white hover:bg-[#325E45]"
                 }`}
             >
               {showSidebar ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
@@ -198,7 +198,7 @@ export default function App() {
               <p className="text-[11px] text-[#75806F] leading-relaxed px-1">
                 Start with your life parameters — everything on the right updates as you go. Open the other sections when you're ready.
               </p>
-              <div className="bg-white border border-[#DCE0D2] shadow-sm rounded-2xl overflow-hidden">
+              <div className="bg-white border border-[#DCE0D2] rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleSection('life')}
                   aria-expanded={!collapsedSections.has('life')}
@@ -296,7 +296,7 @@ export default function App() {
                         const filling = toBufferMo > 0.005;
                         const leaking = leakMo > 0.005;
                         return (
-                          <div className="p-3 bg-[#4E7A96]/5 rounded-xl border border-[#4E7A96]/15 space-y-1.5 mb-1">
+                          <div className="p-3 bg-[#4E7A96]/5 rounded-lg border border-[#4E7A96]/15 space-y-1.5 mb-1">
                             <div className="flex justify-between items-center">
                               <span className="text-[10px] text-[#4E7A96] uppercase font-semibold">Uninvested Cash Flow</span>
                               <span className="text-sm font-mono text-[#4E7A96] font-bold">{formatCurrency(toBufferMo + leakMo)}/mo</span>
@@ -323,7 +323,7 @@ export default function App() {
                       })()}
 
                       {inputs.savingsRate === 0 && (
-                        <div className="p-3 bg-[#D99A2B]/5 rounded-xl border border-[#D99A2B]/15 flex items-start gap-2">
+                        <div className="p-3 bg-[#D99A2B]/5 rounded-lg border border-[#D99A2B]/15 flex items-start gap-2">
                           <AlertTriangle size={14} className="text-[#D99A2B] mt-0.5 shrink-0" />
                           <span className="text-[11px] text-[#D99A2B] leading-relaxed">
                             Savings rate is 0% — no contributions will be made to your portfolio or cash buffer, regardless of your contribution setting.
@@ -336,7 +336,7 @@ export default function App() {
                         const lifestyleBudget = inputs.monthlySalary * (1 - inputs.savingsRate);
                         const debtOverflow = Math.max(0, totalDebtPayments - lifestyleBudget);
                         return debtOverflow > 0 ? (
-                          <div className="p-3 bg-[#3E7355]/5 rounded-xl border border-[#3E7355]/15 flex items-start gap-2">
+                          <div className="p-3 bg-[#3E7355]/5 rounded-lg border border-[#3E7355]/15 flex items-start gap-2">
                             <AlertTriangle size={14} className="text-[#3E7355] mt-0.5 shrink-0" />
                             <div className="flex flex-col">
                               <span className="text-[11px] text-[#3E7355] font-semibold leading-relaxed">
@@ -350,7 +350,7 @@ export default function App() {
                         ) : null;
                       })()}
 
-                      <div className="p-3 bg-[#F6F4EC] rounded-xl border border-[#DCE0D2] flex justify-between items-center mb-1">
+                      <div className="p-3 bg-[#F6F4EC] rounded-lg border border-[#DCE0D2] flex justify-between items-center mb-1">
                         <div className="flex flex-col">
                           <span className="text-[10px] text-[#9AA394] uppercase font-semibold">Monthly Expenses</span>
                           <span className="text-[11px] text-[#75806F] italic leading-none mt-0.5">
@@ -411,7 +411,7 @@ export default function App() {
               </div>
 
               {/* Financial Health Audit */}
-              <div className="bg-white border border-[#DCE0D2] shadow-sm rounded-2xl overflow-hidden">
+              <div className="bg-white border border-[#DCE0D2] rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleSection('health')}
                   aria-expanded={!collapsedSections.has('health')}
@@ -474,7 +474,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white border border-[#DCE0D2] shadow-sm rounded-2xl overflow-hidden">
+              <div className="bg-white border border-[#DCE0D2] rounded-lg overflow-hidden">
                 <div className="p-6 flex items-center justify-between">
                   <button
                     onClick={() => toggleSection('debt')}
@@ -511,7 +511,7 @@ export default function App() {
                         <p className="text-xs text-[#9AA394] italic text-center py-4">No active debts. Great job!</p>
                       )}
                       {inputs.debts.map((debt, idx) => (
-                        <div key={debt.id} className="p-4 bg-[#F6F4EC] rounded-xl border border-[#DCE0D2] relative group flex flex-col gap-3">
+                        <div key={debt.id} className="p-4 bg-[#F6F4EC] rounded-lg border border-[#DCE0D2] relative group flex flex-col gap-3">
                           <button
                             onClick={() => removeDebt(idx)}
                             aria-label="Remove debt"
@@ -570,7 +570,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="bg-white border border-[#DCE0D2] shadow-sm rounded-2xl overflow-hidden">
+              <div className="bg-white border border-[#DCE0D2] rounded-lg overflow-hidden">
                 <button
                   onClick={() => toggleSection('allocation')}
                   aria-expanded={!collapsedSections.has('allocation')}
@@ -670,7 +670,7 @@ export default function App() {
                         );
                       })()}
 
-                      <div className="mt-6 p-4 bg-[#F6F4EC] rounded-xl border border-[#DCE0D2]">
+                      <div className="mt-6 p-4 bg-[#F6F4EC] rounded-lg border border-[#DCE0D2]">
                         <div className="flex justify-between text-xs mb-2">
                           <span className="text-[#9AA394]">Expected Portfolio Return</span>
                           <span className="text-[#3E7355] font-mono">{(portfolioStats.expectedReturn * 100).toFixed(1)}%</span>
@@ -685,7 +685,7 @@ export default function App() {
                 </AnimatePresence>
               </div>
 
-              <div className="p-4 bg-[#3E7355]/5 border border-[#3E7355]/15 rounded-xl">
+              <div className="p-4 bg-[#3E7355]/5 border border-[#3E7355]/15 rounded-lg">
                 <p className="text-[10px] text-[#3E7355]/60 leading-relaxed uppercase tracking-tighter">
                   Disclaimer: This is a purely educational simulation. Past performance does not guarantee future results.
                   Not financial advice.
@@ -706,7 +706,7 @@ export default function App() {
           {/* Tabs — static frosted-glass bar (iOS Liquid Glass): it does not move or
               animate; the "liquid" effect is the content heavily blurred + saturated as it
               scrolls beneath it. Sticky so content passes under it. */}
-          <div className="lg:sticky lg:top-0 z-20 mx-auto flex w-fit gap-1 p-1.5 rounded-full glass-navbar">
+          <div className="lg:sticky lg:top-0 z-20 mx-auto flex w-fit gap-1 p-1.5 rounded-full bg-surface border border-[#DCE0D2]">
             {[
               { id: "timeline", label: "Timeline", icon: History },
               { id: "allocation", label: "Allocation Lab", icon: PieChartIcon },
@@ -728,7 +728,7 @@ export default function App() {
                   {isActive && (
                     <motion.span
                       layoutId="tabGlass"
-                      className="absolute inset-0 rounded-full glass-pill"
+                      className="absolute inset-0 rounded-full bg-white border border-[#3E7355]/25"
                       transition={{ type: "spring", stiffness: 280, damping: 24 }}
                     />
                   )}
@@ -754,22 +754,22 @@ export default function App() {
               {activeTab === "timeline" && (
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div className="bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl">
+                    <div className="bg-white border border-[#DCE0D2] p-6 rounded-lg">
                       <p className="text-xs text-[#9AA394] uppercase mb-1">Retirement Age</p>
                       <p className="text-2xl font-bold">{inputs.retirementAge}</p>
                     </div>
-                    <div className="bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl">
+                    <div className="bg-white border border-[#DCE0D2] p-6 rounded-lg">
                       <p className="text-xs text-[#9AA394] uppercase mb-1">Inflation Adjusted</p>
                       <p className="text-2xl font-bold text-[#4E7A96]">{formatCurrency(finalInflationAdjusted)}</p>
                     </div>
-                    <div className="bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl">
+                    <div className="bg-white border border-[#DCE0D2] p-6 rounded-lg">
                       <p className="text-xs text-[#9AA394] uppercase mb-1">Success Prob.</p>
                       <p className="text-2xl font-bold text-[#3E7355]">{(mcResult.successProbability * 100).toFixed(0)}%</p>
                     </div>
                   </div>
 
                   {inputs.debts.length > 0 && (
-                    <div className="bg-[#3E7355]/5 border border-[#3E7355]/15 p-4 rounded-xl space-y-3">
+                    <div className="bg-[#3E7355]/5 border border-[#3E7355]/15 p-4 rounded-lg space-y-3">
                       <div className="flex items-center gap-3 border-b border-[#3E7355]/15 pb-2">
                         <CreditCard className="text-[#3E7355]" size={20} />
                         <h4 className="text-sm font-semibold text-[#3E7355]">Debt Projection</h4>
@@ -808,7 +808,7 @@ export default function App() {
                   )}
 
                   <TimelineChart data={deterministicData} />
-                  <div className="bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl flex items-start gap-4">
+                  <div className="bg-white border border-[#DCE0D2] p-6 rounded-lg flex items-start gap-4">
                     <div className="p-2 bg-[#4E7A96]/10 rounded-lg">
                       <Info className="text-[#4E7A96]" size={20} />
                     </div>
@@ -826,7 +826,7 @@ export default function App() {
 
               {activeTab === "allocation" && (
                 <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                  <div className="xl:col-span-4 bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl">
+                  <div className="xl:col-span-4 bg-white border border-[#DCE0D2] p-6 rounded-lg">
                     <h3 className="text-lg font-bold mb-4 text-[#243129]">Portfolio Composition</h3>
                     <AllocationPie allocation={inputs.allocation} />
                     <div className="space-y-3 mt-4">
@@ -846,7 +846,7 @@ export default function App() {
                       ))}
                     </div>
                   </div>
-                  <div className="xl:col-span-8 bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl space-y-6">
+                  <div className="xl:col-span-8 bg-white border border-[#DCE0D2] p-6 rounded-lg space-y-6">
                     <h3 className="text-lg font-bold text-[#243129]">Risk/Return Profile</h3>
                     <RiskProfile stats={portfolioStats} allocation={inputs.allocation} />
                   </div>
@@ -855,7 +855,7 @@ export default function App() {
 
               {activeTab === "risk" && (
                 <div className="space-y-6">
-                  <div className="bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl">
+                  <div className="bg-white border border-[#DCE0D2] p-6 rounded-lg">
                     <div className="flex justify-between items-center mb-6">
                       <div>
                         <h3 className="text-lg font-bold flex items-center gap-2">
@@ -881,14 +881,14 @@ export default function App() {
                     <div className={mcRecalculating ? 'opacity-60 transition-opacity' : 'transition-opacity'}>
                       <MonteCarloChart result={mcResult} currentAge={inputs.currentAge} />
                     </div>
-                    <div className="mt-4 p-4 bg-[#F6F4EC] rounded-xl border border-[#DCE0D2]">
+                    <div className="mt-4 p-4 bg-[#F6F4EC] rounded-lg border border-[#DCE0D2]">
                       <p className="text-xs text-[#75806F] leading-relaxed">
                         <span className="text-[#3E7355] font-semibold">Success Definition:</span> We define success as reaching a net worth of at least <span className="text-[#243129] font-mono font-bold">25x your final annual expenses</span> at the point of retirement.
                         This is based on the "4% Rule," which suggests you can safely withdraw 4% of your nest egg annually to sustain your lifestyle.
                       </p>
                     </div>
                   </div>
-                  <div className="bg-white border border-[#DCE0D2] shadow-sm p-6 rounded-2xl space-y-4">
+                  <div className="bg-white border border-[#DCE0D2] p-6 rounded-lg space-y-4">
                     <h4 className="text-sm font-semibold text-[#243129]">Understanding the "Spaghetti" Chart</h4>
                     <p className="text-sm text-[#75806F] leading-relaxed">
                       The thin lines represent 50 individual market paths. Even with the same strategy,
@@ -897,7 +897,7 @@ export default function App() {
                       you reached your retirement goal.
                     </p>
                   </div>
-                  <div className="bg-[#3E7355]/5 border border-[#3E7355]/15 p-6 rounded-2xl flex items-start gap-4">
+                  <div className="bg-[#3E7355]/5 border border-[#3E7355]/15 p-6 rounded-lg flex items-start gap-4">
                     <ShieldAlert className="text-[#3E7355] shrink-0" size={24} />
                     <div>
                       <h4 className="text-sm font-semibold text-[#3E7355] mb-1">Sequence of Returns Risk</h4>

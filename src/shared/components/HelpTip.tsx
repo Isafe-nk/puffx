@@ -50,7 +50,7 @@ export default function HelpTip({ children, label = 'More info', align = 'right'
       {open && (
         <span
           role="note"
-          className={`absolute ${pos} bottom-full mb-2 w-64 p-3 bg-white border border-[#DCE0D2] text-[#4A544C] text-[10.5px] rounded-xl shadow-lg z-50 leading-relaxed font-normal normal-case text-left tracking-normal`}
+          className={`absolute ${pos} bottom-full mb-2 w-64 p-3 bg-white border border-[#DCE0D2] text-[#4A544C] text-[10.5px] rounded-lg z-50 leading-relaxed font-normal normal-case text-left tracking-normal`}
         >
           {children}
         </span>

@@ -164,7 +164,7 @@ export default function App() {
           {/* Quick Stats Block & Action Icons */}
           <div className="flex flex-wrap items-center gap-4 lg:gap-6">
             <div className="flex items-center gap-1.5 bg-[#F6F4EC] border border-[#DCE0D2] px-2.5 py-1.5 rounded-lg" title={rateError ? 'Using cached rate — API offline' : 'Source: fawazahmed0/exchange-api'}>
-              <span className={`flex h-1.5 w-1.5 rounded-full ${rateLoading ? 'bg-[#D99A2B] animate-pulse' : rateError ? 'bg-[#3E7355]' : 'bg-[#3E7355] animate-breathe'}`}></span>
+              <span className={`flex h-1.5 w-1.5 rounded-full ${rateLoading ? 'bg-[#D99A2B] animate-pulse' : rateError ? 'bg-[#3E7355]' : 'bg-[#3E7355]'}`}></span>
               <span className="text-[10px] text-[#75806F] font-mono">USD/MYR</span>
               <span className="text-xs font-semibold text-[#243129] font-mono">
                 {rateLoading && !hasAppliedLiveRate ? '—' : usdMyrRate.toFixed(4)}
@@ -180,13 +180,13 @@ export default function App() {
             <div className="inline-flex rounded-full p-0.5 bg-[#EDF3EC] border border-[#DCE0D2]">
               <button 
                 onClick={() => setShowInUsd(false)}
-                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${!showInUsd ? 'bg-[#243129] text-white shadow-sm' : 'text-[#9AA394] hover:text-[#4A544C]'}`}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${!showInUsd ? 'bg-[#243129] text-white' : 'text-[#9AA394] hover:text-[#4A544C]'}`}
               >
                 RM
               </button>
               <button 
                 onClick={() => setShowInUsd(true)}
-                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${showInUsd ? 'bg-[#243129] text-white shadow-sm' : 'text-[#9AA394] hover:text-[#4A544C]'}`}
+                className={`px-3 py-1 text-[11px] rounded-full transition-all active:scale-95 font-semibold cursor-pointer tracking-wide ${showInUsd ? 'bg-[#243129] text-white' : 'text-[#9AA394] hover:text-[#4A544C]'}`}
               >
                 USD
               </button>
@@ -198,7 +198,7 @@ export default function App() {
 
       {/* Plain-English on-ramp for non-finance users (UX review C1) */}
       <div className="max-w-7xl mx-auto px-4 lg:px-6 pt-4 lg:pt-6">
-        <p className="bg-white border border-[#DCE0D2] rounded-2xl p-4 lg:p-5 text-[13px] text-[#4A544C] leading-relaxed">
+        <p className="bg-white border border-[#DCE0D2] rounded-lg p-4 lg:p-5 text-[13px] text-[#4A544C] leading-relaxed">
           This tool compares two ways to buy the S&amp;P 500 through IBKR: a US-listed ETF and an Ireland-listed (UCITS) one.
           US funds charge a lower annual fee (TER) but lose 30% of every dividend to US withholding tax (WHT); Irish funds lose only 15%.
           Set your numbers in the control panel and the charts show how fees, taxes and bid-ask spreads (quoted in basis points — hundredths of a percent) drag on your final balance.
@@ -216,7 +216,7 @@ export default function App() {
             onClick={() => setShowMobileControls((v) => !v)}
             aria-expanded={showMobileControls}
             aria-controls="assumption-panel"
-            className="lg:hidden w-full flex items-center justify-between bg-white border border-[#DCE0D2] rounded-xl px-4 py-3 text-sm font-semibold text-[#243129] active:scale-[0.99] transition duration-200 cursor-pointer"
+            className="lg:hidden w-full flex items-center justify-between bg-white border border-[#DCE0D2] rounded-lg px-4 py-3 text-sm font-semibold text-[#243129] active:scale-[0.99] transition duration-200 cursor-pointer"
           >
             <span className="flex items-center gap-2">
               <SlidersHorizontal className="w-4 h-4 text-[#3E7355]" />
@@ -278,7 +278,7 @@ export default function App() {
         <section className="lg:col-span-8 flex flex-col gap-6">
           
           {/* HIGH IMPACT METRIC BLOCK */}
-          <div className="relative overflow-hidden bg-[#F6F4EC] border border-[#DCE0D2] rounded-2xl p-6 lg:p-7 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6 glass-panel">
+          <div className="relative overflow-hidden bg-[#F6F4EC] border border-[#DCE0D2] rounded-lg p-6 lg:p-7 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-3 z-10 flex-1">
               <div className="inline-flex items-center gap-2 text-[10px] text-[#75806F] font-semibold uppercase tracking-[0.15em]">
                 <span className="w-0.5 h-4 bg-[#3E7355] rounded-full"></span>
@@ -360,7 +360,7 @@ export default function App() {
           />
 
           {/* Footer containing source matrices & disclaimers */}
-          <footer className="mt-16 bg-[#F6F4EC] border border-[#DCE0D2] rounded-2xl p-6 space-y-8 glass-panel">
+          <footer className="mt-16 bg-[#F6F4EC] border border-[#DCE0D2] rounded-lg p-6 space-y-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs text-[#75806F]">
               
               {/* Tariff Reference Section */}

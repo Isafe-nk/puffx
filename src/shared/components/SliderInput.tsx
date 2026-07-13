@@ -106,7 +106,7 @@ export default function SliderInput({
                   onChange(Math.max(0, numericValue));
                 }
               }}
-              className="w-full text-right bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30 text-xs font-semibold px-2.5 py-1 rounded-xl text-[#243129] font-mono"
+              className="w-full text-right bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30 text-xs font-semibold px-2.5 py-1 rounded-lg text-[#243129] font-mono"
             />
           ) : (
             <div className="w-full text-right text-xs font-semibold text-[#3E7355] font-mono py-1">
@@ -136,7 +136,7 @@ export default function SliderInput({
                 onChange(Math.max(0, numericValue));
               }
             }}
-            className={`${inputParsed.className} text-right bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#243129] font-mono`}
+            className={`${inputParsed.className} text-right bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30 text-xs font-semibold px-2.5 py-1.5 rounded-lg text-[#243129] font-mono`}
             style={inputParsed.style}
           />
         ) : (

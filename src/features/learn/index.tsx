@@ -91,7 +91,7 @@ export default function Learn() {
               <Link
                 key={p.slug}
                 to={`/learn/phase/${p.slug}`}
-                className="group rounded-2xl border border-[#DCE0D2] bg-white p-6 hover:border-[#3E7355] active:scale-[0.99] transition duration-200 block"
+                className="group rounded-lg border border-[#DCE0D2] bg-white p-6 hover:border-[#3E7355] active:scale-[0.99] transition duration-200 block"
               >
                 <div className="flex items-center justify-between mb-6">
                   <Icon className="w-5 h-5 text-[#75806F]" strokeWidth={1.5} />

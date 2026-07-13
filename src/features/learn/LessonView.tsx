@@ -24,7 +24,7 @@ function Quiz({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   const answerId = useId();
   return (
-    <div className="rounded-2xl border border-[#DCE0D2] bg-white p-5 md:p-6">
+    <div className="rounded-lg border border-[#DCE0D2] bg-white p-5 md:p-6">
       <p className="text-[10px] uppercase tracking-[0.2em] text-[#9AA394] font-semibold mb-2">Quick check</p>
       <p className="text-[14px] text-[#243129] font-medium leading-relaxed">{q}</p>
       {!open ? (
@@ -137,7 +137,7 @@ export default function LessonView() {
 
             {/* example */}
             {c.example && (
-              <div className="rounded-2xl border border-[#DCE0D2] bg-[#F6F4EC] p-5 md:p-6">
+              <div className="rounded-lg border border-[#DCE0D2] bg-[#F6F4EC] p-5 md:p-6">
                 <p className={`${SECTION_LABEL} mb-2`}>Example</p>
                 <p className="text-[14px] text-[#4A544C] leading-relaxed">{c.example}</p>
               </div>
@@ -160,7 +160,7 @@ export default function LessonView() {
             </AlertBanner>
 
             {/* action */}
-            <div className="rounded-2xl border border-[#3E7355]/25 bg-[#3E7355]/[0.04] p-5 md:p-6">
+            <div className="rounded-lg border border-[#3E7355]/25 bg-[#3E7355]/[0.04] p-5 md:p-6">
               <p className="text-[10px] uppercase tracking-[0.2em] text-[#3E7355] font-semibold mb-2">Do this now</p>
               <p className="text-[14px] text-[#4A544C] leading-relaxed">{c.action}</p>
             </div>
@@ -177,7 +177,7 @@ export default function LessonView() {
           {prev ? (
             <Link
               to={`/learn/${prev.module.slug}/${lessonSlug(prev.lesson.id)}`}
-              className="group order-2 sm:order-1 rounded-xl border border-[#DCE0D2] p-4 hover:border-[#3E7355] active:scale-[0.99] transition duration-200"
+              className="group order-2 sm:order-1 rounded-lg border border-[#DCE0D2] p-4 hover:border-[#3E7355] active:scale-[0.99] transition duration-200"
             >
               <span className="flex items-center gap-1 text-[10px] uppercase tracking-[0.18em] text-[#9AA394] font-semibold mb-1">
                 <ChevronLeft className="w-3 h-3" strokeWidth={1.5} />
@@ -191,7 +191,7 @@ export default function LessonView() {
           {next ? (
             <Link
               to={`/learn/${next.module.slug}/${lessonSlug(next.lesson.id)}`}
-              className="group order-1 sm:order-2 rounded-xl border border-[#DCE0D2] p-4 hover:border-[#3E7355] active:scale-[0.99] transition duration-200 text-right"
+              className="group order-1 sm:order-2 rounded-lg border border-[#DCE0D2] p-4 hover:border-[#3E7355] active:scale-[0.99] transition duration-200 text-right"
             >
               <span className="flex items-center justify-end gap-1 text-[10px] uppercase tracking-[0.18em] text-[#9AA394] font-semibold mb-1">
                 {next.crossModule ? `Next module · ${next.module.code} ${next.lesson.id}` : 'Next'}

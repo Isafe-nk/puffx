@@ -31,7 +31,7 @@ export default function TcoMatrix({
   formatVal
 }: TcoMatrixProps) {
   return (
-    <div className="glass-card rounded-3xl p-5 lg:p-6 shadow-sm space-y-4">
+    <div className="bg-surface border border-[#DCE0D2] rounded-lg p-5 lg:p-6 space-y-4">
       
       <div className="flex items-center gap-2 border-b border-[#DCE0D2] pb-3">
         <Scale className="text-[#3E7355] w-4 h-4" />
@@ -103,7 +103,7 @@ export default function TcoMatrix({
         </table>
       </div>
 
-      <div className="flex items-start gap-2.5 text-[10px] text-[#75806F] leading-normal mt-1 bg-[#F6F4EC] p-3.5 rounded-xl border border-[#DCE0D2]">
+      <div className="flex items-start gap-2.5 text-[10px] text-[#75806F] leading-normal mt-1 bg-[#F6F4EC] p-3.5 rounded-lg border border-[#DCE0D2]">
         <Info className="w-3.5 h-3.5 text-[#3E7355] shrink-0 mt-0.5" />
         <span>
           <strong>TCO Mathematical Formula Applied: </strong> 

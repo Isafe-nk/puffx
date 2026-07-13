@@ -30,7 +30,7 @@ const formatCurrency = (value: number) => formatRM(value);
 const CustomLabTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#DCE0D2] p-4 rounded-xl shadow-sm min-w-[240px]">
+      <div className="bg-white border border-[#DCE0D2] p-4 rounded-lg min-w-[240px]">
         <p className="text-[10px] text-[#9AA394] mb-3 font-bold uppercase tracking-widest border-b border-[#DCE0D2] pb-2">
           Year {label} Strategy Snapshot
         </p>
@@ -125,8 +125,8 @@ export const DebtVsInvestingLab: React.FC = () => {
     <div className="space-y-8">
       {/* Executive Summary Header */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="md:col-span-3 bg-white p-6 rounded-2xl border border-[#DCE0D2] flex items-center gap-6">
-          <div className={`p-4 rounded-2xl shrink-0 ${arbitrageOpportunity ? 'bg-[#3E7355]/10' : 'bg-[#D99A2B]/10'}`}>
+        <div className="md:col-span-3 bg-white p-6 rounded-lg border border-[#DCE0D2] flex items-center gap-6">
+          <div className={`p-4 rounded-lg shrink-0 ${arbitrageOpportunity ? 'bg-[#3E7355]/10' : 'bg-[#D99A2B]/10'}`}>
             <Target className={arbitrageOpportunity ? 'text-[#3E7355]' : 'text-[#D99A2B]'} size={32} />
           </div>
           <div>
@@ -139,7 +139,7 @@ export const DebtVsInvestingLab: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2] flex flex-col justify-center text-center shadow-sm">
+        <div className="bg-white p-6 rounded-lg border border-[#DCE0D2] flex flex-col justify-center text-center">
           <p className="text-[10px] text-[#9AA394] uppercase font-bold mb-1">Efficiency Score</p>
           <p className="text-2xl font-bold text-[#4E7A96]">{(spread / 2 + 5).toFixed(1)}/10</p>
         </div>
@@ -148,7 +148,7 @@ export const DebtVsInvestingLab: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Strategy Controls */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2] shadow-sm">
+          <div className="bg-white p-6 rounded-lg border border-[#DCE0D2]">
             <h3 className="text-sm font-semibold text-[#4A544C] flex items-center gap-2 uppercase tracking-wider mb-6">
               <Zap size={16} className="text-[#D99A2B]" /> Strategic Inputs
             </h3>
@@ -185,7 +185,7 @@ export const DebtVsInvestingLab: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2]">
+          <div className="bg-white p-6 rounded-lg border border-[#DCE0D2]">
             <h3 className="text-sm font-semibold text-[#4A544C] uppercase tracking-wider mb-4">Select Strategy</h3>
             <div className="grid grid-cols-1 gap-2">
               {[
@@ -196,7 +196,7 @@ export const DebtVsInvestingLab: React.FC = () => {
                 <button
                   key={s.id}
                   onClick={() => setActiveStrategy(s.id as any)}
-                  className={`p-4 rounded-xl border text-left transition-all active:scale-[0.98] ${
+                  className={`p-4 rounded-lg border text-left transition-all active:scale-[0.98] ${
                     activeStrategy === s.id 
                       ? 'bg-[#4E7A96]/10 border-[#4E7A96]/50 ring-1 ring-[#4E7A96]/20' 
                       : 'bg-[#F6F4EC] border-[#DCE0D2] hover:border-[#C7CDBB]'
@@ -215,7 +215,7 @@ export const DebtVsInvestingLab: React.FC = () => {
 
         {/* Strategic Visualization */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2] shadow-sm">
+          <div className="bg-white p-6 rounded-lg border border-[#DCE0D2]">
             <div className="flex justify-between items-center mb-8">
               <div>
                 <h3 className="text-lg font-bold text-[#243129]">Balance Sheet Evolution</h3>
@@ -283,7 +283,7 @@ export const DebtVsInvestingLab: React.FC = () => {
 
           {/* Strategic Insights Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-5 bg-[#F6F4EC] rounded-2xl border border-[#DCE0D2] space-y-3">
+            <div className="p-5 bg-[#F6F4EC] rounded-lg border border-[#DCE0D2] space-y-3">
               <div className="flex items-center gap-2 text-[#4E7A96]">
                 <ShieldCheck size={18} />
                 <h4 className="text-xs font-bold uppercase tracking-wider">Risk-Adjusted Return</h4>
@@ -293,7 +293,7 @@ export const DebtVsInvestingLab: React.FC = () => {
                 To justify investing instead, your portfolio must achieve a <span className="text-[#243129] font-bold">{(debtRate * 1.25 * 100).toFixed(1)}%</span> pre-tax return to account for market volatility and taxes.
               </p>
             </div>
-            <div className="p-5 bg-[#F6F4EC] rounded-2xl border border-[#DCE0D2] space-y-3">
+            <div className="p-5 bg-[#F6F4EC] rounded-lg border border-[#DCE0D2] space-y-3">
               <div className="flex items-center gap-2 text-[#D99A2B]">
                 <AlertCircle size={18} />
                 <h4 className="text-xs font-bold uppercase tracking-wider">Liquidity Constraint</h4>

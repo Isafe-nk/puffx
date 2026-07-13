@@ -33,7 +33,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     if (items.length === 0) return null;
 
     return (
-      <div className="bg-white border border-[#DCE0D2] p-3 rounded-xl shadow-sm min-w-[200px]">
+      <div className="bg-white border border-[#DCE0D2] p-3 rounded-lg min-w-[200px]">
         <p className="text-[10px] text-[#9AA394] mb-3 font-bold uppercase tracking-widest border-b border-[#DCE0D2] pb-2">
           Age {label} Projection
         </p>
@@ -77,7 +77,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
   });
 
   return (
-    <div className="h-[450px] w-full bg-[#FDFCF7] p-4 rounded-2xl border border-[#DCE0D2]">
+    <div className="h-[450px] w-full bg-[#FDFCF7] p-4 rounded-lg border border-[#DCE0D2]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#EDF3EC" vertical={false} />

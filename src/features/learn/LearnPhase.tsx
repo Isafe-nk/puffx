@@ -42,7 +42,7 @@ export default function LearnPhase() {
             <Link
               key={m.slug}
               to={`/learn/${m.slug}`}
-              className="group rounded-2xl border border-[#DCE0D2] bg-white p-6 hover:border-[#3E7355] active:scale-[0.99] transition duration-200 block"
+              className="group rounded-lg border border-[#DCE0D2] bg-white p-6 hover:border-[#3E7355] active:scale-[0.99] transition duration-200 block"
             >
               <div className="flex items-center justify-between mb-6">
                 <span className="text-[11px] font-semibold text-[#75806F]">Module {m.code.replace('M', '')}</span>

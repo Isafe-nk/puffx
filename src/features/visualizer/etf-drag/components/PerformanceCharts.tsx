@@ -29,18 +29,20 @@ interface PerformanceChartsProps {
   finalTerB: number;
 }
 
-// Cumulative-lost-cost stack series: same cost category, darker shade for ETF B.
+// Dragon-earth categorical palette for data series (design.md data-viz set):
+// amber · clay · plum · dusty-blue — warm tones that sit on cream, red kept for
+// loss. Cumulative-lost-cost stack: one hue per cost category, darker for ETF B.
 const LEAK_SERIES = [
-  { key: 'tax', label: 'Tax Leakage', a: '#D99A2B', b: '#D99A2B' },
-  { key: 'ter', label: 'Asset TER', a: '#C4453C', b: '#A83A32' },
-  { key: 'spread', label: 'Bid-Ask Spread', a: '#8B5CF6', b: '#7C3AED' },
-  { key: 'fees', label: 'Trade & FX Fees', a: '#4E7A96', b: '#3E7355' },
+  { key: 'tax', label: 'Tax Leakage', a: '#D99A2B', b: '#B77F1E' },
+  { key: 'ter', label: 'Asset TER', a: '#C2673F', b: '#A5522F' },
+  { key: 'spread', label: 'Bid-Ask Spread', a: '#7E5A73', b: '#664760' },
+  { key: 'fees', label: 'Trade & FX Fees', a: '#4E7A96', b: '#3E6377' },
 ];
 
 const CustomTooltip = ({ active, payload, label, showInUsd }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#DCE0D2] rounded-xl p-3 shadow-sm z-50">
+      <div className="bg-white border border-[#DCE0D2] rounded-lg p-3 z-50">
         <p className="text-[#243129] font-bold font-display mb-2">{label}</p>
         <div className="space-y-1">
           {payload.map((entry, index) => (
@@ -118,17 +120,17 @@ export default function PerformanceCharts({
         </div>
 
         {/* Toggle tabs */}
-        <div className="inline-flex rounded-xl p-0.5 bg-[#EDF3EC] border border-[#DCE0D2]">
+        <div className="inline-flex rounded-lg p-0.5 bg-[#EDF3EC] border border-[#DCE0D2]">
           <button 
             onClick={() => setActiveTab("performance")}
-            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "performance" ? 'bg-white text-[#3E7355] border border-[#3E7355]/20 shadow-sm font-semibold' : 'text-[#75806F] hover:text-[#4A544C]'}`}
+            className={`px-3.5 py-1.5 text-xs rounded-lg transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "performance" ? 'bg-white text-[#3E7355] border border-[#3E7355]/20 font-semibold' : 'text-[#75806F] hover:text-[#4A544C]'}`}
           >
             <TrendingUp className="w-3.5 h-3.5 text-[#3E7355]" />
             Portfolio Projection
           </button>
           <button 
             onClick={() => setActiveTab("leakage")}
-            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "leakage" ? 'bg-white text-[#3E7355] border border-[#3E7355]/20 shadow-sm font-semibold' : 'text-[#75806F] hover:text-[#4A544C]'}`}
+            className={`px-3.5 py-1.5 text-xs rounded-lg transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "leakage" ? 'bg-white text-[#3E7355] border border-[#3E7355]/20 font-semibold' : 'text-[#75806F] hover:text-[#4A544C]'}`}
           >
             <AlertCircle className="w-3.5 h-3.5 text-[#D99A2B]" />
             Cumulative Lost Cost
@@ -137,7 +139,7 @@ export default function PerformanceCharts({
       </div>
 
       {/* Container for chart rendering */}
-      <div className="relative h-[240px] md:h-[340px] w-full bg-[#FDFCF7] rounded-2xl p-2 md:p-4 border border-[#DCE0D2]">
+      <div className="relative h-[240px] md:h-[340px] w-full bg-[#FDFCF7] rounded-lg p-2 md:p-4 border border-[#DCE0D2]">
         {activeTab === "performance" ? (
           <ResponsiveContainer width="100%" height="100%">
             <RechartsLineChart data={chartData} margin={{ top: 10, right: 10, left: 20, bottom: 0 }}>
@@ -146,9 +148,9 @@ export default function PerformanceCharts({
               <YAxis tickFormatter={yAxisFormatter} tick={{ fontSize: 11, fill: '#9AA394', fontFamily: 'Inter' }} axisLine={false} tickLine={false} width={60} />
               <Tooltip content={<CustomTooltip showInUsd={showInUsd} />} cursor={{ stroke: '#DCE0D2', strokeWidth: 1 }} />
               <Legend wrapperStyle={{ fontSize: '12px', color: '#75806F', fontFamily: 'Inter' }} iconType="circle" />
-              <Line type="monotone" dataKey="valueA" name={`${selectedA.ticker} (${selectedA.domicile})`} stroke="#75806F" strokeWidth={2} dot={false} activeDot={{ r: 6 }} fillOpacity={0.06} />
+              <Line type="monotone" dataKey="valueA" name={`${selectedA.ticker} (${selectedA.domicile})`} stroke="#C2673F" strokeWidth={2} dot={false} activeDot={{ r: 6 }} fillOpacity={0.06} />
               <Line type="monotone" dataKey="valueB" name={`${selectedB.ticker} (${selectedB.domicile})`} stroke="#3E7355" strokeWidth={2} dot={false} activeDot={{ r: 6 }} fillOpacity={0.06} />
-              <Line type="monotone" dataKey="valueBench" name="Benchmark" stroke="#818CF8" strokeWidth={1.5} strokeDasharray="6 6" dot={false} activeDot={false} />
+              <Line type="monotone" dataKey="valueBench" name="Benchmark" stroke="#4E7A96" strokeWidth={1.5} strokeDasharray="6 6" dot={false} activeDot={false} />
             </RechartsLineChart>
           </ResponsiveContainer>
         ) : (
@@ -195,20 +197,20 @@ export default function PerformanceCharts({
 
       {/* Chart Legend Explanation Accent */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 text-[11px] text-[#75806F] leading-normal border-t border-[#DCE0D2]">
-        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-xl border border-[#DCE0D2]">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#75806F] shrink-0 mt-0.5"></span>
+        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#DCE0D2]">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#C2673F] shrink-0 mt-0.5"></span>
           <span>
             <strong>{selectedA.ticker} value</strong> compounds S&P 500 capital minus WHT ({selectedA.domicile === "US" ? "30%" : "15%"}), MER, and execution fees.
           </span>
         </div>
-        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-xl border border-[#3E7355]/20">
+        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#3E7355]/20">
           <span className="w-2.5 h-2.5 rounded-full bg-[#3E7355] shrink-0 mt-0.5"></span>
           <span>
             <strong>{selectedB.ticker} value</strong> incorporates internal WHT optimization ({selectedB.domicile === "US" ? "30%" : "15%"}) under Bilateral Treaties.
           </span>
         </div>
-        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-xl border border-[#DCE0D2]">
-          <span className="w-4 h-0.5 border-t border-dashed border-[#818CF8] shrink-0 mt-2"></span>
+        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#DCE0D2]">
+          <span className="w-4 h-0.5 border-t border-dashed border-[#4E7A96] shrink-0 mt-2"></span>
           <span>
             <strong>Un-dragged Baseline</strong> simulates S&P 500 compounding with zero tax friction, product fees, or spot FX commissions.
           </span>

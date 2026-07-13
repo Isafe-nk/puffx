@@ -27,7 +27,7 @@ const formatCurrency = (value: number) => formatRM(value);
 const CustomTimelineTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#DCE0D2] p-4 rounded-xl shadow-sm min-w-[240px]">
+      <div className="bg-white border border-[#DCE0D2] p-4 rounded-lg min-w-[240px]">
         <p className="text-[10px] text-[#9AA394] mb-3 font-bold uppercase tracking-widest border-b border-[#DCE0D2] pb-2">
           Age {label} Financial Snapshot
         </p>
@@ -63,7 +63,7 @@ const CustomTimelineTooltip = ({ active, payload, label }: any) => {
 
 export const TimelineChart: React.FC<{ data: SimulationYear[] }> = ({ data }) => {
   return (
-    <div className="h-[400px] w-full bg-[#FDFCF7] p-4 rounded-2xl border border-[#DCE0D2]">
+    <div className="h-[400px] w-full bg-[#FDFCF7] p-4 rounded-lg border border-[#DCE0D2]">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data}>
           <defs>

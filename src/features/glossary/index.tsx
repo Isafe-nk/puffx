@@ -29,7 +29,7 @@ const ALPHABET = ['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 
 function TermCard({ t }: { t: GlossaryTerm }) {
   return (
-    <div className="rounded-2xl border border-[#DCE0D2] bg-white p-6">
+    <div className="rounded-lg border border-[#DCE0D2] bg-white p-6">
       {/* scroll-mt clears the fixed mobile header + sticky letter bar when deep-linked */}
       <h3 id={t.slug} className="scroll-mt-28 text-sm font-bold font-display text-[#243129]">
         {t.term}
@@ -105,7 +105,7 @@ export default function Glossary() {
         </div>
 
         {/* Core decision */}
-        <section className="mt-10 rounded-2xl border border-[#DCE0D2] bg-white p-6 lg:p-7">
+        <section className="mt-10 rounded-lg border border-[#DCE0D2] bg-white p-6 lg:p-7">
           <p className="text-[10px] uppercase tracking-[0.2em] text-[#9AA394] font-semibold mb-2">The core decision</p>
           <h2 className="text-lg lg:text-xl font-bold font-display text-[#243129] mb-2 tracking-tight">
             US-domiciled vs Ireland-domiciled S&P 500 ETFs
@@ -128,7 +128,7 @@ export default function Glossary() {
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search terms and definitions…"
             aria-label="Search glossary"
-            className="w-full bg-white border border-[#DCE0D2] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#243129] placeholder:text-[#9AA394] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30"
+            className="w-full bg-white border border-[#DCE0D2] rounded-lg pl-10 pr-4 py-2.5 text-sm text-[#243129] placeholder:text-[#9AA394] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30"
           />
           {query && (
             <p className="mt-2 text-[11px] text-[#75806F]" role="status">

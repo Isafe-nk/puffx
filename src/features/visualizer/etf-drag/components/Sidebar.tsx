@@ -195,7 +195,7 @@ export default function Sidebar({
           />
 
           {/* Broker Frequency Settings Optimization Selector */}
-          <fieldset className="bg-[#F6F4EC] border border-[#DCE0D2] rounded-2xl p-4 mt-1 text-[#4A544C]">
+          <fieldset className="bg-[#F6F4EC] border border-[#DCE0D2] rounded-lg p-4 mt-1 text-[#4A544C]">
             <legend className="sr-only">Execution frequency</legend>
             <div className="flex justify-between items-center mb-2.5">
               <span className="text-xs text-[#75806F] font-medium flex items-center gap-1.5">
@@ -212,7 +212,7 @@ export default function Sidebar({
                   key={freq}
                   onClick={() => setFeeOptimizationFreq(freq)}
                   aria-pressed={feeOptimizationFreq === freq}
-                  className={`px-2.5 py-2 text-[11px] font-mono rounded-xl border text-center transition-all active:scale-[0.97] capitalize cursor-pointer ${feeOptimizationFreq === freq ? 'bg-[#3E7355]/10 border-[#3E7355] text-[#3E7355] font-semibold' : 'bg-white border-[#DCE0D2] text-[#75806F] hover:text-[#4A544C] hover:border-[#C7CDBB]'}`}
+                  className={`px-2.5 py-2 text-[11px] font-mono rounded-lg border text-center transition-all active:scale-[0.97] capitalize cursor-pointer ${feeOptimizationFreq === freq ? 'bg-[#3E7355]/10 border-[#3E7355] text-[#3E7355] font-semibold' : 'bg-white border-[#DCE0D2] text-[#75806F] hover:text-[#4A544C] hover:border-[#C7CDBB]'}`}
                 >
                   {freq}
                 </button>
@@ -221,7 +221,7 @@ export default function Sidebar({
           </fieldset>
 
           {/* Direct USD Deposit Toggle */}
-          <div className="bg-[#F6F4EC] border border-[#DCE0D2] rounded-2xl p-4 mt-1 flex items-center justify-between text-[#4A544C]">
+          <div className="bg-[#F6F4EC] border border-[#DCE0D2] rounded-lg p-4 mt-1 flex items-center justify-between text-[#4A544C]">
             <div className="space-y-0.5 flex-1 pr-2">
               <div className="flex items-center justify-between mb-1.5">
                 <label className="text-xs text-[#75806F] font-medium flex items-center gap-1.5">
@@ -250,7 +250,7 @@ export default function Sidebar({
           <div className="border-t border-[#DCE0D2] pt-4 mt-1">
             <div className="flex justify-between items-center mb-2">
               <label htmlFor="ticker-a" className="text-xs font-medium text-[#75806F] flex items-center gap-1.5">
-                <div className="w-2.5 h-2.5 rounded-full bg-[#75806F] shadow-sm"></div>
+                <div className="w-2.5 h-2.5 rounded-full bg-[#75806F]"></div>
                 Compare ETF A (Baseline Target)
               </label>
             </div>
@@ -259,7 +259,7 @@ export default function Sidebar({
                 id="ticker-a"
                 value={tickerA}
                 onChange={(e) => setTickerA(e.target.value)}
-                className="w-full text-sm bg-white border border-[#DCE0D2] focus:border-[#3E7355] text-[#243129] px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#3E7355]/30 cursor-pointer"
+                className="w-full text-sm bg-white border border-[#DCE0D2] focus:border-[#3E7355] text-[#243129] px-3.5 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#3E7355]/30 cursor-pointer"
               >
                 {ETF_REGISTRY.map((etf) => (
                   <option key={etf.ticker} value={etf.ticker}>
@@ -270,7 +270,7 @@ export default function Sidebar({
             </div>
 
             {/* Fast Summary Badge Asset A */}
-            <div className="grid grid-cols-3 gap-2 mt-2 bg-[#F6F4EC] p-2.5 rounded-xl border border-[#DCE0D2]">
+            <div className="grid grid-cols-3 gap-2 mt-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#DCE0D2]">
               <div className="text-center border-r border-[#DCE0D2]">
                 <div className="text-[10px] text-[#75806F]">Domicile / WHT</div>
                 <div className="text-[11px] font-bold text-[#4A544C] font-mono">{selectedA.domicile} ({(selectedA.domicile === "US" ? 30 : 15)}%)</div>
@@ -299,7 +299,7 @@ export default function Sidebar({
                 id="ticker-b"
                 value={tickerB}
                 onChange={(e) => setTickerB(e.target.value)}
-                className="w-full text-sm bg-white border border-[#DCE0D2] focus:border-[#3E7355] text-[#243129] px-3.5 py-2.5 rounded-xl focus:outline-none focus:ring-1 focus:ring-[#3E7355]/30 cursor-pointer"
+                className="w-full text-sm bg-white border border-[#DCE0D2] focus:border-[#3E7355] text-[#243129] px-3.5 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-[#3E7355]/30 cursor-pointer"
               >
                 {ETF_REGISTRY.map((etf) => (
                   <option key={etf.ticker} value={etf.ticker}>
@@ -310,7 +310,7 @@ export default function Sidebar({
             </div>
 
             {/* Fast Summary Badge Asset B */}
-            <div className="grid grid-cols-3 gap-2 mt-2 bg-[#F6F4EC] p-2.5 rounded-xl border border-[#DCE0D2]">
+            <div className="grid grid-cols-3 gap-2 mt-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#DCE0D2]">
               <div className="text-center border-r border-[#DCE0D2]">
                 <div className="text-[10px] text-[#75806F]">Domicile / WHT</div>
                 <div className="text-[11px] font-bold text-[#4A544C] font-mono">{selectedB.domicile} ({(selectedB.domicile === "US" ? 30 : 15)}%)</div>
@@ -332,7 +332,7 @@ export default function Sidebar({
               onClick={() => setShowTuning(!showTuning)}
               aria-expanded={showTuning}
               aria-controls="ibkr-overrides"
-              className="w-full flex items-center justify-between text-[#75806F] hover:text-[#243129] active:scale-[0.99] transition duration-200 py-2 px-3 rounded-xl border border-[#DCE0D2] bg-[#F6F4EC] cursor-pointer"
+              className="w-full flex items-center justify-between text-[#75806F] hover:text-[#243129] active:scale-[0.99] transition duration-200 py-2 px-3 rounded-lg border border-[#DCE0D2] bg-[#F6F4EC] cursor-pointer"
             >
               <span className="text-xs font-semibold flex items-center gap-2">
                 <Settings className="w-3.5 h-3.5 text-[#3E7355] animate-spin-hover" />
@@ -344,7 +344,7 @@ export default function Sidebar({
             </button>
 
             {showTuning && (
-              <div id="ibkr-overrides" className="mt-3 flex flex-col gap-4 bg-white p-4 rounded-xl border border-[#DCE0D2]">
+              <div id="ibkr-overrides" className="mt-3 flex flex-col gap-4 bg-white p-4 rounded-lg border border-[#DCE0D2]">
                 <h3 className="text-xs font-bold text-[#4A544C] pb-2 border-b border-[#DCE0D2]">
                   Market Baseline Presets
                 </h3>
@@ -411,7 +411,7 @@ export default function Sidebar({
                     step="0.01"
                     value={usdMyrRate}
                     onChange={(e) => setUsdMyrRate(Math.max(1, parseFloat(e.target.value) || 4.42))}
-                    className="w-full bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] text-xs text-[#243129] font-mono px-3 py-2 rounded-xl"
+                    className="w-full bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] text-xs text-[#243129] font-mono px-3 py-2 rounded-lg"
                   />
                 </div>
 
@@ -436,7 +436,7 @@ export default function Sidebar({
                       value={overrideTerA}
                       onChange={(e) => setOverrideTerA(e.target.value)}
                       onBlur={clampOverride(setOverrideTerA, 0)}
-                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-xl p-2 font-mono"
+                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-lg p-2 font-mono"
                     />
                   </div>
                   <div>
@@ -451,7 +451,7 @@ export default function Sidebar({
                       value={overridePriceA}
                       onChange={(e) => setOverridePriceA(e.target.value)}
                       onBlur={clampOverride(setOverridePriceA, 1)}
-                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-xl p-2 font-mono"
+                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-lg p-2 font-mono"
                     />
                   </div>
                 </div>
@@ -470,7 +470,7 @@ export default function Sidebar({
                       value={overrideTerB}
                       onChange={(e) => setOverrideTerB(e.target.value)}
                       onBlur={clampOverride(setOverrideTerB, 0)}
-                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-xl p-2 font-mono"
+                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-lg p-2 font-mono"
                     />
                   </div>
                   <div>
@@ -485,7 +485,7 @@ export default function Sidebar({
                       value={overridePriceB}
                       onChange={(e) => setOverridePriceB(e.target.value)}
                       onBlur={clampOverride(setOverridePriceB, 1)}
-                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-xl p-2 font-mono"
+                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-lg p-2 font-mono"
                     />
                   </div>
                 </div>
@@ -511,7 +511,7 @@ export default function Sidebar({
                       value={overrideSpreadA}
                       onChange={(e) => setOverrideSpreadA(e.target.value)}
                       onBlur={clampOverride(setOverrideSpreadA, 0)}
-                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-xl p-2 font-mono"
+                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-lg p-2 font-mono"
                     />
                   </div>
                   <div>
@@ -526,14 +526,14 @@ export default function Sidebar({
                       value={overrideSpreadB}
                       onChange={(e) => setOverrideSpreadB(e.target.value)}
                       onBlur={clampOverride(setOverrideSpreadB, 0)}
-                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-xl p-2 font-mono"
+                      className="w-full bg-white border border-[#DCE0D2] text-xs text-[#243129] rounded-lg p-2 font-mono"
                     />
                   </div>
                 </div>
 
                 <button
                   onClick={handleRestorePresets}
-                  className="mt-1 w-full flex items-center justify-center gap-1.5 py-2 text-[11px] text-[#75806F] hover:text-[#243129] bg-[#F6F4EC] border border-[#DCE0D2] rounded-xl hover:bg-[#EDF3EC] active:scale-[0.99] transition duration-200 cursor-pointer"
+                  className="mt-1 w-full flex items-center justify-center gap-1.5 py-2 text-[11px] text-[#75806F] hover:text-[#243129] bg-[#F6F4EC] border border-[#DCE0D2] rounded-lg hover:bg-[#EDF3EC] active:scale-[0.99] transition duration-200 cursor-pointer"
                 >
                   <RefreshCw className="w-3 h-3" />
                   Restore Base Presets
@@ -559,13 +559,13 @@ export default function Sidebar({
         </div>
 
         <div className="grid grid-cols-2 gap-3 mb-1">
-          <div className="bg-[#F6F4EC] p-3 rounded-xl border border-[#DCE0D2]">
+          <div className="bg-[#F6F4EC] p-3 rounded-lg border border-[#DCE0D2]">
             <div className="text-[10px] text-[#9AA394] mb-0.5 font-mono">{selectedA.ticker} Drag</div>
             <div className={`text-base font-bold font-mono ${actualFrictionA > 3.5 ? 'text-[#3E7355]' : actualFrictionA > 1.5 ? 'text-[#D99A2B]' : 'text-[#3E7355]'}`}>
               {actualFrictionA.toFixed(2)}%
             </div>
           </div>
-          <div className="bg-[#F6F4EC] p-3 rounded-xl border border-[#DCE0D2] border-l-2 border-l-[#3E7355]">
+          <div className="bg-[#F6F4EC] p-3 rounded-lg border border-[#DCE0D2] border-l-2 border-l-[#3E7355]">
             <div className="text-[10px] text-[#9AA394] mb-0.5 font-mono">{selectedB.ticker} Drag</div>
             <div className={`text-base font-bold font-mono ${actualFrictionB > 3.5 ? 'text-[#3E7355]' : actualFrictionB > 1.5 ? 'text-[#D99A2B]' : 'text-[#3E7355]'}`}>
               {actualFrictionB.toFixed(2)}%
