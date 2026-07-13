@@ -44,7 +44,7 @@ export default function MenuBar() {
   return (
     <header className="h-[34px] shrink-0 flex items-center gap-[22px] px-4 bg-surface/60 backdrop-blur-xl backdrop-saturate-150 border-b border-hairline/70 text-[12.5px] text-mute relative z-30">
       <Link to="/" aria-label="Puffx OS desktop" className="flex items-center gap-2 shrink-0 active:scale-95 transition duration-200">
-        <span className="os-mark w-[18px] h-[18px] rounded-[6px] text-white text-[11px] font-extrabold flex items-center justify-center leading-none">p</span>
+        <img src="/icon/logo.png" alt="Puffx" className="w-[18px] h-[18px] object-contain shrink-0" />
         <b className="text-ink font-bold">{activeApp ? activeApp.name : 'Puffx'}</b>
       </Link>
 
