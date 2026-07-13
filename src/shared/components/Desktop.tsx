@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { APPS } from '../../navigation/apps';
+import { useApp } from '../../context/OSProvider';
 import AppIcon from './AppIcon';
 import Widget from './Widget';
 import { LEARN_MODULES } from '../../features/learn/learnConfig';
@@ -14,6 +14,7 @@ import { useVisited, readCount, firstUnread, lessonPath, ALL_LESSONS, TOTAL_LESS
  * with the widgets stacked beneath.
  */
 export default function Desktop() {
+  const { apps } = useApp();
   const visited = useVisited();
   const read = readCount(visited, ALL_LESSONS.map((l) => l.lessonId));
   const next = firstUnread(visited);
@@ -33,7 +34,7 @@ export default function Desktop() {
   };
 
   // Learn's icon carries live progress as its status line (mock: "12/68").
-  const desktopApps = APPS.map((a) =>
+  const desktopApps = apps.map((a) =>
     a.id === 'learn' ? { ...a, sub: `${read}/${TOTAL_LESSONS}`, subMono: true } : a
   );
 

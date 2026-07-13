@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { PuffxApp } from '../../navigation/apps';
+import { useApp } from '../../context/OSProvider';
+import { useWindow } from '../../context/WindowContext';
 
 // "Sun 13 Jul · 9:41" — the mock's clock format, minute resolution.
 function formatClock(d: Date): string {
@@ -29,12 +30,19 @@ function Clock() {
   return <span className="font-mono text-[11.5px] text-mute">{formatClock(now)}</span>;
 }
 
+const menuCls = 'text-mute hover:text-ink transition-colors';
+
 /**
- * The OS chrome across the top (design.md §1): Puffx mark + current app name +
- * menus left, clock right. Inside an app it carries "Desktop" — the visible
- * way home. App data (FX rates etc.) never lives here.
+ * The OS chrome across the top (design.md §1). Reads the OS kernel (useApp) for
+ * which app is open and the per-app window chrome (useWindow) for that app's
+ * menu entries. In an app it shows the app name + a "Desktop" way home + the
+ * app's own menus; on the desktop it shows the section shortcuts. App-private
+ * data (FX rates etc.) never lives here — it belongs to the window (useWindow).
  */
-export default function MenuBar({ app }: { app?: PuffxApp }) {
+export default function MenuBar() {
+  const { activeApp, closeToDesktop } = useApp();
+  const { menu } = useWindow();
+
   return (
     <header className="h-[30px] shrink-0 flex items-center gap-5 px-3.5 bg-surface/85 border-b border-hairline text-[12px] text-body relative z-30">
       <Link
@@ -44,18 +52,32 @@ export default function MenuBar({ app }: { app?: PuffxApp }) {
       >
         p
       </Link>
-      <span className="font-bold text-ink">{app ? app.name : 'Puffx OS'}</span>
+      <span className="font-bold text-ink">{activeApp ? activeApp.name : 'Puffx OS'}</span>
 
-      {app ? (
-        <Link to="/" className="text-mute hover:text-ink transition-colors">
-          Desktop
-        </Link>
+      {activeApp ? (
+        <>
+          <button type="button" onClick={closeToDesktop} className={menuCls}>
+            Desktop
+          </button>
+          {/* Per-app menus (seam §9) — populated by the app via useWindow */}
+          {menu?.map((item) =>
+            item.to ? (
+              <Link key={item.label} to={item.to} className={menuCls}>
+                {item.label}
+              </Link>
+            ) : (
+              <button key={item.label} type="button" onClick={item.onClick} className={menuCls}>
+                {item.label}
+              </button>
+            )
+          )}
+        </>
       ) : (
         <>
-          <Link to="/learn" className="text-mute hover:text-ink transition-colors">Learn</Link>
-          <span className="text-mute" aria-hidden="true">Tools</span>
-          <Link to="/glossary" className="text-mute hover:text-ink transition-colors">Glossary</Link>
-          <span className="text-mute" aria-hidden="true">Help</span>
+          <Link to="/learn" className={menuCls}>Learn</Link>
+          <span className={menuCls} aria-hidden="true">Tools</span>
+          <Link to="/glossary" className={menuCls}>Glossary</Link>
+          <span className={menuCls} aria-hidden="true">Help</span>
         </>
       )}
 

@@ -8,6 +8,7 @@ import { findLesson, lessonSlug } from './learnConfig';
 import { getLessonContent, LessonContent } from './content';
 import { markVisited } from './progress';
 import { usePageTitle } from '../../shared/hooks/usePageTitle';
+import { useSetWindow } from '../../context/WindowContext';
 
 // Renders a markdown string in the muted body type used across Learn.
 function Markdown({ children, className = '' }: { children: string; className?: string }) {
@@ -86,6 +87,17 @@ export default function LessonView() {
   useEffect(() => {
     if (lessonId) markVisited(lessonId);
   }, [lessonId]);
+
+  // Publish this lesson's window chrome (spec §5 proof): the title bar shows the
+  // module breadcrumb, and the menu bar carries the app's own "Modules" menu.
+  useSetWindow(
+    {
+      title: loc?.lesson.title,
+      breadcrumb: loc ? `/ ${loc.module.title} / ${loc.lesson.id}` : undefined,
+      menu: [{ label: 'Modules', to: '/learn' }],
+    },
+    [loc?.lesson.id, loc?.module.slug]
+  );
 
   // Unknown module/lesson → back to the Learn landing.
   if (!loc) return <Navigate to="/learn" replace />;

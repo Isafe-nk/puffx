@@ -23,6 +23,7 @@ import TcoMatrix from './components/TcoMatrix';
 import KpiCard from '../../../shared/components/KpiCard';
 import { formatCurrency } from '../../../shared/utils/format';
 import { usePageTitle } from '../../../shared/hooks/usePageTitle';
+import { useSetWindow } from '../../../context/WindowContext';
 
 export default function App() {
   usePageTitle('ETF Drag');
@@ -128,6 +129,24 @@ export default function App() {
     return formatCurrency(v, showInUsd, usdMyrRate, 0);
   }, [showInUsd, usdMyrRate]);
 
+  // The MYR/USD rate is app-private chrome data — it flows through the window
+  // context into the window title bar (spec §5), NOT the OS menu bar.
+  useSetWindow(
+    {
+      titleRight: (
+        <span
+          className="inline-flex items-center gap-1.5"
+          title={rateError ? 'Using cached rate — API offline' : 'Live USD/MYR spot rate'}
+        >
+          <span className={`h-1.5 w-1.5 rounded-full ${rateLoading && !hasAppliedLiveRate ? 'bg-warning animate-pulse' : 'bg-accent'}`} />
+          <span className="font-mono">USD/MYR {rateLoading && !hasAppliedLiveRate ? '—' : usdMyrRate.toFixed(4)}</span>
+          {rateDate && <span className="font-mono">· {rateDate}</span>}
+        </span>
+      ),
+    },
+    [usdMyrRate, rateDate, rateLoading, rateError, hasAppliedLiveRate]
+  );
+
   return (
     <div className="w-full">
       
@@ -161,22 +180,9 @@ export default function App() {
             </div>
           </div>
           
-          {/* Quick Stats Block & Action Icons */}
+          {/* Currency toggle (the FX rate itself now lives in the window title
+              bar via useWindow — see useSetWindow above) */}
           <div className="flex flex-wrap items-center gap-4 lg:gap-6">
-            <div className="flex items-center gap-1.5 bg-[#F6F4EC] border border-[#DCE0D2] px-2.5 py-1.5 rounded-lg" title={rateError ? 'Using cached rate — API offline' : 'Source: fawazahmed0/exchange-api'}>
-              <span className={`flex h-1.5 w-1.5 rounded-full ${rateLoading ? 'bg-[#D99A2B] animate-pulse' : rateError ? 'bg-[#3E7355]' : 'bg-[#3E7355]'}`}></span>
-              <span className="text-[10px] text-[#75806F] font-mono">USD/MYR</span>
-              <span className="text-xs font-semibold text-[#243129] font-mono">
-                {rateLoading && !hasAppliedLiveRate ? '—' : usdMyrRate.toFixed(4)}
-              </span>
-              {rateDate && (
-                <>
-                  <span className="w-px h-3 bg-[#C7CDBB]"></span>
-                  <span className="text-[10px] text-[#75806F] font-mono">{rateDate}</span>
-                </>
-              )}
-            </div>
-
             <div className="inline-flex rounded-full p-0.5 bg-[#EDF3EC] border border-[#DCE0D2]">
               <button 
                 onClick={() => setShowInUsd(false)}

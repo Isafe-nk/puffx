@@ -1,19 +1,22 @@
-import React, { useEffect, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import type { PuffxApp } from '../../navigation/apps';
+import React, { Suspense, useEffect, useRef } from 'react';
+import { Outlet, useLocation } from 'react-router-dom';
+import { useApp } from '../../context/OSProvider';
+import { useWindow } from '../../context/WindowContext';
+import PageLoader from './PageLoader';
 
 /**
- * The window fiction (design.md §1, mock v1): one app at a time opens in a
- * window floating over the desk — title bar with soft traffic lights and the
- * app's icon + name; not draggable, not resizable. The red light (and Escape,
- * and the menu bar's "Desktop") closes back to the desktop. Below lg the
- * window fills the desk area with a slim title bar.
+ * The window fiction (design.md §1, mock v1): one app opens in a window over the
+ * desk — title bar with soft traffic lights + the app icon/name; not draggable,
+ * not resizable. Red light (and Escape, and the menu bar's "Desktop") closes to
+ * the desktop. Consumes useApp for the active app and useWindow for the app's
+ * own chrome (breadcrumb + the right-hand slot where app-private data like the
+ * FX rate renders). Renders the app via <Outlet/>.
  */
-export default function AppWindow({ app, children }: { app: PuffxApp; children: React.ReactNode }) {
-  const navigate = useNavigate();
+export default function AppWindow() {
+  const { activeApp, closeToDesktop } = useApp();
+  const { breadcrumb, titleRight } = useWindow();
   const location = useLocation();
   const bodyRef = useRef<HTMLDivElement>(null);
-  const Icon = app.icon;
 
   // Escape closes the window — unless the user is typing in a control.
   useEffect(() => {
@@ -21,11 +24,11 @@ export default function AppWindow({ app, children }: { app: PuffxApp; children: 
       if (e.key !== 'Escape') return;
       const t = e.target as HTMLElement | null;
       if (t && ['INPUT', 'TEXTAREA', 'SELECT'].includes(t.tagName)) return;
-      navigate('/');
+      closeToDesktop();
     };
     document.addEventListener('keydown', onKey);
     return () => document.removeEventListener('keydown', onKey);
-  }, [navigate]);
+  }, [closeToDesktop]);
 
   // Apps scroll inside the window, so in-app navigation resets this pane
   // (window-level ScrollRestoration can't see it).
@@ -33,9 +36,12 @@ export default function AppWindow({ app, children }: { app: PuffxApp; children: 
     bodyRef.current?.scrollTo(0, 0);
   }, [location.pathname]);
 
+  if (!activeApp) return null;
+  const Icon = activeApp.icon;
+
   return (
     <section
-      aria-label={`${app.name} window`}
+      aria-label={`${activeApp.name} window`}
       className="absolute inset-0 lg:top-[22px] lg:left-10 lg:right-10 lg:bottom-[26px] bg-surface lg:border lg:border-hairline lg:rounded-[14px] os-window-shadow os-window-in flex flex-col overflow-hidden"
     >
       {/* Title bar */}
@@ -43,7 +49,7 @@ export default function AppWindow({ app, children }: { app: PuffxApp; children: 
         <span className="flex gap-[7px] mr-2 items-center">
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={closeToDesktop}
             aria-label="Close window — back to desktop"
             className="w-[11px] h-[11px] rounded-full light-r hover:brightness-95 active:scale-90 transition duration-200 before:content-[''] before:absolute before:-inset-3.5 relative"
           />
@@ -53,12 +59,16 @@ export default function AppWindow({ app, children }: { app: PuffxApp; children: 
         <span className="text-accent flex" aria-hidden="true">
           <Icon className="w-[15px] h-[15px]" strokeWidth={1.5} />
         </span>
-        <span className="text-[12.5px] font-bold text-ink">{app.name}</span>
+        <span className="text-[12.5px] font-bold text-ink">{activeApp.name}</span>
+        {breadcrumb && <span className="text-[11.5px] text-faint truncate">{breadcrumb}</span>}
+        {titleRight && <span className="ml-auto text-[11px] text-faint shrink-0">{titleRight}</span>}
       </div>
 
       {/* App content — the migrated interior renders on the Dragon canvas. */}
       <div ref={bodyRef} className="flex-1 min-h-0 overflow-y-auto bg-canvas">
-        {children}
+        <Suspense fallback={<PageLoader />}>
+          <Outlet />
+        </Suspense>
       </div>
     </section>
   );
