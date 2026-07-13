@@ -9,8 +9,11 @@ export interface PuffxApp {
   icon: LucideIcon;
   /** Route prefix that opens this app's window. */
   path: string;
-  /** Icon-tile tint (Dragon-earth family) — gives each app its own identity. */
+  /** Icon-tile tint (Dragon-earth family) — the gradient-glyph fallback when no PNG. */
   tint: string;
+  /** Real app-icon artwork (served from /public). When set, AppIcon renders the
+   *  bare <img> — no tile bg/border/shadow/rounding. */
+  iconImg?: string;
   /** Small status line under the desktop icon; mono when numeric. */
   sub?: string;
   subMono?: boolean;
@@ -18,10 +21,10 @@ export interface PuffxApp {
 }
 
 export const APPS: PuffxApp[] = [
-  { id: 'learn', name: 'Learn', icon: BookOpen, path: '/learn', tint: '#3E7355' },
-  { id: 'etf-drag', name: 'ETF Drag', icon: LineChart, path: '/visualizer/etf-drag', tint: '#4E7A96', sub: 'Visualizer' },
-  { id: 'wealth-simulator', name: 'Wealth Simulator', icon: Wallet, path: '/visualizer/wealth-simulator', tint: '#C2673F', sub: 'Visualizer' },
-  { id: 'glossary', name: 'Glossary', icon: Book, path: '/glossary', tint: '#7E5A73', sub: '40 terms', subMono: true },
+  { id: 'learn', name: 'Learn', icon: BookOpen, path: '/learn', tint: '#3E7355', iconImg: '/icon/learn.png' },
+  { id: 'etf-drag', name: 'ETF Drag', icon: LineChart, path: '/visualizer/etf-drag', tint: '#4E7A96', iconImg: '/icon/etf.png', sub: 'Visualizer' },
+  { id: 'wealth-simulator', name: 'Wealth Simulator', icon: Wallet, path: '/visualizer/wealth-simulator', tint: '#C2673F', iconImg: '/icon/wealth_sim.png', sub: 'Visualizer' },
+  { id: 'glossary', name: 'Glossary', icon: Book, path: '/glossary', tint: '#7E5A73', iconImg: '/icon/Glossary.png', sub: '40 terms', subMono: true },
   { id: 'portfolio', name: 'Portfolio Tracker', icon: PieChart, path: '/portfolio', tint: '#D99A2B', sub: 'Coming soon', comingSoon: true },
 ];
 

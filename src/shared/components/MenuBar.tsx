@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom';
 import { useApp } from '../../context/OSProvider';
 import { useWindow } from '../../context/WindowContext';
 
-// "Sun 13 Jul · 9:41" — the mock's clock format, minute resolution.
+// "Sun 9:41" — the desktop-APPROVED mock's clock format, minute resolution.
 function formatClock(d: Date): string {
   const day = d.toLocaleDateString('en-GB', { weekday: 'short' });
-  const date = d.getDate();
-  const month = d.toLocaleDateString('en-GB', { month: 'short' });
   const h = d.getHours();
   const m = d.getMinutes().toString().padStart(2, '0');
-  return `${day} ${date} ${month} · ${h}:${m}`;
+  return `${day} ${h}:${m}`;
 }
 
 function Clock() {
@@ -44,15 +42,11 @@ export default function MenuBar() {
   const { menu } = useWindow();
 
   return (
-    <header className="h-[30px] shrink-0 flex items-center gap-5 px-3.5 bg-surface/85 border-b border-hairline text-[12px] text-body relative z-30">
-      <Link
-        to="/"
-        aria-label="Puffx OS desktop"
-        className="w-[17px] h-[17px] rounded-[5px] bg-accent text-white text-[11px] font-extrabold flex items-center justify-center leading-none shrink-0 active:scale-90 transition duration-200"
-      >
-        p
+    <header className="h-[34px] shrink-0 flex items-center gap-[22px] px-4 bg-surface/60 backdrop-blur-xl backdrop-saturate-150 border-b border-hairline/70 text-[12.5px] text-mute relative z-30">
+      <Link to="/" aria-label="Puffx OS desktop" className="flex items-center gap-2 shrink-0 active:scale-95 transition duration-200">
+        <span className="os-mark w-[18px] h-[18px] rounded-[6px] text-white text-[11px] font-extrabold flex items-center justify-center leading-none">p</span>
+        <b className="text-ink font-bold">{activeApp ? activeApp.name : 'Puffx'}</b>
       </Link>
-      <span className="font-bold text-ink">{activeApp ? activeApp.name : 'Puffx OS'}</span>
 
       {activeApp ? (
         <>
@@ -81,7 +75,8 @@ export default function MenuBar() {
         </>
       )}
 
-      <span className="ml-auto flex items-center gap-3.5">
+      <span className="ml-auto flex items-center gap-4">
+        <span className="hidden sm:inline">Educational only</span>
         <Clock />
       </span>
     </header>

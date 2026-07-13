@@ -3,47 +3,53 @@ import { Link } from 'react-router-dom';
 import type { PuffxApp } from '../../navigation/apps';
 
 /**
- * A desktop icon: glyph tile + label + status sub-line (mock v1). Click/Enter
- * opens the app (single-click — web convention; hover/focus paints the sage
- * highlight the mock shows as "selected"). Coming-soon apps render as ghosts:
- * dashed tile, not interactive, kept out of the tab order.
+ * A rail app icon (desktop-APPROVED mock): 112px cell, 58px glyph, 2px gap,
+ * 13px/500 label. Real PNG apps render the bare image — no tile bg/border/
+ * shadow/rounding. Apps without a PNG fall back to a tinted gradient glyph;
+ * coming-soon apps show a dashed lucide glyph and aren't interactive.
+ *
+ * Hover paints ONLY the label with a solid white chip — the icon and cell do
+ * not move, there's no cell box, and there's no persistent selection.
+ * Single-click opens (it's a link).
  */
 export default function AppIcon({ app }: { app: PuffxApp }) {
   const Icon = app.icon;
 
-  const glyph = app.comingSoon ? (
-    <span className="w-[58px] h-[58px] rounded-[16px] flex items-center justify-center border border-dashed border-hairline text-faint bg-transparent">
-      <Icon className="w-[26px] h-[26px]" strokeWidth={1.5} />
-    </span>
-  ) : (
-    <span
-      className="w-[58px] h-[58px] rounded-[16px] flex items-center justify-center os-elev os-elev-hover"
-      style={{
-        color: app.tint,
-        background: `linear-gradient(155deg, ${app.tint}1F 0%, ${app.tint}12 100%)`,
-        border: `1px solid ${app.tint}33`,
-      }}
-    >
-      <Icon className="w-[27px] h-[27px]" strokeWidth={1.75} />
-    </span>
-  );
+  let glyph: React.ReactNode;
+  if (app.iconImg) {
+    glyph = (
+      <span className="w-[58px] h-[58px] flex items-center justify-center">
+        <img src={app.iconImg} alt="" className="w-full h-full object-cover block" />
+      </span>
+    );
+  } else if (app.comingSoon) {
+    glyph = (
+      <span className="w-[58px] h-[58px] rounded-[16px] flex items-center justify-center border-[1.5px] border-dashed border-hairline text-faint">
+        <Icon className="w-[26px] h-[26px]" strokeWidth={1.9} />
+      </span>
+    );
+  } else {
+    glyph = (
+      <span
+        className="w-[58px] h-[58px] rounded-[16px] flex items-center justify-center os-glyph-fallback text-white"
+        style={{ ['--tint' as string]: app.tint }}
+      >
+        <Icon className="w-[26px] h-[26px] relative z-[1]" strokeWidth={1.9} />
+      </span>
+    );
+  }
 
   const label = (
-    <>
-      <span className={`text-[11.5px] font-medium text-center leading-tight ${app.comingSoon ? 'text-mute' : 'text-ink'}`}>
-        {app.name}
-      </span>
-      {app.sub && (
-        <span className={`text-[10px] text-faint ${app.subMono ? 'font-mono' : ''}`}>{app.sub}</span>
-      )}
-    </>
+    <span className="text-[13px] font-medium text-ink text-center leading-[1.15] px-[5px] py-px rounded-[4px] bg-transparent group-hover:bg-white transition-colors duration-100">
+      {app.name}
+    </span>
   );
 
   if (app.comingSoon) {
     return (
-      <span aria-disabled="true" className="w-[92px] flex flex-col items-center gap-1.5 rounded-lg px-0.5 pt-2 pb-1.5 select-none cursor-not-allowed">
+      <span aria-disabled="true" className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 select-none cursor-default">
         {glyph}
-        {label}
+        <span className="text-[13px] font-medium text-mute text-center leading-[1.15] px-[5px] py-px">{app.name}</span>
       </span>
     );
   }
@@ -51,7 +57,7 @@ export default function AppIcon({ app }: { app: PuffxApp }) {
   return (
     <Link
       to={app.path}
-      className="w-[92px] flex flex-col items-center gap-1.5 rounded-lg px-0.5 pt-2 pb-1.5 hover:bg-sage/20 focus-visible:bg-sage/30 active:scale-[0.97] transition duration-200"
+      className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 rounded-[14px] active:scale-[0.97] transition-transform duration-150"
     >
       {glyph}
       {label}

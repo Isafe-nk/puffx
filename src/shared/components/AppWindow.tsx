@@ -42,7 +42,7 @@ export default function AppWindow() {
   return (
     <section
       aria-label={`${activeApp.name} window`}
-      className="absolute inset-0 lg:top-[22px] lg:left-10 lg:right-10 lg:bottom-[26px] bg-surface lg:border lg:border-hairline lg:rounded-[14px] os-window-shadow os-window-in flex flex-col overflow-hidden"
+      className="absolute inset-0 z-[2] lg:top-[22px] lg:left-10 lg:right-10 lg:bottom-[26px] bg-surface lg:border lg:border-hairline lg:rounded-[14px] os-window-shadow os-window-in flex flex-col overflow-hidden"
     >
       {/* Title bar */}
       <div className="h-10 shrink-0 flex items-center gap-2 px-3.5 bg-canvas border-b border-hairline">
