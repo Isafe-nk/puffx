@@ -39,9 +39,16 @@ export default function AppIcon({ app }: { app: PuffxApp }) {
     );
   }
 
+  // PostHog AppLink pattern: an INLINE label with box-decoration-clone paints
+  // one white chip per wrapped line (two boxes for a two-line name). The outer
+  // span is the flex item (block, centres the text + allows wrapping); the inner
+  // span stays inline so the background follows each line. The chip sits at 0.75
+  // opacity at rest and sharpens to 1.0 on hover.
   const label = (
-    <span className="text-[13px] font-medium text-ink text-center leading-[1.15] px-[5px] py-px rounded-[4px] bg-transparent group-hover:bg-white transition-colors duration-100">
-      {app.name}
+    <span className="w-full text-center leading-[1.3]">
+      <span className="inline box-decoration-clone bg-white text-ink text-[13px] font-medium px-[5px] py-px rounded-[4px] opacity-75 group-hover:opacity-100 transition-opacity duration-100">
+        {app.name}
+      </span>
     </span>
   );
 
@@ -49,7 +56,9 @@ export default function AppIcon({ app }: { app: PuffxApp }) {
     return (
       <span aria-disabled="true" className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 select-none cursor-default">
         {glyph}
-        <span className="text-[13px] font-medium text-mute text-center leading-[1.15] px-[5px] py-px">{app.name}</span>
+        <span className="w-full text-center leading-[1.3]">
+          <span className="inline box-decoration-clone text-mute text-[13px] font-medium px-[5px] py-px">{app.name}</span>
+        </span>
       </span>
     );
   }
