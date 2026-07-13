@@ -131,8 +131,10 @@ Sharper than v1 — this is the "software" half of the identity.
   · pills/badges full. **`rounded-xl/2xl/3xl` are retired.**
 - **Borders:** `1px solid hairline` is the default edge. Hover affordance on clickable cards/tiles:
   border → `accent`.
-- **Elevation: none.** Flat surfaces on the cream canvas; borders do the separating. No drop
-  shadows (`shadow-sm` retired), no glass, no gradients.
+- **Elevation:** *content* stays flat — cards/panels inside an app use borders, not shadows
+  (`shadow-sm` retired), no glass. But the **floating OS-chrome surfaces** (desktop app icons,
+  widgets, the open window) carry **soft depth** (`.os-elev` / `.os-window-shadow`) so the desk has
+  light and the window reads as floating. The desk has shadow; the page does not.
 - **Spacing:** 8px base grid. Card/tile padding 20–24px; page gutters `px-6 lg:px-8`; reading column
   (lessons) `max-w-3xl/4xl` centred; desktop tile grid gap 16px.
 - Wide content (tables, matrices, charts) scrolls inside its own container — the page never

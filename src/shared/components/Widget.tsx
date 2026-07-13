@@ -15,7 +15,7 @@ export default function Widget({
   className?: string;
 }) {
   return (
-    <div className={`bg-surface border border-hairline rounded-[12px] px-[18px] py-4 ${className}`}>
+    <div className={`bg-surface border border-hairline rounded-[14px] px-5 py-[18px] os-elev ${className}`}>
       <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-faint mb-2">
         <span className="w-4 h-px bg-accent" aria-hidden="true" />
         {kicker}

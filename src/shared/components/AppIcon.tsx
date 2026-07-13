@@ -11,15 +11,20 @@ import type { PuffxApp } from '../../navigation/apps';
 export default function AppIcon({ app }: { app: PuffxApp }) {
   const Icon = app.icon;
 
-  const glyph = (
-    <span
-      className={`w-[54px] h-[54px] rounded-[13px] flex items-center justify-center ${
-        app.comingSoon
-          ? 'border border-dashed border-hairline text-faint bg-transparent'
-          : 'bg-surface border border-hairline text-accent'
-      }`}
-    >
+  const glyph = app.comingSoon ? (
+    <span className="w-[58px] h-[58px] rounded-[16px] flex items-center justify-center border border-dashed border-hairline text-faint bg-transparent">
       <Icon className="w-[26px] h-[26px]" strokeWidth={1.5} />
+    </span>
+  ) : (
+    <span
+      className="w-[58px] h-[58px] rounded-[16px] flex items-center justify-center os-elev os-elev-hover"
+      style={{
+        color: app.tint,
+        background: `linear-gradient(155deg, ${app.tint}1F 0%, ${app.tint}12 100%)`,
+        border: `1px solid ${app.tint}33`,
+      }}
+    >
+      <Icon className="w-[27px] h-[27px]" strokeWidth={1.75} />
     </span>
   );
 

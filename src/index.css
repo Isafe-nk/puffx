@@ -46,12 +46,14 @@
 
 /* ============ Puffx OS shell (design.md §1, mock v1) ============ */
 
-/* Wallpaper: warm cream with faint radial sage blooms — calm, not busy */
+/* Wallpaper: warm cream desk with layered light — a bright centre bloom, a sage
+   glow top-right, a faint plum wash bottom-left, over a soft diagonal base. */
 .os-wallpaper {
   background:
-    radial-gradient(900px 480px at 78% 18%, rgba(169, 198, 176, 0.28), transparent 60%),
-    radial-gradient(700px 420px at 12% 88%, rgba(169, 198, 176, 0.18), transparent 60%),
-    var(--color-canvas);
+    radial-gradient(1100px 620px at 82% -8%, rgba(169, 198, 176, 0.38), transparent 55%),
+    radial-gradient(820px 520px at 6% 108%, rgba(126, 90, 115, 0.10), transparent 55%),
+    radial-gradient(700px 640px at 48% 36%, rgba(255, 255, 255, 0.55), transparent 70%),
+    linear-gradient(158deg, #F8F6EF 0%, #F0EEE2 100%);
 }
 
 /* Soft traffic lights (mock v1 values — decorative fiction; red is the close control) */
@@ -59,8 +61,28 @@
 .light-y { background: #E3C88F; }
 .light-g { background: #A9C6B0; }
 
-/* The one shadow the direction allows: the open AppWindow floating over the desk */
-.os-window-shadow { box-shadow: 0 18px 44px rgba(36, 49, 41, 0.10); }
+/* Soft depth is allowed on FLOATING os-chrome surfaces (icons, widgets, window) —
+   content stays flat (design.md §6). The desk has light; the page does not. */
+.os-window-shadow {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 2px 6px -2px rgba(36, 49, 41, 0.10),
+    0 28px 64px -16px rgba(36, 49, 41, 0.24);
+}
+.os-elev {
+  box-shadow: 0 1px 2px rgba(36, 49, 41, 0.05), 0 8px 20px -8px rgba(36, 49, 41, 0.14);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.os-elev-hover:hover {
+  box-shadow: 0 2px 4px rgba(36, 49, 41, 0.06), 0 14px 30px -10px rgba(36, 49, 41, 0.20);
+}
+
+/* Window opens with a quick lift+fade (reduced-motion guard collapses it) */
+@keyframes os-window-in {
+  from { opacity: 0; transform: scale(0.985) translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.os-window-in { animation: os-window-in 0.22s cubic-bezier(0.2, 0.7, 0.2, 1); }
 
 /* Inside the shell, keyboard focus is accent moss (design.md §8). The global
    red ring below still governs unmigrated app interiors. */
