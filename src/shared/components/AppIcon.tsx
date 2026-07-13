@@ -46,7 +46,7 @@ export default function AppIcon({ app }: { app: PuffxApp }) {
   // opacity at rest and sharpens to 1.0 on hover.
   const label = (
     <span className="w-full text-center leading-[1.3]">
-      <span className="inline box-decoration-clone bg-white text-ink text-[13px] font-medium px-[5px] py-px rounded-[4px] opacity-75 group-hover:opacity-100 transition-opacity duration-100">
+      <span className="inline box-decoration-clone text-ink text-[13px] font-medium px-[5px] py-px rounded-[4px] bg-transparent group-hover:bg-white group-hover:shadow-sm transition-colors duration-100">
         {app.name}
       </span>
     </span>
