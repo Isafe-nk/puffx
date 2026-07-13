@@ -83,6 +83,12 @@ outside this table.** *(Values draft until mock sign-off.)*
 button/link colour (fails AA on cream). Sage = paint, accent = action. Anything clickable or
 readable uses `accent`/`ink`/`body`/`mute` and must meet AA on its background.
 
+**Data-viz palette (charts only).** Semantic tokens aren't enough for multi-series charts, so series
+use a Dragon-earth categorical set — warm tones that sit on cream; **red stays reserved for loss**:
+moss `#3E7355` · clay `#C2673F` · dusty-blue `#4E7A96` · amber `#D99A2B` · plum `#7E5A73` (darker
+shades for paired B-series: `#A5522F`, `#3E6377`, `#B77F1E`, `#664760`). Gains/positive → moss;
+losses/crashes → error `#C4453C`. Do not use raw d3/tailwind series hues (indigo, violet, sky).
+
 All `ibkr-*` and `primary` token names are retired; tokens use the semantic names above.
 
 ---
