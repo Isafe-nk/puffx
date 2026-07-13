@@ -11,6 +11,28 @@ codebase is legacy — see [Migration worklist](#migration-worklist). Exact hex/
 
 ---
 
+## What matters most (read this first)
+
+Not every rule here is equal. When trading off, this is the order:
+
+**Tier 1 — never break (non-negotiable):**
+1. **The feel is calm and beginner-safe.** If a change makes Puffx feel intimidating, cold, or
+   banker-like, it is wrong — no matter how "correct" otherwise. This is the whole product.
+2. **Legibility & the contrast rule.** `sage` is paint, never text; everything readable meets AA;
+   **red only ever means loss/error**, never brand.
+3. **The OS metaphor holds** — apps on a desktop, one full-focus window, URL-driven (`spec/os-shell.md`).
+4. **No emoji · lucide only · light-only · no mascot.**
+
+**Tier 2 — strong defaults (change only with a reason):** the Dragon palette tokens (§3), one-family
+type (§4), flat content + soft depth on floating chrome (§6), the press-feedback + focus-ring
+patterns (§8).
+
+**Tier 3 — judgment (tune freely to make it pleasant):** exact spacing, radius within the 6–8px range,
+wallpaper richness, widget layout, animation timing, icon sizing. **Spend polish effort here; never
+sacrifice Tier 1 for it.**
+
+---
+
 ## 1. Concept: Puffx OS
 
 Puffx is not a website with pages — it is a **light, calm operating system for your money**.
