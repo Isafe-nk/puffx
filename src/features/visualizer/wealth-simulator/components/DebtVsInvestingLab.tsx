@@ -30,8 +30,8 @@ const formatCurrency = (value: number) => formatRM(value);
 const CustomLabTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[240px]">
-        <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
+      <div className="bg-white border border-[#DCE0D2] p-4 rounded-xl shadow-sm min-w-[240px]">
+        <p className="text-[10px] text-[#9AA394] mb-3 font-bold uppercase tracking-widest border-b border-[#DCE0D2] pb-2">
           Year {label} Strategy Snapshot
         </p>
         <div className="space-y-3">
@@ -39,7 +39,7 @@ const CustomLabTooltip = ({ active, payload, label }: any) => {
             <div key={index} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: item.color || item.stroke }} />
-                <span className="text-[11px] text-[#727579] font-medium">{item.name}</span>
+                <span className="text-[11px] text-[#75806F] font-medium">{item.name}</span>
               </div>
               <span className="text-[11px] font-mono font-bold" style={{ color: item.color || item.stroke }}>
                 {formatCurrency(item.value)}
@@ -125,32 +125,32 @@ export const DebtVsInvestingLab: React.FC = () => {
     <div className="space-y-8">
       {/* Executive Summary Header */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="md:col-span-3 bg-white p-6 rounded-2xl border border-[#E6E6E6] flex items-center gap-6">
-          <div className={`p-4 rounded-2xl shrink-0 ${arbitrageOpportunity ? 'bg-[#0EB35B]/10' : 'bg-[#FFB300]/10'}`}>
-            <Target className={arbitrageOpportunity ? 'text-[#0EB35B]' : 'text-[#FFB300]'} size={32} />
+        <div className="md:col-span-3 bg-white p-6 rounded-2xl border border-[#DCE0D2] flex items-center gap-6">
+          <div className={`p-4 rounded-2xl shrink-0 ${arbitrageOpportunity ? 'bg-[#3E7355]/10' : 'bg-[#D99A2B]/10'}`}>
+            <Target className={arbitrageOpportunity ? 'text-[#3E7355]' : 'text-[#D99A2B]'} size={32} />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-[#212121] mb-1">Capital Allocation Strategy</h2>
-            <p className="text-sm text-[#727579]">
-              Current market spread is <span className={arbitrageOpportunity ? 'text-[#0EB35B] font-bold' : 'text-[#FFB300] font-bold'}>{spread.toFixed(1)}%</span>. 
+            <h2 className="text-xl font-bold text-[#243129] mb-1">Capital Allocation Strategy</h2>
+            <p className="text-sm text-[#75806F]">
+              Current market spread is <span className={arbitrageOpportunity ? 'text-[#3E7355] font-bold' : 'text-[#D99A2B] font-bold'}>{spread.toFixed(1)}%</span>. 
               {arbitrageOpportunity 
                 ? " An arbitrage opportunity exists; however, risk-adjusted returns must be considered." 
                 : " Debt reduction is the mathematically superior risk-free return."}
             </p>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] flex flex-col justify-center text-center shadow-sm">
-          <p className="text-[10px] text-[#A2A3A5] uppercase font-bold mb-1">Efficiency Score</p>
-          <p className="text-2xl font-bold text-[#307EF2]">{(spread / 2 + 5).toFixed(1)}/10</p>
+        <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2] flex flex-col justify-center text-center shadow-sm">
+          <p className="text-[10px] text-[#9AA394] uppercase font-bold mb-1">Efficiency Score</p>
+          <p className="text-2xl font-bold text-[#4E7A96]">{(spread / 2 + 5).toFixed(1)}/10</p>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Strategy Controls */}
         <div className="lg:col-span-4 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] shadow-sm">
-            <h3 className="text-sm font-semibold text-[#44474D] flex items-center gap-2 uppercase tracking-wider mb-6">
-              <Zap size={16} className="text-[#FFB300]" /> Strategic Inputs
+          <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2] shadow-sm">
+            <h3 className="text-sm font-semibold text-[#4A544C] flex items-center gap-2 uppercase tracking-wider mb-6">
+              <Zap size={16} className="text-[#D99A2B]" /> Strategic Inputs
             </h3>
             
             <div className="space-y-6">
@@ -185,8 +185,8 @@ export const DebtVsInvestingLab: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6]">
-            <h3 className="text-sm font-semibold text-[#44474D] uppercase tracking-wider mb-4">Select Strategy</h3>
+          <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2]">
+            <h3 className="text-sm font-semibold text-[#4A544C] uppercase tracking-wider mb-4">Select Strategy</h3>
             <div className="grid grid-cols-1 gap-2">
               {[
                 { id: 'debt_first', label: 'Debt Avalanche', icon: CreditCard, desc: 'Minimize interest expense' },
@@ -198,15 +198,15 @@ export const DebtVsInvestingLab: React.FC = () => {
                   onClick={() => setActiveStrategy(s.id as any)}
                   className={`p-4 rounded-xl border text-left transition-all active:scale-[0.98] ${
                     activeStrategy === s.id 
-                      ? 'bg-[#307EF2]/10 border-[#307EF2]/50 ring-1 ring-[#307EF2]/20' 
-                      : 'bg-[#F7F8FA] border-[#E6E6E6] hover:border-[#D0D1D2]'
+                      ? 'bg-[#4E7A96]/10 border-[#4E7A96]/50 ring-1 ring-[#4E7A96]/20' 
+                      : 'bg-[#F6F4EC] border-[#DCE0D2] hover:border-[#C7CDBB]'
                   }`}
                 >
                   <div className="flex items-center gap-3 mb-1">
-                    <s.icon size={16} className={activeStrategy === s.id ? 'text-[#307EF2]' : 'text-[#A2A3A5]'} />
-                    <span className={`text-sm font-bold ${activeStrategy === s.id ? 'text-[#212121]' : 'text-[#727579]'}`}>{s.label}</span>
+                    <s.icon size={16} className={activeStrategy === s.id ? 'text-[#4E7A96]' : 'text-[#9AA394]'} />
+                    <span className={`text-sm font-bold ${activeStrategy === s.id ? 'text-[#243129]' : 'text-[#75806F]'}`}>{s.label}</span>
                   </div>
-                  <p className="text-[10px] text-[#A2A3A5]">{s.desc}</p>
+                  <p className="text-[10px] text-[#9AA394]">{s.desc}</p>
                 </button>
               ))}
             </div>
@@ -215,18 +215,18 @@ export const DebtVsInvestingLab: React.FC = () => {
 
         {/* Strategic Visualization */}
         <div className="lg:col-span-8 space-y-6">
-          <div className="bg-white p-6 rounded-2xl border border-[#E6E6E6] shadow-sm">
+          <div className="bg-white p-6 rounded-2xl border border-[#DCE0D2] shadow-sm">
             <div className="flex justify-between items-center mb-8">
               <div>
-                <h3 className="text-lg font-bold text-[#212121]">Balance Sheet Evolution</h3>
-                <p className="text-xs text-[#A2A3A5]">Projected asset vs. liability trajectory over {years} years</p>
+                <h3 className="text-lg font-bold text-[#243129]">Balance Sheet Evolution</h3>
+                <p className="text-xs text-[#9AA394]">Projected asset vs. liability trajectory over {years} years</p>
               </div>
               <div className="flex gap-2">
-                <div className="flex items-center gap-2 text-[10px] text-[#A2A3A5] uppercase font-bold">
-                  <div className="w-2 h-2 rounded-full bg-[#0EB35B]" /> Assets
+                <div className="flex items-center gap-2 text-[10px] text-[#9AA394] uppercase font-bold">
+                  <div className="w-2 h-2 rounded-full bg-[#3E7355]" /> Assets
                 </div>
-                <div className="flex items-center gap-2 text-[10px] text-[#A2A3A5] uppercase font-bold">
-                  <div className="w-2 h-2 rounded-full bg-[#D91222]" /> Debt
+                <div className="flex items-center gap-2 text-[10px] text-[#9AA394] uppercase font-bold">
+                  <div className="w-2 h-2 rounded-full bg-[#3E7355]" /> Debt
                 </div>
               </div>
             </div>
@@ -236,24 +236,24 @@ export const DebtVsInvestingLab: React.FC = () => {
                 <AreaChart data={chartData}>
                   <defs>
                     <linearGradient id="colorAssets" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#0EB35B" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#0EB35B" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#3E7355" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#3E7355" stopOpacity={0} />
                     </linearGradient>
                     <linearGradient id="colorDebt" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#D91222" stopOpacity={0.3} />
-                      <stop offset="95%" stopColor="#D91222" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#3E7355" stopOpacity={0.3} />
+                      <stop offset="95%" stopColor="#3E7355" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#F3F3F4" vertical={false} />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#EDF3EC" vertical={false} />
                   <XAxis 
                     dataKey="year" 
-                    stroke="#A2A3A5" 
+                    stroke="#9AA394" 
                     fontSize={12} 
                     tickLine={false} 
                     axisLine={false}
                   />
                   <YAxis 
-                    stroke="#A2A3A5" 
+                    stroke="#9AA394" 
                     fontSize={12} 
                     tickLine={false} 
                     axisLine={false} 
@@ -263,7 +263,7 @@ export const DebtVsInvestingLab: React.FC = () => {
                   <Area 
                     type="monotone" 
                     dataKey="Investment Assets" 
-                    stroke="#0EB35B" 
+                    stroke="#3E7355" 
                     fillOpacity={1} 
                     fill="url(#colorAssets)" 
                     strokeWidth={2}
@@ -271,7 +271,7 @@ export const DebtVsInvestingLab: React.FC = () => {
                   <Area 
                     type="monotone" 
                     dataKey="Debt Balance" 
-                    stroke="#D91222" 
+                    stroke="#3E7355" 
                     fillOpacity={1} 
                     fill="url(#colorDebt)" 
                     strokeWidth={2}
@@ -283,23 +283,23 @@ export const DebtVsInvestingLab: React.FC = () => {
 
           {/* Strategic Insights Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="p-5 bg-[#F7F8FA] rounded-2xl border border-[#E6E6E6] space-y-3">
-              <div className="flex items-center gap-2 text-[#307EF2]">
+            <div className="p-5 bg-[#F6F4EC] rounded-2xl border border-[#DCE0D2] space-y-3">
+              <div className="flex items-center gap-2 text-[#4E7A96]">
                 <ShieldCheck size={18} />
                 <h4 className="text-xs font-bold uppercase tracking-wider">Risk-Adjusted Return</h4>
               </div>
-              <p className="text-[11px] text-[#727579] leading-relaxed">
-                Paying off debt at <span className="text-[#212121] font-bold">{(debtRate * 100).toFixed(1)}%</span> is equivalent to a guaranteed, tax-free return. 
-                To justify investing instead, your portfolio must achieve a <span className="text-[#212121] font-bold">{(debtRate * 1.25 * 100).toFixed(1)}%</span> pre-tax return to account for market volatility and taxes.
+              <p className="text-[11px] text-[#75806F] leading-relaxed">
+                Paying off debt at <span className="text-[#243129] font-bold">{(debtRate * 100).toFixed(1)}%</span> is equivalent to a guaranteed, tax-free return. 
+                To justify investing instead, your portfolio must achieve a <span className="text-[#243129] font-bold">{(debtRate * 1.25 * 100).toFixed(1)}%</span> pre-tax return to account for market volatility and taxes.
               </p>
             </div>
-            <div className="p-5 bg-[#F7F8FA] rounded-2xl border border-[#E6E6E6] space-y-3">
-              <div className="flex items-center gap-2 text-[#FFB300]">
+            <div className="p-5 bg-[#F6F4EC] rounded-2xl border border-[#DCE0D2] space-y-3">
+              <div className="flex items-center gap-2 text-[#D99A2B]">
                 <AlertCircle size={18} />
                 <h4 className="text-xs font-bold uppercase tracking-wider">Liquidity Constraint</h4>
               </div>
-              <p className="text-[11px] text-[#727579] leading-relaxed">
-                Aggressive debt repayment increases your <span className="text-[#212121] font-bold">net worth</span> but reduces <span className="text-[#212121] font-bold">liquidity</span>. 
+              <p className="text-[11px] text-[#75806F] leading-relaxed">
+                Aggressive debt repayment increases your <span className="text-[#243129] font-bold">net worth</span> but reduces <span className="text-[#243129] font-bold">liquidity</span>. 
                 Ensure your emergency fund (currently {formatCurrency(extraMonthly * 3)}) is fully capitalized before accelerating debt principal payments.
               </p>
             </div>

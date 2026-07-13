@@ -10,25 +10,27 @@ interface AlertBannerProps {
   className?: string;
 }
 
+// Soft Dragon tints — semantic, not brand. Error/warning keep their own hue
+// (red survives only here, per design.md §3); success borrows the moss accent.
 const styles = {
-  info: 'bg-[#F0F7FF] border-[#0066FF]/30 text-[#0066FF]',
-  warning: 'bg-[#FFF8E6] border-[#FFB300]/30 text-[#B27D00]',
-  error: 'bg-[#FFF0F2] border-[#D91222]/30 text-[#D91222]',
-  success: 'bg-[#F0FDF4] border-[#0EB35B]/30 text-[#0EB35B]'
+  info: 'bg-[#EBF0F1] border-[#4E7A96]/30 text-[#4E7A96]',
+  warning: 'bg-[#FBF2DF] border-[#D99A2B]/40 text-[#9A6E1F]',
+  error: 'bg-[#FAEBE9] border-[#C4453C]/30 text-[#C4453C]',
+  success: 'bg-[#EDF3EC] border-[#3E7355]/30 text-[#3E7355]'
 };
 
 export default function AlertBanner({ type, title, children, icon, className = "" }: AlertBannerProps) {
   return (
-    <div className={`border rounded-2xl p-5 md:p-6 shadow-sm relative overflow-hidden ${styles[type]} ${className}`}>
+    <div className={`border rounded-lg p-5 md:p-6 relative overflow-hidden ${styles[type]} ${className}`}>
       <div className="flex gap-4 relative z-10">
         {icon && (
           <div className="shrink-0 mt-0.5">
             {icon}
           </div>
         )}
-        <div className="flex-1 text-[#44474D]">
+        <div className="flex-1 text-[#4A544C]">
           {title && <h3 className="text-sm font-bold mb-2 uppercase tracking-wide text-inherit">{title}</h3>}
-          <div className="text-sm leading-relaxed text-[#44474D]">
+          <div className="text-sm leading-relaxed text-[#4A544C]">
             {children}
           </div>
         </div>

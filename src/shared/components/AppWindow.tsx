@@ -56,9 +56,8 @@ export default function AppWindow({ app, children }: { app: PuffxApp; children: 
         <span className="text-[12.5px] font-bold text-ink">{app.name}</span>
       </div>
 
-      {/* App content — current internals render as-is on their legacy ground
-          (bg-ibkr-surface); the interior restyle is a later phase. */}
-      <div ref={bodyRef} className="flex-1 min-h-0 overflow-y-auto bg-ibkr-surface">
+      {/* App content — the migrated interior renders on the Dragon canvas. */}
+      <div ref={bodyRef} className="flex-1 min-h-0 overflow-y-auto bg-canvas">
         {children}
       </div>
     </section>

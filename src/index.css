@@ -30,18 +30,18 @@
 
   /* ---- LEGACY (IBKR-era) — used only by unmigrated app interiors; retired
      app-wide in the "apps conform" phase (design.md migration worklist #5). ---- */
-  --color-primary: #D91222;
-  --color-primary-hover: #C01A2F;
-  --color-ibkr-teal: #0B3944;
+  --color-primary: #3E7355;
+  --color-primary-hover: #325E45;
+  --color-ibkr-teal: #243129;
   --color-ibkr-bg: #FFFFFF;
-  --color-ibkr-surface: #F7F8FA;
-  --color-ibkr-border: #E6E6E6;
-  --color-ibkr-text: #212121;
-  --color-ibkr-muted: #727579;
-  --color-ibkr-subtle: #44474D;
-  --color-ibkr-success: #0EB35B;
-  --color-ibkr-warning: #FFB300;
-  --color-ibkr-info: #307EF2;
+  --color-ibkr-surface: #F6F4EC;
+  --color-ibkr-border: #DCE0D2;
+  --color-ibkr-text: #243129;
+  --color-ibkr-muted: #75806F;
+  --color-ibkr-subtle: #4A544C;
+  --color-ibkr-success: #3E7355;
+  --color-ibkr-warning: #D99A2B;
+  --color-ibkr-info: #4E7A96;
 }
 
 /* ============ Puffx OS shell (design.md §1, mock v1) ============ */
@@ -120,7 +120,7 @@
 /* Visible keyboard focus everywhere (WCAG 2.4.7). Inputs/selects that swap the
    outline for a red border+ring keep their own treatment via focus:outline-none. */
 :focus-visible {
-  outline: 2px solid #D91222;
+  outline: 2px solid #3E7355;
   outline-offset: 2px;
 }
 
@@ -139,10 +139,10 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: 6px;
-  background: #E8E8E9 !important;
+  background: #DCE0D2 !important;
   border-radius: 9999px;
   outline: none;
-  border: 1px solid #D0D1D2 !important;
+  border: 1px solid #C7CDBB !important;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -151,16 +151,16 @@ input[type="range"]::-webkit-slider-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50% !important;
-  background: #D91222 !important;
+  background: #3E7355 !important;
   cursor: pointer;
   border: 2px solid #FFFFFF !important;
-  box-shadow: 0 1px 4px rgba(217, 18, 34, 0.35), 0 0 0 1px rgba(217, 18, 34, 0.15);
+  box-shadow: 0 1px 4px rgba(62, 115, 85, 0.35), 0 0 0 1px rgba(62, 115, 85, 0.15);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 2px 8px rgba(217, 18, 34, 0.45), 0 0 0 1px rgba(217, 18, 34, 0.2);
+  box-shadow: 0 2px 8px rgba(62, 115, 85, 0.45), 0 0 0 1px rgba(62, 115, 85, 0.2);
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -168,15 +168,15 @@ input[type="range"]::-moz-range-thumb {
   height: 16px;
   border: 2px solid #FFFFFF !important;
   border-radius: 50% !important;
-  background: #D91222 !important;
+  background: #3E7355 !important;
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(217, 18, 34, 0.35), 0 0 0 1px rgba(217, 18, 34, 0.15);
+  box-shadow: 0 1px 4px rgba(62, 115, 85, 0.35), 0 0 0 1px rgba(62, 115, 85, 0.15);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-moz-range-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 2px 8px rgba(217, 18, 34, 0.45), 0 0 0 1px rgba(217, 18, 34, 0.2);
+  box-shadow: 0 2px 8px rgba(62, 115, 85, 0.45), 0 0 0 1px rgba(62, 115, 85, 0.2);
 }
 
 /* Light mode scrollbar styling */
@@ -184,14 +184,14 @@ input[type="range"]::-moz-range-thumb:hover {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F7F8FA;
+  background: #F6F4EC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D0D1D2;
+  background: #C7CDBB;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #A2A3A5;
+  background: #9AA394;
 }
 
 /* Live indicator breathing animation */

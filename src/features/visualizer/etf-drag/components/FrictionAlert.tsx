@@ -45,11 +45,11 @@ export default function FrictionAlert({
       title="IBKR Transaction Drag Alert: Excessive Overhead Detected"
       icon={<ShieldAlert className="w-5 h-5" />}
     >
-      <div className="text-[11px] text-[#44474D] leading-relaxed space-y-2">
+      <div className="text-[11px] text-[#4A544C] leading-relaxed space-y-2">
         <p>
           Your current execution frequency (<strong>{feeOptimizationFreq}</strong>) pools your contribution into purchases of <strong>{formatVal(transactionSumUSD)}</strong>{!showInUsd && <> (approx. <strong>${transactionSumUSD.toFixed(1)} USD</strong>)</>} per cycle. This transaction size suffers from high recurring fixed costs relative to IBKR's commission minimums:
         </p>
-        <ul className="list-disc pl-4 space-y-1.5 text-[#727579] font-mono text-[10.5px]">
+        <ul className="list-disc pl-4 space-y-1.5 text-[#75806F] font-mono text-[10.5px]">
           <li>
             <strong>{selectedA.ticker} ({selectedA.domicile} fund):</strong> Minimum buying commission of <strong>${brokerMinA.toFixed(2)} USD</strong>{depositDirectUSD ? "" : " + $2.00 USD FX min conversion fee"} = <strong>${overheadA.toFixed(2)} USD</strong> total overhead{!showInUsd && <> (around <strong>RM {(overheadA * usdMyrRate).toFixed(2)}</strong>)</>}, which eats up <strong>{actualFrictionA.toFixed(1)}%</strong> of your purchase.
           </li>
@@ -58,14 +58,14 @@ export default function FrictionAlert({
           </li>
         </ul>
         {feeOptimizationFreq === "monthly" ? (
-          <p className="text-[11px] text-[#44474D] pt-1">
-            <Lightbulb className="w-3.5 h-3.5 inline-block align-[-2px] mr-1 text-[#44474D]" strokeWidth={1.75} />
-            <span className="text-[#212121] font-semibold">Change your purchase frequency to &quot;Quarterly&quot; (or wider) in the sidebar parameter panel</span> to pool your funds into <strong>{formatVal((monthlyContributionRM * 3) / usdMyrRate)}</strong> per transaction. This drastically reduces the recurring overhead drag from {actualFrictionA > actualFrictionB ? actualFrictionA.toFixed(1) : actualFrictionB.toFixed(1)}% down to <strong>{( (actualFrictionA > actualFrictionB ? actualFrictionA : actualFrictionB) / 3 ).toFixed(2)}%</strong>!
+          <p className="text-[11px] text-[#4A544C] pt-1">
+            <Lightbulb className="w-3.5 h-3.5 inline-block align-[-2px] mr-1 text-[#4A544C]" strokeWidth={1.75} />
+            <span className="text-[#243129] font-semibold">Change your purchase frequency to &quot;Quarterly&quot; (or wider) in the sidebar parameter panel</span> to pool your funds into <strong>{formatVal((monthlyContributionRM * 3) / usdMyrRate)}</strong> per transaction. This drastically reduces the recurring overhead drag from {actualFrictionA > actualFrictionB ? actualFrictionA.toFixed(1) : actualFrictionB.toFixed(1)}% down to <strong>{( (actualFrictionA > actualFrictionB ? actualFrictionA : actualFrictionB) / 3 ).toFixed(2)}%</strong>!
           </p>
         ) : (
-          <p className="text-[11px] text-[#44474D] pt-1">
-            <Lightbulb className="w-3.5 h-3.5 inline-block align-[-2px] mr-1 text-[#44474D]" strokeWidth={1.75} />
-            <span className="text-[#212121] font-semibold">Consider pooling your purchases even further (e.g., &quot;Semi-Annually&quot; or &quot;Annually&quot;)</span> in the sidebar settings to let your funds accumulate into even larger single purchase volumes and suppress this transaction drag.
+          <p className="text-[11px] text-[#4A544C] pt-1">
+            <Lightbulb className="w-3.5 h-3.5 inline-block align-[-2px] mr-1 text-[#4A544C]" strokeWidth={1.75} />
+            <span className="text-[#243129] font-semibold">Consider pooling your purchases even further (e.g., &quot;Semi-Annually&quot; or &quot;Annually&quot;)</span> in the sidebar settings to let your funds accumulate into even larger single purchase volumes and suppress this transaction drag.
           </p>
         )}
       </div>

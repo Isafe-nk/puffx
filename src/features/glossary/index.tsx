@@ -29,14 +29,14 @@ const ALPHABET = ['#', ...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'];
 
 function TermCard({ t }: { t: GlossaryTerm }) {
   return (
-    <div className="rounded-2xl border border-[#E6E6E6] bg-white p-6">
+    <div className="rounded-2xl border border-[#DCE0D2] bg-white p-6">
       {/* scroll-mt clears the fixed mobile header + sticky letter bar when deep-linked */}
-      <h3 id={t.slug} className="scroll-mt-28 text-sm font-bold font-display text-[#212121]">
+      <h3 id={t.slug} className="scroll-mt-28 text-sm font-bold font-display text-[#243129]">
         {t.term}
       </h3>
-      <p className="mt-2.5 text-[13px] text-[#727579] leading-relaxed">{t.definition}</p>
+      <p className="mt-2.5 text-[13px] text-[#75806F] leading-relaxed">{t.definition}</p>
       {t.figure && (
-        <p className="mt-3 pt-3 border-t border-[#EEEEEE] text-[11px] text-[#A2A3A5] leading-relaxed">
+        <p className="mt-3 pt-3 border-t border-[#E8EADF] text-[11px] text-[#9AA394] leading-relaxed">
           {t.figure}
           {t.source && <span className="block mt-0.5">Source: {t.source}</span>}
         </p>
@@ -48,12 +48,12 @@ function TermCard({ t }: { t: GlossaryTerm }) {
               <Link
                 key={code}
                 to={`/learn/${MODULE_SLUG[code]}`}
-                className="text-[10px] font-mono text-[#727579] bg-[#F7F8FA] border border-[#E6E6E6] rounded px-1.5 py-0.5 hover:border-[#D91222] hover:text-[#D91222] transition-colors"
+                className="text-[10px] font-mono text-[#75806F] bg-[#F6F4EC] border border-[#DCE0D2] rounded px-1.5 py-0.5 hover:border-[#3E7355] hover:text-[#3E7355] transition-colors"
               >
                 Module {code.replace('M', '')}
               </Link>
             ) : (
-              <span key={code} className="text-[10px] font-mono text-[#727579] bg-[#F7F8FA] border border-[#E6E6E6] rounded px-1.5 py-0.5">
+              <span key={code} className="text-[10px] font-mono text-[#75806F] bg-[#F6F4EC] border border-[#DCE0D2] rounded px-1.5 py-0.5">
                 {code}
               </span>
             )
@@ -95,22 +95,22 @@ export default function Glossary() {
         {/* Header */}
         <div className="pt-12 lg:pt-16">
           <div className="flex items-center gap-2.5 mb-4">
-            <span className="w-6 h-px bg-[#D91222]" />
-            <span className="text-[11px] uppercase tracking-[0.22em] text-[#A2A3A5] font-semibold">Reference</span>
+            <span className="w-6 h-px bg-[#3E7355]" />
+            <span className="text-[11px] uppercase tracking-[0.22em] text-[#9AA394] font-semibold">Reference</span>
           </div>
-          <h1 className="text-3xl lg:text-4xl font-black font-display tracking-tight text-[#212121] leading-tight">Glossary</h1>
-          <p className="mt-4 text-[15px] text-[#727579] leading-relaxed max-w-2xl">
+          <h1 className="text-3xl lg:text-4xl font-black font-display tracking-tight text-[#243129] leading-tight">Glossary</h1>
+          <p className="mt-4 text-[15px] text-[#75806F] leading-relaxed max-w-2xl">
             {TERMS.length} terms from the course and the visualizer — EPF to withholding tax, in plain English.
           </p>
         </div>
 
         {/* Core decision */}
-        <section className="mt-10 rounded-2xl border border-[#E6E6E6] bg-white p-6 lg:p-7">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-[#A2A3A5] font-semibold mb-2">The core decision</p>
-          <h2 className="text-lg lg:text-xl font-bold font-display text-[#212121] mb-2 tracking-tight">
+        <section className="mt-10 rounded-2xl border border-[#DCE0D2] bg-white p-6 lg:p-7">
+          <p className="text-[10px] uppercase tracking-[0.2em] text-[#9AA394] font-semibold mb-2">The core decision</p>
+          <h2 className="text-lg lg:text-xl font-bold font-display text-[#243129] mb-2 tracking-tight">
             US-domiciled vs Ireland-domiciled S&P 500 ETFs
           </h2>
-          <p className="text-sm text-[#44474D] leading-relaxed">
+          <p className="text-sm text-[#4A544C] leading-relaxed">
             Both track the same index, so the contest is decided by leakage, not returns.
             <strong> US funds</strong> win on fees (lower TER) but lose 30% of dividends to withholding tax and
             carry US estate-tax exposure. <strong>Irish UCITS</strong> charge a little more in TER but cut
@@ -121,17 +121,17 @@ export default function Glossary() {
 
         {/* Search */}
         <div className="mt-8 relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#A2A3A5]" strokeWidth={1.75} />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#9AA394]" strokeWidth={1.75} />
           <input
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search terms and definitions…"
             aria-label="Search glossary"
-            className="w-full bg-white border border-[#E6E6E6] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#212121] placeholder:text-[#A2A3A5] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30"
+            className="w-full bg-white border border-[#DCE0D2] rounded-xl pl-10 pr-4 py-2.5 text-sm text-[#243129] placeholder:text-[#9AA394] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30"
           />
           {query && (
-            <p className="mt-2 text-[11px] text-[#727579]" role="status">
+            <p className="mt-2 text-[11px] text-[#75806F]" role="status">
               {matchCount === 0 ? 'No terms match' : `${matchCount} of ${TERMS.length} terms`}
             </p>
           )}
@@ -145,7 +145,7 @@ export default function Glossary() {
               <a
                 key={letter}
                 href={`#az-${letter}`}
-                className="w-7 h-7 flex items-center justify-center rounded-md text-[12px] font-mono font-semibold text-[#44474D] hover:text-[#D91222] hover:bg-white active:scale-90 transition duration-150"
+                className="w-7 h-7 flex items-center justify-center rounded-md text-[12px] font-mono font-semibold text-[#4A544C] hover:text-[#3E7355] hover:bg-white active:scale-90 transition duration-150"
               >
                 {letter}
               </a>
@@ -153,7 +153,7 @@ export default function Glossary() {
               <span
                 key={letter}
                 aria-hidden="true"
-                className="w-7 h-7 flex items-center justify-center text-[12px] font-mono text-[#D0D1D2] select-none"
+                className="w-7 h-7 flex items-center justify-center text-[12px] font-mono text-[#C7CDBB] select-none"
               >
                 {letter}
               </span>
@@ -163,7 +163,7 @@ export default function Glossary() {
 
         {/* A–Z groups */}
         {matchCount === 0 ? (
-          <p className="mt-10 text-[14px] text-[#727579]">
+          <p className="mt-10 text-[14px] text-[#75806F]">
             Nothing matches “{query.trim()}” — try a shorter word, or clear the search.
           </p>
         ) : (
@@ -171,7 +171,7 @@ export default function Glossary() {
             <section key={letter} className="mt-2">
               <h2
                 id={`az-${letter}`}
-                className="sticky top-14 lg:top-0 z-10 bg-[#F7F8FA] py-2.5 mt-4 scroll-mt-14 lg:scroll-mt-0 text-[13px] font-bold font-display text-[#212121] border-b border-[#E6E6E6]"
+                className="sticky top-14 lg:top-0 z-10 bg-[#F6F4EC] py-2.5 mt-4 scroll-mt-14 lg:scroll-mt-0 text-[13px] font-bold font-display text-[#243129] border-b border-[#DCE0D2]"
               >
                 {letter}
               </h2>
@@ -185,7 +185,7 @@ export default function Glossary() {
         )}
 
         {/* Footnote */}
-        <p className="mt-8 text-[11px] text-[#A2A3A5] leading-relaxed max-w-2xl">
+        <p className="mt-8 text-[11px] text-[#9AA394] leading-relaxed max-w-2xl">
           Educational only — not tax or investment advice. Rates and treaty treatment can change;
           confirm current figures with Interactive Brokers and a qualified adviser before acting.
         </p>

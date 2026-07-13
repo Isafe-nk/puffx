@@ -27,8 +27,8 @@ const formatCurrency = (value: number) => formatRM(value);
 const CustomTimelineTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#E6E6E6] p-4 rounded-xl shadow-sm min-w-[240px]">
-        <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
+      <div className="bg-white border border-[#DCE0D2] p-4 rounded-xl shadow-sm min-w-[240px]">
+        <p className="text-[10px] text-[#9AA394] mb-3 font-bold uppercase tracking-widest border-b border-[#DCE0D2] pb-2">
           Age {label} Financial Snapshot
         </p>
         <div className="space-y-3">
@@ -36,7 +36,7 @@ const CustomTimelineTooltip = ({ active, payload, label }: any) => {
             <div key={index} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: item.color || item.stroke }} />
-                <span className="text-[11px] text-[#727579] font-medium">{item.name}</span>
+                <span className="text-[11px] text-[#75806F] font-medium">{item.name}</span>
               </div>
               <span className="text-[11px] font-mono font-bold" style={{ color: item.color || item.stroke }}>
                 {formatCurrency(item.value)}
@@ -45,10 +45,10 @@ const CustomTimelineTooltip = ({ active, payload, label }: any) => {
           ))}
         </div>
         {payload.length >= 2 && (
-          <div className="mt-3 pt-2 border-t border-[#E6E6E6]">
+          <div className="mt-3 pt-2 border-t border-[#DCE0D2]">
             <div className="flex justify-between items-center">
-              <span className="text-[10px] text-[#A2A3A5] uppercase font-bold">Net Worth Ratio</span>
-              <span className="text-[10px] text-[#44474D] font-mono">
+              <span className="text-[10px] text-[#9AA394] uppercase font-bold">Net Worth Ratio</span>
+              <span className="text-[10px] text-[#4A544C] font-mono">
                 {((payload.find((p: any) => p.dataKey === 'netWorth')?.value || 0) / 
                   (payload.find((p: any) => p.dataKey === 'inflationAdjustedNetWorth')?.value || 1) * 100).toFixed(0)}% Nominal
               </span>
@@ -63,25 +63,25 @@ const CustomTimelineTooltip = ({ active, payload, label }: any) => {
 
 export const TimelineChart: React.FC<{ data: SimulationYear[] }> = ({ data }) => {
   return (
-    <div className="h-[400px] w-full bg-[#FAFBFC] p-4 rounded-2xl border border-[#E8E8E9]">
+    <div className="h-[400px] w-full bg-[#FDFCF7] p-4 rounded-2xl border border-[#DCE0D2]">
       <ResponsiveContainer width="100%" height="100%">
         <AreaChart data={data}>
           <defs>
             <linearGradient id="colorNetWorth" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#0EB35B" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#0EB35B" stopOpacity={0} />
+              <stop offset="5%" stopColor="#3E7355" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#3E7355" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="#F3F3F4" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#EDF3EC" vertical={false} />
           <XAxis
             dataKey="age"
-            stroke="#A2A3A5"
+            stroke="#9AA394"
             fontSize={12}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
-            stroke="#A2A3A5"
+            stroke="#9AA394"
             fontSize={12}
             tickLine={false}
             axisLine={false}
@@ -91,7 +91,7 @@ export const TimelineChart: React.FC<{ data: SimulationYear[] }> = ({ data }) =>
           <Area
             type="monotone"
             dataKey="netWorth"
-            stroke="#0EB35B"
+            stroke="#3E7355"
             strokeWidth={2}
             fillOpacity={1}
             fill="url(#colorNetWorth)"
@@ -144,8 +144,8 @@ export const AllocationPie: React.FC<{ allocation: AssetAllocation }> = ({ alloc
             ))}
           </Pie>
           <Tooltip
-            contentStyle={{ backgroundColor: "#fff", border: "1px solid #E6E6E6", borderRadius: "12px", boxShadow: "0 1px 3px rgba(0,0,0,0.08)" }}
-            itemStyle={{ color: "#212121" }}
+            contentStyle={{ backgroundColor: "#fff", border: "1px solid #DCE0D2", borderRadius: "12px", boxShadow: "0 1px 3px rgba(0,0,0,0.08)" }}
+            itemStyle={{ color: "#243129" }}
             formatter={(value: number) => [`${(value * 100).toFixed(0)}%`, "Allocation"]}
           />
         </PieChart>
