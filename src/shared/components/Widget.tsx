@@ -1,30 +1,25 @@
 import React from 'react';
-import type { LucideIcon } from 'lucide-react';
 
 /**
- * A live desktop widget (desktop-APPROVED mock): frosted ivory card, soft depth,
- * an uppercase kicker led by a small accent lucide icon. Body is the caller's.
+ * A desktop widget (desktop-APPROVED mock, warm-Win95): a raised double-bevel
+ * panel with squared 3px corners, a quiet uppercase label header (hairline
+ * underline — not a solid bar), and a content area the caller fills.
  */
 export default function Widget({
-  kicker,
-  icon: Icon,
+  title,
   children,
   className = '',
 }: {
-  kicker: string;
-  icon: LucideIcon;
+  title: string;
   children: React.ReactNode;
   className?: string;
 }) {
   return (
-    <div
-      className={`bg-surface/85 backdrop-blur-md border border-hairline/90 rounded-[18px] px-5 py-[18px] os-elev ${className}`}
-    >
-      <p className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.16em] text-faint mb-3.5">
-        <Icon className="w-[13px] h-[13px] text-accent" strokeWidth={2} />
-        {kicker}
-      </p>
-      {children}
+    <div className={`os-widget rounded-[3px] overflow-hidden ${className}`}>
+      <div className="px-[13px] pt-2 pb-[7px] text-[10px] font-bold uppercase tracking-[0.14em] text-mute border-b border-hairline">
+        {title}
+      </div>
+      <div className="p-3.5">{children}</div>
     </div>
   );
 }

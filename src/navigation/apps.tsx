@@ -1,4 +1,4 @@
-import { BookOpen, LineChart, Wallet, Book, PieChart, type LucideIcon } from 'lucide-react';
+import { BookOpen, LineChart, Wallet, Book, type LucideIcon } from 'lucide-react';
 
 // The Puffx OS app registry (design.md §1): each feature is an app with one
 // fixed lucide icon used everywhere it's referenced. Desktop icons, the menu
@@ -25,7 +25,6 @@ export const APPS: PuffxApp[] = [
   { id: 'etf-drag', name: 'ETF Drag', icon: LineChart, path: '/visualizer/etf-drag', tint: '#4E7A96', iconImg: '/icon/etf.png', sub: 'Visualizer' },
   { id: 'wealth-simulator', name: 'Wealth Simulator', icon: Wallet, path: '/visualizer/wealth-simulator', tint: '#C2673F', iconImg: '/icon/wealth_sim.png', sub: 'Visualizer' },
   { id: 'glossary', name: 'Glossary', icon: Book, path: '/glossary', tint: '#7E5A73', iconImg: '/icon/Glossary.png', sub: '40 terms', subMono: true },
-  { id: 'portfolio', name: 'Portfolio Tracker', icon: PieChart, path: '/portfolio', tint: '#D99A2B', sub: 'Coming soon', comingSoon: true },
 ];
 
 /** The app whose window a pathname belongs to (longest prefix wins). */
