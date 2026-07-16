@@ -1,68 +1,13 @@
-import React, { lazy } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import Layout from './Layout';
-import VisualizerLayout from '../features/visualizer/VisualizerLayout';
 
-// Route groups are lazy so the first paint doesn't pull recharts + motion
-// (visualizers) or react-markdown + course content (learn) into the main chunk.
-const EtfDragVisualizer = lazy(() => import('../features/visualizer/etf-drag/index'));
-const WealthSimulator = lazy(() => import('../features/visualizer/wealth-simulator/index'));
-const Learn = lazy(() => import('../features/learn/index'));
-const LearnPhase = lazy(() => import('../features/learn/LearnPhase'));
-const LearnModule = lazy(() => import('../features/learn/LearnModule'));
-const LessonView = lazy(() => import('../features/learn/LessonView'));
-const Glossary = lazy(() => import('../features/glossary/index'));
-
+// Multi-window shell: the browser router only mounts the OS shell. What's "open"
+// lives in the window store (OSProvider), and each window renders its app in its
+// own MemoryRouter. Deep links are read once on boot by the store (spec §8), so a
+// single catch-all route is all the top level needs.
 export const router = createBrowserRouter([
   {
-    path: '/',
+    path: '*',
     element: <Layout />,
-    children: [
-      {
-        // The desktop is the landing surface — Layout renders it as the
-        // permanent ground, so the index route contributes no element.
-        index: true,
-        element: null
-      },
-      {
-        path: 'visualizer',
-        element: <VisualizerLayout />,
-        children: [
-          {
-            // The hub retired with the OS shell: the desktop is the launcher.
-            index: true,
-            element: <Navigate to="/" replace />
-          },
-          {
-            path: 'etf-drag',
-            element: <EtfDragVisualizer />
-          },
-          {
-            path: 'wealth-simulator',
-            element: <WealthSimulator />
-          }
-        ]
-      },
-      {
-        path: 'learn',
-        element: <Learn />
-      },
-      {
-        path: 'glossary',
-        element: <Glossary />
-      },
-      {
-        path: 'learn/phase/:phaseSlug',
-        element: <LearnPhase />
-      },
-      {
-        path: 'learn/:moduleSlug',
-        element: <LearnModule />
-      },
-      {
-        path: 'learn/:moduleSlug/:lessonSlug',
-        element: <LessonView />
-      }
-    ]
-  }
+  },
 ]);

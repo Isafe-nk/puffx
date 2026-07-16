@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import type { PuffxApp } from '../../navigation/apps';
 
 /**
@@ -12,7 +11,7 @@ import type { PuffxApp } from '../../navigation/apps';
  * not move, there's no cell box, and there's no persistent selection.
  * Single-click opens (it's a link).
  */
-export default function AppIcon({ app }: { app: PuffxApp }) {
+export default function AppIcon({ app, onOpen }: { app: PuffxApp; onOpen: () => void }) {
   const Icon = app.icon;
 
   let glyph: React.ReactNode;
@@ -64,12 +63,13 @@ export default function AppIcon({ app }: { app: PuffxApp }) {
   }
 
   return (
-    <Link
-      to={app.path}
+    <button
+      type="button"
+      onClick={onOpen}
       className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 rounded-[14px] active:scale-[0.97] transition-transform duration-150"
     >
       {glyph}
       {label}
-    </Link>
+    </button>
   );
 }

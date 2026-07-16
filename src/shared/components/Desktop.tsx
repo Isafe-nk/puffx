@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
-import { useApp } from '../../context/OSProvider';
+import { useWindows } from '../../context/OSProvider';
 import AppIcon from './AppIcon';
 import Widget from './Widget';
 import { LEARN_MODULES } from '../../features/learn/learnConfig';
@@ -19,13 +18,14 @@ const SPARK = [30, 42, 38, 55, 60, 72, 90];
  * live widget stack on the right. Reflows to a single scrolling column below lg.
  */
 export default function Desktop() {
-  const { apps } = useApp();
+  const { apps, openApp } = useWindows();
   const visited = useVisited();
 
   const read = readCount(visited, ALL_LESSONS.map((l) => l.lessonId));
   const next = firstUnread(visited);
   const nextTitle = next ? next.module.lessons.find((l) => l.id === next.lessonId)?.title : undefined;
   const pct = Math.round((read / TOTAL_LESSONS) * 100);
+  const resumePath = next ? lessonPath(next.module, next.lessonId) : `/learn/${LEARN_MODULES[0].slug}`;
 
   // Word of the day — a glossary term chosen by day-of-year (stable within a day).
   const wotd = useMemo(() => {
@@ -44,7 +44,7 @@ export default function Desktop() {
         className="order-2 lg:order-none flex flex-row flex-wrap justify-center content-start gap-1 px-4 pb-6 lg:flex-col lg:flex-nowrap lg:justify-start lg:py-[22px] lg:px-[18px]"
       >
         {apps.map((app) => (
-          <AppIcon key={app.id} app={app} />
+          <AppIcon key={app.id} app={app} onOpen={() => openApp(app.id)} />
         ))}
       </nav>
 
@@ -73,13 +73,14 @@ export default function Desktop() {
               {read > 0 ? 'Next' : 'Start'} · <b className="text-accent font-semibold">{next.lessonId} {nextTitle}</b>
             </p>
           )}
-          <Link
-            to={next ? lessonPath(next.module, next.lessonId) : `/learn/${LEARN_MODULES[0].slug}`}
+          <button
+            type="button"
+            onClick={() => openApp('learn', resumePath)}
             className="inline-flex items-center gap-1.5 mt-3.5 bg-accent hover:bg-accent-hover text-white text-[12px] font-semibold px-3.5 py-2 rounded-[9px] active:scale-[0.98] transition duration-200"
           >
             {read > 0 ? 'Resume' : 'Start'}
             <ArrowRight className="w-[13px] h-[13px]" strokeWidth={2.2} />
-          </Link>
+          </button>
         </Widget>
 
         {/* Saved plan — placeholder until a plan is saved (handback item 2) */}
@@ -103,9 +104,9 @@ export default function Desktop() {
         <Widget title="Word of the day">
           <div className="text-[18px] font-extrabold tracking-[-0.01em] leading-tight text-ink">{wotd.term}</div>
           <p className="text-[11px] text-faint mt-1.5 leading-relaxed line-clamp-2">{wotd.definition}</p>
-          <Link to="/glossary" className="inline-block text-[11px] font-semibold text-accent hover:text-accent-hover mt-2.5">
+          <button type="button" onClick={() => openApp('glossary')} className="inline-block text-[11px] font-semibold text-accent hover:text-accent-hover mt-2.5">
             Open glossary →
-          </Link>
+          </button>
         </Widget>
       </aside>
 

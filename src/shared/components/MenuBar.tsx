@@ -1,34 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Search, HelpCircle } from 'lucide-react';
-import { useApp } from '../../context/OSProvider';
-import { useWindow } from '../../context/WindowContext';
+import { useWindows } from '../../context/OSProvider';
 
 interface DropItem {
   label: string;
-  to?: string;
+  appId?: string;
+  path?: string;
   soon?: boolean;
 }
 interface DropMenu {
   label: string;
   items: DropItem[];
-  note?: string; // italic footer note under a divider (Help menu)
+  note?: string;
 }
 
-// Desktop-mode menus (desktop-APPROVED mock). Real routes where they exist;
-// unbuilt destinations are marked "soon" or left inert.
+// Menu-bar dropdowns (spec §6, desktop-APPROVED mock). Items open/focus an app
+// window via openApp; unbuilt destinations are marked "soon" and inert.
 const MENUS: DropMenu[] = [
   {
     label: 'Learn',
     items: [
-      { label: 'Personal Finance', to: '/learn/phase/personal-finance' },
-      { label: 'Investment', to: '/learn/phase/investment' },
+      { label: 'Personal Finance', appId: 'learn', path: '/learn/phase/personal-finance' },
+      { label: 'Investment', appId: 'learn', path: '/learn/phase/investment' },
     ],
   },
   {
     label: 'Docs',
     items: [
-      { label: 'Glossary', to: '/glossary' },
+      { label: 'Glossary', appId: 'glossary' },
       { label: 'Articles', soon: true },
       { label: 'Guides', soon: true },
     ],
@@ -36,8 +35,8 @@ const MENUS: DropMenu[] = [
   {
     label: 'Tools',
     items: [
-      { label: 'ETF Drag', to: '/visualizer/etf-drag' },
-      { label: 'Wealth Simulator', to: '/visualizer/wealth-simulator' },
+      { label: 'ETF Drag', appId: 'etf-drag' },
+      { label: 'Wealth Simulator', appId: 'wealth-simulator' },
     ],
   },
   {
@@ -52,11 +51,9 @@ const MENUS: DropMenu[] = [
 ];
 
 const rowCls =
-  'flex items-center justify-between gap-4 px-2.5 py-[7px] rounded-[4px] text-[12.5px] whitespace-nowrap text-body hover:bg-accent hover:text-white transition-colors';
+  'flex items-center justify-between gap-4 w-full text-left px-2.5 py-[7px] rounded-[4px] text-[12.5px] whitespace-nowrap text-body enabled:hover:bg-accent enabled:hover:text-white transition-colors group/row';
 
-// A hover-and-keyboard-open dropdown. The mock is hover-only; group-focus-within
-// keeps it operable by keyboard (design.md §9), and items are real links.
-function Dropdown({ menu }: { menu: DropMenu }) {
+function Dropdown({ menu, onOpen }: { menu: DropMenu; onOpen: (appId: string, path?: string) => void }) {
   return (
     <div className="relative group/menu">
       <button
@@ -67,18 +64,18 @@ function Dropdown({ menu }: { menu: DropMenu }) {
         {menu.label}
       </button>
       <div className="os-dropdown absolute top-[calc(100%+3px)] left-0 min-w-[216px] p-[5px] rounded-[5px] z-[60] hidden group-hover/menu:block group-focus-within/menu:block">
-        {menu.items.map((item) =>
-          item.to ? (
-            <Link key={item.label} to={item.to} className={rowCls}>
-              {item.label}
-            </Link>
-          ) : (
-            <span key={item.label} className={`${rowCls} cursor-default group/row`}>
-              {item.label}
-              {item.soon && <span className="text-[10px] text-faint group-hover/row:text-white/70">soon</span>}
-            </span>
-          )
-        )}
+        {menu.items.map((item) => (
+          <button
+            key={item.label}
+            type="button"
+            disabled={!item.appId}
+            onClick={() => item.appId && onOpen(item.appId, item.path)}
+            className={`${rowCls} ${!item.appId ? 'cursor-default text-body' : ''}`}
+          >
+            {item.label}
+            {item.soon && <span className="text-[10px] text-faint group-hover/row:text-white/70">soon</span>}
+          </button>
+        ))}
         {menu.note && (
           <>
             <div className="h-px bg-hairline mx-1.5 my-[5px]" />
@@ -91,42 +88,23 @@ function Dropdown({ menu }: { menu: DropMenu }) {
 }
 
 /**
- * The OS menu bar (desktop-APPROVED mock): beveled surface, logo + Puffx wordmark,
- * hover/keyboard dropdown menus on the desktop, and Search + Help icon buttons on
- * the right (no clock, no account — we're no-login). In an open app it swaps the
- * dropdowns for a "Desktop" way home plus the app's own menus (from useWindow).
+ * The OS menu bar (spec §6): beveled surface, logo + Puffx wordmark, hover/
+ * keyboard dropdown menus that open app windows, and Search + Help icon buttons
+ * on the right (no clock, no account — we're no-login).
  */
 export default function MenuBar() {
-  const { activeApp, closeToDesktop } = useApp();
-  const { menu } = useWindow();
+  const { openApp } = useWindows();
 
   return (
     <header className="os-menubar h-[42px] shrink-0 flex items-center gap-px px-2 text-body relative z-30">
-      <Link to="/" aria-label="Puffx — desktop" className="flex items-center gap-[5px] pl-1.5 pr-4 mr-1 shrink-0 active:scale-95 transition duration-200">
+      <span className="flex items-center gap-[5px] pl-1.5 pr-4 mr-1 shrink-0">
         <img src="/icon/logo.png" alt="" className="w-6 h-6 rounded-[6px] object-contain block" />
         <b className="text-ink font-bold text-[14.5px] tracking-[-0.01em]">Puffx</b>
-      </Link>
+      </span>
 
-      {activeApp ? (
-        <>
-          <button type="button" onClick={closeToDesktop} className="px-3 py-[7px] rounded-[5px] text-[13px] text-body hover:bg-sage-tint hover:text-ink transition-colors">
-            Desktop
-          </button>
-          {menu?.map((item) =>
-            item.to ? (
-              <Link key={item.label} to={item.to} className="px-3 py-[7px] rounded-[5px] text-[13px] text-body hover:bg-sage-tint hover:text-ink transition-colors">
-                {item.label}
-              </Link>
-            ) : (
-              <button key={item.label} type="button" onClick={item.onClick} className="px-3 py-[7px] rounded-[5px] text-[13px] text-body hover:bg-sage-tint hover:text-ink transition-colors">
-                {item.label}
-              </button>
-            )
-          )}
-        </>
-      ) : (
-        MENUS.map((m) => <Dropdown key={m.label} menu={m} />)
-      )}
+      {MENUS.map((m) => (
+        <Dropdown key={m.label} menu={m} onOpen={openApp} />
+      ))}
 
       <span className="ml-auto flex items-center gap-0.5 pr-0.5">
         <button type="button" aria-label="Search" className="w-[30px] h-[30px] rounded-[6px] flex items-center justify-center text-mute hover:bg-sage-tint hover:text-ink transition-colors">

@@ -46,10 +46,13 @@
 
 /* ============ Puffx OS shell (design.md §1, mock v1) ============ */
 
-/* Wallpaper (desktop-APPROVED mock): the desk photo, cover-fit, with a faint SVG
-   grain layer on top. */
+/* Wallpaper (desktop-APPROVED mock): the desk photo (image set inline from the
+   chosen wallpaper), cover-fit, with a faint SVG grain layer on top. */
 .os-wallpaper {
-  background: url("/bgimage.png") center / cover no-repeat, var(--color-canvas);
+  background-color: var(--color-canvas);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .os-wallpaper::after {
   content: "";
@@ -110,6 +113,26 @@
 .os-well {
   background: var(--color-canvas);
   box-shadow: inset 1.5px 1.5px 0 #B7BFAC, inset -1px -1px 0 #FFFFFF;
+}
+
+/* Open app window — raised bevel + float shadow (desktop-APPROVED mock) */
+.os-appwin {
+  background: var(--color-surface);
+  box-shadow:
+    inset 1px 1px 0 #FFFFFF,
+    inset -1px -1px 0 #8F9A84,
+    0 24px 56px -16px rgba(36, 49, 41, 0.42);
+}
+/* Corner resize grip */
+.os-resize::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid #9AA394;
+  border-bottom: 2px solid #9AA394;
 }
 
 /* Soft traffic lights (mock v1 values — decorative fiction; red is the close control) */
