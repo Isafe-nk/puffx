@@ -97,7 +97,7 @@ Not every rule is equal. When trading off, this is the order:
    banker-like, it is wrong — however "correct" otherwise. This is the whole product.
 2. **Legibility & the contrast rule.** `sage` is paint, never text; all text meets AA;
    **red only ever means loss/error**, never brand.
-3. **The OS metaphor holds** — apps on a desktop, one full-focus window, URL-driven (`spec/os-shell.md`).
+3. **The OS metaphor holds** — apps on a desktop, opening in draggable/resizable/stacking windows (`spec/os-shell.md`).
 4. **No emoji · lucide only · light-only · no mascot.**
 
 **Tier 2 — strong defaults (change only with a reason):** the Dragon palette, one-family type,
@@ -120,13 +120,15 @@ Structure lifted from PostHog's product shell; identity entirely our own. Baseli
   a **"Desktop"** item is the way home. **App data (e.g. MYR/USD) lives in the app, never the chrome.**
 - **The desktop** — app icons on a wallpaper (cream + soft sage/plum light). Icons are the navigation:
   **no dock, no sidebar rail.** A dashed ghost icon marks unshipped apps.
-- **Widgets** — live cards on the wallpaper (Continue-learning + Resume; saved-plan). Make it personal;
-  carry the desktop's single CTA.
-- **Apps open in a window over the desk** — traffic-light controls, title bar with icon + breadcrumb;
-  wallpaper stays behind. **One window at a time, not draggable/resizable.** Red light / Escape /
-  "Desktop" closes home.
-- **Depth panel (tree)** — only in apps with depth (Learn's module→lesson tree). Single-screen apps
-  don't show one.
+- **Widgets** — warm-Win95 panels on the wallpaper: raised bevel, quiet label header, a **sunken data
+  well** for the metric, one glance + one action each (Continue-learning + Resume; saved-plan).
+- **Right-click the desktop** → a context menu (About Puffx · Change wallpaper · Keyboard shortcuts ·
+  Clear my data).
+- **Apps open in draggable, resizable, stacking windows** over the desk — traffic-light controls
+  (red = close), title bar with icon + breadcrumb; **multiple open at once**, click brings to front.
+  Interiors are **fluid** and reflow to the window (`spec/os-shell.md §7`). Escape closes the focused one.
+- **Depth panel (tree)** — only in apps with depth (Learn's module→lesson tree); collapses to a ☰
+  toggle when the window is narrow. Single-screen apps don't show one.
 - **Keyboard-navigable**; command palette deferred (only ~4 apps).
 - **Mobile (<lg)** — reflows to icon grid + stacked widgets; app fills viewport with a slim title bar.
   Behaviour identical.
@@ -191,7 +193,7 @@ per view; sage for paint, moss for action; let cream whitespace work; keep it ca
 
 **Don't:** add emoji or mascots; use red for anything but error/loss; put text on sage; introduce
 off-palette hex; add shadows to *content* (only floating chrome floats); add glass/gradients; build
-draggable/multi windows; add dark mode; hand-roll a control a shared component covers; invent radii.
+window snapping/tiling or multiple instances of one app; add dark mode; hand-roll a control a shared component covers; invent radii.
 
 ---
 
