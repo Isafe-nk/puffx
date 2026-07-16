@@ -71,10 +71,18 @@ interface WinInstance {
 }
 ```
 
-Exposes: `windows: WinInstance[]`, `openApp(appId)` (focus if already open, else push a new instance at
-a cascaded position with the app's `defaultSize`), `closeWindow(id)`, `focusWindow(id)` (bump z),
-`moveWindow(id, x, y)`, `resizeWindow(id, w, h)`, `focused` (highest z). Plain `useState`/`useReducer`
-— **still no external state library**; the array *is* the store (this is exactly how PostHog does it).
+Exposes: `windows: WinInstance[]`, `openApp(appId)` (focus if already open, else push a new instance),
+`closeWindow(id)`, `focusWindow(id)` (bump z), `moveWindow(id, x, y)`, `resizeWindow(id, w, h)`,
+`focused` (highest z). Plain `useState`/`useReducer` — **still no external state library**; the array
+*is* the store (this is exactly how PostHog does it).
+
+**Sizing & positioning (PostHog's math — `context/App.tsx`, follow it):**
+- **Size** = the app's `defaultSize`, **clamped to [20%, 90%] of the viewport** (desk height = viewport −
+  menu bar). `resizeWindow` honours the same min/max.
+- **Position:** the **first** window opens **centred** on the desk. Each subsequent window **cascades
+  +~26px from the previous frontmost** window; when the new window's right edge would drift **more than
+  ⅔ of its width past the screen midpoint**, it **re-centres** instead. Keeps windows clustered near
+  centre, never marching into a corner.
 
 ---
 
