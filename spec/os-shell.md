@@ -135,16 +135,26 @@ Because windows resize, interiors must reflow — they are **not** fixed full-sc
 - **URL:** deep links (`/learn/...`) open the matching app window on load. In-window navigation updates
   that window's `path`, not necessarily the address bar (decide per app; Learn can stay URL-synced).
 - **Per-app inputs:** local `useState` inside the app.
+- **Escape** closes the frontmost (focused) window.
 
 ---
 
-## 9. Desktop right-click context menu
+## 9. Desktop right-click context menu + system windows
 
 Right-click the wallpaper → a menu at the cursor (beveled, matches the menu-bar dropdowns), closes on
-click-away / Escape. Items (PostHog parity, adapted):
-- **About Puffx** · **Change wallpaper** (cycles the available `/icon` wallpapers, persisted to
-  localStorage) · **Keyboard shortcuts** · — · **Clear my data** (wipes localStorage: progress,
-  wallpaper, prefs — our privacy-first "reset").
+click-away / Escape. Its items **each open a window** (PostHog does this — About/Display/kbd are
+pseudo-app windows with no desktop icon), except Clear my data:
+- **About Puffx** → About window (~**760×500, resizable**, centered).
+- **Change wallpaper** → **Display window** (~**600×550, fixed** — no resize, centered): the available
+  `/icon` wallpapers as selectable thumbnails; picking one sets + persists it to localStorage.
+- **Keyboard shortcuts** → shortcuts window (~**600×625, fixed**, centered).
+- — · **Clear my data** → confirm, then wipe localStorage (progress, wallpaper, prefs) and reload — our
+  privacy-first "reset."
+
+**System-window sizes come from PostHog** (`context/App.tsx` appSettings `/about`, `/display-options`,
+`/kbd`): small, centered, fixed for settings dialogs, `closeOnEscape`. They dedupe like apps
+(open-again focuses). Distinct from **app** windows, which open **wide/landscape** at a viewport
+proportion (Learn ~86% width, others ~64%), clamped 20–90% (§4).
 
 ---
 
