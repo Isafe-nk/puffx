@@ -18,18 +18,20 @@ export interface PuffxApp {
   sub?: string;
   subMono?: boolean;
   comingSoon?: boolean;
-  /** Window opening size and resize floor (spec §3). */
+  /** Opening size as a fraction of the viewport (0–1): w of window width, h of
+   *  desk height. Wide/landscape; clamped to [20%,90%] by the window store (§4). */
   defaultSize?: { w: number; h: number };
+  /** Resize floor in px (default 340×240). */
   minSize?: { w: number; h: number };
 }
 
 const MIN = { w: 340, h: 240 };
 
 export const APPS: PuffxApp[] = [
-  { id: 'learn', name: 'Learn', icon: BookOpen, path: '/learn', tint: '#3E7355', iconImg: '/icon/learn.png', defaultSize: { w: 720, h: 460 }, minSize: MIN },
-  { id: 'etf-drag', name: 'ETF Drag', icon: LineChart, path: '/visualizer/etf-drag', tint: '#4E7A96', iconImg: '/icon/etf.png', sub: 'Visualizer', defaultSize: { w: 900, h: 600 }, minSize: MIN },
-  { id: 'wealth-simulator', name: 'Wealth Simulator', icon: Wallet, path: '/visualizer/wealth-simulator', tint: '#C2673F', iconImg: '/icon/wealth_sim.png', sub: 'Visualizer', defaultSize: { w: 940, h: 620 }, minSize: MIN },
-  { id: 'glossary', name: 'Glossary', icon: Book, path: '/glossary', tint: '#7E5A73', iconImg: '/icon/Glossary.png', sub: '40 terms', subMono: true, defaultSize: { w: 720, h: 520 }, minSize: MIN },
+  { id: 'learn', name: 'Learn', icon: BookOpen, path: '/learn', tint: '#3E7355', iconImg: '/icon/learn.png', defaultSize: { w: 0.86, h: 0.84 }, minSize: MIN },
+  { id: 'etf-drag', name: 'ETF Drag', icon: LineChart, path: '/visualizer/etf-drag', tint: '#4E7A96', iconImg: '/icon/etf.png', sub: 'Visualizer', defaultSize: { w: 0.64, h: 0.80 }, minSize: MIN },
+  { id: 'wealth-simulator', name: 'Wealth Simulator', icon: Wallet, path: '/visualizer/wealth-simulator', tint: '#C2673F', iconImg: '/icon/wealth_sim.png', sub: 'Visualizer', defaultSize: { w: 0.64, h: 0.80 }, minSize: MIN },
+  { id: 'glossary', name: 'Glossary', icon: Book, path: '/glossary', tint: '#7E5A73', iconImg: '/icon/Glossary.png', sub: '40 terms', subMono: true, defaultSize: { w: 0.64, h: 0.80 }, minSize: MIN },
 ];
 
 /** The app whose window a pathname belongs to (longest prefix wins). */
