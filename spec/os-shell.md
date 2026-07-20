@@ -132,8 +132,10 @@ Because windows resize, interiors must reflow — they are **not** fixed full-sc
   2. **Left = slim module section-index** (NOT the full 9-module tree): a "‹ All modules" link →
      landing, the module name + progress, and **only this module's lessons** (tick = read, sage
      highlight = current, dot = unread). This is *jump-within-module*.
-  3. **Right = reading column** — **~60ch, centred**: eyebrow → title → "In 30 seconds" (sage-tint
-     banner) → Understand it → In Malaysia → Quick check (reveal) → Key takeaway (sage-tint).
+  3. **Right = reading column** — **~60ch, centred**: eyebrow → title → **hook** (lead line, the
+     authored 🎯 "why this matters") → "In 30 seconds" (sage-tint banner) → Understand it → In Malaysia
+     → Quick check (reveal) → Key takeaway (sage-tint). *(Recall 🔁 is intentionally not surfaced —
+     prev/next covers continuity. Hook + recall stay in the content JSON regardless.)*
 
 **Fluid rule:** side-by-side when wide; under ~640px the **section-index collapses to the ☰ toggle**
 (overlay) and the reading column goes full-width.
