@@ -16,6 +16,7 @@ export interface WinInstance {
   h: number;
   z: number;
   resizable: boolean;
+  maximized?: boolean;
 }
 
 const MENU = 42; // menu-bar height; the desk starts below it
@@ -52,6 +53,7 @@ type Action =
   | { type: 'focus'; id: number }
   | { type: 'move'; id: number; x: number; y: number }
   | { type: 'resize'; id: number; w: number; h: number }
+  | { type: 'toggleMax'; id: number }
   | { type: 'setWallpaper'; path: string };
 
 // PostHog window placement (context/App.tsx getPositionDefaults): first window
@@ -118,6 +120,8 @@ function reducer(s: State, a: Action): State {
       return { ...s, windows: s.windows.map((w) => (w.id === a.id ? { ...w, x: a.x, y: a.y } : w)) };
     case 'resize':
       return { ...s, windows: s.windows.map((w) => (w.id === a.id ? { ...w, w: a.w, h: a.h } : w)) };
+    case 'toggleMax':
+      return { ...s, windows: s.windows.map((w) => (w.id === a.id ? { ...w, maximized: !w.maximized } : w)) };
     case 'setWallpaper': {
       if (!WALLPAPERS.includes(a.path)) return s;
       try {
@@ -155,6 +159,7 @@ interface OSContextValue {
   focusWindow: (id: number) => void;
   moveWindow: (id: number, x: number, y: number) => void;
   resizeWindow: (id: number, w: number, h: number) => void;
+  toggleMaximize: (id: number) => void;
   setWallpaper: (path: string) => void;
   clearData: () => void;
 }
@@ -170,6 +175,7 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
   const focusWindow = useCallback((id: number) => dispatch({ type: 'focus', id }), []);
   const moveWindow = useCallback((id: number, x: number, y: number) => dispatch({ type: 'move', id, x, y }), []);
   const resizeWindow = useCallback((id: number, w: number, h: number) => dispatch({ type: 'resize', id, w, h }), []);
+  const toggleMaximize = useCallback((id: number) => dispatch({ type: 'toggleMax', id }), []);
   const setWallpaper = useCallback((path: string) => dispatch({ type: 'setWallpaper', path }), []);
 
   const clearData = useCallback(() => {
@@ -199,10 +205,11 @@ export function OSProvider({ children }: { children: React.ReactNode }) {
       focusWindow,
       moveWindow,
       resizeWindow,
+      toggleMaximize,
       setWallpaper,
       clearData,
     }),
-    [state.windows, state.wallpaper, focused, openApp, openSys, closeWindow, focusWindow, moveWindow, resizeWindow, setWallpaper, clearData]
+    [state.windows, state.wallpaper, focused, openApp, openSys, closeWindow, focusWindow, moveWindow, resizeWindow, toggleMaximize, setWallpaper, clearData]
   );
 
   return <OSContext.Provider value={value}>{children}</OSContext.Provider>;

@@ -123,6 +123,20 @@
     inset -1px -1px 0 #8F9A84,
     0 24px 56px -16px rgba(36, 49, 41, 0.42);
 }
+/* Win95 window title frame: moss bar + beveled control buttons */
+.os-titlebar { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22); }
+.os-wcbtn {
+  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #8F9A84;
+}
+.os-wcbtn:active {
+  box-shadow: inset -1px -1px 0 #FFFFFF, inset 1px 1px 0 #8F9A84;
+}
+.os-wcbtn-close:hover {
+  background: #C4453C;
+  color: #fff;
+  box-shadow: inset 1px 1px 0 #E4948C, inset -1px -1px 0 #97302A;
+}
+
 /* Corner resize grip */
 .os-resize::after {
   content: "";

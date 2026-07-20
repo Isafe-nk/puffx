@@ -11,30 +11,57 @@ const MIN = { w: 340, h: 240 };
 const MENU = 42;
 const isDesktop = () => typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches;
 
-// Title bar — reads the app's published chrome (useWindow) for the breadcrumb +
-// right slot (e.g. ETF Drag's FX rate). Title/icon are passed in (app or system).
-function TitleBar({ title, iconImg, onClose, onDragStart }: { title: string; iconImg?: string; onClose: () => void; onDragStart: (e: React.MouseEvent) => void }) {
-  const { breadcrumb, titleRight } = useWindow();
+// Win95 moss title frame (spec §5): icon + name (white) left; maximize (□) +
+// close (×) right — no minimize. Double-click bar / □ → maximize; × → close. The
+// bar is the drag handle. App-published chrome (breadcrumb, FX rate) sits inline.
+function TitleBar({
+  title,
+  iconImg,
+  onClose,
+  onToggleMax,
+  onDragStart,
+}: {
+  title: string;
+  iconImg?: string;
+  onClose: () => void;
+  onToggleMax: () => void;
+  onDragStart: (e: React.MouseEvent) => void;
+}) {
+  const { titleRight } = useWindow();
   return (
     <div
       onMouseDown={onDragStart}
-      className="h-[38px] shrink-0 flex items-center gap-[9px] px-[13px] bg-canvas border-b border-hairline cursor-move select-none max-lg:cursor-default"
+      onDoubleClick={onToggleMax}
+      className="os-titlebar h-8 shrink-0 flex items-center gap-2 pl-[11px] pr-1 bg-accent cursor-move select-none max-lg:cursor-default"
     >
-      <span className="flex gap-[7px] items-center">
+      {iconImg && <img src={iconImg} alt="" className="w-4 h-4 object-contain" />}
+      <b className="text-[12.5px] font-semibold text-white">{title}</b>
+      {titleRight && <span className="ml-3 text-[11px] text-white/70 shrink-0">{titleRight}</span>}
+      <span className="ml-auto flex gap-[3px]">
         <button
           type="button"
-          onClick={onClose}
           onMouseDown={(e) => e.stopPropagation()}
+          onClick={onToggleMax}
+          aria-label="Maximize window"
+          className="os-wcbtn w-[26px] h-5 flex items-center justify-center bg-surface text-ink rounded-[2px]"
+        >
+          <svg viewBox="0 0 12 12" className="w-[11px] h-[11px] fill-none stroke-current" strokeWidth={1.7}>
+            <rect x="2.5" y="2.5" width="7" height="7" />
+            <path d="M2.5 4.3h7" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          onMouseDown={(e) => e.stopPropagation()}
+          onClick={onClose}
           aria-label="Close window"
-          className="w-[11px] h-[11px] rounded-full light-r hover:brightness-95 active:scale-90 transition"
-        />
-        <i className="w-[11px] h-[11px] rounded-full light-y" aria-hidden="true" />
-        <i className="w-[11px] h-[11px] rounded-full light-g" aria-hidden="true" />
+          className="os-wcbtn os-wcbtn-close w-[26px] h-5 flex items-center justify-center bg-surface text-ink rounded-[2px]"
+        >
+          <svg viewBox="0 0 12 12" className="w-[11px] h-[11px] fill-none stroke-current" strokeWidth={1.7}>
+            <path d="M3 3l6 6M9 3l-6 6" />
+          </svg>
+        </button>
       </span>
-      {iconImg && <img src={iconImg} alt="" className="w-4 h-4 object-contain" />}
-      <b className="text-[12.5px] text-ink font-bold">{title}</b>
-      {breadcrumb && <span className="text-[11.5px] text-faint truncate">{breadcrumb}</span>}
-      {titleRight && <span className="ml-auto text-[11px] text-faint shrink-0">{titleRight}</span>}
     </div>
   );
 }
@@ -47,7 +74,7 @@ function TitleBar({ title, iconImg, onClose, onDragStart }: { title: string; ico
  * fills the viewport — no drag/resize.
  */
 export default function AppWindow({ win, isFocused }: { win: WinInstance; isFocused: boolean }) {
-  const { focusWindow, closeWindow, moveWindow, resizeWindow } = useWindows();
+  const { focusWindow, closeWindow, moveWindow, resizeWindow, toggleMaximize } = useWindows();
 
   const app = win.appId ? APPS.find((a) => a.id === win.appId) : undefined;
   const sys = win.sysId ? SYSTEM[win.sysId] : undefined;
@@ -107,7 +134,7 @@ export default function AppWindow({ win, isFocused }: { win: WinInstance; isFocu
   }, [isFocused, win.id, closeWindow]);
 
   const startDrag = (e: React.MouseEvent) => {
-    if (!isDesktop()) return;
+    if (!isDesktop() || win.maximized) return;
     drag.current = { dx: e.clientX - box.x, dy: e.clientY - box.y };
   };
   const startResize = (e: React.MouseEvent) => {
@@ -116,15 +143,24 @@ export default function AppWindow({ win, isFocused }: { win: WinInstance; isFocu
     rez.current = { sx: e.clientX, sy: e.clientY, sw: box.w, sh: box.h };
   };
 
+  const maxed = win.maximized;
   return (
     <section
       aria-label={`${title} window`}
       onMouseDown={() => focusWindow(win.id)}
-      style={{ left: box.x, top: box.y, width: box.w, height: box.h, zIndex: win.z }}
-      className="os-appwin os-window-in absolute flex flex-col rounded-[6px] overflow-hidden max-lg:!inset-0 max-lg:!w-auto max-lg:!h-auto max-lg:!rounded-none"
+      style={maxed ? { zIndex: win.z } : { left: box.x, top: box.y, width: box.w, height: box.h, zIndex: win.z }}
+      className={`os-appwin os-window-in absolute flex flex-col rounded-[6px] overflow-hidden max-lg:!inset-0 max-lg:!w-auto max-lg:!h-auto max-lg:!rounded-none ${
+        maxed ? '!inset-0 !w-auto !h-auto !rounded-none' : ''
+      }`}
     >
       <WindowProvider>
-        <TitleBar title={title} iconImg={iconImg} onClose={() => closeWindow(win.id)} onDragStart={startDrag} />
+        <TitleBar
+          title={title}
+          iconImg={iconImg}
+          onClose={() => closeWindow(win.id)}
+          onToggleMax={() => toggleMaximize(win.id)}
+          onDragStart={startDrag}
+        />
         <div className="flex-1 min-h-0 overflow-auto bg-canvas">
           {win.sysId ? (
             <SystemContent sysId={win.sysId} />
@@ -135,7 +171,7 @@ export default function AppWindow({ win, isFocused }: { win: WinInstance; isFocu
           )}
         </div>
       </WindowProvider>
-      {win.resizable && (
+      {win.resizable && !maxed && (
         <span
           onMouseDown={startResize}
           className="hidden lg:block absolute right-0 bottom-0 w-4 h-4 cursor-nwse-resize os-resize"

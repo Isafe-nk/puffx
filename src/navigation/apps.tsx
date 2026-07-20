@@ -28,7 +28,7 @@ export interface PuffxApp {
 const MIN = { w: 340, h: 240 };
 
 export const APPS: PuffxApp[] = [
-  { id: 'learn', name: 'Learn', icon: BookOpen, path: '/learn', tint: '#3E7355', iconImg: '/icon/learn.png', defaultSize: { w: 0.86, h: 0.84 }, minSize: MIN },
+  { id: 'learn', name: 'Learning Hub', icon: BookOpen, path: '/learn', tint: '#3E7355', iconImg: '/icon/learn.png', defaultSize: { w: 0.86, h: 0.84 }, minSize: MIN },
   { id: 'etf-drag', name: 'ETF Drag', icon: LineChart, path: '/visualizer/etf-drag', tint: '#4E7A96', iconImg: '/icon/etf.png', sub: 'Visualizer', defaultSize: { w: 0.64, h: 0.80 }, minSize: MIN },
   { id: 'wealth-simulator', name: 'Wealth Simulator', icon: Wallet, path: '/visualizer/wealth-simulator', tint: '#C2673F', iconImg: '/icon/wealth_sim.png', sub: 'Visualizer', defaultSize: { w: 0.64, h: 0.80 }, minSize: MIN },
   { id: 'glossary', name: 'Glossary', icon: Book, path: '/glossary', tint: '#7E5A73', iconImg: '/icon/Glossary.png', sub: '40 terms', subMono: true, defaultSize: { w: 0.64, h: 0.80 }, minSize: MIN },
