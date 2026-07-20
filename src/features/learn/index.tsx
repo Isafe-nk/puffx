@@ -1,123 +1,132 @@
+import { type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { ListOrdered, Scale, MapPin, Wallet, TrendingUp, ArrowRight } from 'lucide-react';
+import { ListOrdered, Scale, MapPin, Landmark, TrendingUp, ArrowRight, type LucideIcon } from 'lucide-react';
 import { PHASES, LEARN_MODULES, modulesInPhase, lessonCount } from './learnConfig';
 import { usePageTitle } from '../../shared/hooks/usePageTitle';
 import { useVisited, readCount, firstUnread, lessonPath, ALL_LESSONS, TOTAL_LESSONS } from './progress';
 
 const FIRST_MODULE = LEARN_MODULES[0];
 
-const PHASE_ICONS = [Wallet, TrendingUp];
+// Approved copy per track (puffx-learning-hub-landing.html).
+const TRACK: Record<string, { icon: LucideIcon; tile: string; desc: string }> = {
+  'personal-finance': {
+    icon: Landmark,
+    tile: 'bg-accent',
+    desc: 'The foundations — knowing your money, budgeting, debt, and protecting what you have.',
+  },
+  investment: {
+    icon: TrendingUp,
+    tile: 'bg-info',
+    desc: 'Putting money to work — foundations, Malaysian vehicles, the markets, and long-term planning.',
+  },
+};
 
 const PRINCIPLES = [
-  { icon: ListOrdered, title: 'Go in order', desc: 'Start at Module 0 — each lesson builds on the one before.' },
+  { icon: ListOrdered, title: 'Go in order', desc: 'Each lesson builds on the one before — start at the top.' },
   { icon: Scale, title: 'Independent & neutral', desc: 'We explain the options and never sell a product.' },
   { icon: MapPin, title: 'Built for Malaysia', desc: 'EPF, LHDN, ASB and the local vehicles, in plain English.' },
 ];
 
+const Eyebrow = ({ children }: { children: ReactNode }) => (
+  <div className="flex items-center gap-2.5 text-[11px] uppercase tracking-[0.2em] text-accent font-semibold">
+    <span className="w-[22px] h-[1.5px] bg-accent rounded" />
+    {children}
+  </div>
+);
+
 export default function Learn() {
-  usePageTitle('Learn');
+  usePageTitle('Learning Hub');
   const visited = useVisited();
-  const overallRead = readCount(visited, ALL_LESSONS.map((l) => l.lessonId));
-  const next = firstUnread(visited);
-  const started = overallRead > 0;
+  const read = readCount(visited, ALL_LESSONS.map((l) => l.lessonId));
+  const next = firstUnread(visited) ?? { module: FIRST_MODULE, lessonId: FIRST_MODULE.lessons[0].id };
+  const nextTitle = next.module.lessons.find((l) => l.id === next.lessonId)?.title;
+  const pct = Math.round((read / TOTAL_LESSONS) * 100);
+  const started = read > 0;
 
   return (
-    <div className="w-full">
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 pb-20">
+    <div className="max-w-[860px] mx-auto px-6 lg:px-11 pt-11 pb-16">
+      <Eyebrow>Free · Self-paced · Built for Malaysia</Eyebrow>
+      <h1 className="mt-3.5 text-[34px] font-extrabold tracking-[-0.025em] leading-[1.05] text-ink">Learning Hub</h1>
+      <p className="mt-2 text-[15px] text-mute leading-relaxed max-w-[60ch]">
+        Money the way school never taught you — from your first payslip to building real wealth. Neutral,
+        jargon-free, and never selling you anything.
+      </p>
 
-        {/* Hero — typography led, single red accent */}
-        <section className="pt-16 lg:pt-24 pb-12">
-          <div className="flex items-center gap-2.5 mb-5">
-            <span className="w-6 h-px bg-[#3E7355]" />
-            <span className="text-[11px] uppercase tracking-[0.22em] text-[#9AA394] font-semibold">Free · self-paced</span>
+      {/* Continue card */}
+      <div className="os-card mt-7 flex flex-col sm:flex-row sm:items-center gap-5 rounded-lg bg-surface p-[22px]">
+        <div className="text-[30px] font-extrabold font-mono leading-none text-ink">
+          {pct}<small className="text-[13px] text-faint">%</small>
+        </div>
+        <div className="flex-1 min-w-0">
+          <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-faint mb-1.5">
+            {started ? 'Continue where you left off' : 'Start learning'}
           </div>
-          <h1 className="text-4xl lg:text-5xl font-black font-display tracking-tight text-[#243129] leading-[1.05]">
-            Finance for Malaysians
-          </h1>
-          <p className="mt-5 text-lg text-[#75806F] leading-relaxed max-w-2xl">
-            Money the way school never taught you — from your first payslip to building real wealth.
-          </p>
-
-          {started && next ? (
-            <div className="mt-8 flex flex-col sm:flex-row sm:items-center gap-x-5 gap-y-3">
-              <Link
-                to={lessonPath(next.module, next.lessonId)}
-                className="group inline-flex items-center gap-2 bg-[#3E7355] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#325E45] active:scale-[0.98] transition duration-200 self-start"
-              >
-                Continue · {next.lessonId}
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
-              </Link>
-              <span className="text-[13px] text-[#75806F]">
-                <span className="font-semibold text-[#243129]">{overallRead}</span> of {TOTAL_LESSONS} lessons read
-                <span className="text-[#9AA394]"> · </span>
-                <Link to={`/learn/${FIRST_MODULE.slug}`} className="text-[#75806F] hover:text-[#243129] underline underline-offset-2">
-                  start from the beginning
-                </Link>
-              </span>
-            </div>
-          ) : (
-            <Link
-              to={`/learn/${FIRST_MODULE.slug}`}
-              className="group mt-8 inline-flex items-center gap-2 bg-[#3E7355] text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-[#325E45] active:scale-[0.98] transition duration-200"
-            >
-              Start with Module 0
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" strokeWidth={2} />
-            </Link>
-          )}
-        </section>
-
-        {/* How it works — principles, not counts */}
-        <section className="mb-14 border-t border-[#DCE0D2] pt-8">
-          <p className="text-[10px] uppercase tracking-[0.2em] text-[#9AA394] font-semibold mb-6">How it works</p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-8 gap-y-7">
-            {PRINCIPLES.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="flex flex-col gap-2">
-                <Icon className="w-4 h-4 text-[#9AA394]" strokeWidth={1.5} />
-                <h3 className="text-[13px] font-semibold text-[#243129]">{title}</h3>
-                <p className="text-[12px] text-[#75806F] leading-relaxed">{desc}</p>
-              </div>
-            ))}
+          <div className="text-[14.5px] font-semibold text-ink">
+            {next.lessonId} · {nextTitle}{' '}
+            <span className="text-mute font-normal">— Module {next.module.code.replace('M', '')}, {next.module.title}</span>
           </div>
-        </section>
-
-        {/* Two phases — orientation, not every module */}
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {PHASES.map((p, i) => {
-            const mods = modulesInPhase(p.name);
-            const total = lessonCount(mods);
-            const read = readCount(visited, mods.flatMap((m) => m.lessons.map((l) => l.id)));
-            const Icon = PHASE_ICONS[i] ?? Wallet;
-            return (
-              <Link
-                key={p.slug}
-                to={`/learn/phase/${p.slug}`}
-                className="group rounded-lg border border-[#DCE0D2] bg-white p-6 hover:border-[#3E7355] active:scale-[0.99] transition duration-200 block"
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <Icon className="w-5 h-5 text-[#75806F]" strokeWidth={1.5} />
-                  <span className="text-[11px] text-[#9AA394] font-mono">
-                    {read > 0 && <span className="text-[#3E7355]">{read}/{total} read · </span>}
-                    {mods.length} modules · {total} lessons
-                  </span>
-                </div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-[#9AA394] font-semibold mb-1">Phase {p.num}</p>
-                <h2 className="text-lg font-bold font-display text-[#243129] flex items-center gap-1.5">
-                  {p.name}
-                  <ArrowRight className="w-4 h-4 text-[#3E7355] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" strokeWidth={1.5} />
-                </h2>
-                <p className="mt-2 text-[13px] text-[#75806F] leading-relaxed">{p.blurb}</p>
-                <p className="mt-5 pt-4 border-t border-[#E8EADF] text-[11px] text-[#9AA394] leading-relaxed">
-                  {mods.slice(0, 3).map((m) => m.title).join('  ·  ')}
-                  {mods.length > 3 ? `  ·  +${mods.length - 3} more` : ''}
-                </p>
-              </Link>
-            );
-          })}
-        </section>
-
-        {/* Footer */}
-        <p className="mt-12 text-[11px] text-[#9AA394]">Educational only — not financial advice.</p>
+          <div className="h-1.5 rounded-full bg-hairline-soft mt-2.5 max-w-[260px] overflow-hidden">
+            <i className="block h-full rounded-full os-track-fill" style={{ width: `${Math.max(pct, started ? 3 : 0)}%` }} />
+          </div>
+        </div>
+        <Link
+          to={lessonPath(next.module, next.lessonId)}
+          className="inline-flex items-center gap-2 self-start bg-accent hover:bg-accent-hover text-white text-[13px] font-semibold px-4 py-2.5 rounded-md active:scale-[0.98] transition duration-200"
+        >
+          {started ? 'Resume' : 'Start'}
+          <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.2} />
+        </Link>
       </div>
+
+      {/* Two tracks */}
+      <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-faint mt-9 mb-3.5">Two tracks</p>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {PHASES.map((p) => {
+          const mods = modulesInPhase(p.name);
+          const total = lessonCount(mods);
+          const done = readCount(visited, mods.flatMap((m) => m.lessons.map((l) => l.id)));
+          const t = TRACK[p.slug] ?? TRACK['personal-finance'];
+          const Icon = t.icon;
+          return (
+            <Link
+              key={p.slug}
+              to={`/learn/phase/${p.slug}`}
+              className="os-card group rounded-lg bg-surface p-[22px] hover:border-accent transition-colors block"
+            >
+              <div className="flex items-center justify-between mb-3.5">
+                <span className={`w-[38px] h-[38px] rounded-[9px] flex items-center justify-center text-white ${t.tile}`}>
+                  <Icon className="w-5 h-5" strokeWidth={1.7} />
+                </span>
+                <span className="text-[11px] text-faint font-mono">{mods.length} modules · {total} lessons</span>
+              </div>
+              <h3 className="text-[17px] font-extrabold tracking-[-0.01em] text-ink">{p.name}</h3>
+              <p className="mt-1 text-[12.5px] text-mute leading-relaxed">{t.desc}</p>
+              <p className="mt-3.5 pt-3 border-t border-hairline-soft text-[11.5px] text-faint leading-relaxed">
+                {mods.map((m) => m.title).join('  ·  ')}
+              </p>
+              <div className="mt-3 flex items-center gap-2 text-[11px] text-mute">
+                <span className="font-mono">{done}/{total}</span>
+                <span className="flex-1 h-[5px] rounded-full bg-hairline-soft overflow-hidden">
+                  <i className="block h-full rounded-full bg-accent" style={{ width: `${(done / total) * 100}%` }} />
+                </span>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
+
+      {/* Principles */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-10 pt-6 border-t border-hairline">
+        {PRINCIPLES.map(({ icon: Icon, title, desc }) => (
+          <div key={title}>
+            <Icon className="w-[18px] h-[18px] text-accent mb-2" strokeWidth={1.6} />
+            <h4 className="text-[13px] font-bold text-ink mb-0.5">{title}</h4>
+            <p className="text-[12px] text-mute leading-relaxed">{desc}</p>
+          </div>
+        ))}
+      </div>
+
+      <p className="mt-9 text-[11px] text-faint">Educational only — not financial advice.</p>
     </div>
   );
 }

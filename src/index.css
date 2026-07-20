@@ -109,6 +109,12 @@
     inset -1px -1px 0 #8F9A84, inset -2px -2px 0 #C2C9BA,
     0 2px 0 rgba(36, 49, 41, 0.06), 0 14px 26px -14px rgba(36, 49, 41, 0.28);
 }
+/* Raised bordered card (continue / track cards) — light TL bevel, hairline edge */
+.os-card {
+  border: 1px solid var(--color-hairline);
+  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #C2C9BA;
+}
+
 /* Sunken data well — recessed inset field (dark TL / light BR) */
 .os-well {
   background: var(--color-canvas);
