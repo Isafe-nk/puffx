@@ -112,7 +112,8 @@ sacrifice Tier 1 for it.**
 ## Concept: Puffx OS
 
 Puffx is not a website with pages — it's a **light, calm operating system for your money**. Features
-(Learn, ETF Drag, Wealth Sim, Glossary, later the Portfolio Tracker) are **apps on a desktop**.
+(Learning Hub, ETF Drag, Wealth Sim, Glossary, later the Portfolio Tracker) are **apps on a desktop**.
+*(The course app is named **Learning Hub**; the menu-bar dropdown stays short as "Learn".)*
 Structure lifted from PostHog's product shell; identity entirely our own. Baseline: mock v1
 (`~/FFM/handoffs/puffx-os-mock-v1.html`).
 
@@ -124,11 +125,13 @@ Structure lifted from PostHog's product shell; identity entirely our own. Baseli
   well** for the metric, one glance + one action each (Continue-learning + Resume; saved-plan).
 - **Right-click the desktop** → a context menu (About Puffx · Change wallpaper · Keyboard shortcuts ·
   Clear my data).
-- **Apps open in draggable, resizable, stacking windows** over the desk — traffic-light controls
-  (red = close), title bar with icon + breadcrumb; **multiple open at once**, click brings to front.
-  Interiors are **fluid** and reflow to the window (`spec/os-shell.md §7`). Escape closes the focused one.
-- **Depth panel (tree)** — only in apps with depth (Learn's module→lesson tree); collapses to a ☰
-  toggle when the window is narrow. Single-screen apps don't show one.
+- **Apps open in draggable, resizable, stacking windows** over the desk. **Win95 title frame**
+  (`spec/os-shell.md §5`): moss bar, icon + app name, **maximize + close** controls (no minimize, no
+  traffic lights); double-click bar or □ = maximize, × / Escape = close. **Multiple open at once**,
+  click brings to front. Interiors are **fluid** and reflow to the window (`spec/os-shell.md §7`).
+- **In-lesson nav is three-tier, no redundancy** (`spec §7`): a toolbar row (module name + ‹ 3/8 ›
+  prev/next arrows), a **slim module section-index** on the left (this module's lessons only — not the
+  full tree; collapses to ☰ when narrow), and the reading column. "All modules" returns to the landing.
 - **Keyboard-navigable**; command palette deferred (only ~4 apps).
 - **Mobile (<lg)** — reflows to icon grid + stacked widgets; app fills viewport with a slim title bar.
   Behaviour identical.

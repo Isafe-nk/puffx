@@ -89,8 +89,12 @@ Exposes: `windows: WinInstance[]`, `openApp(appId)` (focus if already open, else
 ## 5. `AppWindow` — one per open window
 
 Renders a single `WinInstance`: the frame + chrome + the app inside.
-- **Title bar:** traffic lights (red = `closeWindow`), app `iconImg`, app name, optional breadcrumb.
-  Drag handle → `moveWindow`. `mousedown` anywhere on the window → `focusWindow`.
+- **Title bar (Win95 frame, NOT macOS traffic lights):** a **moss (`accent`) bar** — app `iconImg` +
+  app name on the left (white), and **window controls on the right: maximize (□) + close (×)**. **No
+  minimize** (we have no taskbar to restore from — deliberately dropped). Beveled Win95 control buttons;
+  close hovers red. **Double-click the bar or click □ → maximize/restore** (fills the desk below the menu
+  bar); **× or Escape → close**. The bar is the drag handle → `moveWindow`; `mousedown` anywhere on the
+  window → `focusWindow`.
 - **Resize handle** (bottom-right) → `resizeWindow`, clamped to `minSize`.
 - **Body:** the app's route renders here (`<Outlet>`-equivalent per window). Provides the per-app
   `useWindow()` context (title, breadcrumb, in-app toolbar data — e.g. ETF Drag's FX rate lives here,
@@ -113,14 +117,28 @@ Renders a single `WinInstance`: the frame + chrome + the app inside.
 
 ## 7. Interiors are fluid window content
 
-Because windows resize, interiors must reflow — they are **not** fixed full-screen layouts:
-- Fill the window; **cap reading measure** (~60ch, centred) so a wide window stays legible.
-- **Multi-pane collapses:** Learn's module tree + reading sit side-by-side when wide; under ~640px the
-  **tree collapses to a ☰ toggle** (overlay), reading goes full-width.
-- The window frame owns the title bar; the interior may add a slim toolbar (breadcrumb, ☰, next).
-- Canonical interior reference: `~/FFM/handoffs/puffx-learn-interior-APPROVED.html` (full layout). The
-  desktop mock's inline Learn is a *condensed stub* — ignore it; build the full interior.
-- Interior visual restyle is its own phase; this spec only requires interiors be **fluid/reflowing**.
+Because windows resize, interiors must reflow — they are **not** fixed full-screen layouts. The
+**Learning Hub interior** is the reference pattern (canonical mocks:
+`~/FFM/handoffs/puffx-learn-interior-APPROVED.html` for a lesson,
+`~/FFM/handoffs/puffx-learning-hub-landing.html` for the app home).
+
+**Two states:**
+- **Landing** (app home, no lesson selected) — hero + "Continue where you left off" card + the two
+  **track cards** (Personal Finance / Investment) + "How it works" principles. Full-width, capped column.
+- **Lesson** — the three-tier navigation, no redundancy:
+  1. **Toolbar row** (under the title bar): `☰` (section toggle, shows when narrow) · **module name**
+     (short — not "Module 2 · … / Lesson 3 of 8") · right: **‹ prev · `3 / 8` position · next ›**
+     icon-arrow buttons (tooltips name the adjacent lessons). This is the *linear* nav.
+  2. **Left = slim module section-index** (NOT the full 9-module tree): a "‹ All modules" link →
+     landing, the module name + progress, and **only this module's lessons** (tick = read, sage
+     highlight = current, dot = unread). This is *jump-within-module*.
+  3. **Right = reading column** — **~60ch, centred**: eyebrow → title → "In 30 seconds" (sage-tint
+     banner) → Understand it → In Malaysia → Quick check (reveal) → Key takeaway (sage-tint).
+
+**Fluid rule:** side-by-side when wide; under ~640px the **section-index collapses to the ☰ toggle**
+(overlay) and the reading column goes full-width.
+
+The window frame owns the title bar (§5); the interior owns the toolbar row + panes.
 
 ---
 
