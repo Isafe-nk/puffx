@@ -29,29 +29,31 @@ interface PerformanceChartsProps {
   finalTerB: number;
 }
 
-// Cumulative-lost-cost stack series: same cost category, darker shade for ETF B.
+// Dragon-earth categorical palette for data series (design.md data-viz set):
+// amber · clay · plum · dusty-blue — warm tones that sit on cream, red kept for
+// loss. Cumulative-lost-cost stack: one hue per cost category, darker for ETF B.
 const LEAK_SERIES = [
-  { key: 'tax', label: 'Tax Leakage', a: '#F59E0B', b: '#D97706' },
-  { key: 'ter', label: 'Asset TER', a: '#EF4444', b: '#B91C1C' },
-  { key: 'spread', label: 'Bid-Ask Spread', a: '#8B5CF6', b: '#7C3AED' },
-  { key: 'fees', label: 'Trade & FX Fees', a: '#38BDF8', b: '#D91222' },
+  { key: 'tax', label: 'Tax Leakage', a: '#D99A2B', b: '#B77F1E' },
+  { key: 'ter', label: 'Asset TER', a: '#C2673F', b: '#A5522F' },
+  { key: 'spread', label: 'Bid-Ask Spread', a: '#7E5A73', b: '#664760' },
+  { key: 'fees', label: 'Trade & FX Fees', a: '#4E7A96', b: '#3E6377' },
 ];
 
 const CustomTooltip = ({ active, payload, label, showInUsd }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-[#E6E6E6] rounded-xl p-3 shadow-sm z-50">
-        <p className="text-[#212121] font-bold font-display mb-2">{label}</p>
+      <div className="bg-white border border-[#DCE0D2] rounded-lg p-3 z-50">
+        <p className="text-[#243129] font-bold font-display mb-2">{label}</p>
         <div className="space-y-1">
           {payload.map((entry, index) => (
             <div key={`item-${index}`} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: entry.color }}></span>
-                <span className="text-[#727579] text-xs">
+                <span className="text-[#75806F] text-xs">
                   {entry.name === 'Benchmark' ? 'Pure Baseline' : entry.name?.toString().split(' ')[0]}
                 </span>
               </div>
-              <span className="text-[#212121] text-xs font-mono font-semibold">
+              <span className="text-[#243129] text-xs font-mono font-semibold">
                 {formatDisplay(entry.value as number, showInUsd, 0)}
               </span>
             </div>
@@ -109,54 +111,54 @@ export default function PerformanceCharts({
   return (
     <Card className="space-y-4">
       {/* Chart Tab Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#E6E6E6] pb-4 gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-[#DCE0D2] pb-4 gap-4">
         <div className="flex items-center gap-2">
-          <LineChart className="text-[#D91222] w-4 h-4" />
-          <h3 className="text-sm font-semibold text-[#212121] font-display">
+          <LineChart className="text-[#3E7355] w-4 h-4" />
+          <h3 className="text-sm font-semibold text-[#243129] font-display">
             Compounding & Drag Visualizations
           </h3>
         </div>
 
         {/* Toggle tabs */}
-        <div className="inline-flex rounded-xl p-0.5 bg-[#F3F3F4] border border-[#E6E6E6]">
+        <div className="inline-flex rounded-lg p-0.5 bg-[#EDF3EC] border border-[#DCE0D2]">
           <button 
             onClick={() => setActiveTab("performance")}
-            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "performance" ? 'bg-white text-[#D91222] border border-[#D91222]/20 shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
+            className={`px-3.5 py-1.5 text-xs rounded-lg transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "performance" ? 'bg-white text-[#3E7355] border border-[#3E7355]/20 font-semibold' : 'text-[#75806F] hover:text-[#4A544C]'}`}
           >
-            <TrendingUp className="w-3.5 h-3.5 text-[#D91222]" />
+            <TrendingUp className="w-3.5 h-3.5 text-[#3E7355]" />
             Portfolio Projection
           </button>
           <button 
             onClick={() => setActiveTab("leakage")}
-            className={`px-3.5 py-1.5 text-xs rounded-xl transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "leakage" ? 'bg-white text-[#D91222] border border-[#D91222]/20 shadow-sm font-semibold' : 'text-[#727579] hover:text-[#44474D]'}`}
+            className={`px-3.5 py-1.5 text-xs rounded-lg transition-all active:scale-[0.97] font-medium flex items-center gap-1.5 cursor-pointer ${activeTab === "leakage" ? 'bg-white text-[#3E7355] border border-[#3E7355]/20 font-semibold' : 'text-[#75806F] hover:text-[#4A544C]'}`}
           >
-            <AlertCircle className="w-3.5 h-3.5 text-[#FFB300]" />
+            <AlertCircle className="w-3.5 h-3.5 text-[#D99A2B]" />
             Cumulative Lost Cost
           </button>
         </div>
       </div>
 
       {/* Container for chart rendering */}
-      <div className="relative h-[240px] md:h-[340px] w-full bg-[#FAFBFC] rounded-2xl p-2 md:p-4 border border-[#E8E8E9]">
+      <div className="relative h-[240px] md:h-[340px] w-full bg-[#FDFCF7] rounded-lg p-2 md:p-4 border border-[#DCE0D2]">
         {activeTab === "performance" ? (
           <ResponsiveContainer width="100%" height="100%">
             <RechartsLineChart data={chartData} margin={{ top: 10, right: 10, left: 20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F3F4" />
-              <XAxis dataKey="displayYear" tick={{ fontSize: 11, fill: '#A2A3A5', fontFamily: 'Inter' }} axisLine={false} tickLine={false} />
-              <YAxis tickFormatter={yAxisFormatter} tick={{ fontSize: 11, fill: '#A2A3A5', fontFamily: 'Inter' }} axisLine={false} tickLine={false} width={60} />
-              <Tooltip content={<CustomTooltip showInUsd={showInUsd} />} cursor={{ stroke: '#E6E6E6', strokeWidth: 1 }} />
-              <Legend wrapperStyle={{ fontSize: '12px', color: '#727579', fontFamily: 'Inter' }} iconType="circle" />
-              <Line type="monotone" dataKey="valueA" name={`${selectedA.ticker} (${selectedA.domicile})`} stroke="#727579" strokeWidth={2} dot={false} activeDot={{ r: 6 }} fillOpacity={0.06} />
-              <Line type="monotone" dataKey="valueB" name={`${selectedB.ticker} (${selectedB.domicile})`} stroke="#D91222" strokeWidth={2} dot={false} activeDot={{ r: 6 }} fillOpacity={0.06} />
-              <Line type="monotone" dataKey="valueBench" name="Benchmark" stroke="#818CF8" strokeWidth={1.5} strokeDasharray="6 6" dot={false} activeDot={false} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#EDF3EC" />
+              <XAxis dataKey="displayYear" tick={{ fontSize: 11, fill: '#9AA394', fontFamily: 'Inter' }} axisLine={false} tickLine={false} />
+              <YAxis tickFormatter={yAxisFormatter} tick={{ fontSize: 11, fill: '#9AA394', fontFamily: 'Inter' }} axisLine={false} tickLine={false} width={60} />
+              <Tooltip content={<CustomTooltip showInUsd={showInUsd} />} cursor={{ stroke: '#DCE0D2', strokeWidth: 1 }} />
+              <Legend wrapperStyle={{ fontSize: '12px', color: '#75806F', fontFamily: 'Inter' }} iconType="circle" />
+              <Line type="monotone" dataKey="valueA" name={`${selectedA.ticker} (${selectedA.domicile})`} stroke="#C2673F" strokeWidth={2} dot={false} activeDot={{ r: 6 }} fillOpacity={0.06} />
+              <Line type="monotone" dataKey="valueB" name={`${selectedB.ticker} (${selectedB.domicile})`} stroke="#3E7355" strokeWidth={2} dot={false} activeDot={{ r: 6 }} fillOpacity={0.06} />
+              <Line type="monotone" dataKey="valueBench" name="Benchmark" stroke="#4E7A96" strokeWidth={1.5} strokeDasharray="6 6" dot={false} activeDot={false} />
             </RechartsLineChart>
           </ResponsiveContainer>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={samplePoints} margin={{ top: 10, right: 10, left: 20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#F3F3F4" />
-              <XAxis dataKey="displayYear" tick={{ fontSize: 11, fill: '#A2A3A5', fontFamily: 'Inter' }} axisLine={false} tickLine={false} />
-              <YAxis tickFormatter={yAxisFormatter} tick={{ fontSize: 11, fill: '#A2A3A5', fontFamily: 'Inter' }} axisLine={false} tickLine={false} width={60} />
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#EDF3EC" />
+              <XAxis dataKey="displayYear" tick={{ fontSize: 11, fill: '#9AA394', fontFamily: 'Inter' }} axisLine={false} tickLine={false} />
+              <YAxis tickFormatter={yAxisFormatter} tick={{ fontSize: 11, fill: '#9AA394', fontFamily: 'Inter' }} axisLine={false} tickLine={false} width={60} />
               <Tooltip content={<CustomTooltip showInUsd={showInUsd} />} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
 
               <Bar dataKey="taxA" name={`${selectedA.ticker} Tax Leakage`} stackId="A" fill={LEAK_SERIES[0].a} />
@@ -175,13 +177,13 @@ export default function PerformanceCharts({
 
       {/* Grouped legend for the 8-series stack — one labelled row per ETF (UX review C4) */}
       {activeTab === "leakage" && (
-        <div className="flex flex-col gap-1.5 text-[11px] text-[#727579]">
+        <div className="flex flex-col gap-1.5 text-[11px] text-[#75806F]">
           {[
             { label: `ETF A · ${selectedA.ticker} (${selectedA.domicile})`, tone: 'a' as const },
             { label: `ETF B · ${selectedB.ticker} (${selectedB.domicile})`, tone: 'b' as const },
           ].map((group) => (
             <div key={group.label} className="flex flex-wrap items-center gap-x-4 gap-y-1">
-              <span className="font-semibold text-[#44474D] w-32 shrink-0">{group.label}</span>
+              <span className="font-semibold text-[#4A544C] w-32 shrink-0">{group.label}</span>
               {LEAK_SERIES.map((s) => (
                 <span key={s.key} className="inline-flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 rounded-sm shrink-0" style={{ backgroundColor: s[group.tone] }}></span>
@@ -194,21 +196,21 @@ export default function PerformanceCharts({
       )}
 
       {/* Chart Legend Explanation Accent */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 text-[11px] text-[#727579] leading-normal border-t border-[#E6E6E6]">
-        <div className="flex items-start gap-2 bg-[#F7F8FA] p-2.5 rounded-xl border border-[#E6E6E6]">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#727579] shrink-0 mt-0.5"></span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 text-[11px] text-[#75806F] leading-normal border-t border-[#DCE0D2]">
+        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#DCE0D2]">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#C2673F] shrink-0 mt-0.5"></span>
           <span>
             <strong>{selectedA.ticker} value</strong> compounds S&P 500 capital minus WHT ({selectedA.domicile === "US" ? "30%" : "15%"}), MER, and execution fees.
           </span>
         </div>
-        <div className="flex items-start gap-2 bg-[#F7F8FA] p-2.5 rounded-xl border border-[#D91222]/20">
-          <span className="w-2.5 h-2.5 rounded-full bg-[#D91222] shrink-0 mt-0.5"></span>
+        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#3E7355]/20">
+          <span className="w-2.5 h-2.5 rounded-full bg-[#3E7355] shrink-0 mt-0.5"></span>
           <span>
             <strong>{selectedB.ticker} value</strong> incorporates internal WHT optimization ({selectedB.domicile === "US" ? "30%" : "15%"}) under Bilateral Treaties.
           </span>
         </div>
-        <div className="flex items-start gap-2 bg-[#F7F8FA] p-2.5 rounded-xl border border-[#E6E6E6]">
-          <span className="w-4 h-0.5 border-t border-dashed border-[#818CF8] shrink-0 mt-2"></span>
+        <div className="flex items-start gap-2 bg-[#F6F4EC] p-2.5 rounded-lg border border-[#DCE0D2]">
+          <span className="w-4 h-0.5 border-t border-dashed border-[#4E7A96] shrink-0 mt-2"></span>
           <span>
             <strong>Un-dragged Baseline</strong> simulates S&P 500 compounding with zero tax friction, product fees, or spot FX commissions.
           </span>

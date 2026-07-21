@@ -6,81 +6,185 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-display: "Hanken Grotesk", sans-serif;
-  --color-primary: #D91222;
-  --color-primary-hover: #C01A2F;
-  --color-ibkr-teal: #0B3944;
+
+  /* ---- Dragon palette (design.md §3, draft values) — the v2 tokens.
+     The shell is built on these; apps migrate in a later phase. ---- */
+  --color-canvas: #F6F4EC;
+  --color-surface: #FDFCF7;
+  --color-sage: #A9C6B0;
+  --color-sage-soft: #DCE9DF;
+  --color-sage-tint: #EDF3EC;
+  --color-accent: #3E7355;
+  --color-accent-hover: #325E45;
+  --color-ink: #243129;
+  --color-body: #4A544C;
+  --color-mute: #75806F;
+  --color-faint: #9AA394;
+  --color-hairline: #DCE0D2;
+  --color-hairline-soft: #E8EADF;
+  --color-success: #3E7355;
+  --color-warning: #D99A2B;
+  --color-error: #C4453C;
+  --color-info: #4E7A96;
+  --color-info-tint: #EBF0F1;
+
+  /* ---- LEGACY (IBKR-era) — used only by unmigrated app interiors; retired
+     app-wide in the "apps conform" phase (design.md migration worklist #5). ---- */
+  --color-primary: #3E7355;
+  --color-primary-hover: #325E45;
+  --color-ibkr-teal: #243129;
   --color-ibkr-bg: #FFFFFF;
-  --color-ibkr-surface: #F7F8FA;
-  --color-ibkr-border: #E6E6E6;
-  --color-ibkr-text: #212121;
-  --color-ibkr-muted: #727579;
-  --color-ibkr-subtle: #44474D;
-  --color-ibkr-success: #0EB35B;
-  --color-ibkr-warning: #FFB300;
-  --color-ibkr-info: #307EF2;
+  --color-ibkr-surface: #F6F4EC;
+  --color-ibkr-border: #DCE0D2;
+  --color-ibkr-text: #243129;
+  --color-ibkr-muted: #75806F;
+  --color-ibkr-subtle: #4A544C;
+  --color-ibkr-success: #3E7355;
+  --color-ibkr-warning: #D99A2B;
+  --color-ibkr-info: #4E7A96;
 }
 
-@layer utilities {
-  .glass-card, .glass-panel {
-    /* Liquid-glass surface: translucent fill + saturated backdrop + specular top edge */
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.80) 100%);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow:
-      0 0 0 1px rgba(16, 24, 40, 0.04),
-      0 4px 16px rgba(16, 24, 40, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
-  }
+/* ============ Puffx OS shell (design.md §1, mock v1) ============ */
 
-  .glass-card:hover, .glass-panel:hover {
-    border-color: rgba(255, 255, 255, 0.95);
-    box-shadow:
-      0 0 0 1px rgba(16, 24, 40, 0.05),
-      0 12px 32px rgba(16, 24, 40, 0.10),
-      inset 0 1px 0 rgba(255, 255, 255, 0.95);
-  }
-
-  /* Frosted floating capsule bar (iOS Liquid Glass tab bar): translucent so the
-     content scrolling beneath shows through, with a soft float shadow + rim light */
-  .glass-navbar {
-    /* Static frosted window: content scrolling beneath is heavily blurred + lightly
-       saturated. Plain backdrop-filter so it works in every browser. */
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(28px) saturate(130%);
-    -webkit-backdrop-filter: blur(28px) saturate(130%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    box-shadow:
-      0 8px 28px rgba(16, 24, 40, 0.10),
-      0 2px 6px rgba(16, 24, 40, 0.05),
-      inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  }
-
-  /* Liquid-glass lozenge for the segmented tab bar's active indicator */
-  .glass-pill {
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.52) 100%);
-    backdrop-filter: blur(10px) saturate(200%) brightness(1.06);
-    -webkit-backdrop-filter: blur(10px) saturate(200%) brightness(1.06);
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    box-shadow:
-      0 2px 10px rgba(16, 24, 40, 0.12),
-      0 1px 2px rgba(16, 24, 40, 0.06),
-      inset 0 1px 0 rgba(255, 255, 255, 1),
-      inset 0 0 12px rgba(255, 255, 255, 0.5);
-  }
+/* Wallpaper (desktop-APPROVED mock): the desk photo (image set inline from the
+   chosen wallpaper), cover-fit, with a faint SVG grain layer on top. */
+.os-wallpaper {
+  background-color: var(--color-canvas);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
+.os-wallpaper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+/* Shell content sits above the grain layer */
+.os-desk-layer { position: relative; z-index: 1; }
+
+/* Gradient-glyph fallback for any app without a PNG icon: tinted tile + specular
+   top edge (the app's `tint` sets the colour via --tint). */
+.os-glyph-fallback {
+  background: linear-gradient(150deg, var(--tint), var(--tint));
+  box-shadow: 0 1px 2px rgba(36, 49, 41, 0.08), 0 9px 20px -8px rgba(36, 49, 41, 0.22);
+  position: relative;
+}
+.os-glyph-fallback::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.5), transparent 55%);
+  mix-blend-mode: overlay;
+}
+
+/* Widget progress-track fill + sparkline peak (sage→moss gradient) */
+.os-track-fill { background: linear-gradient(90deg, var(--color-sage), var(--color-accent)); }
+
+/* ---- warm-Win95 OG chrome (desktop-APPROVED mock). Bevel greys are chrome-only
+   shades, not Dragon content tokens — centralized here per the hex rule. ---- */
+.os-menubar {
+  background: var(--color-surface);
+  border-bottom: 1px solid #B7BFAC;
+  box-shadow: inset 0 1px 0 #FFFFFF;
+}
+/* Beveled hover-menu dropdown panel */
+.os-dropdown {
+  background: var(--color-surface);
+  box-shadow:
+    inset 1.5px 1.5px 0 #FFFFFF,
+    inset -1.5px -1.5px 0 #B7BFAC,
+    0 12px 26px -10px rgba(36, 49, 41, 0.32);
+}
+/* Raised widget panel — light TL / dark BR double bevel */
+.os-widget {
+  background: var(--color-surface);
+  box-shadow:
+    inset 1px 1px 0 #FFFFFF, inset 2px 2px 0 rgba(255, 255, 255, 0.45),
+    inset -1px -1px 0 #8F9A84, inset -2px -2px 0 #C2C9BA,
+    0 2px 0 rgba(36, 49, 41, 0.06), 0 14px 26px -14px rgba(36, 49, 41, 0.28);
+}
+/* Raised bordered card (continue / track cards) — light TL bevel, hairline edge */
+.os-card {
+  border: 1px solid var(--color-hairline);
+  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #C2C9BA;
+}
+
+/* Sunken data well — recessed inset field (dark TL / light BR) */
+.os-well {
+  background: var(--color-canvas);
+  box-shadow: inset 1.5px 1.5px 0 #B7BFAC, inset -1px -1px 0 #FFFFFF;
+}
+
+/* Open app window — raised bevel + float shadow (desktop-APPROVED mock) */
+.os-appwin {
+  background: var(--color-surface);
+  box-shadow:
+    inset 1px 1px 0 #FFFFFF,
+    inset -1px -1px 0 #8F9A84,
+    0 24px 56px -16px rgba(36, 49, 41, 0.42);
+}
+/* Win95 window title frame: moss bar + beveled control buttons */
+.os-titlebar { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22); }
+.os-wcbtn {
+  box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #8F9A84;
+}
+.os-wcbtn:active {
+  box-shadow: inset -1px -1px 0 #FFFFFF, inset 1px 1px 0 #8F9A84;
+}
+.os-wcbtn-close:hover {
+  background: #C4453C;
+  color: #fff;
+  box-shadow: inset 1px 1px 0 #E4948C, inset -1px -1px 0 #97302A;
+}
+
+/* Corner resize grip */
+.os-resize::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 7px;
+  height: 7px;
+  border-right: 2px solid #9AA394;
+  border-bottom: 2px solid #9AA394;
+}
+
+/* Soft traffic lights (mock v1 values — decorative fiction; red is the close control) */
+.light-r { background: #DFA49F; }
+.light-y { background: #E3C88F; }
+.light-g { background: #A9C6B0; }
+
+/* Soft depth is allowed on FLOATING os-chrome surfaces (icons, widgets, window) —
+   content stays flat (design.md §6). The desk has light; the page does not. */
+.os-window-shadow {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    0 2px 6px -2px rgba(36, 49, 41, 0.10),
+    0 28px 64px -16px rgba(36, 49, 41, 0.24);
+}
+/* Window opens with a quick lift+fade (reduced-motion guard collapses it) */
+@keyframes os-window-in {
+  from { opacity: 0; transform: scale(0.985) translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+.os-window-in { animation: os-window-in 0.22s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+/* Inside the shell, keyboard focus is accent moss (design.md §8). The global
+   red ring below still governs unmigrated app interiors. */
+.os-shell :focus-visible { outline-color: var(--color-accent); }
+
 
 /* Visible keyboard focus everywhere (WCAG 2.4.7). Inputs/selects that swap the
    outline for a red border+ring keep their own treatment via focus:outline-none. */
 :focus-visible {
-  outline: 2px solid #D91222;
+  outline: 2px solid #3E7355;
   outline-offset: 2px;
-}
-
-/* Light outline variant on the dark sidebar rail */
-.sidenav-dark :focus-visible {
-  outline-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Users who prefer reduced motion get instant state changes — no scale/slide/breathe */
@@ -98,10 +202,10 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: 6px;
-  background: #E8E8E9 !important;
+  background: #DCE0D2 !important;
   border-radius: 9999px;
   outline: none;
-  border: 1px solid #D0D1D2 !important;
+  border: 1px solid #C7CDBB !important;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -110,16 +214,16 @@ input[type="range"]::-webkit-slider-thumb {
   width: 16px;
   height: 16px;
   border-radius: 50% !important;
-  background: #D91222 !important;
+  background: #3E7355 !important;
   cursor: pointer;
   border: 2px solid #FFFFFF !important;
-  box-shadow: 0 1px 4px rgba(217, 18, 34, 0.35), 0 0 0 1px rgba(217, 18, 34, 0.15);
+  box-shadow: 0 1px 4px rgba(62, 115, 85, 0.35), 0 0 0 1px rgba(62, 115, 85, 0.15);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 2px 8px rgba(217, 18, 34, 0.45), 0 0 0 1px rgba(217, 18, 34, 0.2);
+  box-shadow: 0 2px 8px rgba(62, 115, 85, 0.45), 0 0 0 1px rgba(62, 115, 85, 0.2);
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -127,15 +231,15 @@ input[type="range"]::-moz-range-thumb {
   height: 16px;
   border: 2px solid #FFFFFF !important;
   border-radius: 50% !important;
-  background: #D91222 !important;
+  background: #3E7355 !important;
   cursor: pointer;
-  box-shadow: 0 1px 4px rgba(217, 18, 34, 0.35), 0 0 0 1px rgba(217, 18, 34, 0.15);
+  box-shadow: 0 1px 4px rgba(62, 115, 85, 0.35), 0 0 0 1px rgba(62, 115, 85, 0.15);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 input[type="range"]::-moz-range-thumb:hover {
   transform: scale(1.15);
-  box-shadow: 0 2px 8px rgba(217, 18, 34, 0.45), 0 0 0 1px rgba(217, 18, 34, 0.2);
+  box-shadow: 0 2px 8px rgba(62, 115, 85, 0.45), 0 0 0 1px rgba(62, 115, 85, 0.2);
 }
 
 /* Light mode scrollbar styling */
@@ -143,30 +247,12 @@ input[type="range"]::-moz-range-thumb:hover {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #F7F8FA;
+  background: #F6F4EC;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D0D1D2;
+  background: #C7CDBB;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #A2A3A5;
-}
-
-/* Live indicator breathing animation */
-@keyframes breathe {
-  0%, 100% {
-    opacity: 0.4;
-    transform: scale(0.85);
-    box-shadow: 0 0 0 0 rgba(14, 179, 91, 0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
-    box-shadow: 0 0 6px 2px rgba(14, 179, 91, 0.35);
-  }
-}
-
-.animate-breathe {
-  animation: breathe 3s ease-in-out infinite;
+  background: #9AA394;
 }

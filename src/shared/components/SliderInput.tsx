@@ -66,12 +66,12 @@ export default function SliderInput({
           style={labelParsed.style} 
           className={`${labelParsed.className} shrink-0 flex flex-col justify-center`}
         >
-          <span className="text-xs font-semibold text-[#727579] py-0.5 select-none inline-flex items-center gap-1">
+          <span className="text-xs font-semibold text-[#75806F] py-0.5 select-none inline-flex items-center gap-1">
             {label}
             {tooltip && <HelpTip align="left" label={`About ${label}`}>{tooltip}</HelpTip>}
           </span>
           {subLabel && (
-            <span className="text-[10px] font-mono text-[#A2A3A5] mt-0.5 leading-none">
+            <span className="text-[10px] font-mono text-[#9AA394] mt-0.5 leading-none">
               {subLabel}
             </span>
           )}
@@ -87,7 +87,7 @@ export default function SliderInput({
             step={step}
             value={value}
             onChange={(e) => onChange(parseFloat(e.target.value))}
-            className="w-full h-1.5 bg-[#E8E8E9] rounded-lg appearance-none cursor-pointer accent-[#D91222]"
+            className="w-full h-1.5 bg-[#DCE0D2] rounded-lg appearance-none cursor-pointer accent-[#3E7355]"
           />
         </div>
 
@@ -106,10 +106,10 @@ export default function SliderInput({
                   onChange(Math.max(0, numericValue));
                 }
               }}
-              className="w-full text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1 rounded-xl text-[#212121] font-mono"
+              className="w-full text-right bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30 text-xs font-semibold px-2.5 py-1 rounded-lg text-[#243129] font-mono"
             />
           ) : (
-            <div className="w-full text-right text-xs font-semibold text-[#D91222] font-mono py-1">
+            <div className="w-full text-right text-xs font-semibold text-[#3E7355] font-mono py-1">
               {displayValue}
             </div>
           )}
@@ -121,7 +121,7 @@ export default function SliderInput({
   return (
     <div className={className}>
       <div className="flex justify-between items-center mb-1.5">
-        <span className="text-xs font-medium text-[#727579] py-0.5 inline-flex items-center gap-1">
+        <span className="text-xs font-medium text-[#75806F] py-0.5 inline-flex items-center gap-1">
           {label}
           {tooltip && <HelpTip align="left" label={`About ${label}`}>{tooltip}</HelpTip>}
         </span>
@@ -136,11 +136,11 @@ export default function SliderInput({
                 onChange(Math.max(0, numericValue));
               }
             }}
-            className={`${inputParsed.className} text-right bg-white border border-[#E6E6E6] focus:outline-none focus:border-[#D91222] focus:ring-1 focus:ring-[#D91222]/30 text-xs font-semibold px-2.5 py-1.5 rounded-xl text-[#212121] font-mono`}
+            className={`${inputParsed.className} text-right bg-white border border-[#DCE0D2] focus:outline-none focus:border-[#3E7355] focus:ring-1 focus:ring-[#3E7355]/30 text-xs font-semibold px-2.5 py-1.5 rounded-lg text-[#243129] font-mono`}
             style={inputParsed.style}
           />
         ) : (
-          <span className="text-xs font-semibold text-[#D91222] font-mono">
+          <span className="text-xs font-semibold text-[#3E7355] font-mono">
             {displayValue}
           </span>
         )}
@@ -154,10 +154,10 @@ export default function SliderInput({
         step={step}
         value={value}
         onChange={(e) => onChange(parseFloat(e.target.value))}
-        className="w-full h-1.5 bg-[#E8E8E9] rounded-lg appearance-none cursor-pointer accent-[#D91222]"
+        className="w-full h-1.5 bg-[#DCE0D2] rounded-lg appearance-none cursor-pointer accent-[#3E7355]"
       />
       
-      <div className="flex justify-between text-[10px] text-[#A2A3A5] font-mono mt-0.5">
+      <div className="flex justify-between text-[10px] text-[#9AA394] font-mono mt-0.5">
         <span>{subLabel || leftLabel}</span>
         {centerLabel && <span>{centerLabel}</span>}
         <span>{rightLabel}</span>

@@ -43,14 +43,14 @@ export default function HelpTip({ children, label = 'More info', align = 'right'
         onClick={() => setOpen((v) => !v)}
         aria-label={label}
         aria-expanded={open}
-        className={`cursor-help transition-colors ${open ? 'text-[#44474D]' : 'text-[#A2A3A5] hover:text-[#44474D]'}`}
+        className={`cursor-help transition-colors ${open ? 'text-[#4A544C]' : 'text-[#9AA394] hover:text-[#4A544C]'}`}
       >
         <HelpCircle className="w-3.5 h-3.5" />
       </button>
       {open && (
         <span
           role="note"
-          className={`absolute ${pos} bottom-full mb-2 w-64 p-3 bg-white border border-[#E6E6E6] text-[#44474D] text-[10.5px] rounded-xl shadow-lg z-50 leading-relaxed font-normal normal-case text-left tracking-normal`}
+          className={`absolute ${pos} bottom-full mb-2 w-64 p-3 bg-white border border-[#DCE0D2] text-[#4A544C] text-[10.5px] rounded-lg z-50 leading-relaxed font-normal normal-case text-left tracking-normal`}
         >
           {children}
         </span>

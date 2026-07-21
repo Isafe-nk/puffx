@@ -33,8 +33,8 @@ const CustomTooltip = ({ active, payload, label }: any) => {
     if (items.length === 0) return null;
 
     return (
-      <div className="bg-white border border-[#E6E6E6] p-3 rounded-xl shadow-sm min-w-[200px]">
-        <p className="text-[10px] text-[#A2A3A5] mb-3 font-bold uppercase tracking-widest border-b border-[#E6E6E6] pb-2">
+      <div className="bg-white border border-[#DCE0D2] p-3 rounded-lg min-w-[200px]">
+        <p className="text-[10px] text-[#9AA394] mb-3 font-bold uppercase tracking-widest border-b border-[#DCE0D2] pb-2">
           Age {label} Projection
         </p>
         <div className="space-y-2.5">
@@ -42,7 +42,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
             <div key={index} className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: item.color }} />
-                <span className="text-[11px] text-[#727579] font-medium">{item.name.split(' (')[0]}</span>
+                <span className="text-[11px] text-[#75806F] font-medium">{item.name.split(' (')[0]}</span>
               </div>
               <span className="text-[11px] font-mono font-bold" style={{ color: item.color }}>
                 {formatCurrency(item.value)}
@@ -77,19 +77,19 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
   });
 
   return (
-    <div className="h-[450px] w-full bg-[#FAFBFC] p-4 rounded-2xl border border-[#E8E8E9]">
+    <div className="h-[450px] w-full bg-[#FDFCF7] p-4 rounded-lg border border-[#DCE0D2]">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#F3F3F4" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#EDF3EC" vertical={false} />
           <XAxis
             dataKey="age"
-            stroke="#A2A3A5"
+            stroke="#9AA394"
             fontSize={12}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
-            stroke="#A2A3A5"
+            stroke="#9AA394"
             fontSize={12}
             tickLine={false}
             axisLine={false}
@@ -103,12 +103,12 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
               <div className="flex flex-wrap justify-center gap-6 mt-4">
                 {[
                   { label: "Optimistic (Top 10%)", color: CHART_COLORS.success },
-                  { label: "Median (Typical)", color: "#307EF2" },
-                  { label: "Pessimistic (Bottom 10%)", color: "#ef4444" }
+                  { label: "Median (Typical)", color: "#4E7A96" },
+                  { label: "Pessimistic (Bottom 10%)", color: "#C4453C" }
                 ].map((item, index) => (
                   <div key={`item-${index}`} className="flex items-center gap-2">
                     <div className="w-3 h-1 rounded-full" style={{ backgroundColor: item.color }} />
-                    <span className="text-[10px] text-[#727579] uppercase font-bold tracking-wider">
+                    <span className="text-[10px] text-[#75806F] uppercase font-bold tracking-wider">
                       {item.label}
                     </span>
                   </div>
@@ -123,7 +123,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
               key={`path-${idx}`}
               type="monotone"
               dataKey={`path_${idx}`}
-              stroke="#A2A3A5"
+              stroke="#9AA394"
               strokeWidth={0.5}
               strokeOpacity={0.12}
               dot={false}
@@ -137,7 +137,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
           <Line
             type="monotone"
             dataKey="p90"
-            stroke="#0EB35B"
+            stroke="#3E7355"
             strokeWidth={2}
             dot={false}
             name="Optimistic (Top 10%)"
@@ -145,7 +145,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
           <Line
             type="monotone"
             dataKey="p50"
-            stroke="#307EF2"
+            stroke="#4E7A96"
             strokeWidth={3}
             dot={false}
             name="Median (Typical)"
@@ -153,7 +153,7 @@ export const MonteCarloChart: React.FC<{ result: MonteCarloResult; currentAge: n
           <Line
             type="monotone"
             dataKey="p10"
-            stroke="#D91222"
+            stroke="#3E7355"
             strokeWidth={2}
             dot={false}
             name="Pessimistic (Bottom 10%)"
