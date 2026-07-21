@@ -12,12 +12,12 @@ const TRACK: Record<string, { icon: LucideIcon; tile: string; desc: string }> = 
   'personal-finance': {
     icon: Landmark,
     tile: 'bg-accent',
-    desc: 'The foundations — knowing your money, budgeting, debt, and protecting what you have.',
+    desc: 'Know your money, budget, debt, and protection — the foundations.',
   },
   investment: {
     icon: TrendingUp,
     tile: 'bg-info',
-    desc: 'Putting money to work — foundations, Malaysian vehicles, the markets, and long-term planning.',
+    desc: 'Foundations, Malaysian vehicles, the markets, and long-term planning.',
   },
 };
 
@@ -46,10 +46,9 @@ export default function Learn() {
   return (
     <div className="max-w-[860px] mx-auto px-6 lg:px-11 pt-11 pb-16">
       <Eyebrow>Free · Self-paced · Built for Malaysia</Eyebrow>
-      <h1 className="mt-3.5 text-[34px] font-extrabold tracking-[-0.025em] leading-[1.05] text-ink">Learning Hub</h1>
-      <p className="mt-2 text-[15px] text-mute leading-relaxed max-w-[60ch]">
-        Money the way school never taught you — from your first payslip to building real wealth. Neutral,
-        jargon-free, and never selling you anything.
+      <h1 className="mt-3 text-[31px] font-extrabold tracking-[-0.025em] leading-[1.05] text-ink">Learning Hub</h1>
+      <p className="mt-2 text-[14px] text-mute leading-relaxed max-w-[58ch]">
+        Money the way school never taught you — from your first payslip to building real wealth.
       </p>
 
       {/* Continue card */}
@@ -61,12 +60,8 @@ export default function Learn() {
           <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-faint mb-1.5">
             {started ? 'Continue where you left off' : 'Start learning'}
           </div>
-          <div className="text-[14.5px] font-semibold text-ink">
-            {next.lessonId} · {nextTitle}{' '}
-            <span className="text-mute font-normal">— Module {next.module.code.replace('M', '')}, {next.module.title}</span>
-          </div>
-          <div className="h-1.5 rounded-full bg-hairline-soft mt-2.5 max-w-[260px] overflow-hidden">
-            <i className="block h-full rounded-full os-track-fill" style={{ width: `${Math.max(pct, started ? 3 : 0)}%` }} />
+          <div className="text-[14px] font-semibold text-ink">
+            {next.lessonId} · {nextTitle} <span className="text-mute font-normal">— {next.module.title}</span>
           </div>
         </div>
         <Link
@@ -99,11 +94,8 @@ export default function Learn() {
                 </span>
                 <span className="text-[11px] text-faint font-mono">{mods.length} modules · {total} lessons</span>
               </div>
-              <h3 className="text-[17px] font-extrabold tracking-[-0.01em] text-ink">{p.name}</h3>
-              <p className="mt-1 text-[12.5px] text-mute leading-relaxed">{t.desc}</p>
-              <p className="mt-3.5 pt-3 border-t border-hairline-soft text-[11.5px] text-faint leading-relaxed">
-                {mods.map((m) => m.title).join('  ·  ')}
-              </p>
+              <h3 className="text-[16px] font-extrabold tracking-[-0.01em] text-ink">{p.name}</h3>
+              <p className="mt-1 text-[12px] text-mute leading-relaxed">{t.desc}</p>
               <div className="mt-3 flex items-center gap-2 text-[11px] text-mute">
                 <span className="font-mono">{done}/{total}</span>
                 <span className="flex-1 h-[5px] rounded-full bg-hairline-soft overflow-hidden">

@@ -192,6 +192,7 @@ export default function LessonView() {
               <p className="text-[14px] text-mute leading-relaxed">This lesson is being written — check back soon.</p>
             ) : (
               <>
+                <p className="text-[16px] leading-relaxed text-ink font-medium mb-5">{c.hook}</p>
                 <Banner label="In 30 seconds">{c.summary}</Banner>
                 <H2 icon={Clock}>Understand it</H2>
                 <Markdown>{c.body}</Markdown>

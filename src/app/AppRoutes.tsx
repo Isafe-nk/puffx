@@ -11,7 +11,6 @@ const EtfDragVisualizer = lazy(() => import('../features/visualizer/etf-drag/ind
 const WealthSimulator = lazy(() => import('../features/visualizer/wealth-simulator/index'));
 const Learn = lazy(() => import('../features/learn/index'));
 const LearnPhase = lazy(() => import('../features/learn/LearnPhase'));
-const LearnModule = lazy(() => import('../features/learn/LearnModule'));
 const LessonView = lazy(() => import('../features/learn/LessonView'));
 const Glossary = lazy(() => import('../features/glossary/index'));
 
@@ -24,7 +23,6 @@ export default function AppRoutes() {
         <Route path="/visualizer" element={<Navigate to="/visualizer/etf-drag" replace />} />
         <Route path="/learn" element={<Learn />} />
         <Route path="/learn/phase/:phaseSlug" element={<LearnPhase />} />
-        <Route path="/learn/:moduleSlug" element={<LearnModule />} />
         <Route path="/learn/:moduleSlug/:lessonSlug" element={<LessonView />} />
         <Route path="/glossary" element={<Glossary />} />
         <Route path="*" element={<Navigate to="/learn" replace />} />
