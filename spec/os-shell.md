@@ -117,10 +117,51 @@ Renders a single `WinInstance`: the frame + chrome + the app inside.
 
 ## 7. Interiors are fluid window content
 
-Because windows resize, interiors must reflow — they are **not** fixed full-screen layouts. The
-**Learning Hub interior** is the reference pattern (canonical mocks:
-`~/FFM/handoffs/puffx-learn-interior-APPROVED.html` for a lesson,
-`~/FFM/handoffs/puffx-learning-hub-landing.html` for the app home).
+Because windows resize, interiors must reflow — they are **not** fixed full-screen layouts. **An interior
+that assumes the viewport is a bug, not a style preference.** A 480px-wide window on a 1920px screen must
+lay itself out as narrow.
+
+### 7.1 The mechanical contract — every interior, no exceptions
+
+Already implemented and proven in the Learning Hub lesson (`src/features/learn/LessonView.tsx`, 0 hex
+literals, 2 breakpoints). **Copy that file's mechanics; do not reinvent them.**
+
+- **Root fills the window:** `h-full flex flex-col relative`. Never `min-h-screen`, never `100vh` math,
+  never `calc(100vh - …)` pane heights.
+- **Width awareness is container-based:** a `ResizeObserver` on the root ref sets
+  `narrow = el.clientWidth < 640`. **Viewport breakpoints (`sm:` `md:` `lg:` `xl:`) are banned inside an
+  interior** — they read the screen, not the window, which is exactly the bug. (The mobile
+  no-windowing case in §1 is the *shell's* job, not the app's.)
+- **Panes scroll; the interior doesn't.** Pane row is `flex-1 min-h-0 flex`; each pane owns its
+  `overflow-y-auto`. No `sticky top-0` page header, no page-level scroll.
+- **No app-level header.** The window title bar (§5) already shows the app icon + name. An interior must
+  not restate its own identity as a logo + `<h1>` + tagline. App-private chrome data belongs in the title
+  bar via `useSetWindow({ titleRight })` — ETF Drag's live USD/MYR rate is the reference implementation.
+- **No app-level footer.** Copyright lines, "© 2026", and tech-stack badges are webpage furniture —
+  delete them. Genuine reference content (tariff tables, treaty notes, disclaimers) survives as a
+  **collapsible disclosure** at the foot of the pane it belongs to.
+- **Toolbar row** (optional, directly beneath the title bar): `shrink-0 h-[42px] px-3.5 bg-surface
+  border-b border-hairline`. Holds the `☰` pane toggle when `narrow`, a context label, and right-aligned
+  view controls. **This is where an app's own segmented toggles live** (RM/USD, tab switchers).
+- **Tokens only — zero hex literals.** Use the semantic classes (`text-ink`, `text-body`, `text-mute`,
+  `text-faint`, `bg-surface`, `bg-canvas`, `border-hairline`, `bg-sage-tint`, `text-accent`, …).
+- **Radii:** `rounded-lg` (8px) panels, `rounded-md` (6px) controls. `rounded-xl` and above are retired by
+  `design.md` — **including the few that slipped into `LessonView.tsx`; don't propagate those.**
+- **No glass, no gradients.** `backdrop-blur`, `backdrop-saturate`, and `bg-gradient-*` scroll-fade
+  overlays are retired. Content is flat; only the window frame floats.
+
+### 7.2 The three interior patterns
+
+| Pattern | Shape | Apps | Status |
+|---|---|---|---|
+| **Reading** | slim section-index + capped reading column | Learning Hub | **done — the reference** |
+| **Tool** | controls pane + results canvas | ETF Drag, Wealth Simulator | to build (§7.4) |
+| **Reference** | A–Z index rail + entry list | Glossary | to build (§7.5) |
+
+### 7.3 Reading pattern — Learning Hub (the reference)
+
+Canonical mocks: `~/FFM/handoffs/puffx-learn-interior-APPROVED.html` (lesson),
+`~/FFM/handoffs/puffx-learning-hub-landing.html` (app home).
 
 **Two states:**
 - **Landing** (app home, no lesson selected) — hero + "Continue where you left off" card + the two
@@ -141,6 +182,65 @@ Because windows resize, interiors must reflow — they are **not** fixed full-sc
 (overlay) and the reading column goes full-width.
 
 The window frame owns the title bar (§5); the interior owns the toolbar row + panes.
+
+### 7.4 Tool pattern — ETF Drag, Wealth Simulator
+
+A tool is **controls in, results out**. Same two-pane skeleton as Reading, with the roles swapped: the
+left pane is *input*, not navigation.
+
+- **Toolbar row:** `☰` controls-pane toggle (when `narrow`) · the tool's context label · right-aligned
+  **view controls** — ETF Drag's **RM / USD** segmented toggle, Wealth Sim's tab switcher. These move
+  *out* of the deleted page header and *into* here.
+- **Left = controls pane** (`w-[300px] shrink-0 border-r border-hairline bg-surface overflow-y-auto`):
+  the assumption inputs, grouped in flat `rounded-lg border-hairline` sections with quiet uppercase
+  headers. `SliderInput` for every range — never a hand-rolled range. Advanced/override fields stay in a
+  collapsed disclosure so a beginner sees a short pane.
+- **Right = results canvas** (`flex-1 min-w-0 overflow-y-auto`), stacked in a fixed reading order:
+  1. **The answer** — one headline sentence + the single KPI that matters. One primary number, not a wall.
+  2. **Advisory banner** — `AlertBanner` when a friction/health threshold trips (ETF Drag's 2.0%
+     per-transaction warning; Wealth Sim's `auditFinancialHealth`).
+  3. **Charts** — recharts, `dataviz.series` hues only, never UI chrome colours.
+  4. **Detail table** — the TCO matrix / breakdown.
+  5. **Assumptions & sources** — the collapsible disclosure that absorbs the old page footer.
+- **Narrow (`< 640px`):** controls pane becomes the ☰ overlay (scrim `bg-ink/10`, same as Learn); the
+  canvas goes full-width; chart grids collapse to one column. Charts must set an explicit pixel height —
+  recharts `ResponsiveContainer` needs a bounded parent, and the pane no longer has viewport height.
+- **Plain-English on-ramp:** ETF Drag's explainer paragraph is genuinely useful for beginners and stays —
+  but as the first card *in the canvas*, not as a full-bleed page band.
+
+### 7.5 Reference pattern — Glossary
+
+A lookup surface. Search is chrome; the terms are the content.
+
+- **Toolbar row:** `☰` index toggle (when `narrow`) · the **search input** (this is the app's primary
+  control, so it lives in the toolbar, not in the scrolling body) · match count as a `role="status"`
+  micro-label.
+- **Left = A–Z index rail** (`w-[92px] shrink-0 border-r border-hairline bg-surface overflow-y-auto`):
+  the letter jump list, letters with no match in the current filter dimmed (`text-faint`, **not** an
+  invented grey — `#C7CDBB` appears 9× today and is off-palette).
+- **Right = term list** (`flex-1 min-w-0 overflow-y-auto`): letter headers `sticky top-0` **within the
+  pane** (not the viewport), term cards one column when `narrow`, two when wide.
+- **Jumping:** letter links must `scrollIntoView` **inside the pane's scroll container**. Bare `href="#az-X"`
+  anchors scroll the wrong element once the pane owns the scroll — this is a real bug to fix, not a port.
+- The `Glossary` `<h1>` hero, the "Reference" eyebrow, and the `pt-12 lg:pt-16` page padding are deleted
+  per §7.1. **The "core decision" US-vs-Ireland explainer card is worth keeping** — it becomes the first
+  entry in the term pane, above `#`.
+- The educational-disclaimer footnote stays, as the disclosure at the foot of the term pane.
+
+### 7.6 Conversion debt (measured 2026-07-25)
+
+These three interiors are **conversions, not new designs** — the Learn interior is the working reference.
+What the sweep has to remove, by app:
+
+| | hex literals | viewport breakpoints | worst offender |
+|---|---|---|---|
+| `wealth-simulator` | 179 | 23 | `lg:h-[calc(100vh-120px)]` panes (×2) + `backdrop-blur-xl` glass header + 4 gradient scroll-fades |
+| `etf-drag` (+`Sidebar`) | 173 | 20 | sticky glass page header with an IBKR-derived logo + `<h1>` + `mt-16` footer |
+| `glossary` | 36 | 8 | `sticky top-14 lg:top-0` keyed to a mobile header that no longer exists |
+
+**Off-palette hues to delete** (not in `design.md`'s token set): `#C7CDBB` ×9, and one each of `#FFB300`,
+`#A2A3A5`, `#727579`, `#307EF2`, `#0EB35B`, `#0B3944`, `#2A5038`. **`#D91222` — the retired IBKR brand
+red — is still present and is a Tier 1 violation** (`design.md`: red only ever means loss/error).
 
 ---
 
@@ -202,6 +302,9 @@ scope now; the rest above are not.
 - Windows drag, resize (to `minSize` floor), stack (click-to-front), and close (red light / Escape).
 - Multiple apps open at once; backgrounded windows keep their state (keep-alive).
 - Interiors reflow to window width (Learn tree collapses < ~640px); reading measure stays capped.
+- **Every interior meets §7.1:** no app-level header or footer, no viewport breakpoints, no `100vh` math,
+  no glass/gradients, zero hex literals, panes scroll internally. Verify by resizing the *window* — not the
+  browser — from `minSize` to maximized: nothing clips, nothing double-scrolls, no horizontal scrollbar.
 - Right-click desktop → context menu; **Clear my data** wipes localStorage.
 - Mobile (< lg): apps open full-screen with a slim title bar; no drag/resize.
 - No new state-management dependency in `package.json`. `npm run lint` + `npm run build` green.
