@@ -17,3 +17,6 @@ graphify-out/*
 !graphify-out/graph.html
 !graphify-out/GRAPH_REPORT.md
 !graphify-out/.graphify_labels.json
+
+# FFM: internal PM/working docs (mocks, briefs, status) — colocated but never shipped
+/FFM/
