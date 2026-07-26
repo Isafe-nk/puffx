@@ -78,10 +78,12 @@ motion:                       # full contract + per-surface inventory: spec/moti
   press: "active:scale — CTAs/tiles .98-.99 · segmented/pill .95-.97 · icon buttons .90 · duration-200"
   press_exception: "Win95 title-bar □/× invert their bevel + nudge glyph 1px instead — no scale (motion.md §4)"
   hover: "accent buttons → accent-hover; cards/tiles → border to accent; CTA arrow nudges translate-x-0.5"
-  window_open: "os-window-pop-in — opacity 0→1 + scale .96→1, 200ms cubic-bezier(0.34, 1.35, 0.64, 1)"
-  window_close: "os-window-pop-out — 150ms cubic-bezier(0.55, 0, 1, 0.45); animates BEFORE unmount"
-  dialog: "system windows drop 16px + ink/40 scrim — in 200ms, out 250ms (motion.md §2.2)"
-  chrome_vs_content: "chrome moves via CSS keyframes; the motion package is for content only"
+  mechanism: "CSS TRANSITIONS + @starting-style — never keyframes. Transitions reverse when interrupted; keyframes snap. That is the native feel (motion.md §2.0)"
+  easing: "cubic-bezier(0.215, 0.61, 0.355, 1) — ease-out-cubic, NO overshoot anywhere"
+  window_open: "opacity 0→1 + scale .96→1, 200ms"
+  window_close: "scale→.96 + fade, 150ms; animates BEFORE unmount (motion.md §2.3)"
+  dialog: "system windows scale from .95 in place — they do NOT drop; scrim ink/40 PAIRED to the dialog exactly (same curve + duration both ways) so they read as one unit"
+  chrome_vs_content: "chrome moves via CSS transitions; the motion package is for content only"
   reduced_motion: "global prefers-reduced-motion guard collapses all; no ambient/looping animation"
 ---
 
