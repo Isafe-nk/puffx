@@ -70,10 +70,18 @@ spacing:
   reading_column: max-w-3xl / max-w-4xl centred
   grid_gap: 16px
 
-motion:
+motion:                       # full contract + per-surface inventory: spec/motion.md
+  contract: spec/motion.md
+  asymmetry: "in is softer/slower, out is faster/accelerating — never the same curve both ways"
+  causality: "motion only answers 'where did that come from / go to'; if it doesn't, delete it"
+  user_initiated_only: "windows restored from a deep link or saved session appear instantly, no animation"
   press: "active:scale — CTAs/tiles .98-.99 · segmented/pill .95-.97 · icon buttons .90 · duration-200"
+  press_exception: "Win95 title-bar □/× invert their bevel + nudge glyph 1px instead — no scale (motion.md §4)"
   hover: "accent buttons → accent-hover; cards/tiles → border to accent; CTA arrow nudges translate-x-0.5"
-  window_open: "os-window-in — lift+fade ≤220ms"
+  window_open: "os-window-pop-in — opacity 0→1 + scale .96→1, 200ms cubic-bezier(0.34, 1.35, 0.64, 1)"
+  window_close: "os-window-pop-out — 150ms cubic-bezier(0.55, 0, 1, 0.45); animates BEFORE unmount"
+  dialog: "system windows drop 16px + ink/40 scrim — in 200ms, out 250ms (motion.md §2.2)"
+  chrome_vs_content: "chrome moves via CSS keyframes; the motion package is for content only"
   reduced_motion: "global prefers-reduced-motion guard collapses all; no ambient/looping animation"
 ---
 
@@ -85,6 +93,8 @@ The tokens live in the YAML front matter above (machine-readable, single source)
 rationale, and things a value can't express live below.
 
 Architecture of the shell (contexts, routing, state) is a separate contract: **`spec/os-shell.md`**.
+How it moves is a third: **`spec/motion.md`** — window open/close, the micro-interaction inventory, and
+the performance rules, all sourced from PostHog's real implementation.
 
 ---
 

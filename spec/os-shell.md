@@ -99,7 +99,9 @@ Renders a single `WinInstance`: the frame + chrome + the app inside.
 - **Body:** the app's route renders here (`<Outlet>`-equivalent per window). Provides the per-app
   `useWindow()` context (title, breadcrumb, in-app toolbar data — e.g. ETF Drag's FX rate lives here,
   never the OS menu bar).
-- Opens with the lift+fade (`os-window-in`); reduced-motion collapses it.
+- **Motion is `spec/motion.md`** — app windows pop in/out (§2.1), system windows drop with a scrim (§2.2),
+  and **close animates before unmount** (§2.3: `setClosing(true)` → CSS out → `onAnimationEnd` →
+  `closeWindow`). `closeWindow(id)` must no longer be called straight from the `×` handler.
 
 `Layout` maps `windows` → an `AppWindow` each, over `<Desktop>`, under the `MenuBar`.
 
