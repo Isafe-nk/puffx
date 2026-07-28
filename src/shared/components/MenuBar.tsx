@@ -63,7 +63,11 @@ function Dropdown({ menu, onOpen }: { menu: DropMenu; onOpen: (appId: string, pa
       >
         {menu.label}
       </button>
-      <div className="os-dropdown absolute top-[calc(100%+3px)] left-0 min-w-[216px] p-[5px] rounded-[5px] z-[60] hidden group-hover/menu:block group-focus-within/menu:block">
+      {/* `os-menu-in` fades + drops 4px on open and closes instantly
+          (spec/motion.md §3) — an animated dismissal makes an OS feel sluggish.
+          The panel goes display:none → block, which is a render change, so
+          `@starting-style` supplies the enter state with no JS. */}
+      <div className="os-dropdown os-menu-in absolute top-[calc(100%+3px)] left-0 min-w-[216px] p-[5px] rounded-[5px] z-[60] hidden group-hover/menu:block group-focus-within/menu:block">
         {menu.items.map((item) => (
           <button
             key={item.label}

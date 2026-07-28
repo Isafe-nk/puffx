@@ -4,6 +4,9 @@ import { useWindows } from '../../context/OSProvider';
 // Desktop right-click menu (spec §9): beveled panel at the cursor, closes on
 // click-away / Escape. About / Change wallpaper / Keyboard shortcuts each open a
 // system window; Clear my data confirms then wipes localStorage and reloads.
+// Opens on the same short curve as the menu-bar dropdowns (spec/motion.md §3):
+// it mounts on right-click so @starting-style applies, and dismissal unmounts
+// it, which is instant by design.
 export default function ContextMenu({ x, y, onClose }: { x: number; y: number; onClose: () => void }) {
   const { openSys, clearData } = useWindows();
   const ref = useRef<HTMLDivElement>(null);
@@ -43,7 +46,7 @@ export default function ContextMenu({ x, y, onClose }: { x: number; y: number; o
       role="menu"
       onMouseDown={(e) => e.stopPropagation()}
       style={{ left: pos.x, top: pos.y }}
-      className="os-dropdown fixed z-[300] min-w-[206px] p-[5px] rounded-[5px]"
+      className="os-dropdown os-menu-in fixed z-[300] min-w-[206px] p-[5px] rounded-[5px]"
     >
       <button type="button" role="menuitem" className={item} onClick={run(() => openSys('about'))}>About Puffx</button>
       <button type="button" role="menuitem" className={item} onClick={run(() => openSys('display'))}>Change wallpaper</button>
