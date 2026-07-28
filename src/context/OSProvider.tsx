@@ -103,7 +103,9 @@ function reducer(s: State, a: Action): State {
       const frac = app.defaultSize ?? { w: 0.64, h: 0.8 };
       const ww = clamp(frac.w * a.vw, a.vw * 0.2, a.vw * 0.9);
       const wh = clamp(frac.h * deskH, deskH * 0.2, deskH * 0.9);
-      const { x, y } = placement(s.windows, a.vw, deskH, ww, wh);
+      // Windows mid-close are already on their way out — they must not cascade
+      // the next one off-centre for the 150ms their exit transition runs.
+      const { x, y } = placement(s.windows.filter((w) => !w.closing), a.vw, deskH, ww, wh);
       const win: WinInstance = { id: s.nextId, appId: a.appId, path: a.path ?? app.path, x, y, w: ww, h: wh, z, resizable: true, animateOpen: a.animate };
       return { ...s, z, nextId: s.nextId + 1, windows: [...s.windows, win] };
     }
