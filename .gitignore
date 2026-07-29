@@ -1,4 +1,4 @@
-node_modules/
+node_modules
 build/
 dist/
 coverage/
@@ -18,5 +18,7 @@ graphify-out/*
 !graphify-out/GRAPH_REPORT.md
 !graphify-out/.graphify_labels.json
 
-# FFM: internal PM/working docs (mocks, briefs, status) — colocated but never shipped
-/FFM/
+# FFM: internal PM/working docs (mocks, briefs, status) — colocated but never shipped.
+# No trailing slash: the PM worktree (../puffx-pm) reaches these through a SYMLINK,
+# and a `dir/` pattern matches directories only — a symlink would show as untracked.
+/FFM
