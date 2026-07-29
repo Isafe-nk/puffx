@@ -32,7 +32,7 @@ export default function ContextMenu({ x, y, onClose }: { x: number; y: number; o
     };
   }, [onClose]);
 
-  const item = 'flex w-full items-center justify-between gap-[18px] px-2.5 py-[7px] rounded-[4px] text-[12.5px] text-left text-body hover:bg-accent hover:text-white transition-colors group/row';
+  const item = 'flex w-full items-center justify-between gap-[18px] px-2.5 py-[7px] rounded-[4px] text-[12.5px] text-left text-body cursor-pointer hover:bg-accent hover:text-white transition-colors group/row';
 
   const run = (fn: () => void) => (e: React.MouseEvent) => {
     e.stopPropagation();

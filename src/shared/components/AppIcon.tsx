@@ -57,7 +57,7 @@ export default function AppIcon({ app, onOpen }: { app: PuffxApp; onOpen: () => 
 
   if (app.comingSoon) {
     return (
-      <span aria-disabled="true" className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 select-none cursor-default">
+      <span aria-disabled="true" className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 select-none cursor-not-allowed">
         {glyph}
         <span className="w-full text-center leading-[1.3]">
           <span className="inline box-decoration-clone text-mute text-[13px] font-medium px-[5px] py-px">{app.name}</span>
@@ -70,7 +70,7 @@ export default function AppIcon({ app, onOpen }: { app: PuffxApp; onOpen: () => 
     <button
       type="button"
       onClick={onOpen}
-      className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 rounded-[14px] hover:-translate-y-px active:scale-[0.97] transition-transform duration-150"
+      className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 rounded-[14px] cursor-pointer hover:-translate-y-px active:scale-[0.97] transition-transform duration-150"
     >
       {glyph}
       {label}

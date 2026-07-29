@@ -49,7 +49,7 @@ function TitleBar({
           onMouseDown={(e) => e.stopPropagation()}
           onClick={onToggleMax}
           aria-label="Maximize window"
-          className="os-wcbtn w-[26px] h-5 flex items-center justify-center bg-surface text-ink rounded-[2px]"
+          className="os-wcbtn w-[26px] h-5 flex items-center justify-center bg-surface text-ink rounded-[2px] cursor-pointer"
         >
           <svg viewBox="0 0 12 12" className="w-[11px] h-[11px] fill-none stroke-current" strokeWidth={1.7}>
             <rect x="2.5" y="2.5" width="7" height="7" />
@@ -61,7 +61,7 @@ function TitleBar({
           onMouseDown={(e) => e.stopPropagation()}
           onClick={onClose}
           aria-label="Close window"
-          className="os-wcbtn os-wcbtn-close w-[26px] h-5 flex items-center justify-center bg-surface text-ink rounded-[2px]"
+          className="os-wcbtn os-wcbtn-close w-[26px] h-5 flex items-center justify-center bg-surface text-ink rounded-[2px] cursor-pointer"
         >
           <svg viewBox="0 0 12 12" className="w-[11px] h-[11px] fill-none stroke-current" strokeWidth={1.7}>
             <path d="M3 3l6 6M9 3l-6 6" />

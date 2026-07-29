@@ -19,7 +19,7 @@ function Shell() {
     <div className="os-shell h-screen flex flex-col bg-canvas text-ink font-display antialiased overflow-hidden">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:top-11 focus:left-3 focus:z-[400] focus:bg-surface focus:text-ink focus:text-xs focus:font-semibold focus:px-4 focus:py-2 focus:rounded-md focus:border focus:border-hairline"
+        className="sr-only cursor-pointer focus:not-sr-only focus:fixed focus:top-11 focus:left-3 focus:z-[400] focus:bg-surface focus:text-ink focus:text-xs focus:font-semibold focus:px-4 focus:py-2 focus:rounded-md focus:border focus:border-hairline"
       >
         Skip to main content
       </a>

@@ -153,7 +153,7 @@ export default function Glossary() {
               <span
                 key={letter}
                 aria-hidden="true"
-                className="w-7 h-7 flex items-center justify-center text-[12px] font-mono text-[#C7CDBB] select-none"
+                className="w-7 h-7 flex items-center justify-center text-[12px] font-mono text-[#C7CDBB]"
               >
                 {letter}
               </span>

@@ -39,7 +39,7 @@ function Display() {
               type="button"
               onClick={() => setWallpaper(wp)}
               aria-pressed={active}
-              className={`h-[100px] rounded-[6px] bg-cover bg-center transition ${active ? 'ring-2 ring-accent ring-offset-2 ring-offset-surface' : 'border-2 border-hairline hover:border-mute'}`}
+              className={`h-[100px] rounded-[6px] bg-cover bg-center cursor-pointer transition ${active ? 'ring-2 ring-accent ring-offset-2 ring-offset-surface' : 'border-2 border-hairline hover:border-mute'}`}
               style={{ backgroundImage: `url("${wp}")` }}
             />
           );
