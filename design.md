@@ -126,8 +126,8 @@ sacrifice Tier 1 for it.**
 Puffx is not a website with pages — it's a **light, calm operating system for your money**. Features
 (Learning Hub, ETF Drag, Wealth Sim, Glossary, later the Portfolio Tracker) are **apps on a desktop**.
 *(The course app is named **Learning Hub**; the menu-bar dropdown stays short as "Learn".)*
-Structure lifted from PostHog's product shell; identity entirely our own. Baseline: mock v1
-(`~/FFM/handoffs/puffx-os-mock-v1.html`).
+Structure lifted from PostHog's product shell; identity entirely our own. Baseline:
+`~/FFM/handoffs/puffx-desktop.html`.
 
 - **Menu bar** — OS chrome: Puffx mark + current app name + menus left, clock right. In an app,
   a **"Desktop"** item is the way home. **App data (e.g. MYR/USD) lives in the app, never the chrome.**
@@ -214,7 +214,7 @@ window snapping/tiling or multiple instances of one app; add dark mode; hand-rol
 
 ## Migration status
 
-1. **Mock (gate) — DONE.** v1 approved 2026-07-13 (`~/FFM/handoffs/puffx-os-mock-v1.html`).
+1. **Mock (gate) — DONE.** Approved 2026-07-13 (`~/FFM/handoffs/puffx-desktop.html`).
 2. **Tokens — DONE.** Dragon palette in `src/index.css`; `ibkr-*`/red-brand retired; hex swept.
 3. **Legacy chrome — DONE.** Glass utilities + `breathe` removed; radii → `rounded-lg`; shadows
    stripped from content; slider/scrollbar/focus → accent.

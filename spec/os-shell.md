@@ -162,8 +162,10 @@ literals, 2 breakpoints). **Copy that file's mechanics; do not reinvent them.**
 
 ### 7.3 Reading pattern — Learning Hub (the reference)
 
-Canonical mocks: `~/FFM/handoffs/puffx-learn-interior-APPROVED.html` (lesson),
-`~/FFM/handoffs/puffx-learning-hub-landing.html` (app home).
+**This pattern is built and shipped, so the code is the reference, not a mock:**
+`src/features/learn/LessonView.tsx` (lesson) and `src/features/learn/index.tsx` (app home).
+`~/FFM/handoffs/puffx-interior.html` is the standing *interior* exemplar for the three unbuilt
+interiors (§7.4, §7.5). The original per-screen mocks are in `~/FFM/handoffs/_archive/`.
 
 **Two states:**
 - **Landing** (app home, no lesson selected) — hero + "Continue where you left off" card + the two
