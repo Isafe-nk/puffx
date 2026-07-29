@@ -70,6 +70,23 @@ spacing:
   reading_column: max-w-3xl / max-w-4xl centred
   grid_gap: 16px
 
+cursor:                       # the cursor tells you what a thing DOES — KY's call, 2026-07-29
+  clickable: pointer          # EVERYTHING clickable: window controls (□ ×), desktop icons, menu items,
+                              # context-menu rows, widgets' actions, buttons and links — chrome AND
+                              # interiors alike. One rule, no chrome/content split here.
+  text: auto                  # content shows the I-beam and stays selectable
+  titlebar: move              # a drag handle, not a click target
+  titlebar_mobile: default    # no dragging under lg, so nothing to advertise
+  resize_handle: nwse-resize
+  non_interactive_chrome: default   # toolbar strips, labels, the desk itself
+  disabled: not-allowed
+  help: help                  # HelpTip only
+select:
+  chrome: none                # you cannot select a title-bar label or a menu item
+  content: auto               # interiors stay selectable — I-beam over text is a nativeness signal,
+                              # not an accident. PostHog forces `!select-auto` at the window root.
+  never: "no user-select:none on reading content, tables, or KPI numbers — people copy those"
+
 motion:                       # full contract + per-surface inventory: spec/motion.md
   contract: spec/motion.md
   asymmetry: "in is softer/slower, out is faster/accelerating — never the same curve both ways"
@@ -171,6 +188,36 @@ lucide-react only — no emoji, icon fonts, or one-off SVGs. Default `strokeWidt
 or `faint`; in filled/accent buttons `strokeWidth 2`, inherit. Sizes: `w-4 h-4` inline · `w-5 h-5`
 lead · app-icon tiles `w-6`. **Each app has one fixed lucide icon** used everywhere it appears, tinted
 with its `dataviz` hue.
+
+---
+
+## Cursor & selection
+
+**The cursor tells you what a thing does.** It's a small signal that does real work: a pointer says
+"this responds to a click," an I-beam says "this is text you can select and copy." Getting it right
+everywhere is part of feeling like software rather than a page.
+
+**Anything clickable → `cursor-pointer`.** Window controls (`□` `×`), desktop icons, menu-bar items,
+dropdown and context-menu rows, widget actions, and every button and link inside an interior. **One rule
+across chrome and content** — no split. If a click does something, the cursor says so.
+
+**Text → I-beam, and it stays selectable.** Interiors must not be `user-select: none`; the I-beam
+appearing over a heading or a KPI number is itself part of the feel, and people copy those. PostHog
+forces `!select-auto` at their window root for exactly this reason. Chrome *is* `select-none` — you
+can't select a title-bar label or a menu item, and dragging a window shouldn't smear a text selection
+across it.
+
+**Two special cases on the frame.** The title bar is `cursor-move`: it's a **drag handle**, not a click
+target, so `move` describes it better than `pointer`. It drops to `cursor-default` under `lg`, where
+windows don't drag. The resize corner is `cursor-nwse-resize`. Non-interactive chrome — toolbar strips,
+labels, the bare desk — stays `cursor-default`.
+
+The vocabulary is closed: `pointer` · `auto` · `move` · `nwse-resize` · `default` · `not-allowed`
+(disabled) · `help` (`HelpTip` only). No `grab`/`grabbing`, `wait`, `crosshair`, or `zoom-in`.
+
+*(Noted for the record, since it came up: Windows and macOS themselves show a plain arrow on window
+controls rather than a hand, and PostHog's `AppWindow` sets no cursor at all. We're deliberately choosing
+the clearer signal over the strictly-native one — legibility of affordance beats period accuracy.)*
 
 ---
 
