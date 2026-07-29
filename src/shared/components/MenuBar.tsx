@@ -50,8 +50,12 @@ const MENUS: DropMenu[] = [
   },
 ];
 
+// Dropdown rows are clickable, so they get the pointer (design.md → Cursor &
+// selection). Unbuilt "soon" destinations are `disabled`, which takes
+// `not-allowed` from the closed vocabulary — a pointer there would promise a
+// click that can't happen.
 const rowCls =
-  'flex items-center justify-between gap-4 w-full text-left px-2.5 py-[7px] rounded-[4px] text-[12.5px] whitespace-nowrap text-body enabled:hover:bg-accent enabled:hover:text-white transition-colors group/row';
+  'flex items-center justify-between gap-4 w-full text-left px-2.5 py-[7px] rounded-[4px] text-[12.5px] whitespace-nowrap text-body cursor-pointer enabled:hover:bg-accent enabled:hover:text-white transition-colors group/row';
 
 function Dropdown({ menu, onOpen }: { menu: DropMenu; onOpen: (appId: string, path?: string) => void }) {
   return (
@@ -59,18 +63,22 @@ function Dropdown({ menu, onOpen }: { menu: DropMenu; onOpen: (appId: string, pa
       <button
         type="button"
         aria-haspopup="true"
-        className="px-3 py-[7px] rounded-[5px] text-[13px] text-body group-hover/menu:bg-sage-tint group-hover/menu:text-ink group-focus-within/menu:bg-sage-tint group-focus-within/menu:text-ink transition-colors"
+        className="px-3 py-[7px] rounded-[5px] text-[13px] text-body cursor-pointer group-hover/menu:bg-sage-tint group-hover/menu:text-ink group-focus-within/menu:bg-sage-tint group-focus-within/menu:text-ink transition-colors"
       >
         {menu.label}
       </button>
-      <div className="os-dropdown absolute top-[calc(100%+3px)] left-0 min-w-[216px] p-[5px] rounded-[5px] z-[60] hidden group-hover/menu:block group-focus-within/menu:block">
+      {/* `os-menu-in` fades + drops 4px on open and closes instantly
+          (spec/motion.md §3) — an animated dismissal makes an OS feel sluggish.
+          The panel goes display:none → block, which is a render change, so
+          `@starting-style` supplies the enter state with no JS. */}
+      <div className="os-dropdown os-menu-in absolute top-[calc(100%+3px)] left-0 min-w-[216px] p-[5px] rounded-[5px] z-[60] hidden group-hover/menu:block group-focus-within/menu:block">
         {menu.items.map((item) => (
           <button
             key={item.label}
             type="button"
             disabled={!item.appId}
             onClick={() => item.appId && onOpen(item.appId, item.path)}
-            className={`${rowCls} ${!item.appId ? 'cursor-default text-body' : ''}`}
+            className={`${rowCls} ${!item.appId ? 'cursor-not-allowed text-body' : ''}`}
           >
             {item.label}
             {item.soon && <span className="text-[10px] text-faint group-hover/row:text-white/70">soon</span>}
@@ -107,10 +115,10 @@ export default function MenuBar() {
       ))}
 
       <span className="ml-auto flex items-center gap-0.5 pr-0.5">
-        <button type="button" aria-label="Search" className="w-[30px] h-[30px] rounded-[6px] flex items-center justify-center text-mute hover:bg-sage-tint hover:text-ink transition-colors">
+        <button type="button" aria-label="Search" className="w-[30px] h-[30px] rounded-[6px] flex items-center justify-center text-mute cursor-pointer hover:bg-sage-tint hover:text-ink transition-colors">
           <Search className="w-4 h-4" strokeWidth={1.6} />
         </button>
-        <button type="button" aria-label="Help" className="w-[30px] h-[30px] rounded-[6px] flex items-center justify-center text-mute hover:bg-sage-tint hover:text-ink transition-colors">
+        <button type="button" aria-label="Help" className="w-[30px] h-[30px] rounded-[6px] flex items-center justify-center text-mute cursor-pointer hover:bg-sage-tint hover:text-ink transition-colors">
           <HelpCircle className="w-4 h-4" strokeWidth={1.6} />
         </button>
       </span>

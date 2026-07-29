@@ -114,10 +114,15 @@ export default function LessonView() {
       <Link to={to} title={title} className="w-[26px] h-6 flex items-center justify-center border border-hairline rounded-md text-mute hover:border-accent hover:text-accent transition-colors">{children}</Link>
     );
 
+  // When narrow the index becomes the ☰ overlay: it stays mounted and `os-pane`
+  // slides it in from its edge behind a paired scrim (spec/motion.md §3, 180ms
+  // in / 120ms out). `display` is transitioned with `allow-discrete`, so the
+  // exit plays before the pane un-renders — no mount/unmount dance needed.
   const sectionIndex = (
     <aside
+      data-open={(narrow && treeOpen) || undefined}
       className={`w-[246px] shrink-0 border-r border-hairline bg-surface overflow-y-auto p-4 text-[12.5px] ${
-        narrow ? `absolute top-0 left-0 bottom-0 z-20 shadow-2xl ${treeOpen ? 'block' : 'hidden'}` : 'hidden lg:block'
+        narrow ? 'os-pane absolute top-0 left-0 bottom-0 z-20 shadow-2xl' : 'hidden lg:block'
       }`}
     >
       <Link to={`/learn/phase/${phaseSlugForModule(module)}`} className="flex items-center gap-1.5 text-[11.5px] text-mute hover:text-accent px-2 pb-3 transition-colors">
@@ -174,7 +179,14 @@ export default function LessonView() {
       </div>
 
       <div className="flex-1 min-h-0 flex relative">
-        {narrow && treeOpen && <div className="absolute inset-0 z-10 bg-ink/10" onClick={() => setTreeOpen(false)} aria-hidden="true" />}
+        {narrow && (
+          <div
+            data-open={treeOpen || undefined}
+            className="os-pane-scrim absolute inset-0 z-10 bg-ink/10"
+            onClick={() => setTreeOpen(false)}
+            aria-hidden="true"
+          />
+        )}
         {sectionIndex}
 
         <article ref={readRef} className="flex-1 min-w-0 overflow-y-auto">

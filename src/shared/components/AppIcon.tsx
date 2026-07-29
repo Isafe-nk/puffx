@@ -7,9 +7,13 @@ import type { PuffxApp } from '../../navigation/apps';
  * shadow/rounding. Apps without a PNG fall back to a tinted gradient glyph;
  * coming-soon apps show a dashed lucide glyph and aren't interactive.
  *
- * Hover paints ONLY the label with a solid white chip — the icon and cell do
- * not move, there's no cell box, and there's no persistent selection.
- * Single-click opens (it's a link).
+ * Hover paints the label with a solid white chip and lifts the cell 1px, with
+ * the label tinting to accent (spec/motion.md §3). There's no cell box and no
+ * persistent selection. Single-click opens (it's a link).
+ *
+ * Note the lift supersedes the desktop-APPROVED mock's "the icon and cell do
+ * not move" — spec/motion.md §3 and the motion mock both give this row a
+ * `translateY(-1px)`; flagged to PM.
  */
 export default function AppIcon({ app, onOpen }: { app: PuffxApp; onOpen: () => void }) {
   const Icon = app.icon;
@@ -45,7 +49,7 @@ export default function AppIcon({ app, onOpen }: { app: PuffxApp; onOpen: () => 
   // opacity at rest and sharpens to 1.0 on hover.
   const label = (
     <span className="w-full text-center leading-[1.3]">
-      <span className="inline box-decoration-clone text-ink text-[13px] font-medium px-[5px] py-px rounded-[4px] bg-transparent group-hover:bg-white group-hover:shadow-sm transition-colors duration-100">
+      <span className="inline box-decoration-clone text-ink text-[13px] font-medium px-[5px] py-px rounded-[4px] bg-transparent group-hover:bg-white group-hover:text-accent group-hover:shadow-sm transition-colors duration-150">
         {app.name}
       </span>
     </span>
@@ -53,7 +57,7 @@ export default function AppIcon({ app, onOpen }: { app: PuffxApp; onOpen: () => 
 
   if (app.comingSoon) {
     return (
-      <span aria-disabled="true" className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 select-none cursor-default">
+      <span aria-disabled="true" className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 select-none cursor-not-allowed">
         {glyph}
         <span className="w-full text-center leading-[1.3]">
           <span className="inline box-decoration-clone text-mute text-[13px] font-medium px-[5px] py-px">{app.name}</span>
@@ -66,7 +70,7 @@ export default function AppIcon({ app, onOpen }: { app: PuffxApp; onOpen: () => 
     <button
       type="button"
       onClick={onOpen}
-      className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 rounded-[14px] active:scale-[0.97] transition-transform duration-150"
+      className="group w-28 flex flex-col items-center gap-0.5 pt-2.5 px-1.5 pb-2 rounded-[14px] cursor-pointer hover:-translate-y-px active:scale-[0.97] transition-transform duration-150"
     >
       {glyph}
       {label}

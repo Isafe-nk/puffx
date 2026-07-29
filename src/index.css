@@ -134,9 +134,14 @@
 .os-wcbtn {
   box-shadow: inset 1px 1px 0 #FFFFFF, inset -1px -1px 0 #8F9A84;
 }
+/* spec/motion.md §4 — the one place we out-native PostHog. A real Win95 button
+   presses by INVERTING its bevel and nudging its glyph; a scale-down is the
+   wrong physics here. No duration — the snap is the feel. Applies to □ / ×
+   only; `active:scale` still stands everywhere else in the app. */
 .os-wcbtn:active {
   box-shadow: inset -1px -1px 0 #FFFFFF, inset 1px 1px 0 #8F9A84;
 }
+.os-wcbtn:active > svg { transform: translate(1px, 1px); }
 .os-wcbtn-close:hover {
   background: #C4453C;
   color: #fff;
@@ -168,12 +173,123 @@
     0 2px 6px -2px rgba(36, 49, 41, 0.10),
     0 28px 64px -16px rgba(36, 49, 41, 0.24);
 }
-/* Window opens with a quick lift+fade (reduced-motion guard collapses it) */
-@keyframes os-window-in {
-  from { opacity: 0; transform: scale(0.985) translateY(8px); }
-  to   { opacity: 1; transform: none; }
+/* ============ Cursor & selection (design.md → "Cursor & selection") ============
+   "Anything clickable → cursor-pointer. One rule across chrome and content — no
+   split." Declared once here rather than as a class on every call site, so the
+   rule can't drift and new buttons inherit it. Shell surfaces still carry the
+   explicit utility at the point of use as documentation.
+
+   It lives in `@layer base` deliberately: Tailwind's utilities layer outranks
+   base, so an explicit `cursor-*` still wins. That's what keeps the closed
+   vocabulary's exceptions intact — `cursor-move` on the title-bar drag handle,
+   `cursor-nwse-resize` on the resize grip, `cursor-help` on `HelpTip`, and
+   `cursor-not-allowed` on anything disabled.
+
+   Non-interactive chrome (toolbar strips, labels, the bare desk) matches
+   nothing here and stays at the browser default. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  summary {
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+  }
 }
-.os-window-in { animation: os-window-in 0.22s cubic-bezier(0.2, 0.7, 0.2, 1); }
+
+/* ============ Motion (spec/motion.md) ============
+   Tokens mirror `design.md`'s `motion:` front matter. One curve everywhere:
+   ease-out-cubic, PostHog's product value — a clean decelerate with NO
+   overshoot. Asymmetric: in is softer, out is faster (§1.2). */
+:root {
+  --os-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --os-in: 200ms;
+  --os-out: 150ms;
+}
+
+/* ---- The shared surface model (§2.1): app windows, system windows, scrims.
+   CSS *transitions*, not keyframes (§2.0) — a keyframe is fire-and-forget and
+   snaps when interrupted, a transition interpolates toward a target and so
+   reverses from wherever it got to. That reversibility is most of the
+   difference between a web page playing an animation and an OS window
+   responding to you. `@starting-style` is the native equivalent of the
+   `data-starting-style` that quill's DialogPrimitive gets from Base UI, so we
+   need no dependency for it. ---- */
+.os-anim {
+  opacity: 1;
+  scale: 1;
+  transition: opacity var(--os-in) var(--os-ease), scale var(--os-in) var(--os-ease);
+}
+/* enter-from. Skipped via [data-no-anim] for windows the user didn't open by
+   clicking — a deep link or restored session appears instantly (§2.4). */
+@starting-style {
+  .os-anim:not([data-no-anim]) { opacity: 0; scale: var(--os-enter-scale, 0.96); }
+}
+/* exit-to, carried by the closing state. Dismissal is snappier, and a closing
+   window must stop taking clicks (§2.3). */
+.os-anim[data-closing] {
+  opacity: 0;
+  scale: var(--os-enter-scale, 0.96);
+  transition-duration: var(--os-out);
+  pointer-events: none;
+}
+/* System dialogs scale from .95 in place — they do NOT drop (§2.2). Their
+   scrim is paired exactly: same curve, same durations, both directions, so
+   they read as one unit. It only fades, hence enter-scale 1. */
+.os-dialog { --os-enter-scale: 0.95; }
+.os-scrim { --os-enter-scale: 1; }
+
+/* Promote a compositor layer ONLY while the window is animating / dragging /
+   resizing / closing (§5). Permanent `will-change` is a memory leak in
+   disguise. Ours is `transform` alone — PostHog's includes `backdrop-filter`
+   because their windows are frosted glass, and we retired glass. */
+.os-moving { will-change: transform; }
+
+/* ---- Menu-bar dropdowns + the desktop context menu (§3): open on a short
+   curve, close INSTANTLY. An animated dismissal makes an OS feel sluggish —
+   the click already told the user it's gone, so there is no exit rule here. */
+.os-menu-in {
+  opacity: 1;
+  translate: 0 0;
+  transition: opacity 120ms var(--os-ease), translate 120ms var(--os-ease);
+}
+@starting-style {
+  .os-menu-in { opacity: 0; translate: 0 -4px; }
+}
+
+/* ---- Interior `☰` pane overlay (§3): slides in from its edge behind a
+   paired `bg-ink/10` scrim. `display` is transitioned with `allow-discrete`
+   so the exit plays before the pane un-renders — no JS unmount dance. ---- */
+.os-pane {
+  display: none;
+  opacity: 0;
+  translate: -100% 0;
+  transition: opacity 120ms var(--os-ease), translate 120ms var(--os-ease),
+              display 120ms allow-discrete;
+}
+.os-pane[data-open] {
+  display: block;
+  opacity: 1;
+  translate: 0 0;
+  transition-duration: 180ms;
+}
+.os-pane-scrim {
+  display: none;
+  opacity: 0;
+  transition: opacity 120ms var(--os-ease), display 120ms allow-discrete;
+}
+.os-pane-scrim[data-open] {
+  display: block;
+  opacity: 1;
+  transition-duration: 180ms;
+}
+@starting-style {
+  .os-pane[data-open] { opacity: 0; translate: -100% 0; }
+  .os-pane-scrim[data-open] { opacity: 0; }
+}
 
 /* Inside the shell, keyboard focus is accent moss (design.md §8). The global
    red ring below still governs unmigrated app interiors. */
@@ -193,6 +309,38 @@
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* spec/motion.md §6 — the duration clamp above is NOT sufficient for the
+   transition model. Collapsing the duration doesn't neutralise the enter/exit
+   *values*, so a surface can land on `opacity: 0; scale: .95` and simply stay
+   there — a reduced-motion user would get an INVISIBLE window. Neutralise the
+   values too, exactly as quill's dialog.css does.
+   This pairs with the JS media-query check in AppWindow (§2.3c): with
+   `transition-property: none` `transitionend` never fires, so the CSS below
+   stops the visual bug and the JS stops the unmount hang. Both are required —
+   neither one covers the other. */
+@media (prefers-reduced-motion: reduce) {
+  .os-anim,
+  .os-anim[data-closing] { transition: none; scale: 1; }
+  .os-anim[data-closing] { opacity: initial; }
+
+  .os-menu-in,
+  .os-pane,
+  .os-pane[data-open],
+  .os-pane-scrim,
+  .os-pane-scrim[data-open] { transition: none; translate: none; opacity: initial; }
+  .os-pane:not([data-open]),
+  .os-pane-scrim:not([data-open]) { display: none; }
+}
+/* Must come after the base @starting-style rules to win on equal specificity. */
+@media (prefers-reduced-motion: reduce) {
+  @starting-style {
+    .os-anim:not([data-no-anim]) { opacity: 1; scale: 1; }
+    .os-menu-in { opacity: 1; translate: none; }
+    .os-pane[data-open] { opacity: 1; translate: none; }
+    .os-pane-scrim[data-open] { opacity: 1; }
   }
 }
 

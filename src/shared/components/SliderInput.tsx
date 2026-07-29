@@ -66,7 +66,7 @@ export default function SliderInput({
           style={labelParsed.style} 
           className={`${labelParsed.className} shrink-0 flex flex-col justify-center`}
         >
-          <span className="text-xs font-semibold text-[#75806F] py-0.5 select-none inline-flex items-center gap-1">
+          <span className="text-xs font-semibold text-[#75806F] py-0.5 inline-flex items-center gap-1">
             {label}
             {tooltip && <HelpTip align="left" label={`About ${label}`}>{tooltip}</HelpTip>}
           </span>
